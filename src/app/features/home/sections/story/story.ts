@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RevealDirective } from '../../../../shared/motion/reveal.directive';
+import { Lottie } from '../../../../shared/ui/lottie/lottie';
 
 /**
  * jh-home-story — OUR STORY · the cathedral moment.
@@ -22,7 +23,7 @@ import { RevealDirective } from '../../../../shared/motion/reveal.directive';
 @Component({
   selector: 'jh-home-story',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RevealDirective],
+  imports: [RevealDirective, Lottie],
   templateUrl: './story.html',
   styleUrl: './story.css',
 })
