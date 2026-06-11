@@ -42,3 +42,15 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# E2E output (Playwright QA + demo suites)
+e2e/demo/recordings/
+test-results/
+playwright-report/
+blob-report/
+
+# Vercel
+.vercel
+
+# Generated BDD specs
+.features-gen/
