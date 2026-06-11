@@ -88,23 +88,34 @@
 
 /* Copy (above + below the door) lifts and fades as you begin to move. */
 :host(.portal--active) .portal__fade {
-  opacity: clamp(0, calc(1 - var(--enter, 0) * 2.8), 1);
+  opacity: clamp(0, calc(1 - var(--enter, 0) * 3.2), 1);
   transform: translateY(calc(var(--enter, 0) * -6vh));
   will-change: opacity, transform;
 }
 
-/* The doorway scales up toward you and dissolves as the light takes over. */
+/* PHASE 1 (enter 0 → ~0.42): the leaf swings open on its hinge as you scroll —
+   the scroll drives the swing, so we override the load animation here. No zoom
+   yet, so it can't balloon over the headline. */
+:host(.portal--active) .jh-door__leaf {
+  animation: none;
+  transform: rotateY(calc(min(1, var(--enter, 0) * 2.4) * -115deg));
+}
+
+/* PHASE 2 (enter ~0.4 → 1): with the door open, the doorway eases toward you a
+   little and dissolves as the light takes over — a gentle step-through, not a
+   uniform zoom. */
 :host(.portal--active) .portal__art {
-  transform: scale(calc(1 + var(--enter, 0) * 15));
+  transform: scale(calc(1 + max(0, var(--enter, 0) - 0.4) * 4.5));
   transform-origin: 50% 46%;
-  opacity: clamp(0, calc(1 - (var(--enter, 0) - 0.42) * 3.4), 1);
+  opacity: clamp(0, calc(1 - (var(--enter, 0) - 0.55) * 3.4), 1);
   will-change: transform, opacity;
 }
 
-/* The centred light grows and brightens — the threshold you cross. */
+/* The centred light grows and brightens once the door is open — the threshold
+   you cross as you move through. */
 :host(.portal--active) .portal__light {
-  transform: translate(-50%, -50%) scale(calc(0.35 + var(--enter, 0) * 3.2));
-  opacity: clamp(0, calc((var(--enter, 0) - 0.08) * 1.7), 1);
+  transform: translate(-50%, -50%) scale(calc(0.4 + max(0, var(--enter, 0) - 0.28) * 3.4));
+  opacity: clamp(0, calc((var(--enter, 0) - 0.34) * 2.1), 1);
 }
 
 /* Cream wash finishes the transition, matching the page ground beneath. */
@@ -113,7 +124,7 @@
   position: absolute;
   inset: 0;
   background: var(--color-jh-cream);
-  opacity: clamp(0, calc((var(--enter, 0) - 0.66) * 3.4), 1);
+  opacity: clamp(0, calc((var(--enter, 0) - 0.72) * 3.6), 1);
   pointer-events: none;
   z-index: 5;
 }
@@ -183,19 +194,23 @@
   opacity: 0.7;
 }
 
-/* The red door leaf, hinged on the left edge. */
+/* The red door leaf, hinged on the left edge. A left-to-right gradient (darker
+   at the hinge, brighter at the free edge) plus the inset shadow give it depth
+   so the swing reads as a real door catching the light, not a flat panel. */
 .jh-door__leaf {
   position: absolute;
   inset: 0;
   border-radius: 8rem 8rem 0 0;
-  background: var(--color-jh-red);
+  background: linear-gradient(100deg, #9e1812 0%, var(--color-jh-red) 26%, #e83b30 100%);
   transform-origin: left center;
   /* RESTS OPEN by default — so every visitor (no-JS, reduced-motion, or if the
      swing never fires) sees a welcoming open door. The closed→open swing below
      is a pure-CSS enhancement for motion-OK users. */
   transform: rotateY(-60deg);
   backface-visibility: hidden;
-  box-shadow: inset -0.6rem 0 1.2rem rgba(0, 0, 0, 0.12);
+  box-shadow:
+    inset -0.7rem 0 1.4rem rgba(0, 0, 0, 0.16),
+    0.4rem 0.2rem 1.4rem rgba(20, 16, 56, 0.18);
 }
 
 .jh-door__panel {
