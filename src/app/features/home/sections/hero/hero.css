@@ -2,13 +2,124 @@
   display: block;
 }
 
-/* Generous, near-full-height first screen. The shell already pads <main> by
-   5.25rem for the fixed nav, so we only ensure the hero feels tall. */
-.jh-hero__inner {
-  min-height: clamp(34rem, 82vh, 48rem);
+/* ── Portal layout ────────────────────────────────────────────────────────
+   Baseline = a tall, centered static hero (copy left, door right, cue at the
+   bottom). .portal--active — added by the component in the browser only when
+   motion is allowed — turns the wrapper into a 100vh sticky stage whose layers
+   are driven by the --enter custom property (0→1) from scroll progress. */
+.portal__stage {
+  position: relative;
+  min-height: clamp(34rem, 88vh, 54rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-block: clamp(3.5rem, 9vh, 7rem);
+}
+
+.portal__content {
+  position: relative;
+  z-index: 1;
+  gap: clamp(1.25rem, 4vh, 2.25rem);
+}
+
+/* Slightly smaller, centred headline so the door + copy share one screen. */
+.portal__content .jh-hero__headline {
+  font-size: clamp(2.4rem, 7vw, 4.5rem);
+}
+
+/* The door, centred and sized to share the screen with the copy. */
+.portal__art {
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+.portal__art .jh-door {
+  max-width: clamp(8.5rem, 22vh, 12rem);
+}
+
+/* The warm light you move toward — a centred radial glow, off until you scroll. */
+.portal__light {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 70vmax;
+  height: 70vmax;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.35);
+  background: radial-gradient(
+    circle,
+    #fff6da 0%,
+    var(--color-jh-gold) 34%,
+    rgba(246, 230, 176, 0) 70%
+  );
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.portal__veil {
+  display: none;
+}
+
+.portal__cue {
+  position: absolute;
+  bottom: 1.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+}
+
+/* ── Active: the pinned "enter the door" fly-through ────────────────────────
+   portal--active is only ever added in the browser when motion is allowed, so
+   these need no media gate. --enter (0→1) is set from scroll by the component. */
+:host(.portal--active) {
+  display: block;
+  height: 300vh;
+}
+
+:host(.portal--active) .portal__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  min-height: 0;
+  padding-block: 0;
+  overflow: hidden;
+}
+
+/* Copy (above + below the door) lifts and fades as you begin to move. */
+:host(.portal--active) .portal__fade {
+  opacity: clamp(0, calc(1 - var(--enter, 0) * 2.8), 1);
+  transform: translateY(calc(var(--enter, 0) * -6vh));
+  will-change: opacity, transform;
+}
+
+/* The doorway scales up toward you and dissolves as the light takes over. */
+:host(.portal--active) .portal__art {
+  transform: scale(calc(1 + var(--enter, 0) * 15));
+  transform-origin: 50% 46%;
+  opacity: clamp(0, calc(1 - (var(--enter, 0) - 0.42) * 3.4), 1);
+  will-change: transform, opacity;
+}
+
+/* The centred light grows and brightens — the threshold you cross. */
+:host(.portal--active) .portal__light {
+  transform: translate(-50%, -50%) scale(calc(0.35 + var(--enter, 0) * 3.2));
+  opacity: clamp(0, calc((var(--enter, 0) - 0.08) * 1.7), 1);
+}
+
+/* Cream wash finishes the transition, matching the page ground beneath. */
+:host(.portal--active) .portal__veil {
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: var(--color-jh-cream);
+  opacity: clamp(0, calc((var(--enter, 0) - 0.66) * 3.4), 1);
+  pointer-events: none;
+  z-index: 5;
+}
+
+:host(.portal--active) .portal__cue {
+  opacity: clamp(0, calc(1 - var(--enter, 0) * 4.5), 1);
 }
 
 /* ── Headline ───────────────────────────────────────────────────────────

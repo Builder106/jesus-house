@@ -1,76 +1,77 @@
-<section class="jh-hero" aria-labelledby="hero-heading">
-  <div class="jh-hero__inner mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
-    <div class="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-      <!-- Invitation column -->
-      <div class="jh-hero__copy">
-        <p jhReveal class="jh-eyebrow text-jh-soft">RCCG &middot; Middletown, Connecticut</p>
+<!--
+  THE PORTAL — a pinned "enter the door" scroll scene.
 
-        <!--
-          Headline. Each word sits in a clip mask and rides up on load when
-          motion is allowed (html.js-motion). With JS off or reduced motion the
-          words are simply visible — the mask never hides them as a default.
-        -->
-        <h1
-          id="hero-heading"
-          class="jh-hero__headline mt-6 font-display font-semibold text-jh-ink"
-        >
-          <span class="sr-only">Come and see.</span>
-          <span class="jh-hero__words" aria-hidden="true">
-            @for (word of headlineWords; track word; let i = $index) {
-              <span class="jh-hero__word">
-                <span class="jh-hero__word-inner" [style.--jh-word-i]="i">{{ word }}</span>
-              </span>
-            }
-          </span>
-        </h1>
+  Baseline (SSR / no-JS / reduced-motion): a centered static hero — eyebrow,
+  "Come and see.", the open red door, subline + CTAs, a scroll cue. No pinning.
 
-        <p jhReveal="160" class="jh-hero__subline mt-6 max-w-xl text-lg leading-relaxed text-jh-soft">
-          A Redeemed Christian Church of God family on Washington Street. Worship with us this
-          Sunday at <span class="font-semibold text-jh-ink">9:00&nbsp;AM</span>.
-        </p>
+  Enhanced (.portal--active, added by the component in the browser when motion
+  is allowed): the wrapper grows tall, the stage pins, and scroll progress
+  drives --enter (0→1). The copy lifts away, the door scales up and dissolves
+  as a warm light grows from the centre — you pass through the doorway — and a
+  cream wash carries you "inside", handing off to the journey below.
+-->
+<section class="portal__stage" aria-labelledby="hero-heading">
+  <!-- The light you move toward — a centred warm glow that grows on scroll. -->
+  <div class="portal__light" aria-hidden="true"></div>
 
-        <div jhReveal="260" class="mt-9 flex flex-wrap items-center gap-4">
-          <a
-            [routerLink]="visitPath"
-            class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"
-            >Plan your visit</a
-          >
-          <a
-            [href]="rideHref"
-            class="rounded-full border border-jh-blue px-6 py-3 text-sm font-bold text-jh-blue transition-colors hover:bg-jh-blue hover:text-white"
-            >Need a ride?</a
-          >
-        </div>
-      </div>
+  <div class="portal__content mx-auto flex w-full max-w-2xl flex-col items-center px-6 text-center">
+    <div class="portal__fade">
+      <p jhReveal class="jh-eyebrow text-jh-soft">RCCG &middot; Middletown, Connecticut</p>
 
-      <!-- Red-door motif (stands in for the meetinghouse exterior photo) -->
-      <!-- PHOTO SLOT: exterior of the meetinghouse with red doors -->
-      <div
-        jhReveal="120"
-        jhRevealDir="right"
-        class="jh-hero__art rounded-lg border border-jh-rule bg-jh-cream"
-      >
-        <!-- A red door that swings open into warm light. Closed by default
-             (SSR / no-JS / reduced-motion); under html.js-motion the leaf
-             hinges open once on load and rests open. Decorative. -->
-        <div class="jh-door" aria-hidden="true">
-          <div class="jh-door__scene">
-            <div class="jh-door__glow"></div>
-            <div class="jh-door__leaf">
-              <span class="jh-door__panel jh-door__panel--top"></span>
-              <span class="jh-door__panel jh-door__panel--bottom"></span>
-              <span class="jh-door__knob"></span>
-            </div>
+      <h1 id="hero-heading" class="jh-hero__headline mt-5 font-display font-semibold text-jh-ink">
+        <span class="sr-only">Come and see.</span>
+        <span class="jh-hero__words justify-center" aria-hidden="true">
+          @for (word of headlineWords; track word; let i = $index) {
+            <span class="jh-hero__word">
+              <span class="jh-hero__word-inner" [style.--jh-word-i]="i">{{ word }}</span>
+            </span>
+          }
+        </span>
+      </h1>
+    </div>
+
+    <!-- The doorway you pass through. PHOTO SLOT: meetinghouse exterior. -->
+    <div class="portal__art" aria-hidden="true">
+      <div class="jh-door">
+        <div class="jh-door__scene">
+          <div class="jh-door__glow"></div>
+          <div class="jh-door__leaf">
+            <span class="jh-door__panel jh-door__panel--top"></span>
+            <span class="jh-door__panel jh-door__panel--bottom"></span>
+            <span class="jh-door__knob"></span>
           </div>
-          <div class="jh-door__step"></div>
         </div>
+        <div class="jh-door__step"></div>
       </div>
     </div>
 
-    <!-- Quiet scroll cue (decorative; the page continues below) -->
-    <p jhReveal="360" class="jh-hero__cue mt-16 inline-flex items-center gap-2 text-sm font-semibold text-jh-blue">
-      <span>Come in</span>
-      <jh-lottie src="/animations/chevron.json" class="jh-hero__chevron h-5 w-5" />
-    </p>
+    <div class="portal__fade">
+      <p class="jh-hero__subline mt-8 max-w-xl text-lg leading-relaxed text-jh-soft">
+        A Redeemed Christian Church of God family on Washington Street. Worship with us this
+        Sunday at <span class="font-semibold text-jh-ink">9:00&nbsp;AM</span>.
+      </p>
+
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <a
+          [routerLink]="visitPath"
+          class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"
+          >Plan your visit</a
+        >
+        <a
+          [href]="rideHref"
+          class="rounded-full border border-jh-blue px-6 py-3 text-sm font-bold text-jh-blue transition-colors hover:bg-jh-blue hover:text-white"
+          >Need a ride?</a
+        >
+      </div>
+    </div>
   </div>
+
+  <!-- Warm cream wash — carries you "inside" near the end, handing off to the page. -->
+  <div class="portal__veil" aria-hidden="true"></div>
+
+  <!-- Scroll-to-enter cue (fades as you begin to move through). -->
+  <p class="portal__cue jh-hero__cue inline-flex items-center gap-2 text-sm font-semibold text-jh-blue">
+    <span>Scroll to enter</span>
+    <jh-lottie src="/animations/chevron.json" class="jh-hero__chevron h-5 w-5" />
+  </p>
 </section>
