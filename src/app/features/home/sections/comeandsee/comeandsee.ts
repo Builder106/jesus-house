@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { RevealDirective } from '../../../../shared/motion/reveal.directive';
+import { Lottie } from '../../../../shared/ui/lottie/lottie';
 
 /**
  * jh-home-comeandsee — closing invitation (the journey's destination).
@@ -22,7 +23,7 @@ import { RevealDirective } from '../../../../shared/motion/reveal.directive';
 @Component({
   selector: 'jh-home-comeandsee',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, RevealDirective],
+  imports: [RouterLink, RevealDirective, Lottie],
   templateUrl: './comeandsee.html',
   styleUrl: './comeandsee.css',
 })

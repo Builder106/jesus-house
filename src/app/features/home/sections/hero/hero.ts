@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RevealDirective } from '../../../../shared/motion/reveal.directive';
+import { Lottie } from '../../../../shared/ui/lottie/lottie';
 
 /**
  * jh-home-hero — THE INVITATION (first screen).
@@ -26,7 +27,7 @@ import { RevealDirective } from '../../../../shared/motion/reveal.directive';
 @Component({
   selector: 'jh-home-hero',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, RevealDirective],
+  imports: [RouterLink, RevealDirective, Lottie],
   templateUrl: './hero.html',
   styleUrl: './hero.css',
 })

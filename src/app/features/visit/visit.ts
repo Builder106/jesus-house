@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { RevealDirective } from '../../shared/motion/reveal.directive';
+import { Lottie } from '../../shared/ui/lottie/lottie';
 
 /**
  * jh-visit — Plan a Visit.
@@ -28,7 +29,7 @@ import { RevealDirective } from '../../shared/motion/reveal.directive';
 @Component({
   selector: 'jh-visit',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RevealDirective],
+  imports: [RevealDirective, Lottie],
   templateUrl: './visit.html',
   styleUrl: './visit.css',
 })
