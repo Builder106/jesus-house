@@ -50,61 +50,20 @@
         jhRevealDir="right"
         class="jh-hero__art rounded-lg border border-jh-rule bg-jh-cream"
       >
-        <svg
-          class="jh-hero__doors"
-          viewBox="0 0 320 420"
-          aria-hidden="true"
-          focusable="false"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <!-- Warm gold light implied through the open doorway -->
-            <linearGradient id="jh-hero-glow" x1="160" y1="120" x2="160" y2="372"
-              gradientUnits="userSpaceOnUse">
-              <stop offset="0" stop-color="#F4E3A6" />
-              <stop offset="0.55" stop-color="#E6C766" />
-              <stop offset="1" stop-color="#C9A227" />
-            </linearGradient>
-          </defs>
-
-          <!-- Doorway surround / white meetinghouse wall -->
-          <rect x="48" y="66" width="224" height="320" rx="6" fill="#FFFFFF"
-            stroke="#E7E1D6" stroke-width="2" />
-
-          <!-- Gabled pediment over the doorway -->
-          <path d="M40 70 L160 18 L280 70 Z" fill="#FFFFFF" stroke="#E7E1D6" stroke-width="2"
-            stroke-linejoin="round" />
-
-          <!-- The doorway opening, lit from within -->
-          <rect x="86" y="104" width="148" height="282" rx="4" fill="url(#jh-hero-glow)" />
-
-          <!-- Soft inner light bloom on the threshold -->
-          <rect x="86" y="300" width="148" height="86" rx="4" fill="#FFF6DC" opacity="0.55" />
-
-          <!-- Red double doors, slightly ajar to let the light spill out -->
-          <!-- Left leaf -->
-          <g>
-            <rect x="92" y="110" width="62" height="272" rx="3" fill="#DA251D" />
-            <rect x="100" y="122" width="46" height="112" rx="2" fill="#C11E16" />
-            <rect x="100" y="246" width="46" height="124" rx="2" fill="#C11E16" />
-            <circle cx="146" cy="252" r="3.4" fill="#C9A227" />
-          </g>
-          <!-- Right leaf -->
-          <g>
-            <rect x="166" y="110" width="62" height="272" rx="3" fill="#DA251D" />
-            <rect x="174" y="122" width="46" height="112" rx="2" fill="#C11E16" />
-            <rect x="174" y="246" width="46" height="124" rx="2" fill="#C11E16" />
-            <circle cx="174" cy="252" r="3.4" fill="#C9A227" />
-          </g>
-
-          <!-- Doorframe hairline -->
-          <rect x="86" y="104" width="148" height="282" rx="4" fill="none"
-            stroke="#E7E1D6" stroke-width="2" />
-
-          <!-- Stone step / threshold -->
-          <rect x="72" y="386" width="176" height="14" rx="3" fill="#FAF7EF"
-            stroke="#E7E1D6" stroke-width="2" />
-        </svg>
+        <!-- A red door that swings open into warm light. Closed by default
+             (SSR / no-JS / reduced-motion); under html.js-motion the leaf
+             hinges open once on load and rests open. Decorative. -->
+        <div class="jh-door" aria-hidden="true">
+          <div class="jh-door__scene">
+            <div class="jh-door__glow"></div>
+            <div class="jh-door__leaf">
+              <span class="jh-door__panel jh-door__panel--top"></span>
+              <span class="jh-door__panel jh-door__panel--bottom"></span>
+              <span class="jh-door__knob"></span>
+            </div>
+          </div>
+          <div class="jh-door__step"></div>
+        </div>
       </div>
     </div>
 
