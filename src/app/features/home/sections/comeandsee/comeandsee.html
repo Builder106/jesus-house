@@ -10,7 +10,7 @@
       <!-- Invitation copy -->
       <div class="lg:col-span-7">
         <!-- Script-feel eyebrow; gold default overridden to seal blue for legibility on cream -->
-        <p jhReveal jhRevealDir="none" class="jh-script-eyebrow text-jh-blue">come and see</p>
+        <p jhReveal jhRevealDir="none" class="jh-script-eyebrow text-jh-blue">The door is open</p>
 
         <h2
           jhReveal="90"
@@ -71,26 +71,21 @@
       <!-- PHOTO SLOT: the red doors of the meetinghouse — a warm, welcoming exterior or doorway image -->
       <div jhReveal="180" jhRevealDir="left" class="lg:col-span-5">
         <div
-          class="relative mx-auto flex aspect-[4/5] w-full max-w-sm items-center justify-center overflow-hidden rounded-lg border border-jh-rule bg-jh-cream"
+          class="relative mx-auto flex aspect-[4/5] w-full max-w-sm items-end justify-center overflow-hidden rounded-lg border border-jh-rule bg-jh-cream px-12 pt-12"
         >
-          <!-- Red-door motif: a simple arched double door, the signature "come and see" threshold. -->
-          <svg
-            class="jh-doors h-3/5 w-auto"
-            viewBox="0 0 120 160"
-            aria-hidden="true"
-            focusable="false"
-            fill="none"
-          >
-            <!-- Arched door frame -->
-            <path d="M10 158V60a50 50 0 0 1 100 0v98" stroke="currentColor" stroke-width="3" />
-            <!-- Left + right door leaves filled in door red -->
-            <path d="M16 156V62a44 44 0 0 1 44-22v116Z" class="fill-jh-red" />
-            <path d="M104 156V62a44 44 0 0 0-44-22v116Z" class="fill-jh-red" />
-            <!-- Center seam + handles -->
-            <line x1="60" y1="40" x2="60" y2="156" stroke="#ffffff" stroke-width="2" opacity="0.7" />
-            <circle cx="52" cy="104" r="2.5" fill="#ffffff" opacity="0.85" />
-            <circle cx="68" cy="104" r="2.5" fill="#ffffff" opacity="0.85" />
-          </svg>
+          <!-- The same welcoming open door as the hero, resting open — the
+               "come and see" threshold, consistent across the page. -->
+          <div class="jh-door" aria-hidden="true">
+            <div class="jh-door__scene">
+              <div class="jh-door__glow"></div>
+              <div class="jh-door__leaf">
+                <span class="jh-door__panel jh-door__panel--top"></span>
+                <span class="jh-door__panel jh-door__panel--bottom"></span>
+                <span class="jh-door__knob"></span>
+              </div>
+            </div>
+            <div class="jh-door__step"></div>
+          </div>
 
           <!-- Seal anchored quietly in the corner -->
           <img
