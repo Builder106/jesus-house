@@ -1,0 +1,60 @@
+<header class="jh-header" [class.jh-header--scrolled]="scrolled()">
+  <nav class="jh-header__pill" aria-label="Primary">
+    <!-- Wordmark -->
+    <a routerLink="/" class="jh-header__brand" (click)="closeMenu()">
+      <img src="/seal-256.png" alt="" width="36" height="36" class="jh-header__seal" />
+      <span class="jh-header__name">RCCG Jesus House</span>
+    </a>
+
+    <!-- Desktop links -->
+    <div class="jh-header__links">
+      <a
+        routerLink="/"
+        routerLinkActive="jh-header__link--active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="jh-header__link"
+        >Home</a
+      >
+      <a routerLink="/visit" routerLinkActive="jh-header__link--active" class="jh-header__link"
+        >Plan a Visit</a
+      >
+      <a [href]="rideHref" class="jh-header__cta">Need a ride?</a>
+    </div>
+
+    <!-- Mobile disclosure toggle -->
+    <button
+      type="button"
+      class="jh-header__toggle"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="jh-mobile-menu"
+      aria-label="Toggle navigation menu"
+      (click)="toggleMenu()"
+    >
+      <span class="jh-header__bars" [class.jh-header__bars--open]="menuOpen()" aria-hidden="true">
+        <span></span><span></span>
+      </span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu panel -->
+  @if (menuOpen()) {
+    <div id="jh-mobile-menu" class="jh-header__menu">
+      <a
+        routerLink="/"
+        routerLinkActive="jh-header__menu-link--active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="jh-header__menu-link"
+        (click)="closeMenu()"
+        >Home</a
+      >
+      <a
+        routerLink="/visit"
+        routerLinkActive="jh-header__menu-link--active"
+        class="jh-header__menu-link"
+        (click)="closeMenu()"
+        >Plan a Visit</a
+      >
+      <a [href]="rideHref" class="jh-header__menu-cta" (click)="closeMenu()">Need a ride?</a>
+    </div>
+  }
+</header>

@@ -1,0 +1,202 @@
+:host {
+  display: block;
+}
+
+.jh-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  padding: 1rem;
+  pointer-events: none; /* let the pill itself catch events; gutters pass through */
+}
+
+.jh-header__pill {
+  pointer-events: auto;
+  margin: 0 auto;
+  max-width: 64rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0.7rem 0.6rem 1.1rem;
+  border-radius: 999px;
+  background-color: color-mix(in srgb, var(--color-jh-cream) 80%, transparent);
+  border: 1px solid var(--color-jh-rule);
+  box-shadow: 0 6px 20px -12px rgba(34, 30, 58, 0.28);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition:
+    padding 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.jh-header--scrolled .jh-header__pill {
+  padding-top: 0.45rem;
+  padding-bottom: 0.45rem;
+  background-color: color-mix(in srgb, var(--color-jh-surface) 92%, transparent);
+  box-shadow: 0 10px 30px -14px rgba(34, 30, 58, 0.4);
+}
+
+.jh-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.jh-header__seal {
+  width: 2.25rem;
+  height: 2.25rem;
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.jh-header--scrolled .jh-header__seal {
+  width: 1.9rem;
+  height: 1.9rem;
+}
+
+.jh-header__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--color-jh-blue);
+  white-space: nowrap;
+}
+
+.jh-header__links {
+  display: none;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.jh-header__link {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-jh-soft);
+  transition: color 0.2s ease;
+}
+
+.jh-header__link:hover,
+.jh-header__link--active {
+  color: var(--color-jh-blue);
+}
+
+.jh-header__cta {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background-color: var(--color-jh-red);
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.55rem 1.1rem;
+  transition: background-color 0.2s ease;
+}
+
+.jh-header__cta:hover {
+  background-color: color-mix(in srgb, var(--color-jh-red) 90%, black);
+}
+
+/* Mobile toggle */
+.jh-header__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  border: 0;
+}
+
+.jh-header__bars {
+  position: relative;
+  display: block;
+  width: 1.25rem;
+  height: 0.75rem;
+}
+
+.jh-header__bars span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background-color: var(--color-jh-blue);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.jh-header__bars span:first-child {
+  top: 0;
+}
+.jh-header__bars span:last-child {
+  bottom: 0;
+}
+
+.jh-header__bars--open span:first-child {
+  transform: translateY(5px) rotate(45deg);
+}
+.jh-header__bars--open span:last-child {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+/* Mobile menu panel */
+.jh-header__menu {
+  pointer-events: auto;
+  margin: 0.6rem auto 0;
+  max-width: 64rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  border-radius: 1.25rem;
+  background-color: var(--color-jh-surface);
+  border: 1px solid var(--color-jh-rule);
+  box-shadow: 0 14px 36px -16px rgba(34, 30, 58, 0.4);
+}
+
+.jh-header__menu-link {
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.75rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--color-jh-ink);
+}
+
+.jh-header__menu-link--active {
+  color: var(--color-jh-blue);
+  background-color: var(--color-jh-cream);
+}
+
+.jh-header__menu-cta {
+  margin-top: 0.25rem;
+  text-align: center;
+  padding: 0.7rem 0.9rem;
+  border-radius: 999px;
+  background-color: var(--color-jh-red);
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .jh-header__links {
+    display: flex;
+  }
+  .jh-header__toggle {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jh-header__pill,
+  .jh-header__seal,
+  .jh-header__bars span {
+    transition: none;
+  }
+}

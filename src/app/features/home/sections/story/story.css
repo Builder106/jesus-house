@@ -1,0 +1,48 @@
+/*
+ * jh-home-story — cathedral section local styles.
+ * Keep lean: shared tokens/eyebrows/reveal live in styles.css. This file only
+ * owns what's specific to this section (decorative door placement, the gold
+ * stat tick, the seal treatment). No reveal-start opacity here — the jhReveal
+ * system owns hidden→visible. All additions are static, so nothing to gate on
+ * reduced-motion, but the section inherits the global motion guarantees.
+ */
+
+:host {
+  display: block;
+}
+
+/* Short gold tick that sits above each stat value — the "hairline" accent. */
+.jh-stat-mark {
+  display: block;
+  width: 1.75rem;
+  height: 2px;
+  background-color: var(--color-jh-gold);
+  border-radius: 1px;
+}
+
+/* Decorative red-door outline, anchored off the right edge, gently oversized.
+   Sits behind content (parent stacks .relative children above it). */
+.jh-story-door {
+  top: 50%;
+  right: -2.5rem;
+  width: 200px;
+  height: 333px;
+  transform: translateY(-50%);
+}
+
+@media (min-width: 1024px) {
+  .jh-story-door {
+    right: 1.5rem;
+    width: 260px;
+    height: 433px;
+  }
+}
+
+/* Warm rim on the seal so it reads cleanly on the deep-indigo ground. */
+.jh-story-seal {
+  border-radius: 9999px;
+  padding: 2px;
+  background-color: var(--color-jh-cream);
+  box-shadow: 0 0 0 1px rgb(201 162 39 / 0.45);
+  object-fit: contain;
+}

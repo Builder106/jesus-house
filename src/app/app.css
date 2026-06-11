@@ -1,0 +1,48 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+/*
+ * The site header is a fixed floating pill (~60px tall + 1rem gutter). Reserve
+ * space at the top of the document flow so the first section clears it on
+ * first paint. Section authors still own their own internal padding; this only
+ * offsets the page beneath the detached nav.
+ */
+main {
+  padding-top: 5.25rem;
+}
+
+main:focus {
+  outline: none;
+}
+
+/* Skip link: off-screen until focused, then slides into the top-left above the loader */
+.jh-skip {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 90;
+  padding: 0.625rem 1rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-jh-surface);
+  color: var(--color-jh-blue);
+  font-family: var(--font-body);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 6px 24px rgb(20 16 56 / 0.18);
+  transform: translateY(-150%);
+  transition: transform 0.18s ease;
+}
+
+.jh-skip:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid var(--color-jh-blue);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jh-skip {
+    transition: none;
+  }
+}

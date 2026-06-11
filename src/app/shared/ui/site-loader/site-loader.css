@@ -1,0 +1,52 @@
+:host {
+  display: contents;
+}
+
+.jh-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  background-color: var(--color-jh-cream);
+  opacity: 1;
+  /* Purely decorative curtain — never intercept input, even during the hold. */
+  pointer-events: none;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.jh-loader--out {
+  opacity: 0;
+}
+
+.jh-loader__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.jh-loader__seal {
+  width: 6rem;
+  height: 6rem;
+  /* initial state before Motion One takes over (and resting state if it fails) */
+  opacity: 1;
+}
+
+.jh-loader__word {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.5rem;
+  letter-spacing: 0.01em;
+  color: var(--color-jh-blue);
+}
+
+.jh-loader__arc {
+  display: block;
+  width: 3rem;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-jh-gold), transparent);
+}

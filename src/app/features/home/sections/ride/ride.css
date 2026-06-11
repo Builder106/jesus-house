@@ -1,0 +1,34 @@
+/*
+ * jh-home-ride — section-local styles.
+ *
+ * Token utility classes (bg-*, text-*, border-*) and the eyebrow/reveal
+ * systems live globally (styles.css); this file owns only the small chip
+ * hover affordance and a faint frame on the route visual — both purely
+ * additive and motion-safe.
+ */
+.jh-ride-chip {
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+/* Warm hover: the hairline edge picks up the seal blue and the fill warms to
+ * cream. No layout shift, so it can't disturb the reveal transition. */
+.jh-ride-chip:hover {
+  border-color: var(--color-jh-blue);
+  background-color: var(--color-jh-cream);
+  color: var(--color-jh-blue);
+}
+
+/* A soft inner frame on the route visual so the colour field reads as a
+ * deliberate, hairline-framed slot rather than an empty box. */
+.jh-ride-route {
+  box-shadow: inset 0 0 0 1px var(--color-jh-rule);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jh-ride-chip {
+    transition: none;
+  }
+}

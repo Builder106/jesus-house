@@ -1,0 +1,30 @@
+@if (enabled()) {
+  <div #rail class="jh-rail" aria-hidden="true">
+    <!-- the track -->
+    <span class="jh-rail__track"></span>
+    <!-- jh-red fill that grows behind the car as you descend -->
+    <span class="jh-rail__fill"></span>
+    <!-- the travelling car -->
+    <span class="jh-rail__car">
+      <svg viewBox="0 0 40 24" width="28" height="17" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- body -->
+        <path
+          d="M2 16.5c0-1 .4-1.6 1.4-1.9l3.3-1 3.2-3.4C11 8.7 12.4 8 14 8h9.6c1.3 0 2.5.5 3.4 1.5l3 3.2 3.8 1c1.4.4 2.2 1.3 2.2 2.6v1.7c0 .8-.6 1.4-1.4 1.4h-2.2"
+          fill="currentColor"
+        />
+        <path d="M9 19.4H30" stroke="currentColor" stroke-width="0" />
+        <!-- windows -->
+        <path
+          d="M13.6 9.6h3.1v3.3h-5.4l2.3-3.3Zm4.6 0h5.2c.8 0 1.5.3 2 .9l2 2.4h-9.2V9.6Z"
+          fill="#FAF7EF"
+          fill-opacity="0.92"
+        />
+        <!-- wheels -->
+        <circle cx="12" cy="19.4" r="3.1" fill="#221E3A" />
+        <circle cx="12" cy="19.4" r="1.2" fill="#FAF7EF" />
+        <circle cx="28" cy="19.4" r="3.1" fill="#221E3A" />
+        <circle cx="28" cy="19.4" r="1.2" fill="#FAF7EF" />
+      </svg>
+    </span>
+  </div>
+}

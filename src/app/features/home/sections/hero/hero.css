@@ -1,0 +1,102 @@
+:host {
+  display: block;
+}
+
+/* Generous, near-full-height first screen. The shell already pads <main> by
+   5.25rem for the fixed nav, so we only ensure the hero feels tall. */
+.jh-hero__inner {
+  min-height: clamp(34rem, 82vh, 48rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ── Headline ───────────────────────────────────────────────────────────
+   Fluid Fraunces display. Words sit on their own line-clipped rows. */
+.jh-hero__headline {
+  font-size: clamp(2.75rem, 9vw, 5.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+}
+
+.jh-hero__words {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.28em;
+  row-gap: 0.04em;
+}
+
+/* The clip mask. By DEFAULT (SSR / no-JS / reduced-motion) it does NOT clip —
+   overflow stays visible and the inner word is fully shown. The hidden start
+   state is only introduced under html.js-motion below, mirroring the
+   [data-reveal] contract so content is never hidden as a baseline. */
+.jh-hero__word {
+  display: inline-block;
+}
+
+.jh-hero__word-inner {
+  display: inline-block;
+}
+
+/* ── Door art ───────────────────────────────────────────────────────────── */
+.jh-hero__art {
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.jh-hero__doors {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 22rem;
+  margin-inline: auto;
+}
+
+/* ── Scroll cue ───────────────────────────────────────────────────────────
+   The chevron gives a slow, calm bob only when motion is allowed. */
+.jh-hero__cue {
+  letter-spacing: 0.01em;
+}
+
+/* ── Motion layer ─────────────────────────────────────────────────────────
+   Everything that hides-then-reveals is gated on BOTH html.js-motion (set by
+   the shared jhReveal directive: browser + motion-OK only) AND the no-pref
+   media query. With JS off the class never lands; under reduced motion the
+   query fails — either way the baseline above (fully visible) is what shows. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js-motion .jh-hero__word {
+    overflow: hidden;
+    /* Tiny vertical breathing room so descenders aren't clipped at rest. */
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+
+  html.js-motion .jh-hero__word-inner {
+    transform: translateY(110%);
+    opacity: 0;
+    animation: jh-hero-word-up 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    /* Stagger each word off its index; lands after the loader (~1.3s). */
+    animation-delay: calc(0.12s + var(--jh-word-i, 0) * 0.11s);
+    will-change: transform, opacity;
+  }
+
+  html.js-motion .jh-hero__chevron {
+    animation: jh-hero-bob 2.4s ease-in-out 1.6s infinite;
+  }
+}
+
+@keyframes jh-hero-word-up {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes jh-hero-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}

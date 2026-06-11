@@ -1,0 +1,77 @@
+<!--
+  OUR STORY — the cathedral moment.
+  The single deep-indigo (jh-night) section: cream type, gold accents.
+  Reverent and still; the warm centre of the "Come and see" journey.
+-->
+<section
+  class="jh-story relative overflow-hidden bg-jh-night text-jh-cream"
+  aria-labelledby="story-heading"
+>
+  <!-- Decorative red-door motif, low-contrast, behind the content (aria-hidden). -->
+  <svg
+    class="jh-story-door pointer-events-none absolute select-none text-jh-cream/[0.05]"
+    viewBox="0 0 120 200"
+    fill="none"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <path
+      d="M14 196V40C14 19.6 30.6 4 51 4h18c20.4 0 37 15.6 37 36v156"
+      stroke="currentColor"
+      stroke-width="3"
+    />
+    <path d="M60 4v192" stroke="currentColor" stroke-width="3" />
+    <circle cx="48" cy="104" r="3.5" fill="currentColor" />
+    <circle cx="72" cy="104" r="3.5" fill="currentColor" />
+  </svg>
+
+  <div class="relative mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
+    <div class="max-w-2xl">
+      <p jhReveal jhRevealDir="none" class="jh-script-eyebrow">Our family</p>
+      <h2
+        id="story-heading"
+        jhReveal="90"
+        class="mt-3 font-display text-3xl font-semibold leading-tight text-jh-cream sm:text-4xl"
+      >
+        A home for worshippers in Middletown.
+      </h2>
+      <p jhReveal="180" class="mt-6 text-lg leading-relaxed text-jh-cream/70">
+        We're a parish of The Redeemed Christian Church of God — a warm, multicultural family where
+        students and neighbours belong. Whoever you are and however you arrive, there's a seat saved
+        for you. Come and see.
+      </p>
+    </div>
+
+    <!-- Stats row — hairline + value + label, gold accents. -->
+    <hr jhReveal="240" class="mt-12 border-jh-cream/15" />
+    <dl class="grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-4">
+      @for (stat of stats; track stat.value; let i = $index) {
+        <div jhReveal="{{ 300 + i * 90 }}" jhRevealDir="up" class="jh-stat pt-8">
+          <span class="jh-stat-mark" aria-hidden="true"></span>
+          <dt class="mt-4 font-display text-xl font-semibold text-jh-gold sm:text-2xl">
+            {{ stat.value }}
+          </dt>
+          <dd class="mt-1 text-sm leading-relaxed text-jh-cream/70">{{ stat.label }}</dd>
+        </div>
+      }
+    </dl>
+
+    <hr jhReveal="660" class="mt-12 border-jh-cream/15" />
+
+    <!-- Seal + parish attribution. The seal is decorative here. -->
+    <!-- PHOTO SLOT: optional future interior/congregation photo could sit beside this attribution -->
+    <div jhReveal="720" jhRevealDir="up" class="mt-8 flex items-center gap-4">
+      <img
+        src="/seal-256.png"
+        srcset="/seal-256.png 256w, /seal-512.png 512w"
+        sizes="56px"
+        width="56"
+        height="56"
+        alt=""
+        aria-hidden="true"
+        class="jh-story-seal h-14 w-14 shrink-0"
+      />
+      <p class="jh-eyebrow text-jh-cream/70">A parish of The Redeemed Christian Church of God</p>
+    </div>
+  </div>
+</section>

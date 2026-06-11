@@ -1,0 +1,78 @@
+:host {
+  display: block;
+}
+
+/*
+ * Pinned headline. CSS sticky only — no JS, SSR-safe. The offset clears the
+ * fixed floating header (the shell pads <main> by 5.25rem; 7rem leaves the
+ * pinned headline sitting comfortably below the nav as the beats scroll).
+ * Below the `lg` breakpoint the utility classes drop sticky and this is a
+ * normal block at the top of the stack.
+ */
+@media (min-width: 1024px) {
+  .jh-values-pin {
+    top: 7rem;
+  }
+}
+
+/*
+ * Each beat is one screen tall on wide viewports so the headline stays pinned
+ * while a single beat fills the view. Content is vertically centred. The first
+ * beat aligns to the top so its eyebrow lines up with the pinned headline.
+ * On narrow viewports beats are comfortably spaced but never force a full
+ * screen of scroll each.
+ */
+.jh-values-beat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 2.5rem;
+}
+
+.jh-values-beat:first-child {
+  padding-top: 0;
+}
+
+@media (min-width: 1024px) {
+  .jh-values-beat {
+    min-height: 86vh;
+    padding-block: 0;
+  }
+
+  .jh-values-beat:first-child {
+    /* Shorter first beat so it starts level with the pinned headline. */
+    min-height: 70vh;
+    justify-content: flex-start;
+  }
+}
+
+/* Big display word per beat — fluid between mobile and desktop. */
+.jh-values-word {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+
+/* Decorative placeholder fills (no real photos yet). */
+.jh-values-slot {
+  max-width: 32rem;
+}
+
+.jh-door {
+  width: clamp(72px, 22%, 104px);
+  height: auto;
+}
+
+.jh-book {
+  width: clamp(96px, 34%, 150px);
+  height: auto;
+}
+
+.jh-folk {
+  width: clamp(132px, 44%, 184px);
+  height: auto;
+}
+
+.jh-values-seal {
+  opacity: 0.9;
+}

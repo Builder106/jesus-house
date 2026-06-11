@@ -1,91 +1,260 @@
+<!--
+  Plan a Visit — restyled to the "COME AND SEE" language.
+  Warm/light throughout, with one deep-indigo (jh-night) cathedral close that
+  mirrors the home story. Verified facts only; no member PII; no real photos
+  yet (PHOTO SLOT placeholders + seal / red-door motif).
+-->
+
 <!-- Intro -->
-<section class="border-b border-jh-ink/10" aria-labelledby="visit-heading">
-  <div class="mx-auto w-full max-w-5xl px-6 py-20 sm:py-24">
-    <p class="text-xs font-semibold tracking-[0.25em] text-jh-soft uppercase">Plan a Visit</p>
-    <h1 id="visit-heading" class="mt-5 max-w-2xl font-display text-4xl font-semibold leading-tight text-jh-ink sm:text-5xl">
+<section aria-labelledby="visit-heading">
+  <div class="mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
+    <p jhReveal jhRevealDir="none" class="jh-script-eyebrow text-jh-blue">plan a visit</p>
+
+    <h1
+      jhReveal="90"
+      id="visit-heading"
+      class="mt-3 max-w-2xl font-display text-4xl font-semibold leading-tight text-jh-ink sm:text-5xl"
+    >
       Come as you are.
     </h1>
-    <p class="mt-5 max-w-xl text-lg leading-relaxed text-jh-soft">
-      No dress code, no expectations — just a church family that's glad you came.
+
+    <p jhReveal="180" class="mt-5 max-w-xl text-lg leading-relaxed text-jh-soft">
+      No dress code, no expectations — just a church family that's glad you came. Here's everything you
+      need for your first Sunday with us.
     </p>
+
+    <!-- Primary + ghost CTAs (rounded-full pills; red is the only CTA hue) -->
+    <div jhReveal="270" class="mt-9 flex flex-wrap items-center gap-4">
+      <a
+        [href]="rideMailto"
+        class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"
+        >Need a ride?</a
+      >
+      <a
+        [href]="directionsHref"
+        target="_blank"
+        rel="noopener"
+        class="rounded-full border border-jh-blue px-6 py-3 text-sm font-bold text-jh-blue transition-colors hover:bg-jh-blue hover:text-white"
+        >Get directions</a
+      >
+    </div>
   </div>
 </section>
 
 <!-- What to expect -->
-<section class="border-b border-jh-ink/10" aria-labelledby="expect-heading">
-  <div class="mx-auto w-full max-w-5xl px-6 py-16 sm:py-20">
-    <h2 id="expect-heading" class="font-display text-2xl font-semibold text-jh-ink sm:text-3xl">What to expect</h2>
-    <div class="mt-6 max-w-xl space-y-4 leading-relaxed text-jh-soft">
-      <p>
-        We're a warm, multicultural congregation — students, families, and neighbors from many backgrounds
-        worshipping together. You'll be greeted at the door, and nobody will single you out or put you on the
-        spot.
+<section class="border-t border-jh-rule" aria-labelledby="expect-heading">
+  <div class="mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
+    <p jhReveal class="jh-eyebrow text-jh-soft">Your first Sunday</p>
+
+    <h2
+      jhReveal="90"
+      id="expect-heading"
+      class="mt-3 max-w-2xl font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
+    >
+      What to expect.
+    </h2>
+
+    <div class="mt-6 max-w-xl space-y-4 text-lg leading-relaxed text-jh-soft">
+      <p jhReveal="180">
+        We're a warm, multicultural congregation — students, families, and neighbors from many
+        backgrounds worshipping together. You'll be greeted at the door, and nobody will single you out
+        or put you on the spot.
       </p>
-      <p>
-        The service runs about 90 minutes, with heartfelt worship and a message from the Bible. Wear whatever
-        you're comfortable in — Sunday best and jeans sit side by side here.
+      <p jhReveal="240">
+        The service runs about 90 minutes, with heartfelt worship and a message from the Bible. Wear
+        whatever you're comfortable in — Sunday best and jeans sit side by side here.
       </p>
     </div>
   </div>
 </section>
 
-<!-- Times and directions -->
-<section class="border-b border-jh-ink/10" aria-labelledby="when-where-heading">
-  <div class="mx-auto w-full max-w-5xl px-6 py-16 sm:py-20">
-    <h2 id="when-where-heading" class="font-display text-2xl font-semibold text-jh-ink sm:text-3xl">When and where</h2>
+<!-- When and where -->
+<section class="border-t border-jh-rule" aria-labelledby="when-where-heading">
+  <div class="mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
+    <p jhReveal class="jh-eyebrow text-jh-soft">When &amp; where</p>
+
+    <h2
+      jhReveal="90"
+      id="when-where-heading"
+      class="mt-3 max-w-2xl font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
+    >
+      Join us this Sunday.
+    </h2>
+
     <div class="mt-8 grid max-w-3xl gap-6 sm:grid-cols-2">
-      <div class="rounded-lg border border-jh-ink/10 bg-jh-surface p-8">
+      <!-- Service card — the canonical floating panel on cream -->
+      <div jhReveal="180" class="rounded-lg border border-jh-rule bg-jh-surface p-8">
         <div class="flex flex-wrap items-baseline justify-between gap-4">
           <p class="font-semibold text-jh-ink">Sunday Service</p>
           <p class="font-display text-2xl font-semibold text-jh-blue">9:00 AM</p>
         </div>
-        <hr class="my-6 border-jh-ink/10" />
+        <hr class="my-6 jh-rule" />
         <p class="text-sm leading-relaxed text-jh-soft">
-          Doors open a little before nine — come early and say hello, or slip in quietly. Either way, you're
-          welcome.
+          Doors open a little before nine — come early and say hello, or slip in quietly. Either way,
+          you're welcome.
         </p>
       </div>
-      <div class="rounded-lg border border-jh-ink/10 bg-jh-surface p-8">
+
+      <!-- Directions card -->
+      <div jhReveal="260" class="rounded-lg border border-jh-rule bg-jh-surface p-8">
         <p class="font-semibold text-jh-ink">Getting here</p>
-        <hr class="my-6 border-jh-ink/10" />
-        <p class="text-sm leading-relaxed text-jh-soft">
+        <hr class="my-6 jh-rule" />
+        <address class="text-sm leading-relaxed text-jh-soft not-italic">
           120 Washington Street<br />
           Middletown, CT 06457
-        </p>
+        </address>
         <a
-          href="https://maps.google.com/?q=120+Washington+Street+Middletown+CT+06457"
+          [href]="directionsHref"
           target="_blank"
           rel="noopener"
-          class="mt-4 inline-block text-sm font-semibold text-jh-blue hover:underline"
+          class="mt-4 inline-block text-sm font-semibold text-jh-blue underline-offset-4 hover:underline"
           >Get directions</a
         >
         <p class="mt-4 text-sm leading-relaxed text-jh-soft">
-          Parking is available nearby. If you have any trouble finding a spot, call us and we'll point you the
-          right way.
+          Parking is available nearby. If you have any trouble finding a spot, call us and we'll point
+          you the right way.
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Ride request -->
-<section class="bg-jh-surface" aria-labelledby="visit-ride-heading">
-  <div class="mx-auto w-full max-w-5xl px-6 py-16 sm:py-20">
-    <p class="text-xs font-semibold tracking-[0.25em] text-jh-red uppercase">For Wesleyan students</p>
-    <h2 id="visit-ride-heading" class="mt-4 font-display text-2xl font-semibold text-jh-ink sm:text-3xl">
-      We'll come get you
-    </h2>
-    <p class="mt-4 max-w-xl leading-relaxed text-jh-soft">
-      If you're at Wesleyan and don't have a car, that's no obstacle — our parish picks students up for Sunday
-      service and brings them back to campus afterward. Email or call ahead and we'll have a seat for you.
-    </p>
-    <div class="mt-8 flex flex-wrap items-center gap-4">
-      <a
-        href="mailto:rccgjhmiddletown@gmail.com?subject=Ride%20request"
-        class="rounded-md bg-jh-blue px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-blue/90"
-        >Request a ride</a
+<!-- Ride ministry — the road beat, echoing the home ride section -->
+<section class="border-t border-jh-rule" aria-labelledby="visit-ride-heading">
+  <div class="mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
+    <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <!-- Copy column -->
+      <div>
+        <p jhReveal class="jh-script-eyebrow text-jh-blue">the road to us</p>
+
+        <h2
+          jhReveal="90"
+          id="visit-ride-heading"
+          class="mt-3 max-w-xl font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
+        >
+          We'll come get you.
+        </h2>
+
+        <p jhReveal="180" class="mt-5 max-w-xl text-lg leading-relaxed text-jh-soft">
+          If you're at Wesleyan and don't have a car, that's no obstacle — our parish picks students up
+          for Sunday service and brings them back to campus afterward. Email or call ahead and we'll
+          have a seat for you.
+        </p>
+
+        <div jhReveal="270" class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
+          <a
+            [href]="rideMailto"
+            class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"
+            >Request a ride</a
+          >
+          <a [href]="rideTel" class="text-sm font-semibold text-jh-blue hover:underline"
+            >or call (860) 518-4640</a
+          >
+        </div>
+      </div>
+
+      <!-- Decorative road / route visual. No real photos yet. -->
+      <!-- PHOTO SLOT: a Jesus House car waiting at a campus curb, doors open, warm Sunday-morning light. -->
+      <div
+        jhReveal
+        jhRevealDir="left"
+        class="relative w-full overflow-hidden rounded-lg border border-jh-rule bg-jh-cream"
       >
-      <a href="tel:+18605184640" class="text-sm font-semibold text-jh-blue hover:underline">Or call (860) 518-4640</a>
+        <div class="aspect-[4/3] w-full sm:aspect-[3/2]">
+          <!-- Decorative route: a hairline road curving from campus (top) down to the red doors
+               (bottom). Purely visual; echoes the global car-on-scroll-line rail. -->
+          <svg
+            class="h-full w-full"
+            viewBox="0 0 320 240"
+            fill="none"
+            preserveAspectRatio="xMidYMid slice"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M58 18 C 58 70, 250 92, 250 132 S 70 186, 70 224"
+              stroke="var(--color-jh-rule)"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <path
+              d="M58 18 C 58 70, 250 92, 250 132 S 70 186, 70 224"
+              stroke="var(--color-jh-blue)"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-dasharray="2 12"
+              opacity="0.45"
+            />
+            <!-- start: campus pin -->
+            <circle cx="58" cy="18" r="6" fill="var(--color-jh-blue)" />
+            <circle cx="58" cy="18" r="11" fill="none" stroke="var(--color-jh-blue)" stroke-width="1.5" opacity="0.4" />
+            <!-- the travelling car -->
+            <g transform="translate(250 132) rotate(28)">
+              <path
+                d="M-19 4 c0-1 .4-1.6 1.4-1.9l3.3-1 3.2-3.4 C-9 -3.3 -7.6 -4 -6 -4 h9.6 c1.3 0 2.5.5 3.4 1.5 l3 3.2 3.8 1 c1.4.4 2.2 1.3 2.2 2.6 V8 c0 .8-.6 1.4-1.4 1.4 H11.8"
+                fill="var(--color-jh-red)"
+              />
+              <circle cx="-9" cy="7" r="3.1" fill="var(--color-jh-ink)" />
+              <circle cx="-9" cy="7" r="1.2" fill="var(--color-jh-cream)" />
+              <circle cx="7" cy="7" r="3.1" fill="var(--color-jh-ink)" />
+              <circle cx="7" cy="7" r="1.2" fill="var(--color-jh-cream)" />
+            </g>
+            <!-- end: the red doors of the meetinghouse -->
+            <g transform="translate(70 224)">
+              <rect x="-13" y="-30" width="26" height="30" rx="2" fill="var(--color-jh-surface)" stroke="var(--color-jh-rule)" stroke-width="1.5" />
+              <rect x="-9" y="-22" width="18" height="22" rx="1.5" fill="var(--color-jh-red)" />
+              <line x1="0" y1="-22" x2="0" y2="0" stroke="var(--color-jh-cream)" stroke-width="1" opacity="0.7" />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cathedral close — the one deep-indigo beat, mirroring the home story -->
+<section class="relative overflow-hidden bg-jh-night text-jh-cream" aria-labelledby="visit-close-heading">
+  <div class="mx-auto w-full max-w-5xl px-6 py-20 text-center sm:py-28">
+    <p jhReveal jhRevealDir="none" class="jh-script-eyebrow">come and see</p>
+
+    <h2
+      jhReveal="90"
+      id="visit-close-heading"
+      class="mx-auto mt-3 max-w-2xl font-display text-3xl font-semibold leading-tight text-jh-cream sm:text-4xl"
+    >
+      There's a seat saved for you.
+    </h2>
+
+    <p jhReveal="180" class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-jh-cream/70">
+      Whoever you are and however you arrive, you belong here. We'd love to meet you this Sunday at 9:00
+      AM.
+    </p>
+
+    <div jhReveal="270" class="mt-9 flex flex-wrap items-center justify-center gap-4">
+      <a
+        [href]="rideMailto"
+        class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"
+        >Need a ride?</a
+      >
+      <a [href]="rideTel" class="text-sm font-semibold text-jh-gold hover:underline"
+        >or call (860) 518-4640</a
+      >
+    </div>
+
+    <!-- Seal + parish attribution. The seal is decorative here. -->
+    <div jhReveal="360" class="mt-12 flex flex-col items-center gap-4">
+      <img
+        src="/seal-256.png"
+        srcset="/seal-256.png 256w, /seal-512.png 512w"
+        sizes="56px"
+        width="56"
+        height="56"
+        alt=""
+        aria-hidden="true"
+        class="h-14 w-14"
+      />
+      <p class="jh-eyebrow text-jh-cream/70">A parish of The Redeemed Christian Church of God</p>
     </div>
   </div>
 </section>

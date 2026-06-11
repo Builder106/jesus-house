@@ -1,0 +1,12 @@
+:host {
+  display: block;
+}
+
+/*
+ * Red-door motif. The arched frame stroke uses currentColor, so set the
+ * element color to the hairline token; the door leaves fill via fill-jh-red
+ * utility in the template. Local-only — nothing here is reused elsewhere.
+ */
+.jh-doors {
+  color: var(--color-jh-rule);
+}

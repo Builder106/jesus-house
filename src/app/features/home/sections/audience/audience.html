@@ -1,0 +1,36 @@
+<section class="border-t border-jh-rule" aria-labelledby="audience-heading">
+  <div class="mx-auto w-full max-w-5xl px-6 py-16 sm:py-20">
+    <p jhReveal class="jh-script-eyebrow">Whoever you are</p>
+
+    <h2
+      id="audience-heading"
+      jhReveal="90"
+      class="mt-3 max-w-2xl font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
+    >
+      There's a place for you here.
+    </h2>
+
+    <ul
+      class="mt-9 flex flex-wrap gap-3"
+      aria-label="People who are welcome at Jesus House"
+    >
+      @for (audience of audiences; track audience; let i = $index) {
+        <li
+          [jhReveal]="180 + i * 70"
+          jhRevealDir="up"
+          class="jh-audience-pill rounded-full border border-jh-rule bg-jh-surface px-5 py-2.5 text-sm font-semibold text-jh-ink"
+        >
+          {{ audience }}
+        </li>
+      }
+    </ul>
+
+    <p
+      jhReveal="640"
+      class="mt-9 max-w-xl text-lg leading-relaxed text-jh-soft"
+    >
+      Wesleyan students, Middletown families, and everyone in between — you'll
+      fit right in.
+    </p>
+  </div>
+</section>

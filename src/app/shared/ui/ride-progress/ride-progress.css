@@ -1,0 +1,84 @@
+:host {
+  display: contents;
+}
+
+/*
+ * The rail lives near the left margin, vertically centred, spanning ~62% of
+ * the viewport height. `--p` (0 → 1) is written by the component on scroll;
+ * all motion is derived from it so scrolling never triggers layout.
+ */
+.jh-rail {
+  --p: 0;
+  --rail-h: 62vh;
+  --car: 28px;
+
+  position: fixed;
+  left: 1.75rem;
+  top: 50%;
+  height: var(--rail-h);
+  width: var(--car);
+  transform: translateY(-50%);
+  z-index: 50;
+  pointer-events: none;
+}
+
+/* faint full-height track */
+.jh-rail__track {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  background-color: var(--color-jh-rule);
+}
+
+/* jh-red fill grows from the top down to the car */
+.jh-rail__fill {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 2px;
+  transform: translateX(-50%);
+  transform-origin: top;
+  border-radius: 2px;
+  background-color: var(--color-jh-red);
+  /* fill height tracks progress across the car's travel range */
+  height: calc((var(--rail-h) - var(--car)) * var(--p) + (var(--car) / 2));
+}
+
+/* the travelling car — side view, nose pointing down the descent */
+.jh-rail__car {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  display: block;
+  color: var(--color-jh-red);
+  /* travel = rail height minus the car footprint; centre the car on the line */
+  transform: translate(-50%, calc((var(--rail-h) - var(--car)) * var(--p)))
+    rotate(90deg);
+  transform-origin: center;
+  filter: drop-shadow(0 4px 6px rgba(34, 30, 58, 0.25));
+  transition: transform 0.08s linear;
+}
+
+.jh-rail__car svg {
+  display: block;
+}
+
+/* Belt-and-braces: never paint the rail when motion is reduced, even if the
+   signal logic is bypassed. The component already withholds it, but this keeps
+   the contract truthful at the CSS layer too. */
+@media (prefers-reduced-motion: reduce) {
+  .jh-rail {
+    display: none;
+  }
+}
+
+/* Never show below the large breakpoint. */
+@media (max-width: 1023.98px) {
+  .jh-rail {
+    display: none;
+  }
+}

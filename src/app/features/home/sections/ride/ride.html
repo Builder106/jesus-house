@@ -1,0 +1,123 @@
+<section class="border-t border-jh-rule" aria-labelledby="ride-heading">
+  <div class="mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
+    <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <!-- Copy column -->
+      <div>
+        <p jhReveal class="jh-script-eyebrow">The road to us</p>
+
+        <h2
+          id="ride-heading"
+          jhReveal="90"
+          class="mt-3 max-w-xl font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
+        >
+          No car? No problem.
+        </h2>
+
+        <p
+          jhReveal="180"
+          class="mt-5 max-w-xl text-lg leading-relaxed text-jh-soft"
+        >
+          Every Sunday we drive out and bring students and neighbors to church —
+          and home again. Tell us where you are, and we'll come get you.
+        </p>
+
+        <!-- Pickup spots -->
+        <p jhReveal="260" class="jh-eyebrow mt-9 text-jh-soft">Common pickups</p>
+        <ul
+          class="mt-4 flex flex-wrap gap-3"
+          aria-label="Common Wesleyan pickup spots"
+        >
+          @for (spot of pickupSpots; track spot; let i = $index) {
+            <li
+              [jhReveal]="320 + i * 70"
+              class="jh-ride-chip rounded-full border border-jh-rule bg-jh-surface px-5 py-2.5 text-sm font-semibold text-jh-ink"
+            >
+              {{ spot }}
+            </li>
+          }
+        </ul>
+
+        <!-- CTAs -->
+        <div
+          jhReveal="700"
+          class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4"
+        >
+          <a
+            [href]="rideMailto"
+            class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"
+            >Request a ride</a
+          >
+          <a
+            [href]="rideTel"
+            class="text-sm font-semibold text-jh-blue hover:underline"
+            >or call (860) 518-4640</a
+          >
+        </div>
+      </div>
+
+      <!-- Road / route visual column -->
+      <div
+        jhReveal
+        jhRevealDir="left"
+        class="jh-ride-route relative w-full overflow-hidden rounded-lg border border-jh-rule bg-jh-cream"
+      >
+        <!-- PHOTO SLOT: a Jesus House car waiting at a campus curb, doors open,
+             warm Sunday-morning light. Drops in over the route motif below. -->
+        <div class="aspect-[4/3] w-full sm:aspect-[3/2]">
+          <!-- Decorative route: a hairline road curving from campus (top) down
+               to the red doors of the meetinghouse (bottom). Purely visual; it
+               echoes the global car-on-scroll-line rail. -->
+          <svg
+            class="h-full w-full"
+            viewBox="0 0 320 240"
+            fill="none"
+            preserveAspectRatio="xMidYMid slice"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <!-- the winding route -->
+            <path
+              d="M58 18 C 58 70, 250 92, 250 132 S 70 186, 70 224"
+              stroke="var(--color-jh-rule)"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <!-- dashed centre line, jh-blue, to read as a road -->
+            <path
+              d="M58 18 C 58 70, 250 92, 250 132 S 70 186, 70 224"
+              stroke="var(--color-jh-blue)"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-dasharray="2 12"
+              opacity="0.45"
+            />
+
+            <!-- start: campus pin -->
+            <circle cx="58" cy="18" r="6" fill="var(--color-jh-blue)" />
+            <circle cx="58" cy="18" r="11" fill="none" stroke="var(--color-jh-blue)" stroke-width="1.5" opacity="0.4" />
+
+            <!-- the travelling car (side view), nose following the route -->
+            <g transform="translate(250 132) rotate(28)">
+              <path
+                d="M-19 4 c0-1 .4-1.6 1.4-1.9l3.3-1 3.2-3.4 C-9 -3.3 -7.6 -4 -6 -4 h9.6 c1.3 0 2.5.5 3.4 1.5 l3 3.2 3.8 1 c1.4.4 2.2 1.3 2.2 2.6 V8 c0 .8-.6 1.4-1.4 1.4 H11.8"
+                fill="var(--color-jh-red)"
+              />
+              <circle cx="-9" cy="7" r="3.1" fill="var(--color-jh-ink)" />
+              <circle cx="-9" cy="7" r="1.2" fill="var(--color-jh-cream)" />
+              <circle cx="7" cy="7" r="3.1" fill="var(--color-jh-ink)" />
+              <circle cx="7" cy="7" r="1.2" fill="var(--color-jh-cream)" />
+            </g>
+
+            <!-- end: the red doors of the meetinghouse -->
+            <g transform="translate(70 224)">
+              <rect x="-13" y="-30" width="26" height="30" rx="2" fill="var(--color-jh-surface)" stroke="var(--color-jh-rule)" stroke-width="1.5" />
+              <rect x="-9" y="-22" width="18" height="22" rx="1.5" fill="var(--color-jh-red)" />
+              <line x1="0" y1="-22" x2="0" y2="0" stroke="var(--color-jh-cream)" stroke-width="1" opacity="0.7" />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

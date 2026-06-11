@@ -5,6 +5,9 @@
 @import '@fontsource/fraunces/latin-500.css';
 @import '@fontsource/fraunces/latin-600.css';
 @import '@fontsource/fraunces/latin-700.css';
+/* Fraunces italic — for warm "script-feel" eyebrows */
+@import '@fontsource/fraunces/latin-500-italic.css';
+@import '@fontsource/fraunces/latin-600-italic.css';
 
 /* Mulish (body/UI) — latin 400/600/700 */
 @import '@fontsource/mulish/latin-400.css';
@@ -20,6 +23,11 @@
   --color-jh-surface: #ffffff;
   --color-jh-ink: #221e3a;
   --color-jh-soft: #6b6480;
+
+  /* Cinematic / cathedral additions */
+  --color-jh-night: #141038; /* deep indigo ground for dark sections */
+  --color-jh-gold: #c9a227; /* warm accent + script-feel eyebrow on dark */
+  --color-jh-rule: #e7e1d6; /* hairline rules on cream */
 
   /* Type */
   --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
@@ -44,9 +52,98 @@
 
   /* Visible focus states everywhere */
   a:focus-visible,
-  button:focus-visible {
+  button:focus-visible,
+  [tabindex]:focus-visible {
     outline: 2px solid var(--color-jh-blue);
     outline-offset: 3px;
     border-radius: 2px;
+  }
+}
+
+@layer components {
+  /*
+   * Eyebrow — structural label.
+   * Letterspaced uppercase Mulish. Use above section headings for the
+   * "small label" beat. Pair with text-jh-soft / text-jh-red / text-jh-blue
+   * for the color, or text-jh-gold on a dark (jh-night) ground.
+   */
+  .jh-eyebrow {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.75rem; /* 12px */
+    line-height: 1;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  /*
+   * Script eyebrow — warm "script-feel" label.
+   * Fraunces italic in gold. Reads as a handwritten flourish; especially
+   * intended for dark (jh-night) cathedral sections. Override the color with
+   * a text-* utility when a different hue is wanted.
+   */
+  .jh-script-eyebrow {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+    color: var(--color-jh-gold);
+  }
+
+  /*
+   * Hairline rule — site-wide thin divider on cream.
+   * 1px jh-rule. Use <hr class="jh-rule" /> or apply border-jh-rule directly.
+   */
+  .jh-rule {
+    border: 0;
+    border-top: 1px solid var(--color-jh-rule);
+  }
+}
+
+/*
+ * ── Base reveal system ────────────────────────────────────────────────────
+ * Elements marked [data-reveal] are FULLY VISIBLE by default (SSR / no-JS /
+ * reduced-motion). The hidden-then-animate start state is applied ONLY when:
+ *   1. <html> carries the `js-motion` class (added by the jhReveal directive
+ *      on init, browser + motion-OK only), AND
+ *   2. the user has not requested reduced motion.
+ * The jhReveal directive adds `.is-revealed` once the element scrolls into
+ * view, which animates it to its resting state. Content is therefore never
+ * hidden as a default — motion only ever ADDS to a visible baseline.
+ *
+ * Direction is chosen via the attribute value:
+ *   data-reveal           → fade + 16px slide up (default)
+ *   data-reveal="up"      → same as default
+ *   data-reveal="left"    → fade + slide in from the left (translateX -24px)
+ *   data-reveal="right"   → fade + slide in from the right (translateX 24px)
+ *   data-reveal="none"    → fade only, no translate
+ */
+@media (prefers-reduced-motion: no-preference) {
+  html.js-motion [data-reveal] {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  html.js-motion [data-reveal='left'] {
+    transform: translate3d(-24px, 0, 0);
+  }
+
+  html.js-motion [data-reveal='right'] {
+    transform: translate3d(24px, 0, 0);
+  }
+
+  html.js-motion [data-reveal='none'] {
+    transform: none;
+  }
+
+  html.js-motion [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
   }
 }

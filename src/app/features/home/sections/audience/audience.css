@@ -1,0 +1,27 @@
+/*
+ * jh-home-audience — section-local styles.
+ *
+ * Token utility classes (bg-*, text-*, border-*) and the eyebrow/reveal
+ * systems live globally (styles.css); this file owns only the small pill
+ * hover affordance, which is purely additive and motion-safe.
+ */
+.jh-audience-pill {
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+/* Warm hover: the hairline edge picks up the seal blue, the fill warms to
+ * cream. No layout shift, so it can't disturb the reveal transition. */
+.jh-audience-pill:hover {
+  border-color: var(--color-jh-blue);
+  background-color: var(--color-jh-cream);
+  color: var(--color-jh-blue);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jh-audience-pill {
+    transition: none;
+  }
+}
