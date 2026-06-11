@@ -1,4 +1,11 @@
-/* Global styles — RCCG Jesus House, Middletown */
+/* RCCG Jesus House — "Come and See: a Sunday-morning picture book, filmed."
+ * The home page is one continuous illustrated journey: each section is a flat
+ * mid-century picture-book vignette (cream paper, seal-navy ink, door-red,
+ * lantern-gold) and every transition is a CAMERA MOVE — the viewport zooms
+ * INTO an element of the scene (the door → the road → the car window → the
+ * pew's hymnal → the stained glass → out through the arch) and emerges inside
+ * the next. Fraunces carries the storybook voice; Mulish the wayfinding.
+ * Artifact: a Sunday-school poster series brought to life, not a SaaS page. */
 @import 'tailwindcss';
 
 /* Fraunces (display) — latin 500/600/700 */

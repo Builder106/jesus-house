@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RevealDirective } from '../../../../shared/motion/reveal.directive';
+import { SceneDirective } from '../../../../shared/motion/scene.directive';
 import { Lottie } from '../../../../shared/ui/lottie/lottie';
 
 /**
@@ -24,6 +25,7 @@ import { Lottie } from '../../../../shared/ui/lottie/lottie';
   selector: 'jh-home-story',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RevealDirective, Lottie],
+  hostDirectives: [SceneDirective],
   templateUrl: './story.html',
   styleUrl: './story.css',
 })

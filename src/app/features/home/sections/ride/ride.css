@@ -1,34 +1,91 @@
-/*
- * jh-home-ride — section-local styles.
- *
- * Token utility classes (bg-*, text-*, border-*) and the eyebrow/reveal
- * systems live globally (styles.css); this file owns only the small chip
- * hover affordance and a faint frame on the route visual — both purely
- * additive and motion-safe.
- */
-.jh-ride-chip {
-  transition:
-    border-color 0.25s ease,
-    background-color 0.25s ease,
-    color 0.25s ease;
+/* SCENE 2 — THE ROAD TO US.
+ * Picture-book road vignette; the camera zooms into the car's side window
+ * (origin 30.6% 72.6% = the rear window's position in the 1440×900 art).
+ * Baseline = static illustrated section; .scene--active (set by jhScene on
+ * desktop, motion-OK) pins the stage and drives the move off --zoom (0→1):
+ *   0–.30 read copy · .30–.45 copy lifts away · .45–.92 zoom into the glass ·
+ *   .82–1 cream veil hands off to the pew scene. */
+:host {
+  display: block;
 }
 
-/* Warm hover: the hairline edge picks up the seal blue and the fill warms to
- * cream. No layout shift, so it can't disturb the reveal transition. */
-.jh-ride-chip:hover {
-  border-color: var(--color-jh-blue);
-  background-color: var(--color-jh-cream);
-  color: var(--color-jh-blue);
+.scene__stage {
+  position: relative;
+  overflow: hidden;
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
 }
 
-/* A soft inner frame on the route visual so the colour field reads as a
- * deliberate, hairline-framed slot rather than an empty box. */
-.jh-ride-route {
-  box-shadow: inset 0 0 0 1px var(--color-jh-rule);
+.scene__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .jh-ride-chip {
-    transition: none;
-  }
+.scene__panel {
+  background: color-mix(in srgb, var(--color-jh-cream) 88%, transparent);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 18px 50px rgb(20 16 56 / 0.08);
+}
+
+.scene__cue {
+  position: absolute;
+  bottom: 1.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: var(--color-jh-soft);
+  display: none;
+}
+
+.scene__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: var(--color-jh-cream);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Active camera move (desktop + motion-OK only) ─────────────────────── */
+:host(.scene--active) {
+  height: 260vh;
+}
+
+:host(.scene--active) .scene__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  min-height: 0;
+}
+
+:host(.scene--active) .scene__stage {
+  /* normalized zoom-phase progress: 0 until .45, 1 by .92 */
+  --n: clamp(0, calc((var(--zoom, 0) - 0.45) / 0.47), 1);
+}
+
+:host(.scene--active) .scene__art {
+  /* Origin + pan are computed by jhScene from the target's viewBox coords
+     (host data-scene-x/y), so the camera centres the window at any aspect. */
+  transform-origin: var(--tox, 50%) var(--toy, 50%);
+  transform: translate(calc(var(--n) * var(--panx, 0px)), calc(var(--n) * var(--pany, 0px)))
+    scale(calc(1 + var(--n) * 23));
+  will-change: transform;
+}
+
+:host(.scene--active) .scene__copy {
+  opacity: clamp(0, calc(1 - (var(--zoom, 0) - 0.3) * 8.3), 1);
+  transform: translateY(calc(max(0, var(--zoom, 0) - 0.3) * -6vh));
+  will-change: opacity, transform;
+}
+
+:host(.scene--active) .scene__cue {
+  display: block;
+  opacity: clamp(0, calc(1 - var(--zoom, 0) * 6), 1);
+}
+
+:host(.scene--active) .scene__veil {
+  opacity: clamp(0, calc((var(--zoom, 0) - 0.82) * 5.6), 1);
 }

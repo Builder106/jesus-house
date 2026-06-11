@@ -4,28 +4,34 @@
   Reverent and still; the warm centre of the "Come and see" journey.
 -->
 <section
-  class="jh-story relative overflow-hidden bg-jh-night text-jh-cream"
+  class="jh-story scene__stage relative overflow-hidden bg-jh-night text-jh-cream"
   aria-labelledby="story-heading"
 >
-  <!-- Decorative red-door motif, low-contrast, behind the content (aria-hidden). -->
-  <svg
-    class="jh-story-door pointer-events-none absolute select-none text-jh-cream/[0.05]"
-    viewBox="0 0 120 200"
-    fill="none"
-    aria-hidden="true"
-    focusable="false"
-  >
-    <path
-      d="M14 196V40C14 19.6 30.6 4 51 4h18c20.4 0 37 15.6 37 36v156"
-      stroke="currentColor"
-      stroke-width="3"
-    />
-    <path d="M60 4v192" stroke="currentColor" stroke-width="3" />
-    <circle cx="48" cy="104" r="3.5" fill="currentColor" />
-    <circle cx="72" cy="104" r="3.5" fill="currentColor" />
-  </svg>
+  <!-- Everything inside the frame scales together when the camera leaves
+       through the arch (jhScene active). Static baseline: inert wrapper. -->
+  <div class="scene__frame">
+    <!-- Decorative red-door motif, low-contrast, behind the content (aria-hidden). -->
+    <svg
+      class="jh-story-door pointer-events-none absolute select-none text-jh-cream/[0.05]"
+      viewBox="0 0 120 200"
+      fill="none"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        d="M14 196V40C14 19.6 30.6 4 51 4h18c20.4 0 37 15.6 37 36v156"
+        stroke="currentColor"
+        stroke-width="3"
+      />
+      <path d="M60 4v192" stroke="currentColor" stroke-width="3" />
+      <circle cx="48" cy="104" r="3.5" fill="currentColor" />
+      <circle cx="72" cy="104" r="3.5" fill="currentColor" />
+    </svg>
 
-  <div class="relative mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
+    <!-- Warm light through the arch — brightens as the camera moves out. -->
+    <div class="scene__doorlight" aria-hidden="true"></div>
+
+    <div class="scene__content relative mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
     <div class="max-w-2xl">
       <!-- Reverent accent: a dove (the Holy Spirit) settling over the section.
            Decorative, browser-only, reduced-motion-safe. Lottie by Asim via LottieFiles. -->
@@ -80,5 +86,10 @@
       />
       <p class="jh-eyebrow text-jh-cream/70">A parish of The Redeemed Christian Church of God</p>
     </div>
+    </div>
   </div>
+
+  <!-- Camera cue + veil (cream — stepping back out into the light) -->
+  <p class="scene__cue jh-eyebrow" aria-hidden="true">Through the door — keep scrolling</p>
+  <div class="scene__veil" aria-hidden="true"></div>
 </section>

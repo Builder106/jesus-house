@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RevealDirective } from '../../../../shared/motion/reveal.directive';
+import { SceneDirective } from '../../../../shared/motion/scene.directive';
 
 /**
- * jh-home-ride — THE ROAD TO US · the ride ministry.
+ * jh-home-ride — SCENE 2 · THE ROAD TO US (ride ministry).
  *
- * Second beat of the "COME AND SEE" journey (road → red doors → family) and the
- * concept's heart: the parish drives out to bring students and neighbors to
- * church and home again. Headline "No car? No problem." A short warm paragraph,
- * a set of Wesleyan pickup-spot chips, and two CTAs (red "Request a ride"
- * mailto + a tel: call link). A decorative hairline "route" graphic runs the
- * road metaphor, pairing with the global car-on-scroll-line rail.
+ * A picture-book road vignette: Sunday morning, the red car on its way to the
+ * meetinghouse. Copy ("No car? No problem.", pickup chips, ride CTAs) sits in
+ * a readable panel over the scene. With jhScene active (desktop, motion-OK)
+ * the stage pins and the camera zooms INTO the car's side window — you take
+ * the seat — handing off to the pew scene. Static everywhere else.
  *
  * Contract notes:
  *   • Light section on the default jh-cream ground; separated from the hero
@@ -27,6 +27,12 @@ import { RevealDirective } from '../../../../shared/motion/reveal.directive';
   selector: 'jh-home-ride',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RevealDirective],
+  hostDirectives: [SceneDirective],
+  host: {
+    // Camera target: the car's rear side window, in 1440×900 viewBox coords.
+    'data-scene-x': '799',
+    'data-scene-y': '627',
+  },
   templateUrl: './ride.html',
   styleUrl: './ride.css',
 })

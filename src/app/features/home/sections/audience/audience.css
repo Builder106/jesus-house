@@ -1,27 +1,86 @@
-/*
- * jh-home-audience — section-local styles.
- *
- * Token utility classes (bg-*, text-*, border-*) and the eyebrow/reveal
- * systems live globally (styles.css); this file owns only the small pill
- * hover affordance, which is purely additive and motion-safe.
- */
-.jh-audience-pill {
-  transition:
-    border-color 0.25s ease,
-    background-color 0.25s ease,
-    color 0.25s ease;
+/* SCENE 3 — A PLACE FOR YOU.
+ * Pew interior vignette; the camera zooms into the open hymnal on the pew
+ * (origin 63.9% 60% = the book in the 1440×900 art). Same rig + timings as
+ * scene 2: 0–.30 read · .30–.45 copy lifts · .45–.92 zoom · .82–1 cream veil. */
+:host {
+  display: block;
 }
 
-/* Warm hover: the hairline edge picks up the seal blue, the fill warms to
- * cream. No layout shift, so it can't disturb the reveal transition. */
-.jh-audience-pill:hover {
-  border-color: var(--color-jh-blue);
-  background-color: var(--color-jh-cream);
-  color: var(--color-jh-blue);
+.scene__stage {
+  position: relative;
+  overflow: hidden;
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .jh-audience-pill {
-    transition: none;
-  }
+.scene__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.scene__panel {
+  background: color-mix(in srgb, var(--color-jh-cream) 88%, transparent);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 18px 50px rgb(20 16 56 / 0.08);
+}
+
+.scene__cue {
+  position: absolute;
+  bottom: 1.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: var(--color-jh-soft);
+  display: none;
+}
+
+.scene__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: var(--color-jh-cream);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Active camera move (desktop + motion-OK only) ─────────────────────── */
+:host(.scene--active) {
+  height: 250vh;
+}
+
+:host(.scene--active) .scene__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  min-height: 0;
+}
+
+:host(.scene--active) .scene__stage {
+  --n: clamp(0, calc((var(--zoom, 0) - 0.45) / 0.47), 1);
+}
+
+:host(.scene--active) .scene__art {
+  /* Origin + pan computed by jhScene from the hymnal's viewBox coords. */
+  transform-origin: var(--tox, 50%) var(--toy, 50%);
+  transform: translate(calc(var(--n) * var(--panx, 0px)), calc(var(--n) * var(--pany, 0px)))
+    scale(calc(1 + var(--n) * 13));
+  will-change: transform;
+}
+
+:host(.scene--active) .scene__copy {
+  opacity: clamp(0, calc(1 - (var(--zoom, 0) - 0.3) * 8.3), 1);
+  transform: translateY(calc(max(0, var(--zoom, 0) - 0.3) * -6vh));
+  will-change: opacity, transform;
+}
+
+:host(.scene--active) .scene__cue {
+  display: block;
+  opacity: clamp(0, calc(1 - var(--zoom, 0) * 6), 1);
+}
+
+:host(.scene--active) .scene__veil {
+  opacity: clamp(0, calc((var(--zoom, 0) - 0.82) * 5.6), 1);
 }

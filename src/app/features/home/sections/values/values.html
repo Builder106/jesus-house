@@ -1,149 +1,120 @@
 <!--
-  jh-home-values — "What Sunday is like" pinned-headline value scroll.
-  Sticky headline (CSS position: sticky) on the left; four beats scroll on the
-  right, one per screen. Light/cream ground, leading hairline separator.
+  SCENE 4 — SUNDAY MORNING (values).
+  The sanctuary: chancel, lectern, and the great stained-glass arch. The four
+  beats of a Sunday (Welcoming · Rooted · Together · Sending) play over the
+  scene while it's pinned; then the camera zooms INTO the stained glass and
+  its deep indigo becomes the ground of the cathedral section that follows.
+
+  Static baseline (SSR / no-JS / mobile / reduced-motion): a normal section —
+  the scene illustrates, the heading panel and a 2×2 beats grid read below.
 -->
-<section class="border-t border-jh-rule" aria-labelledby="values-heading">
-  <div class="mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
-    <div class="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-16">
-      <!-- Pinned headline column -->
-      <div class="jh-values-pin lg:sticky lg:self-start">
-        <p jhReveal class="jh-eyebrow text-jh-soft">Sunday mornings</p>
-        <h2
-          id="values-heading"
-          jhReveal="80"
-          class="mt-4 font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
-        >
-          What Sunday is like
-        </h2>
-        <p jhReveal="160" class="mt-5 max-w-sm text-lg leading-relaxed text-jh-soft">
-          Four things you can count on the moment you walk through our doors.
-        </p>
-        <hr jhReveal="220" class="jh-rule mt-8 max-w-sm" />
-      </div>
+<section class="scene__stage" aria-labelledby="values-heading">
+  <!-- The illustrated sanctuary (decorative). Window panes are future
+       PHOTO SLOTs once the parish photo session happens. -->
+  <svg
+    class="scene__art"
+    viewBox="0 0 1440 900"
+    preserveAspectRatio="xMidYMid slice"
+    aria-hidden="true"
+    focusable="false"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <!-- walls + floor -->
+    <rect width="1440" height="900" fill="#f7f1e2" />
+    <rect y="660" width="1440" height="240" fill="#ead9bd" />
+    <g stroke="#dcc7a4" stroke-width="3" opacity="0.7">
+      <line x1="0" y1="730" x2="1440" y2="730" />
+      <line x1="0" y1="815" x2="1440" y2="815" />
+    </g>
+    <!-- chancel platform -->
+    <path d="M430 660 L1010 660 L1060 720 L380 720 Z" fill="#e0cfa9" stroke="#d2bd92" stroke-width="3" />
 
-      <!-- Scrolling beats -->
-      <div class="flex flex-col">
-        <!-- Beat 1 — Welcoming -->
-        <article class="jh-values-beat">
-          <p jhReveal class="jh-eyebrow text-jh-soft">01 — Arrival</p>
-          <h3 jhReveal="80" class="jh-values-word mt-3 font-display font-semibold text-jh-blue">
-            Welcoming
-          </h3>
-          <p jhReveal="140" class="mt-4 max-w-md text-lg leading-relaxed text-jh-ink">
-            You'll be greeted at the door, never singled out.
-          </p>
-          <!-- PHOTO SLOT: a greeter welcoming a newcomer at the red front doors on a Sunday morning -->
-          <div
-            jhReveal="200"
-            class="jh-values-slot mt-8 flex aspect-[16/10] w-full items-center justify-center overflow-hidden rounded-lg border border-jh-rule bg-jh-cream"
-          >
-            <svg
-              class="jh-door"
-              viewBox="0 0 120 150"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <rect x="14" y="20" width="92" height="118" rx="4" fill="#FFFFFF" stroke="#E7E1D6" stroke-width="2" />
-              <rect x="22" y="28" width="38" height="102" rx="2" fill="#DA251D" />
-              <rect x="60" y="28" width="38" height="102" rx="2" fill="#DA251D" opacity="0.82" />
-              <line x1="60" y1="28" x2="60" y2="130" stroke="#FAF7EF" stroke-width="2" />
-              <circle cx="52" cy="80" r="2.4" fill="#C9A227" />
-              <circle cx="68" cy="80" r="2.4" fill="#C9A227" />
-            </svg>
-          </div>
-        </article>
+    <!-- side windows -->
+    <g transform="translate(186 240)">
+      <path d="M0 200 V80 a52 52 0 0 1 104 0 V200 Z" fill="#f6e6b0" stroke="var(--color-jh-blue)" stroke-width="6" />
+      <line x1="52" y1="32" x2="52" y2="200" stroke="var(--color-jh-blue)" stroke-width="4" opacity="0.8" />
+    </g>
+    <g transform="translate(1150 240)">
+      <path d="M0 200 V80 a52 52 0 0 1 104 0 V200 Z" fill="#f6e6b0" stroke="var(--color-jh-blue)" stroke-width="6" />
+      <line x1="52" y1="32" x2="52" y2="200" stroke="var(--color-jh-blue)" stroke-width="4" opacity="0.8" />
+    </g>
 
-        <!-- Beat 2 — Rooted -->
-        <article class="jh-values-beat">
-          <p jhReveal class="jh-eyebrow text-jh-soft">02 — The Word</p>
-          <h3 jhReveal="80" class="jh-values-word mt-3 font-display font-semibold text-jh-blue">
-            Rooted
-          </h3>
-          <p jhReveal="140" class="mt-4 max-w-md text-lg leading-relaxed text-jh-ink">
-            Honest teaching from the Bible, in about ninety minutes.
-          </p>
-          <!-- PHOTO SLOT: an open Bible on the lectern during the Sunday message -->
-          <div
-            jhReveal="200"
-            class="jh-values-slot mt-8 flex aspect-[16/10] w-full items-center justify-center overflow-hidden rounded-lg border border-jh-rule bg-jh-surface"
-          >
-            <svg
-              class="jh-book"
-              viewBox="0 0 140 110"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path d="M70 26C54 16 32 16 18 22v68c14-6 36-6 52 4 16-10 38-10 52-4V22c-14-6-36-6-52 4Z" fill="#FFFFFF" stroke="#E7E1D6" stroke-width="2" />
-              <line x1="70" y1="26" x2="70" y2="94" stroke="#E7E1D6" stroke-width="2" />
-              <line x1="28" y1="38" x2="60" y2="34" stroke="#E7E1D6" stroke-width="2" />
-              <line x1="28" y1="50" x2="60" y2="46" stroke="#E7E1D6" stroke-width="2" />
-              <line x1="28" y1="62" x2="60" y2="58" stroke="#E7E1D6" stroke-width="2" />
-              <line x1="80" y1="34" x2="112" y2="38" stroke="#E7E1D6" stroke-width="2" />
-              <line x1="80" y1="46" x2="112" y2="50" stroke="#E7E1D6" stroke-width="2" />
-              <line x1="80" y1="58" x2="112" y2="62" stroke="#E7E1D6" stroke-width="2" />
-              <path d="M70 18v10M65 22h10" stroke="#C9A227" stroke-width="2.4" stroke-linecap="round" />
-            </svg>
-          </div>
-        </article>
+    <!-- THE GREAT STAINED-GLASS ARCH — the camera target -->
+    <g transform="translate(580 120)">
+      <!-- gold halo -->
+      <ellipse cx="140" cy="220" rx="220" ry="260" fill="var(--color-jh-gold)" opacity="0.14" />
+      <!-- frame -->
+      <path
+        d="M0 420 V140 a140 140 0 0 1 280 0 V420 Z"
+        fill="var(--color-jh-night)"
+        stroke="var(--color-jh-blue)"
+        stroke-width="12"
+      />
+      <!-- panes: indigo field with red / gold / blue pieces -->
+      <g>
+        <path d="M20 420 V150 a120 120 0 0 1 60 -104 L80 420 Z" fill="#3b2d8f" opacity="0.55" />
+        <path d="M200 420 V46 a120 120 0 0 1 60 104 L260 420 Z" fill="#3b2d8f" opacity="0.55" />
+        <circle cx="140" cy="150" r="44" fill="var(--color-jh-gold)" opacity="0.95" />
+        <path d="M140 106 v88 M96 150 h88" stroke="var(--color-jh-night)" stroke-width="10" />
+        <rect x="96" y="240" width="88" height="64" fill="var(--color-jh-red)" opacity="0.85" />
+        <rect x="20" y="320" width="60" height="48" fill="var(--color-jh-gold)" opacity="0.6" />
+        <rect x="200" y="320" width="60" height="48" fill="var(--color-jh-gold)" opacity="0.6" />
+        <!-- leading -->
+        <g stroke="var(--color-jh-blue)" stroke-width="6" opacity="0.9">
+          <line x1="20" y1="240" x2="260" y2="240" />
+          <line x1="20" y1="320" x2="260" y2="320" />
+          <line x1="96" y1="46" x2="96" y2="420" />
+          <line x1="184" y1="46" x2="184" y2="420" />
+        </g>
+      </g>
+    </g>
 
-        <!-- Beat 3 — Together -->
-        <article class="jh-values-beat">
-          <p jhReveal class="jh-eyebrow text-jh-soft">03 — The Family</p>
-          <h3 jhReveal="80" class="jh-values-word mt-3 font-display font-semibold text-jh-blue">
-            Together
-          </h3>
-          <p jhReveal="140" class="mt-4 max-w-md text-lg leading-relaxed text-jh-ink">
-            A warm, multicultural family: students and neighbors, side by side.
-          </p>
-          <!-- PHOTO SLOT: the congregation greeting one another after service — a mix of students and neighbors -->
-          <div
-            jhReveal="200"
-            class="jh-values-slot mt-8 flex aspect-[16/10] w-full items-center justify-center overflow-hidden rounded-lg border border-jh-rule bg-jh-cream"
-          >
-            <svg
-              class="jh-folk"
-              viewBox="0 0 180 110"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <circle cx="46" cy="44" r="13" fill="#28166F" />
-              <path d="M28 92c0-12 8-22 18-22s18 10 18 22Z" fill="#28166F" />
-              <circle cx="90" cy="38" r="15" fill="#DA251D" />
-              <path d="M69 92c0-13 9-24 21-24s21 11 21 24Z" fill="#DA251D" />
-              <circle cx="134" cy="44" r="13" fill="#00923F" />
-              <path d="M116 92c0-12 8-22 18-22s18 10 18 22Z" fill="#00923F" />
-            </svg>
-          </div>
-        </article>
+    <!-- lectern -->
+    <g transform="translate(470 520)">
+      <path d="M-34 0 h68 l-10 24 h-48 Z" fill="var(--color-jh-blue)" />
+      <rect x="-7" y="24" width="14" height="96" fill="var(--color-jh-blue)" />
+      <path d="M-30 -8 h60 l-6 10 h-48 Z" fill="var(--color-jh-gold)" />
+    </g>
+    <!-- standing cross -->
+    <g transform="translate(1000 470)" stroke="var(--color-jh-gold)" stroke-width="12" stroke-linecap="round">
+      <line x1="0" y1="0" x2="0" y2="120" />
+      <line x1="-32" y1="36" x2="32" y2="36" />
+    </g>
+    <!-- front pew silhouettes, cropped at frame edges -->
+    <rect x="-60" y="780" width="560" height="34" rx="10" fill="#e3d2ad" stroke="var(--color-jh-ink)" stroke-width="4" />
+    <rect x="940" y="780" width="560" height="34" rx="10" fill="#e3d2ad" stroke="var(--color-jh-ink)" stroke-width="4" />
+  </svg>
 
-        <!-- Beat 4 — Sending -->
-        <article class="jh-values-beat">
-          <p jhReveal class="jh-eyebrow text-jh-soft">04 — Going out</p>
-          <h3 jhReveal="80" class="jh-values-word mt-3 font-display font-semibold text-jh-blue">
-            Sending
-          </h3>
-          <p jhReveal="140" class="mt-4 max-w-md text-lg leading-relaxed text-jh-ink">
-            You leave with people who will know your name.
-          </p>
-          <!-- PHOTO SLOT: people leaving together through the doors after service, the RCCG seal above the entrance -->
-          <div
-            jhReveal="200"
-            class="jh-values-slot mt-8 flex aspect-[16/10] w-full items-center justify-center overflow-hidden rounded-lg border border-jh-rule bg-jh-surface"
-          >
-            <img
-              src="/seal-256.png"
-              alt=""
-              aria-hidden="true"
-              width="96"
-              height="96"
-              loading="lazy"
-              decoding="async"
-              class="jh-values-seal h-24 w-24 object-contain"
-            />
-          </div>
-        </article>
-      </div>
+  <!-- Heading panel -->
+  <div class="scene__copy relative z-[2] mx-auto w-full max-w-5xl px-6">
+    <div class="scene__panel max-w-md rounded-lg border border-jh-rule p-8 sm:p-9">
+      <p jhReveal class="jh-eyebrow text-jh-soft">Sunday mornings</p>
+      <h2
+        id="values-heading"
+        jhReveal="80"
+        class="mt-4 font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
+      >
+        What Sunday is like
+      </h2>
+      <p jhReveal="160" class="mt-4 max-w-sm text-lg leading-relaxed text-jh-soft">
+        Four things you can count on the moment you walk through our doors.
+      </p>
     </div>
   </div>
+
+  <!-- The four beats. Static: a 2×2 grid below the heading. Active: each beat
+       takes the stage alone, timed to its window of the pin. -->
+  <ul class="scene__beats relative z-[2] mx-auto w-full max-w-5xl px-6" aria-label="What Sunday is like">
+    @for (beat of beats; track beat.word; let i = $index) {
+      <li class="scene__beat" [style.--bs]="0.1 + i * 0.1">
+        <p class="jh-eyebrow text-jh-soft">{{ beat.eyebrow }}</p>
+        <h3 class="scene__beat-word mt-3 font-display font-semibold text-jh-blue">{{ beat.word }}</h3>
+        <p class="mx-auto mt-3 max-w-md text-lg leading-relaxed text-jh-ink">{{ beat.line }}</p>
+      </li>
+    }
+  </ul>
+
+  <!-- Camera cue + veil (deep indigo — the glass hands off to the cathedral) -->
+  <p class="scene__cue jh-eyebrow" aria-hidden="true">Look up — keep scrolling</p>
+  <div class="scene__veil" aria-hidden="true"></div>
 </section>

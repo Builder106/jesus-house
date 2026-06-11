@@ -1,36 +1,137 @@
-<section class="border-t border-jh-rule" aria-labelledby="audience-heading">
-  <div class="mx-auto w-full max-w-5xl px-6 py-16 sm:py-20">
-    <p jhReveal class="jh-script-eyebrow">Whoever you are</p>
+<!--
+  SCENE 3 — A PLACE FOR YOU (audience).
+  Inside now: a warm pew with morning light, a gold glow on the open seat —
+  the seat saved for you. The camera move: scroll zooms INTO the open hymnal
+  resting on the pew, and its pages resolve into the next scene (Sunday).
 
-    <h2
-      id="audience-heading"
-      jhReveal="90"
-      class="mt-3 max-w-2xl font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
-    >
-      There's a place for you here.
-    </h2>
+  Static baseline (SSR / no-JS / mobile / reduced-motion): a normal section —
+  illustration behind, copy panel on top. jhScene adds the pin + camera only
+  on desktop with motion allowed.
+-->
+<section class="scene__stage" aria-labelledby="audience-heading">
+  <!-- The illustrated pew scene (decorative). -->
+  <svg
+    class="scene__art"
+    viewBox="0 0 1440 900"
+    preserveAspectRatio="xMidYMid slice"
+    aria-hidden="true"
+    focusable="false"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <!-- interior wall -->
+    <rect width="1440" height="900" fill="var(--color-jh-cream)" />
+    <rect y="0" width="1440" height="640" fill="#f7f1e2" />
+    <!-- wainscot rail -->
+    <rect y="430" width="1440" height="6" fill="#e7dec8" />
 
-    <ul
-      class="mt-9 flex flex-wrap gap-3"
-      aria-label="People who are welcome at Jesus House"
-    >
-      @for (audience of audiences; track audience; let i = $index) {
-        <li
-          [jhReveal]="180 + i * 70"
-          jhRevealDir="up"
-          class="jh-audience-pill rounded-full border border-jh-rule bg-jh-surface px-5 py-2.5 text-sm font-semibold text-jh-ink"
-        >
-          {{ audience }}
-        </li>
-      }
-    </ul>
+    <!-- arched window, morning light -->
+    <g transform="translate(250 120)">
+      <path
+        d="M0 320 V120 a90 90 0 0 1 180 0 V320 Z"
+        fill="#f6e6b0"
+        stroke="var(--color-jh-blue)"
+        stroke-width="8"
+      />
+      <line x1="90" y1="36" x2="90" y2="320" stroke="var(--color-jh-blue)" stroke-width="5" opacity="0.85" />
+      <line x1="6" y1="180" x2="174" y2="180" stroke="var(--color-jh-blue)" stroke-width="5" opacity="0.85" />
+    </g>
+    <!-- light beam to the pew -->
+    <polygon points="290,440 480,440 980,900 420,900" fill="var(--color-jh-gold)" opacity="0.14" />
 
-    <p
-      jhReveal="640"
-      class="mt-9 max-w-xl text-lg leading-relaxed text-jh-soft"
-    >
-      Wesleyan students, Middletown families, and everyone in between — you'll
-      fit right in.
-    </p>
+    <!-- back pew (behind) -->
+    <g>
+      <rect x="330" y="392" width="780" height="34" rx="10" fill="#efe4cb" stroke="#d9cdb0" stroke-width="3" />
+      <rect x="348" y="426" width="744" height="14" rx="6" fill="#e5d9bc" />
+    </g>
+
+    <!-- floor -->
+    <rect y="640" width="1440" height="260" fill="#ead9bd" />
+    <g stroke="#dcc7a4" stroke-width="3" opacity="0.7">
+      <line x1="0" y1="700" x2="1440" y2="700" />
+      <line x1="0" y1="775" x2="1440" y2="775" />
+      <line x1="0" y1="850" x2="1440" y2="850" />
+    </g>
+
+    <!-- the seat glow — a place kept warm for you -->
+    <ellipse cx="660" cy="582" rx="150" ry="56" fill="var(--color-jh-gold)" opacity="0.32" />
+
+    <!-- front pew -->
+    <g>
+      <!-- backrest -->
+      <rect x="180" y="468" width="1080" height="44" rx="12" fill="#e3d2ad" stroke="var(--color-jh-ink)" stroke-width="4" />
+      <!-- seat -->
+      <rect x="180" y="568" width="1080" height="36" rx="10" fill="#e3d2ad" stroke="var(--color-jh-ink)" stroke-width="4" />
+      <!-- red cushion -->
+      <rect x="196" y="552" width="1048" height="22" rx="11" fill="var(--color-jh-red)" />
+      <!-- legs -->
+      <rect x="236" y="604" width="26" height="96" rx="8" fill="#d4c094" stroke="var(--color-jh-ink)" stroke-width="4" />
+      <rect x="1178" y="604" width="26" height="96" rx="8" fill="#d4c094" stroke="var(--color-jh-ink)" stroke-width="4" />
+      <!-- back supports -->
+      <rect x="236" y="508" width="26" height="64" fill="#d4c094" stroke="var(--color-jh-ink)" stroke-width="4" />
+      <rect x="1178" y="508" width="26" height="64" fill="#d4c094" stroke="var(--color-jh-ink)" stroke-width="4" />
+    </g>
+
+    <!-- the open hymnal — THE CAMERA TARGET -->
+    <g transform="translate(920 540)">
+      <!-- soft shadow -->
+      <ellipse cx="0" cy="24" rx="78" ry="12" fill="var(--color-jh-ink)" opacity="0.10" />
+      <!-- covers -->
+      <path d="M-66 10 L0 22 L66 10 L66 18 L0 30 L-66 18 Z" fill="var(--color-jh-blue)" />
+      <!-- pages -->
+      <path d="M-60 -16 C -34 -28, -10 -28, 0 -18 L0 18 C -12 8, -36 8, -60 16 Z" fill="#fffdf6" stroke="#e3dcc9" stroke-width="2.5" />
+      <path d="M60 -16 C 34 -28, 10 -28, 0 -18 L0 18 C 12 8, 36 8, 60 16 Z" fill="#fffdf6" stroke="#e3dcc9" stroke-width="2.5" />
+      <!-- text lines -->
+      <g stroke="#cfc6ae" stroke-width="2.4" stroke-linecap="round">
+        <line x1="-46" y1="-10" x2="-14" y2="-14" />
+        <line x1="-46" y1="-2" x2="-14" y2="-6" />
+        <line x1="-46" y1="6" x2="-20" y2="3" />
+        <line x1="14" y1="-14" x2="46" y2="-10" />
+        <line x1="14" y1="-6" x2="46" y2="-2" />
+        <line x1="20" y1="3" x2="46" y2="6" />
+      </g>
+      <!-- ribbon marker -->
+      <path d="M0 -18 L0 30 l8 8 l-8 2 l-8 -2 l8 -8 Z" fill="var(--color-jh-red)" opacity="0.9" />
+    </g>
+
+    <!-- potted plant, right corner -->
+    <g transform="translate(1330 560)">
+      <circle cx="0" cy="-26" r="34" fill="var(--color-jh-green)" opacity="0.5" />
+      <path d="M-22 6 h44 l-8 64 h-28 Z" fill="#d8c49a" stroke="var(--color-jh-ink)" stroke-width="4" />
+    </g>
+  </svg>
+
+  <!-- Copy panel -->
+  <div class="scene__copy relative z-[2] mx-auto w-full max-w-5xl px-6">
+    <div class="scene__panel max-w-xl rounded-lg border border-jh-rule p-8 sm:p-10">
+      <p jhReveal class="jh-script-eyebrow">Whoever you are</p>
+
+      <h2
+        id="audience-heading"
+        jhReveal="90"
+        class="mt-3 max-w-2xl font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
+      >
+        There's a place for you here.
+      </h2>
+
+      <ul class="mt-8 flex flex-wrap gap-3" aria-label="People who are welcome at Jesus House">
+        @for (audience of audiences; track audience; let i = $index) {
+          <li
+            [jhReveal]="180 + i * 70"
+            jhRevealDir="up"
+            class="rounded-full border border-jh-rule bg-jh-surface px-5 py-2.5 text-sm font-semibold text-jh-ink"
+          >
+            {{ audience }}
+          </li>
+        }
+      </ul>
+
+      <p jhReveal="640" class="mt-8 max-w-xl text-lg leading-relaxed text-jh-soft">
+        Wesleyan students, Middletown families, and everyone in between — you'll fit right in.
+      </p>
+    </div>
   </div>
+
+  <!-- Camera cue + veil -->
+  <p class="scene__cue jh-eyebrow" aria-hidden="true">Take a seat — keep scrolling</p>
+  <div class="scene__veil" aria-hidden="true"></div>
 </section>

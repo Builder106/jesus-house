@@ -46,3 +46,90 @@
   box-shadow: 0 0 0 1px rgb(201 162 39 / 0.45);
   object-fit: contain;
 }
+
+/* ── SCENE 5 camera move — out through the arch ─────────────────────────
+ * Static: .scene__frame / doorlight / cue / veil are inert. Active (jhScene,
+ * desktop + motion-OK): the section pins; content reads until ~.42, then the
+ * whole frame scales into the arch (origin 89.3% 50% = the arch's centre at
+ * lg layout) while warm light blooms through it; a cream veil completes the
+ * step back out into the light, resolving onto the closing invitation. */
+.scene__frame {
+  position: relative;
+  height: 100%;
+}
+
+.scene__doorlight {
+  position: absolute;
+  top: 50%;
+  right: calc(1.5rem + 130px);
+  width: 360px;
+  height: 360px;
+  transform: translate(50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, #f6e6b0 0%, rgb(246 230 176 / 0.45) 38%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scene__cue {
+  position: absolute;
+  bottom: 1.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: var(--color-jh-cream);
+  opacity: 0.55;
+  display: none;
+}
+
+.scene__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: var(--color-jh-cream);
+  opacity: 0;
+  pointer-events: none;
+}
+
+:host(.scene--active) {
+  display: block;
+  height: 240vh;
+}
+
+:host(.scene--active) .scene__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  align-items: center;
+}
+
+:host(.scene--active) .scene__stage {
+  --n: clamp(0, calc((var(--zoom, 0) - 0.5) / 0.42), 1);
+}
+
+:host(.scene--active) .scene__frame {
+  /* The arch's centre sits at right:1.5rem + half its 260px width → 154px in
+     from the right edge. Pan it to screen centre while moving out through it. */
+  transform-origin: calc(100% - 154px) 50%;
+  transform: translate(calc(var(--n) * (154px - 50vw)), 0) scale(calc(1 + var(--n) * 11));
+  will-change: transform;
+}
+
+:host(.scene--active) .scene__content {
+  opacity: clamp(0, calc(1 - (var(--zoom, 0) - 0.4) * 8), 1);
+  will-change: opacity;
+}
+
+:host(.scene--active) .scene__doorlight {
+  opacity: clamp(0, calc((var(--zoom, 0) - 0.48) * 2.4), 0.95);
+}
+
+:host(.scene--active) .scene__cue {
+  display: block;
+  opacity: clamp(0, calc(0.55 - var(--zoom, 0) * 3), 0.55);
+}
+
+:host(.scene--active) .scene__veil {
+  opacity: clamp(0, calc((var(--zoom, 0) - 0.84) * 6.3), 1);
+}

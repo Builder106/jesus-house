@@ -1,78 +1,149 @@
+/* SCENE 4 — SUNDAY MORNING (the sanctuary).
+ * The four beats play over the pinned scene, then the camera zooms into the
+ * stained-glass arch (origin 50% 38%); its indigo glass fills the frame and
+ * the jh-night veil hands off seamlessly to the cathedral section below.
+ * Active timeline (--zoom 0→1):
+ *   0–.10 heading · .10–.50 beats (one per .10 window) · .52–.92 zoom into
+ *   the glass · .84–1 night veil. Static baseline: heading panel + 2×2 grid. */
 :host {
   display: block;
 }
 
-/*
- * Pinned headline. CSS sticky only — no JS, SSR-safe. The offset clears the
- * fixed floating header (the shell pads <main> by 5.25rem; 7rem leaves the
- * pinned headline sitting comfortably below the nav as the beats scroll).
- * Below the `lg` breakpoint the utility classes drop sticky and this is a
- * normal block at the top of the stack.
- */
-@media (min-width: 1024px) {
-  .jh-values-pin {
-    top: 7rem;
-  }
+.scene__stage {
+  position: relative;
+  overflow: hidden;
+  min-height: 100svh;
+  display: grid;
+  align-content: center;
+  row-gap: 3rem;
+  padding-block: 5rem;
 }
 
-/*
- * Each beat is one screen tall on wide viewports so the headline stays pinned
- * while a single beat fills the view. Content is vertically centred. The first
- * beat aligns to the top so its eyebrow lines up with the pinned headline.
- * On narrow viewports beats are comfortably spaced but never force a full
- * screen of scroll each.
- */
-.jh-values-beat {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-block: 2.5rem;
+.scene__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.jh-values-beat:first-child {
-  padding-top: 0;
+.scene__panel {
+  background: color-mix(in srgb, var(--color-jh-cream) 88%, transparent);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 18px 50px rgb(20 16 56 / 0.08);
 }
 
-@media (min-width: 1024px) {
-  .jh-values-beat {
-    min-height: 86vh;
-    padding-block: 0;
-  }
-
-  .jh-values-beat:first-child {
-    /* Shorter first beat so it starts level with the pinned headline. */
-    min-height: 70vh;
-    justify-content: flex-start;
-  }
+/* Static beats grid */
+.scene__beats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
 }
 
-/* Big display word per beat — fluid between mobile and desktop. */
-.jh-values-word {
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  line-height: 1.02;
-  letter-spacing: -0.01em;
+.scene__beat {
+  border: 1px solid var(--color-jh-rule);
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--color-jh-cream) 88%, transparent);
+  backdrop-filter: blur(6px);
+  padding: 1.75rem;
 }
 
-/* Decorative placeholder fills (no real photos yet). */
-.jh-values-slot {
-  max-width: 32rem;
+.scene__beat-word {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.05;
 }
 
-.jh-door {
-  width: clamp(72px, 22%, 104px);
-  height: auto;
+.scene__cue {
+  position: absolute;
+  bottom: 1.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: var(--color-jh-soft);
+  display: none;
 }
 
-.jh-book {
-  width: clamp(96px, 34%, 150px);
-  height: auto;
+.scene__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: var(--color-jh-night);
+  opacity: 0;
+  pointer-events: none;
 }
 
-.jh-folk {
-  width: clamp(132px, 44%, 184px);
-  height: auto;
+/* ── Active camera move (desktop + motion-OK only) ─────────────────────── */
+:host(.scene--active) {
+  height: 320vh;
 }
 
-.jh-values-seal {
-  opacity: 0.9;
+:host(.scene--active) .scene__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  min-height: 0;
+  display: block;
+  padding-block: 0;
+}
+
+:host(.scene--active) .scene__stage {
+  --n: clamp(0, calc((var(--zoom, 0) - 0.52) / 0.4), 1);
+}
+
+:host(.scene--active) .scene__art {
+  /* Origin + pan computed by jhScene from the glass's viewBox coords. */
+  transform-origin: var(--tox, 50%) var(--toy, 50%);
+  transform: translate(calc(var(--n) * var(--panx, 0px)), calc(var(--n) * var(--pany, 0px)))
+    scale(calc(1 + var(--n) * 7));
+  will-change: transform;
+}
+
+/* Heading reads first, then yields the stage to the beats. */
+:host(.scene--active) .scene__copy {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-items: center;
+  opacity: clamp(0, calc(1 - (var(--zoom, 0) - 0.06) * 16), 1);
+  transform: translateY(calc(max(0, var(--zoom, 0) - 0.06) * -5vh));
+  will-change: opacity, transform;
+}
+
+/* Beats: each takes the stage alone during its window [--bs, --bs + .115],
+   centred on a soft scrim so it reads over the scene. */
+:host(.scene--active) .scene__beats {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  pointer-events: none;
+}
+
+:host(.scene--active) .scene__beat {
+  grid-area: 1 / 1;
+  max-width: 34rem;
+  border: 0;
+  border-radius: 0.75rem;
+  padding: 2.25rem 2.75rem;
+  opacity: clamp(
+    0,
+    min(
+      calc((var(--zoom, 0) - var(--bs)) * 34),
+      calc((var(--bs) + 0.115 - var(--zoom, 0)) * 34)
+    ),
+    1
+  );
+}
+
+:host(.scene--active) .scene__beat-word {
+  font-size: clamp(2.6rem, 5vw, 4rem);
+}
+
+:host(.scene--active) .scene__cue {
+  display: block;
+  opacity: clamp(0, calc(1 - var(--zoom, 0) * 6), 1);
+}
+
+:host(.scene--active) .scene__veil {
+  opacity: clamp(0, calc((var(--zoom, 0) - 0.84) * 6.3), 1);
 }

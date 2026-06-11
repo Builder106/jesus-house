@@ -1,26 +1,27 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RevealDirective } from '../../../../shared/motion/reveal.directive';
+import { SceneDirective } from '../../../../shared/motion/scene.directive';
 
 /**
- * jh-home-audience — "There's a place for you here."
+ * jh-home-audience — SCENE 3 · A PLACE FOR YOU.
  *
- * The welcome beat of the "COME AND SEE" journey: a warm, airy panel that
- * names who Jesus House is for. A gold script-feel eyebrow ("Whoever you
- * are") sits above the headline, followed by a row of soft-filled audience
- * pills that fade in on a stagger, and one reassuring sentence beneath.
- *
- * Light section on the default jh-cream ground, separated from the section
- * above by a leading jh-rule hairline. No CTAs (the Students pill nods to the
- * Wesleyan RCF idea in copy only). Lighter vertical rhythm (py-16 sm:py-20).
- *
- * SSR-safe / no-JS: all content is fully visible by default; the jhReveal
- * directive only ADDS entrance motion and honors prefers-reduced-motion.
- * No member PII, no real photos, no emoji.
+ * Inside now: a warm pew vignette with morning light and a gold glow on the
+ * open seat — the seat saved for you. Copy (eyebrow, "There's a place for you
+ * here.", audience pills, one reassuring line) sits in a readable panel over
+ * the scene. With jhScene active (desktop, motion-OK) the camera zooms INTO
+ * the open hymnal on the pew, handing off to the Sunday scene. Static
+ * everywhere else; jhReveal stays additive-only; no PII; no emoji.
  */
 @Component({
   selector: 'jh-home-audience',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RevealDirective],
+  hostDirectives: [SceneDirective],
+  host: {
+    // Camera target: the open hymnal on the pew, in 1440×900 viewBox coords.
+    'data-scene-x': '920',
+    'data-scene-y': '536',
+  },
   templateUrl: './audience.html',
   styleUrl: './audience.css',
 })
