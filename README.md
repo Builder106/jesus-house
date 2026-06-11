@@ -1,59 +1,82 @@
-# JesusHouse
+<picture>
+  <source media="(prefers-color-scheme: dark)"  srcset="assets/banner-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/banner-light.svg">
+  <img alt="RCCG Jesus House — Middletown, Connecticut" src="assets/banner-light.png">
+</picture>
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.1.
+[![CI](https://github.com/Builder106/jesus-house/actions/workflows/ci.yml/badge.svg)](https://github.com/Builder106/jesus-house/actions/workflows/ci.yml)
+[![Angular](https://img.shields.io/badge/Angular-22-DD0031.svg)](https://angular.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6.svg)](https://www.typescriptlang.org/)
+[![Tailwind](https://img.shields.io/badge/Tailwind-v4-38BDF8.svg)](https://tailwindcss.com)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
+[![Demo](https://img.shields.io/badge/demo-live-success.svg)](https://jesus-house.vercel.app)
 
-## Development server
+The first-ever website for **RCCG Jesus House, Middletown** — a parish of The Redeemed Christian Church of God at 120 Washington Street, Middletown, CT 06457, a short drive from Wesleyan University. The parish has had no owned web presence at all (no site, no social accounts), so this Angular 22 SSR site becomes its first front door: Sunday service at 9:00 AM, the official RCCG dove seal as the mark, Fraunces + Mulish on a cream ground, and the parish's signature ministry up front — **"Need a ride?"** Every Sunday the parish picks up Wesleyan students for service, and the site digitizes that offer (v1 is a one-tap email/call CTA; the full ride-request form arrives in Phase 3).
 
-To start a local development server, run:
+## How it works
 
-```bash
-ng serve
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Visitor
+    participant Vercel as Vercel Edge
+    participant SSR as Angular SSR (Express)
+    participant Analytics as Vercel Analytics
+
+    Visitor->>Vercel: GET /
+    Vercel->>SSR: Forward request (or serve prerendered HTML from edge)
+    SSR-->>Visitor: Fully-rendered HTML + critical CSS
+    Visitor->>Vercel: Hydrate (download lazy route chunks)
+    Vercel-->>Visitor: JS bundle
+    Visitor->>Analytics: Page view + Core Web Vitals
+    Note over Visitor,SSR: All content is static in this phase — Sanity CMS arrives in Phase 2
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+The current phase is deliberately CMS-free: every page is static Angular, prerendered at build time where possible and SSR'd otherwise. Sanity (a fresh project, separate from the sibling parish's) joins in Phase 2 for announcements, events, and ministry pages.
 
-## Code scaffolding
+## Demos
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+<details>
+<summary><strong>Demo recordings pending</strong></summary>
 
-```bash
-ng generate component component-name
-```
+> Demo recordings come from the Gherkin E2E demo suite (Playwright + playwright-bdd narrative video walkthroughs — `npm run test:demo`). They'll appear here as GIFs grouped by user journey once the first recordings are produced.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+</details>
 
-```bash
-ng generate --help
-```
+## Stack
 
-## Building
+| Layer | Choice |
+|---|---|
+| Framework | Angular 22 with `@angular/ssr` (standalone, component prefix `jh`) |
+| Styling | Tailwind v4 via `@tailwindcss/postcss` |
+| Typography | Fraunces (headings) + Mulish (body/UI), self-hosted via `@fontsource` |
+| Unit tests | Vitest via `ng test` |
+| E2E | Playwright + playwright-bdd (QA suite + demo-recording suite) |
+| Hosting | Vercel — git integration deploys; GitHub Actions gates quality |
+| Telemetry | `@vercel/analytics` + `@vercel/speed-insights` |
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Local development
 
 ```bash
-ng test
+git clone https://github.com/Builder106/jesus-house.git
+cd jesus-house
+npm ci
+npm start                  # ng serve on :4200 with SSR + HMR
+npm run build              # production build + prerender
 ```
 
-## Running end-to-end tests
+> **`npm test` caveat:** unit tests are verified in CI, not locally — the local checkout path contains parentheses (`My Drive (yvaughan@…)`), which breaks Vitest's glob discovery and reports "No test files found." The tests are fine; trust the CI `unit` job.
 
-For end-to-end (e2e) testing, run:
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for project structure, guardrails, commit-message style, and out-of-scope items.
 
-```bash
-ng e2e
-```
+## Roadmap
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- ✅ **Phase 1** — Scaffold + brand shell: Angular 22 SSR, Tailwind v4 tokens, RCCG seal brand kit, Fraunces/Mulish, home page with the "Need a ride?" CTA (mailto/tel)
+- ⏳ **Phase 2** — Sanity CMS (new project) + content pages: About, Plan a Visit, Ministries, Wesleyan RCF
+- ⏳ **Phase 3** — Ride-request form + notifications (serverless handler → email; campus pickup presets)
+- ⏳ **Phase 4** — Events, Watch (RCCG streams), Give
+- ⏳ **Phase 5** — Launch: website URL on the Google Business listing, claim directory listings, parish domain
 
-## Additional Resources
+## License
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+[MIT](./LICENSE).
