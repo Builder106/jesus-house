@@ -7,7 +7,7 @@ Feature: Visit page guides a first-time guest
 
   Scenario: Visit page introduces the visit
     Given I am on the "/visit" page
-    Then I see a heading about visiting
+    Then I see the visit page welcome
 
   Scenario: Visit page shows the Sunday service time
     Given I am on the "/visit" page

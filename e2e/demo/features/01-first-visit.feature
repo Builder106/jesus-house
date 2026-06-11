@@ -16,7 +16,7 @@ Feature: First-time guest plans a Sunday visit
     Then I see the text "120 Washington Street"
     When I scroll back to the top
     And I click the "Plan a Visit" link
-    Then I see a heading about visiting
+    Then I see the visit page welcome
     When I pause for narration
     And I scroll down by 800 pixels
     Then the ride section offers an email link to the parish

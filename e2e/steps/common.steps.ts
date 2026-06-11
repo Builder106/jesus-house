@@ -88,8 +88,10 @@ Then('I see the heading {string}', async ({ page }, text: string) => {
   await dwellForDemo(page);
 });
 
-Then('I see a heading about visiting', async ({ page }) => {
-  await expect(page.getByRole('heading', { name: /visit/i }).first()).toBeVisible();
+Then('I see the visit page welcome', async ({ page }) => {
+  await expect(
+    page.getByRole('heading', { level: 1, name: /come as you are/i }),
+  ).toBeVisible();
   await dwellForDemo(page);
 });
 
