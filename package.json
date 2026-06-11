@@ -7,6 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:e2e": "bddgen --config=playwright.config.ts && playwright test --config=playwright.config.ts",
+    "test:demo": "DEMO=1 bddgen --config=playwright.demo.config.ts && DEMO=1 playwright test --config=playwright.demo.config.ts",
     "serve:ssr:jesus-house": "node dist/jesus-house/server/server.mjs"
   },
   "private": true,
@@ -20,6 +22,10 @@
     "@angular/platform-server": "^22.0.0",
     "@angular/router": "^22.0.0",
     "@angular/ssr": "^22.0.1",
+    "@fontsource/fraunces": "^5.2.9",
+    "@fontsource/mulish": "^5.2.8",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
@@ -28,10 +34,14 @@
     "@angular/build": "^22.0.1",
     "@angular/cli": "^22.0.1",
     "@angular/compiler-cli": "^22.0.0",
+    "@playwright/test": "^1.60.0",
+    "@tailwindcss/postcss": "^4.3.0",
     "@types/express": "^5.0.1",
     "@types/node": "^20.17.19",
     "jsdom": "^28.0.0",
-    "prettier": "^3.8.1",
+    "playwright-bdd": "^9.0.0",
+    "prettier": "^3.8.4",
+    "tailwindcss": "^4.3.0",
     "typescript": "~6.0.2",
     "vitest": "^4.0.8"
   }

@@ -1,1 +1,52 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles — RCCG Jesus House, Middletown */
+@import 'tailwindcss';
+
+/* Fraunces (display) — latin 500/600/700 */
+@import '@fontsource/fraunces/latin-500.css';
+@import '@fontsource/fraunces/latin-600.css';
+@import '@fontsource/fraunces/latin-700.css';
+
+/* Mulish (body/UI) — latin 400/600/700 */
+@import '@fontsource/mulish/latin-400.css';
+@import '@fontsource/mulish/latin-600.css';
+@import '@fontsource/mulish/latin-700.css';
+
+@theme {
+  /* RCCG seal palette */
+  --color-jh-blue: #28166f;
+  --color-jh-red: #da251d;
+  --color-jh-green: #00923f;
+  --color-jh-cream: #faf7ef;
+  --color-jh-surface: #ffffff;
+  --color-jh-ink: #221e3a;
+  --color-jh-soft: #6b6480;
+
+  /* Type */
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body: 'Mulish', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-jh-cream);
+    color: var(--color-jh-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+  }
+
+  /* Visible focus states everywhere */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--color-jh-blue);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
