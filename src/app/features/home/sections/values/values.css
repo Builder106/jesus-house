@@ -3,8 +3,9 @@
  * stained-glass arch (origin 50% 38%); its indigo glass fills the frame and
  * the jh-night veil hands off seamlessly to the cathedral section below.
  * Active timeline (--zoom 0→1):
- *   0–.10 heading · .10–.50 beats (one per .10 window) · .52–.92 zoom into
- *   the glass · .84–1 night veil. Static baseline: heading panel + 2×2 grid. */
+ *   0–.10 heading · .06–.54 beats (windows of .135 with ~30% crossfade ramps
+ *   and an upward drift — a scroll-driven carousel) · .56–.92 zoom into the
+ *   glass · .84–1 night veil. Static baseline: heading panel + 2×2 grid. */
 :host {
   display: block;
 }
@@ -86,7 +87,7 @@
 }
 
 :host(.scene--active) .scene__stage {
-  --n: clamp(0, calc((var(--zoom, 0) - 0.52) / 0.4), 1);
+  --n: clamp(0, calc((var(--zoom, 0) - 0.56) / 0.36), 1);
 }
 
 :host(.scene--active) .scene__art {
@@ -97,19 +98,22 @@
   will-change: transform;
 }
 
-/* Heading reads first, then yields the stage to the beats. */
+/* Heading reads first, then eases off as the first beat arrives. */
 :host(.scene--active) .scene__copy {
   position: absolute;
   inset: 0;
   display: grid;
   align-items: center;
-  opacity: clamp(0, calc(1 - (var(--zoom, 0) - 0.06) * 16), 1);
-  transform: translateY(calc(max(0, var(--zoom, 0) - 0.06) * -5vh));
+  opacity: clamp(0, calc(1 - (var(--zoom, 0) - 0.02) * 12), 1);
+  transform: translateY(calc(max(0, var(--zoom, 0) - 0.02) * -10vh));
   will-change: opacity, transform;
 }
 
-/* Beats: each takes the stage alone during its window [--bs, --bs + .115],
-   centred on a soft scrim so it reads over the scene. */
+/* Beats: a scroll-driven carousel. Each beat owns a window of the pin
+   ([--bs, --bs + .135], set in the template) and --wp is its progress through
+   that window. It fades in over the first ~30%, holds, fades out over the
+   last ~30%, while drifting upward through the whole window — so beats glide
+   through each other in a continuous crossfade instead of popping. */
 :host(.scene--active) .scene__beats {
   position: absolute;
   inset: 0;
@@ -125,14 +129,10 @@
   border: 0;
   border-radius: 0.75rem;
   padding: 2.25rem 2.75rem;
-  opacity: clamp(
-    0,
-    min(
-      calc((var(--zoom, 0) - var(--bs)) * 34),
-      calc((var(--bs) + 0.115 - var(--zoom, 0)) * 34)
-    ),
-    1
-  );
+  --wp: clamp(0, calc((var(--zoom, 0) - var(--bs)) / 0.135), 1);
+  opacity: clamp(0, calc(min(var(--wp), 1 - var(--wp)) * 3.4), 1);
+  transform: translateY(calc((0.5 - var(--wp)) * 4.5rem));
+  will-change: opacity, transform;
 }
 
 :host(.scene--active) .scene__beat-word {
