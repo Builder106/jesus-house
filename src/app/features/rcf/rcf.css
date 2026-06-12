@@ -1,13 +1,121 @@
-/* jh-rcf — Wesleyan RCF page. Layout is Tailwind in the template; this file
-   only owns the flame mark. Shares the global jhReveal / eyebrow / panel
-   conventions, so there's nothing else section-specific here. */
 :host {
   display: block;
 }
 
-/* RCF's flame mark — gold body, red core. Sits above the hero eyebrow. */
-.jh-flame {
+/* ── RCF hero — "draw near to the flame" ──────────────────────────────────
+ * Baseline (SSR / no-JS / short viewport): a static illustrated dusk hero —
+ * copy in the upper third, the glowing flame below, no pin. `.rcf-hero--active`
+ * (added by the component in the browser when the viewport is tall enough) pins
+ * the stage and drives `--enter` (0→1) from scroll: the dusk scene pushes toward
+ * the flame, a warm cream wash blooms by the pin's midpoint, and the copy lifts
+ * away — handing off to the week below, which is pulled up to rise through the
+ * finished wash (see the overlap at the end). No reduced-motion gate (user-
+ * driven; the owner's site-wide call); content is always visible by default. */
+.rcf-hero__stage {
+  position: relative;
+  min-height: clamp(34rem, 92svh, 56rem);
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  overflow: hidden;
+  background-color: #0a3526; /* dusk fallback before the art paints */
+}
+
+.rcf-hero__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 57%; /* centred on the flame */
+  will-change: transform;
+}
+
+/* Soft vignette so the cream copy stays legible over the dusk. */
+.rcf-hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgb(8 30 22 / 0.55) 0%,
+    rgb(8 30 22 / 0.12) 38%,
+    rgb(8 30 22 / 0) 60%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.rcf-hero__veil {
+  position: absolute;
+  inset: 0;
+  background: var(--color-jh-cream);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.rcf-hero__content {
+  position: relative;
+  z-index: 2;
+  /* Sit the copy in the upper third so the flame reads clearly below it. */
+  padding-top: clamp(2.5rem, 8svh, 5rem);
+  padding-bottom: 3rem;
+}
+
+.rcf-hero__headline {
+  font-size: clamp(2.4rem, 6.5vw, 4rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+
+/* ── Active: pinned fly-toward-the-flame ──────────────────────────────────── */
+.rcf-hero--active {
+  height: 300svh;
+}
+
+.rcf-hero--active .rcf-hero__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 0;
+}
+
+.rcf-hero--active .rcf-hero__art {
+  transform: scale(calc(1 + var(--enter, 0) * 5.5));
+}
+
+/* Warm cream wash finishes by ~the pin's midpoint so the week rises through it. */
+.rcf-hero--active .rcf-hero__veil {
+  opacity: clamp(0, calc((var(--enter, 0) - 0.26) * 5), 1);
+}
+
+.rcf-hero--active .rcf-hero__scrim {
+  opacity: clamp(0, calc(1 - var(--enter, 0) * 2.4), 1);
+}
+
+.rcf-hero--active .rcf-hero__content {
+  opacity: clamp(0, calc(1 - var(--enter, 0) * 3.2), 1);
+  transform: translateY(calc(var(--enter, 0) * -6vh));
+  will-change: opacity, transform;
+}
+
+/* Seamless hand-off: pull the section after the hero up one stage-height so it
+   rises through the finished cream wash (the home journey's overlap trick). */
+.rcf-hero--active + section {
+  margin-top: -100svh;
+}
+
+/* ── Week beats — alternating illustrated vignettes ───────────────────────── */
+.rcf-beat__art svg {
   display: block;
-  width: 2.4rem;
+  width: 100%;
   height: auto;
+  border-radius: 18px;
+  box-shadow: 0 18px 50px rgb(12 59 41 / 0.12);
+}
+
+/* Odd beats flip: illustration on the right (sm+). Stacked on mobile. */
+@media (min-width: 640px) {
+  .rcf-beat--flip .rcf-beat__art {
+    order: 2;
+  }
 }

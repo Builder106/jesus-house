@@ -1,64 +1,155 @@
 <!--
-  Wesleyan RCF — Redeemed Campus Fellowship. The parish's student ministry,
-  in the "COME AND SEE" language. Warm/light throughout, one deep-indigo
-  (jh-night) close. Verified facts only (launch + meeting flyers); NO student
-  names or photos; PHOTO SLOT placeholders + the flame motif only.
+  Wesleyan RCF — Redeemed Campus Fellowship. RCF's own scroll signature: an
+  illustrated campus-dusk hero you scroll INTO — drawing toward the RCF flame as
+  its warm light washes you in — then the week (Fri/Sat/Sun) as illustrated
+  picture-book beats. Green-forward kit. Verified facts only; illustration only,
+  NO student names/photos (PII); PHOTO SLOTs where real imagery will go.
 -->
 
-<!-- Intro -->
-<section aria-labelledby="rcf-heading">
-  <div class="mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
-    <!-- RCF flame mark (decorative) -->
+<!-- HERO — draw near to the flame. Pinned; the component drives --enter (0→1)
+     on .rcf-hero from scroll. Baseline (SSR / no-JS / short viewport): a static
+     illustrated hero with all copy visible. -->
+<section class="rcf-hero">
+  <div class="rcf-hero__stage">
+    <!-- Campus dusk: College Row behind, string lights above, a glowing RCF
+         flame at the heart of the gathering. The flame is the camera target. -->
     <svg
-      jhReveal
-      jhRevealDir="none"
-      class="jh-flame"
-      viewBox="0 0 40 48"
+      class="rcf-hero__art"
+      viewBox="0 0 1440 900"
+      preserveAspectRatio="xMidYMid slice"
       aria-hidden="true"
       focusable="false"
       xmlns="http://www.w3.org/2000/svg"
     >
+      <defs>
+        <linearGradient id="rcf-sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0a3526" />
+          <stop offset="0.44" stop-color="#155e44" />
+          <stop offset="0.7" stop-color="#5f8c4d" />
+          <stop offset="0.87" stop-color="#cf953f" />
+          <stop offset="1" stop-color="#f0c66a" />
+        </linearGradient>
+        <radialGradient id="rcf-sun" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0" stop-color="#fbe7a8" stop-opacity="0.85" />
+          <stop offset="0.5" stop-color="#f0c060" stop-opacity="0.3" />
+          <stop offset="1" stop-color="#f0c060" stop-opacity="0" />
+        </radialGradient>
+        <radialGradient id="rcf-halo" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0" stop-color="#fff4cf" stop-opacity="0.95" />
+          <stop offset="0.35" stop-color="#f4c24f" stop-opacity="0.5" />
+          <stop offset="0.72" stop-color="#e89a3a" stop-opacity="0.1" />
+          <stop offset="1" stop-color="#e89a3a" stop-opacity="0" />
+        </radialGradient>
+        <filter id="rcf-grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
+          <feColorMatrix type="saturate" values="0" />
+          <feComponentTransfer><feFuncA type="linear" slope="0.05" /></feComponentTransfer>
+          <feComposite operator="over" in2="SourceGraphic" />
+        </filter>
+      </defs>
+
+      <!-- sky + early stars + sunset glow behind campus -->
+      <rect width="1440" height="900" fill="url(#rcf-sky)" />
+      <g fill="#eafbe9" opacity="0.6">
+        <circle cx="210" cy="90" r="2" /><circle cx="430" cy="150" r="1.5" />
+        <circle cx="1090" cy="110" r="2" /><circle cx="1290" cy="180" r="1.5" />
+        <circle cx="770" cy="66" r="1.5" />
+      </g>
+      <circle cx="720" cy="560" r="380" fill="url(#rcf-sun)" />
+
+      <!-- treeline -->
+      <rect x="0" y="498" width="1440" height="80" fill="#0e3a2a" opacity="0.45" />
+
+      <!-- College Row buildings -->
+      <g fill="#0c3324">
+        <rect x="250" y="430" width="190" height="135" />
+        <rect x="560" y="382" width="320" height="183" />
+        <rect x="690" y="320" width="60" height="62" />
+        <path d="M688 320 L720 284 L752 320 Z" />
+        <rect x="1000" y="430" width="190" height="135" />
+      </g>
+      <!-- lit windows -->
+      <g fill="#f3c768">
+        <rect x="275" y="455" width="22" height="30" rx="2" /><rect x="320" y="455" width="22" height="30" rx="2" opacity="0.55" /><rect x="365" y="455" width="22" height="30" rx="2" />
+        <rect x="275" y="505" width="22" height="30" rx="2" opacity="0.5" /><rect x="365" y="505" width="22" height="30" rx="2" />
+        <rect x="590" y="410" width="24" height="34" rx="2" /><rect x="652" y="410" width="24" height="34" rx="2" opacity="0.6" /><rect x="822" y="410" width="24" height="34" rx="2" />
+        <rect x="590" y="472" width="24" height="34" rx="2" opacity="0.5" /><rect x="822" y="472" width="24" height="34" rx="2" />
+        <rect x="1025" y="455" width="22" height="30" rx="2" /><rect x="1115" y="455" width="22" height="30" rx="2" opacity="0.55" />
+        <rect x="1025" y="505" width="22" height="30" rx="2" /><rect x="1070" y="505" width="22" height="30" rx="2" opacity="0.5" />
+      </g>
+
+      <!-- flanking trees -->
+      <g fill="#09301f">
+        <ellipse cx="120" cy="470" rx="95" ry="160" /><ellipse cx="1330" cy="470" rx="95" ry="160" />
+      </g>
+
+      <!-- string lights -->
+      <path d="M150 296 Q 720 408 1290 296" fill="none" stroke="#0c3324" stroke-width="3" opacity="0.55" />
+      <g fill="#ffd877">
+        <circle cx="252" cy="328" r="6" /><circle cx="372" cy="354" r="6" /><circle cx="502" cy="376" r="6" /><circle cx="642" cy="392" r="6" /><circle cx="800" cy="392" r="6" /><circle cx="940" cy="376" r="6" /><circle cx="1070" cy="354" r="6" /><circle cx="1190" cy="328" r="6" />
+      </g>
+
+      <!-- lawn + warm ground glow -->
+      <rect x="0" y="560" width="1440" height="340" fill="#0c3b29" />
+      <ellipse cx="720" cy="612" rx="920" ry="120" fill="#114a34" opacity="0.55" />
+
+      <!-- stools in a semicircle (no people) -->
+      <g fill="#1b5a3f">
+        <ellipse cx="470" cy="724" rx="34" ry="14" /><ellipse cx="600" cy="772" rx="34" ry="14" /><ellipse cx="840" cy="772" rx="34" ry="14" /><ellipse cx="970" cy="724" rx="34" ry="14" />
+      </g>
+
+      <!-- the flame + its halo (camera target) -->
+      <circle cx="720" cy="512" r="268" fill="url(#rcf-halo)" />
       <path
-        d="M20 3 C 27 16 31 21 31 30 A 11 11 0 1 1 9 30 C 9 23 12 18 17 13 C 16 18 19 18 20 14 C 20 10 19 7 20 3 Z"
-        fill="var(--color-jh-green)"
+        d="M720 372 C 766 470 786 512 784 560 A 64 64 0 1 1 656 560 C 654 516 680 482 702 474 C 698 506 718 506 722 482 C 722 444 717 410 720 372 Z"
+        fill="#00923F"
       />
       <path
-        d="M20 18 C 24 25 26 27 26 31 A 6 6 0 1 1 14 31 C 14 27 16 24 20 18 Z"
-        fill="var(--color-jh-gold)"
+        d="M720 460 C 746 510 758 532 758 556 A 38 38 0 1 1 682 556 C 682 532 698 508 720 460 Z"
+        fill="#C9A227"
       />
-      <circle cx="20" cy="31" r="2.6" fill="#fff7e6" />
+      <ellipse cx="720" cy="560" rx="14" ry="20" fill="#FFF7E6" />
+      <g fill="#ffd877">
+        <circle cx="660" cy="426" r="4" opacity="0.8" /><circle cx="788" cy="398" r="3" opacity="0.7" /><circle cx="744" cy="356" r="2.5" opacity="0.6" />
+      </g>
+
+      <!-- grain -->
+      <rect width="1440" height="900" filter="url(#rcf-grain)" opacity="0.5" />
     </svg>
 
-    <p jhReveal jhRevealDir="none" class="jh-script-eyebrow mt-5 text-jh-green">Wesleyan RCF</p>
+    <!-- scrim so the cream copy reads over the dusk + halo -->
+    <div class="rcf-hero__scrim" aria-hidden="true"></div>
+    <!-- warm wash: draws you "into the flame" and hands off to the content below -->
+    <div class="rcf-hero__veil" aria-hidden="true"></div>
 
-    <h1
-      jhReveal="90"
-      id="rcf-heading"
-      class="mt-3 max-w-2xl font-display text-4xl font-semibold leading-tight text-jh-ink sm:text-5xl"
-    >
-      Faith and friends, right on campus.
-    </h1>
-
-    <p jhReveal="180" class="mt-5 max-w-xl text-lg leading-relaxed text-jh-soft">
-      RCF — the Redeemed Campus Fellowship — is Jesus House's student family at Wesleyan. We gather
-      through the week to worship, dig into the Bible, and just be together. Whoever you are and
-      wherever you're starting from, there's a seat for you.
-    </p>
-
-    <!-- Primary + ghost CTAs (rounded-full pills; red is the only CTA hue) -->
-    <div jhReveal="270" class="mt-9 flex flex-wrap items-center gap-4">
-      <a
-        [href]="instagramHref"
-        target="_blank"
-        rel="noopener"
-        class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"
-        >Follow {{ instagramHandle }}</a
+    <!-- Copy overlay -->
+    <div class="rcf-hero__content mx-auto w-full max-w-3xl px-6 text-center">
+      <p jhReveal jhRevealDir="none" class="jh-script-eyebrow text-jh-gold">Wesleyan RCF</p>
+      <h1
+        jhReveal="90"
+        id="rcf-heading"
+        class="rcf-hero__headline mt-3 font-display font-semibold leading-tight text-jh-cream"
       >
-      <a
-        [routerLink]="visitPath"
-        class="rounded-full border border-jh-blue px-6 py-3 text-sm font-bold text-jh-blue transition-colors hover:bg-jh-blue hover:text-white"
-        >Plan a Sunday visit</a
-      >
+        Keep the fire going.
+      </h1>
+      <p jhReveal="180" class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-jh-cream/85">
+        RCF — the Redeemed Campus Fellowship — is Jesus House's student family at Wesleyan. We gather
+        through the week to worship, dig into the Bible, and just be together.
+      </p>
+      <div jhReveal="270" class="mt-9 flex flex-wrap items-center justify-center gap-4">
+        <a
+          [href]="instagramHref"
+          target="_blank"
+          rel="noopener"
+          class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"
+          >Follow {{ instagramHandle }}</a
+        >
+        <a
+          [routerLink]="visitPath"
+          class="rounded-full border border-jh-cream/45 px-6 py-3 text-sm font-bold text-jh-cream transition-colors hover:bg-jh-cream hover:text-jh-ink"
+          >Plan a Sunday visit</a
+        >
+      </div>
     </div>
   </div>
 </section>
@@ -90,31 +181,133 @@
   </div>
 </section>
 
-<!-- When and where -->
+<!-- The week — illustrated picture-book beats (Fri/Sat/Sun), alternating L/R,
+     animating in as you scroll. -->
 <section class="border-t border-jh-rule" aria-labelledby="rcf-when-heading">
   <div class="mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
-    <p jhReveal class="jh-eyebrow text-jh-green">When &amp; where</p>
-
+    <p jhReveal class="jh-eyebrow text-jh-green">Your week</p>
     <h2
       jhReveal="90"
       id="rcf-when-heading"
       class="mt-3 max-w-2xl font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
     >
-      Where to find us this week.
+      Three places to find us.
     </h2>
 
-    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      @for (g of gatherings; track g.name; let i = $index) {
-        <div [jhReveal]="150 + i * 80" class="rounded-lg border border-jh-rule bg-jh-surface p-8">
-          <p class="font-semibold text-jh-ink">{{ g.name }}</p>
-          <p class="mt-1 font-display text-xl font-semibold text-jh-green">{{ g.when }}</p>
-          <p class="mt-1 text-sm font-semibold uppercase tracking-wide text-jh-gold">{{ g.where }}</p>
-          <p class="mt-4 text-base leading-relaxed text-jh-soft">{{ g.blurb }}</p>
+    <div class="mt-12 space-y-14 sm:mt-16 sm:space-y-24">
+      @for (g of week; track g.name; let even = $even) {
+        <div class="rcf-beat grid items-center gap-8 sm:grid-cols-2 sm:gap-12" [class.rcf-beat--flip]="!even">
+          <!-- Illustrated vignette -->
+          <div jhReveal [jhRevealDir]="even ? 'left' : 'right'" class="rcf-beat__art">
+            @switch (g.art) {
+              @case ('friday') {
+                <svg viewBox="0 0 440 320" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <radialGradient id="rcf-fri-win" cx="0.5" cy="0.4" r="0.75">
+                      <stop offset="0" stop-color="#ffe9ad" /><stop offset="1" stop-color="#efb648" />
+                    </radialGradient>
+                  </defs>
+                  <rect width="440" height="320" rx="18" fill="#0c3b29" />
+                  <rect width="440" height="172" fill="#0a3526" />
+                  <path d="M44 58 Q 220 100 396 58" fill="none" stroke="#1b5a3f" stroke-width="3" />
+                  <g fill="#ffd877">
+                    <circle cx="96" cy="74" r="5" /><circle cx="160" cy="86" r="5" /><circle cx="220" cy="90" r="5" /><circle cx="280" cy="86" r="5" /><circle cx="344" cy="74" r="5" />
+                  </g>
+                  <rect x="150" y="118" width="140" height="202" fill="#09301f" />
+                  <rect x="178" y="150" width="84" height="98" rx="4" fill="url(#rcf-fri-win)" />
+                  <g stroke="#09301f" stroke-width="5">
+                    <line x1="220" y1="150" x2="220" y2="248" /><line x1="178" y1="199" x2="262" y2="199" />
+                  </g>
+                  <g transform="translate(338 188)">
+                    <path d="M-21 6 L 0 64 L 21 6 Z" fill="#d79a4e" />
+                    <circle cx="0" cy="2" r="25" fill="#f3a8cf" /><circle cx="-9" cy="-6" r="14" fill="#fbd1e6" />
+                  </g>
+                  <g fill="#C9A227" transform="translate(86 156)">
+                    <rect x="16" y="-34" width="6" height="46" /><ellipse cx="9" cy="14" rx="12" ry="9" />
+                  </g>
+                </svg>
+              }
+              @case ('saturday') {
+                <svg viewBox="0 0 440 320" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <radialGradient id="rcf-sat-lamp" cx="0.34" cy="0.32" r="0.6">
+                      <stop offset="0" stop-color="#ffeec0" stop-opacity="0.9" /><stop offset="1" stop-color="#ffeec0" stop-opacity="0" />
+                    </radialGradient>
+                  </defs>
+                  <rect width="440" height="320" rx="18" fill="#f3eee0" />
+                  <ellipse cx="150" cy="120" rx="170" ry="140" fill="url(#rcf-sat-lamp)" />
+                  <!-- desk lamp: base, arm arcing over, shade shining down on the book -->
+                  <rect x="60" y="250" width="68" height="12" rx="6" fill="#00923F" />
+                  <path
+                    d="M95 250 L 95 138 Q 95 108 126 108 L 152 108"
+                    fill="none"
+                    stroke="#00923F"
+                    stroke-width="9"
+                    stroke-linecap="round"
+                  />
+                  <path d="M152 108 L 131 152 L 181 152 Z" fill="#00923F" />
+                  <ellipse cx="156" cy="160" rx="24" ry="6" fill="#ffe9ad" opacity="0.85" />
+                  <!-- open book -->
+                  <g transform="translate(248 196)">
+                    <path d="M-92 44 Q -46 26 0 36 Q 46 26 92 44 L 92 56 Q 46 38 0 48 Q -46 38 -92 56 Z" fill="#cdbf9b" />
+                    <path d="M-90 40 Q -46 22 0 32 L 0 -38 Q -46 -28 -90 -10 Z" fill="#fffaf0" />
+                    <path d="M90 40 Q 46 22 0 32 L 0 -38 Q 46 -28 90 -10 Z" fill="#fffaf0" />
+                    <g stroke="#c7b48a" stroke-width="2.5">
+                      <line x1="-72" y1="-2" x2="-18" y2="-9" /><line x1="-72" y1="12" x2="-18" y2="5" />
+                      <line x1="18" y1="-9" x2="72" y2="-2" /><line x1="18" y1="5" x2="72" y2="12" />
+                    </g>
+                    <path d="M0 -42 v 78" stroke="#C9A227" stroke-width="3" />
+                  </g>
+                  <!-- mug + steam -->
+                  <g transform="translate(360 244)">
+                    <rect x="-22" y="-26" width="44" height="48" rx="8" fill="#DA251D" />
+                    <path d="M22 -16 q 18 6 0 26" fill="none" stroke="#DA251D" stroke-width="7" />
+                    <path d="M-8 -40 q 8 -8 0 -18 M8 -40 q 8 -8 0 -18" fill="none" stroke="#c7b48a" stroke-width="3" opacity="0.7" />
+                  </g>
+                </svg>
+              }
+              @case ('sunday') {
+                <svg viewBox="0 0 440 320" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="rcf-sun-sky" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#fdf3da" /><stop offset="1" stop-color="#f6e7c0" />
+                    </linearGradient>
+                  </defs>
+                  <rect width="440" height="320" rx="18" fill="url(#rcf-sun-sky)" />
+                  <g stroke="#f0d68a" stroke-width="7" opacity="0.8">
+                    <line x1="250" y1="120" x2="250" y2="40" /><line x1="250" y1="120" x2="180" y2="62" /><line x1="250" y1="120" x2="320" y2="62" /><line x1="250" y1="120" x2="150" y2="120" /><line x1="250" y1="120" x2="350" y2="120" />
+                  </g>
+                  <!-- meetinghouse doorway (parish red door) -->
+                  <path d="M196 300 V 150 a54 54 0 0 1 108 0 V 300 Z" fill="#28166F" />
+                  <path d="M206 300 V 152 a44 44 0 0 1 88 0 V 300 Z" fill="#DA251D" />
+                  <line x1="250" y1="120" x2="250" y2="300" stroke="#a81b15" stroke-width="3" />
+                  <circle cx="276" cy="226" r="5" fill="#C9A227" />
+                  <!-- ground -->
+                  <rect x="0" y="296" width="440" height="24" fill="#e6dcc2" />
+                  <!-- little red car on the road -->
+                  <g transform="translate(70 268)">
+                    <rect x="-40" y="-16" width="80" height="26" rx="9" fill="#DA251D" />
+                    <path d="M-26 -16 q 8 -16 26 -16 h 8 q 14 0 18 16 z" fill="#e4453c" />
+                    <circle cx="-22" cy="12" r="9" fill="#221e3a" /><circle cx="22" cy="12" r="9" fill="#221e3a" />
+                  </g>
+                </svg>
+              }
+            }
+          </div>
+
+          <!-- Copy -->
+          <div jhReveal="120" class="rcf-beat__copy">
+            <span class="font-display text-4xl font-semibold text-jh-green/35" aria-hidden="true">{{ g.index }}</span>
+            <h3 class="mt-1 font-display text-2xl font-semibold text-jh-ink">{{ g.name }}</h3>
+            <p class="mt-1 font-display text-lg font-semibold text-jh-green">{{ g.when }}</p>
+            <p class="mt-1 text-sm font-semibold uppercase tracking-wide text-jh-gold">{{ g.where }}</p>
+            <p class="mt-4 max-w-md text-base leading-relaxed text-jh-soft">{{ g.blurb }}</p>
+          </div>
         </div>
       }
     </div>
 
-    <p jhReveal="420" class="mt-6 text-sm leading-relaxed text-jh-soft">
+    <p jhReveal class="mt-12 text-sm leading-relaxed text-jh-soft sm:mt-16">
       Rooms can move week to week — check {{ instagramHandle }} for the latest before you head over.
     </p>
   </div>
