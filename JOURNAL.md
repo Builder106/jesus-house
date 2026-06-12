@@ -6,6 +6,23 @@
 > Tag with `#decision` / `#pivot` / `#incident` / `#quote` / `#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-06-12 — Gave RCF its own visual kit #decision
+
+Studied the two Wesleyan RCF meeting flyers (in the `WhatsApp Chat - Wesleyan RCF`
+export) to design a real kit. They were exactly as inconsistent as the brainstorm
+warned: an April flyer in candy turquoise + hot pink with ice-cream art (reads as
+a kids' party) and a May flyer in sage green over a stock campus photo (elegant
+serif, cross + open-book icons). Nothing shared, nothing tied to the parish. The
+through-line I built on: **green** — the sage flyer matured into the actual
+RCCG-seal green, which gives RCF its own lane (vs. the parish's red-door identity)
+while staying in the family. So RCF = green-forward sub-brand: green eyebrows +
+gathering times, a flame mark recolored to green-body/gold-core, a new deep-green
+`--color-rcf-night` close, gold kept for warmth, red CTAs + Fraunces/Mulish kept
+for family. Two facts fell out of the flyers and fixed the page: Friday adds
+prayer + ice cream, and Saturday finally has its time (5–7 PM, PAC 333). Kit lives
+in `branding/rcf/` (BRAND.md + flame SVG). PII rule held — studied the flyers for
+design only, no names/faces near the repo.
+
 ## 2026-06-12 — Built the Wesleyan RCF page #milestone
 
 The parish's student ministry (Redeemed Campus Fellowship at Wesleyan — the
