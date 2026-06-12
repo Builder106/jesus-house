@@ -6,6 +6,22 @@
 > Tag with `#decision` / `#pivot` / `#incident` / `#quote` / `#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-06-12 — Built the Wesleyan RCF page #milestone
+
+The parish's student ministry (Redeemed Campus Fellowship at Wesleyan — the
+youth-ministry analogue to Celestial Sanctum's CZM) finally has its own page at
+`/rcf`, the structure the brainstorm called for: flame-marked intro, weekly
+gatherings as cards (Fri fellowship 4–5 PM Rehearsal Hall 109 · Sat study PAC
+333 · Sun service 9 AM), campus ride tie-in, dark close. Built in the `/visit`
+content language, wired into nav + footer, prerendered. Open items to confirm
+with the parish before this is "done": (1) **@rcfcampus is the *regional* RCF
+Instagram**, the only public trace — confirm or swap for a Wesleyan-specific
+handle; (2) **Saturday study has no time on the flyers** — left as just
+"Saturdays"; (3) the flame is a generic motif, not RCF's actual logo — they have
+a flame logo on the launch flyer, and the brainstorm flagged "give RCF a kit" as
+an opportunity; (4) any student-leader photos need consent (PII rule holds —
+none used yet).
+
 ## 2026-06-12 — Sunday-mornings carousel: richer cards, slower beats #feedback
 
 User: "The cards are bland and they move way too fast as I scroll." Two fixes.
