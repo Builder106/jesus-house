@@ -257,3 +257,16 @@
 jh-home-hero.portal--active + jh-home-ride {
   margin-top: -100svh;
 }
+
+/* The four scene→scene hand-offs work the same way. Each scene compresses its
+ * action into the front of its (now taller) pin via a local --p (see each
+ * scene's CSS), holds the finished cream/night veil over the back, and the next
+ * scene is pulled up one stage-height so it rises through that held veil into
+ * centre — no dead cream between sections. Gated on the previous scene's
+ * .scene--active so the static/no-JS/reduced-motion flow is untouched. */
+jh-home-ride.scene--active + jh-home-audience,
+jh-home-audience.scene--active + jh-home-values,
+jh-home-values.scene--active + jh-home-story,
+jh-home-story.scene--active + jh-home-comeandsee {
+  margin-top: -100svh;
+}

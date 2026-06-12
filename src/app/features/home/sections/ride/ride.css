@@ -52,7 +52,7 @@
 
 /* ── Active camera move (tall viewports + motion-OK) ───────────────────── */
 :host(.scene--active) {
-  height: 260svh;
+  height: 320svh;
 }
 
 :host(.scene--active) .scene__stage {
@@ -63,8 +63,14 @@
 }
 
 :host(.scene--active) .scene__stage {
-  /* normalized zoom-phase progress: 0 until .45, 1 by .92 */
-  --n: clamp(0, calc((var(--zoom, 0) - 0.45) / 0.47), 1);
+  /* The whole scene action (copy read → zoom into the window → cream veil) runs
+     over the FRONT of the pin via --p (0→1 as --zoom 0→.545), then holds at its
+     end state while the next scene rises up through the held cream over the back
+     ~45% — so the hand-off has no dead-scroll gap (see the -100svh overlap in
+     styles.css). All the original beat fractions are kept, just keyed off --p. */
+  --p: clamp(0, calc(var(--zoom, 0) / 0.545), 1);
+  /* normalized zoom-phase progress within the action window: 0 until .45, 1 by .92 */
+  --n: clamp(0, calc((var(--p) - 0.45) / 0.47), 1);
 }
 
 :host(.scene--active) .scene__art {
@@ -77,16 +83,16 @@
 }
 
 :host(.scene--active) .scene__copy {
-  opacity: clamp(0, calc(1 - (var(--zoom, 0) - 0.3) * 8.3), 1);
-  transform: translateY(calc(max(0, var(--zoom, 0) - 0.3) * -6vh));
+  opacity: clamp(0, calc(1 - (var(--p) - 0.3) * 8.3), 1);
+  transform: translateY(calc(max(0, var(--p) - 0.3) * -6vh));
   will-change: opacity, transform;
 }
 
 :host(.scene--active) .scene__cue {
   display: block;
-  opacity: clamp(0, calc(1 - var(--zoom, 0) * 6), 1);
+  opacity: clamp(0, calc(1 - var(--p) * 6), 1);
 }
 
 :host(.scene--active) .scene__veil {
-  opacity: clamp(0, calc((var(--zoom, 0) - 0.82) * 5.6), 1);
+  opacity: clamp(0, calc((var(--p) - 0.82) * 5.6), 1);
 }

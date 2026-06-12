@@ -74,7 +74,7 @@
 
 /* ── Active camera move (tall viewports + motion-OK) ───────────────────── */
 :host(.scene--active) {
-  height: 320svh;
+  height: 400svh;
 }
 
 :host(.scene--active) .scene__stage {
@@ -87,7 +87,13 @@
 }
 
 :host(.scene--active) .scene__stage {
-  --n: clamp(0, calc((var(--zoom, 0) - 0.56) / 0.36), 1);
+  /* Scene action (heading → 4-beat carousel → zoom into the glass → night veil)
+     runs over the front of the pin via --p (0→1 as --zoom 0→.667 — more room
+     than the others because of the beats), then holds while the cathedral rises
+     up through the held veil over the back third. See the -100svh overlap in
+     styles.css. All original beat fractions are kept, keyed off --p. */
+  --p: clamp(0, calc(var(--zoom, 0) / 0.667), 1);
+  --n: clamp(0, calc((var(--p) - 0.56) / 0.36), 1);
 }
 
 :host(.scene--active) .scene__art {
@@ -104,8 +110,8 @@
   inset: 0;
   display: grid;
   align-items: center;
-  opacity: clamp(0, calc(1 - (var(--zoom, 0) - 0.02) * 12), 1);
-  transform: translateY(calc(max(0, var(--zoom, 0) - 0.02) * -10vh));
+  opacity: clamp(0, calc(1 - (var(--p) - 0.02) * 12), 1);
+  transform: translateY(calc(max(0, var(--p) - 0.02) * -10vh));
   will-change: opacity, transform;
 }
 
@@ -129,7 +135,7 @@
   border: 0;
   border-radius: 0.75rem;
   padding: 2.25rem 2.75rem;
-  --wp: clamp(0, calc((var(--zoom, 0) - var(--bs)) / 0.135), 1);
+  --wp: clamp(0, calc((var(--p) - var(--bs)) / 0.135), 1);
   opacity: clamp(0, calc(min(var(--wp), 1 - var(--wp)) * 3.4), 1);
   transform: translateY(calc((0.5 - var(--wp)) * 4.5rem));
   will-change: opacity, transform;
@@ -141,9 +147,9 @@
 
 :host(.scene--active) .scene__cue {
   display: block;
-  opacity: clamp(0, calc(1 - var(--zoom, 0) * 6), 1);
+  opacity: clamp(0, calc(1 - var(--p) * 6), 1);
 }
 
 :host(.scene--active) .scene__veil {
-  opacity: clamp(0, calc((var(--zoom, 0) - 0.84) * 6.3), 1);
+  opacity: clamp(0, calc((var(--p) - 0.84) * 6.3), 1);
 }

@@ -48,7 +48,7 @@
 
 /* ── Active camera move (tall viewports + motion-OK) ───────────────────── */
 :host(.scene--active) {
-  height: 250svh;
+  height: 320svh;
 }
 
 :host(.scene--active) .scene__stage {
@@ -59,7 +59,12 @@
 }
 
 :host(.scene--active) .scene__stage {
-  --n: clamp(0, calc((var(--zoom, 0) - 0.45) / 0.47), 1);
+  /* Scene action (copy read → zoom into the hymnal → cream veil) runs over the
+     front of the pin via --p (0→1 as --zoom 0→.545), then holds while the pew
+     scene rises up through the held cream over the back ~45% — closing the
+     hand-off gap (see the -100svh overlap in styles.css). */
+  --p: clamp(0, calc(var(--zoom, 0) / 0.545), 1);
+  --n: clamp(0, calc((var(--p) - 0.45) / 0.47), 1);
 }
 
 :host(.scene--active) .scene__art {
@@ -71,16 +76,16 @@
 }
 
 :host(.scene--active) .scene__copy {
-  opacity: clamp(0, calc(1 - (var(--zoom, 0) - 0.3) * 8.3), 1);
-  transform: translateY(calc(max(0, var(--zoom, 0) - 0.3) * -6vh));
+  opacity: clamp(0, calc(1 - (var(--p) - 0.3) * 8.3), 1);
+  transform: translateY(calc(max(0, var(--p) - 0.3) * -6vh));
   will-change: opacity, transform;
 }
 
 :host(.scene--active) .scene__cue {
   display: block;
-  opacity: clamp(0, calc(1 - var(--zoom, 0) * 6), 1);
+  opacity: clamp(0, calc(1 - var(--p) * 6), 1);
 }
 
 :host(.scene--active) .scene__veil {
-  opacity: clamp(0, calc((var(--zoom, 0) - 0.82) * 5.6), 1);
+  opacity: clamp(0, calc((var(--p) - 0.82) * 5.6), 1);
 }
