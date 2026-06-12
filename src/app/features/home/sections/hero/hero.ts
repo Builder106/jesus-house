@@ -15,18 +15,21 @@ import { Lottie } from '../../../../shared/ui/lottie/lottie';
 /**
  * jh-home-hero — THE PORTAL (first screen + "enter the door" scroll scene).
  *
- * Baseline (SSR / no-JS / reduced-motion) is a normal static hero: copy left,
+ * Baseline (SSR / no-JS / short viewports) is a normal static hero: copy left,
  * the open red door right, a scroll cue below. Fully visible, no pinning.
  *
- * Enhancement: in the browser, when motion is allowed, the component adds the
- * `portal--active` class (the wrapper grows tall, the stage pins) and drives a
- * `--enter` custom property (0→1) from scroll progress through the wrapper. CSS
- * uses --enter to scale the doorway up until you pass through it and a warm
- * cream wash carries you "inside", handing off to the journey below.
+ * Enhancement: in the browser, the component adds the `portal--active` class
+ * (the wrapper grows tall, the stage pins) and drives a `--enter` custom
+ * property (0→1) from scroll progress through the wrapper. CSS uses --enter to
+ * scale the doorway up until you pass through it and a warm cream wash carries
+ * you "inside", handing off to the journey below.
  *
- * SSR / reduced-motion safety: the scroll listener lives inside afterNextRender
- * + isPlatformBrowser and is skipped entirely under prefers-reduced-motion, so
- * portal--active never lands there — the static hero is what shows. All motion
+ * SSR safety: the scroll listener lives inside afterNextRender + isPlatformBrowser
+ * so portal--active never lands on the server — the static hero is what renders.
+ * No prefers-reduced-motion gate: the portal is scroll-DRIVEN and the owner chose
+ * to play it for everyone (see scene.directive.ts). Autoplay flourishes (the
+ * headline word-rise, the cue bob, the door's load-swing) still respect
+ * reduced-motion via the js-motion class + no-preference media query. All motion
  * is transform/opacity only and rAF-throttled.
  */
 @Component({
@@ -51,7 +54,9 @@ export class HomeHero {
   constructor() {
     afterNextRender(() => {
       if (!isPlatformBrowser(this.platformId)) return;
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      // No prefers-reduced-motion gate (see class doc): the portal is
+      // user-driven and the owner opted to play it for everyone. Autoplay
+      // flourishes still respect reduced-motion via the js-motion reveal system.
 
       const el = this.host.nativeElement;
 

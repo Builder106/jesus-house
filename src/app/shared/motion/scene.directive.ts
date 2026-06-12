@@ -18,14 +18,20 @@ import { isPlatformBrowser } from '@angular/common';
  * stage and zoom its illustrated art toward a target element — the "camera
  * move" into the next scene.
  *
- * Baseline (SSR / no-JS / short viewports / prefers-reduced-motion): the class
- * never lands, `--zoom` stays unset, and the scene renders as a normal static
- * illustrated section. Content is never hidden by default.
+ * Baseline (SSR / no-JS / short viewports): the class never lands, `--zoom`
+ * stays unset, and the scene renders as a normal static illustrated section.
+ * Content is never hidden by default.
  *
  * The height gate is *reactive* — it re-evaluates when the viewport crosses the
  * threshold, so rotating a phone between portrait (pinned) and a short landscape
- * (static) flips the scene live, with no refresh. Reduced-motion is a hard
- * opt-out: those listeners are never even attached.
+ * (static) flips the scene live, with no refresh.
+ *
+ * Note: there is no prefers-reduced-motion gate. The journey is scroll-DRIVEN
+ * (it only moves as the user scrolls), and the site owner chose to play it for
+ * everyone (2026-06-12 — too many phones run Android "remove animations" / iOS
+ * Reduce Motion and were silently getting a plain page). Decorative AUTOPLAY
+ * motion (reveal fades, the cue bob, the door's load-swing) still honours
+ * reduced-motion separately, via the js-motion class + no-preference media query.
  *
  * Identical contract to the hero portal controller; rAF-throttled passive
  * listeners, transform/opacity-only consumers.
@@ -39,7 +45,9 @@ export class SceneDirective {
   constructor() {
     afterNextRender(() => {
       if (!isPlatformBrowser(this.platformId)) return;
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      // No prefers-reduced-motion gate (see class doc): the journey is
+      // user-driven, and the owner opted to play it for everyone. Autoplay
+      // flourishes still respect reduced-motion via the js-motion reveal system.
 
       const el = this.host.nativeElement;
 
