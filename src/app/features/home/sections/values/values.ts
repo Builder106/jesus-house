@@ -22,7 +22,8 @@ import { SceneDirective } from '../../../../shared/motion/scene.directive';
   imports: [RevealDirective],
   hostDirectives: [SceneDirective],
   host: {
-    // Camera target: the heart of the stained-glass arch (1440×900 viewBox).
+    // Camera target: the cross at the heart of the stained-glass arch (1440×900
+    // viewBox) — the camera dives into it as the scene hands off to the cathedral.
     'data-scene-x': '720',
     'data-scene-y': '330',
   },
