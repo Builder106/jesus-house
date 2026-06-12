@@ -49,10 +49,11 @@
 
 /* ── SCENE 5 camera move — out through the arch ─────────────────────────
  * Static: .scene__frame / doorlight / cue / veil are inert. Active (jhScene,
- * desktop + motion-OK): the section pins; content reads until ~.42, then the
- * whole frame scales into the arch (origin 89.3% 50% = the arch's centre at
+ * tall viewport + motion-OK): the section pins; content reads until ~.42, then
+ * the whole frame scales into the arch (origin 89.3% 50% = the arch's centre at
  * lg layout) while warm light blooms through it; a cream veil completes the
- * step back out into the light, resolving onto the closing invitation. */
+ * step back out into the light, resolving onto the closing invitation. On
+ * phones the arch is off-screen, so the scale-up re-centres (media block below). */
 .scene__frame {
   position: relative;
   height: 100%;
@@ -93,13 +94,13 @@
 
 :host(.scene--active) {
   display: block;
-  height: 240vh;
+  height: 240svh;
 }
 
 :host(.scene--active) .scene__stage {
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: 100svh;
   display: grid;
   align-items: center;
 }
@@ -114,6 +115,22 @@
   transform-origin: calc(100% - 154px) 50%;
   transform: translate(calc(var(--n) * (154px - 50vw)), 0) scale(calc(1 + var(--n) * 11));
   will-change: transform;
+}
+
+/* On phones/tablets the right-side arch is off-screen, so move out through the
+   centre of the frame instead — a clean push into the light. The doorlight is
+   re-centred to match in the media block below. */
+@media (max-width: 1023px) {
+  :host(.scene--active) .scene__frame {
+    transform-origin: 50% 46%;
+    transform: scale(calc(1 + var(--n) * 11));
+  }
+  .scene__doorlight {
+    right: auto;
+    left: 50%;
+    top: 46%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 :host(.scene--active) .scene__content {

@@ -2,7 +2,8 @@
  * Picture-book road vignette; the camera zooms into the car's side window
  * (origin 30.6% 72.6% = the rear window's position in the 1440×900 art).
  * Baseline = static illustrated section; .scene--active (set by jhScene on
- * desktop, motion-OK) pins the stage and drives the move off --zoom (0→1):
+ * any tall-enough viewport, motion-OK) pins the stage and drives the move off
+ * --zoom (0→1):
  *   0–.30 read copy · .30–.45 copy lifts away · .45–.92 zoom into the glass ·
  *   .82–1 cream veil hands off to the pew scene. */
 :host {
@@ -49,15 +50,15 @@
   pointer-events: none;
 }
 
-/* ── Active camera move (desktop + motion-OK only) ─────────────────────── */
+/* ── Active camera move (tall viewports + motion-OK) ───────────────────── */
 :host(.scene--active) {
-  height: 260vh;
+  height: 260svh;
 }
 
 :host(.scene--active) .scene__stage {
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: 100svh;
   min-height: 0;
 }
 

@@ -72,15 +72,15 @@
   pointer-events: none;
 }
 
-/* ── Active camera move (desktop + motion-OK only) ─────────────────────── */
+/* ── Active camera move (tall viewports + motion-OK) ───────────────────── */
 :host(.scene--active) {
-  height: 320vh;
+  height: 320svh;
 }
 
 :host(.scene--active) .scene__stage {
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: 100svh;
   min-height: 0;
   display: block;
   padding-block: 0;

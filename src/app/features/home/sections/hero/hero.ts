@@ -44,7 +44,7 @@ export class HomeHero {
   protected readonly visitPath = '/visit';
   protected readonly rideHref = 'mailto:rccgjhmiddletown@gmail.com?subject=Ride%20request';
 
-  private readonly host = inject(ElementRef<HTMLElement>);
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly destroyRef = inject(DestroyRef);
 
@@ -52,17 +52,26 @@ export class HomeHero {
     afterNextRender(() => {
       if (!isPlatformBrowser(this.platformId)) return;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      // Desktop only — the pinned fly-through wants room and steady scrolling;
-      // phones/tablets fall back to the static centered hero.
-      if (!window.matchMedia('(min-width: 1024px)').matches) return;
 
       const el = this.host.nativeElement;
-      el.classList.add('portal--active');
+
+      // Measure the pinned stage rather than window.innerHeight (which tracks
+      // the large viewport on mobile and disagrees with the svh-sized stage).
+      const stage = el.querySelector<HTMLElement>('.portal__stage');
+
+      // Reactive height gate: any viewport tall enough to hold the pinned
+      // fly-through (phones in portrait included); short/landscape-phone heights
+      // fall back to static. Tracked live so rotating the phone flips it without
+      // a reload.
+      const tallEnough = window.matchMedia('(min-height: 500px)');
+      let active = false;
 
       let ticking = false;
       const update = () => {
         ticking = false;
-        const range = el.offsetHeight - window.innerHeight;
+        if (!active) return;
+        const stageH = stage?.offsetHeight ?? window.innerHeight;
+        const range = el.offsetHeight - stageH;
         const progress = range > 0 ? -el.getBoundingClientRect().top / range : 0;
         el.style.setProperty('--enter', Math.min(1, Math.max(0, progress)).toFixed(4));
       };
@@ -72,12 +81,23 @@ export class HomeHero {
         requestAnimationFrame(update);
       };
 
+      const setActive = (on: boolean) => {
+        if (on === active) return;
+        active = on;
+        el.classList.toggle('portal--active', on);
+        if (on) update();
+        else el.style.removeProperty('--enter');
+      };
+      const onGate = () => setActive(tallEnough.matches);
+
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll, { passive: true });
-      update();
+      tallEnough.addEventListener('change', onGate);
+      onGate();
       this.destroyRef.onDestroy(() => {
         window.removeEventListener('scroll', onScroll);
         window.removeEventListener('resize', onScroll);
+        tallEnough.removeEventListener('change', onGate);
       });
     });
   }

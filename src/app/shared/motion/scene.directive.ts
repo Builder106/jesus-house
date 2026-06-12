@@ -18,9 +18,14 @@ import { isPlatformBrowser } from '@angular/common';
  * stage and zoom its illustrated art toward a target element — the "camera
  * move" into the next scene.
  *
- * Baseline (SSR / no-JS / phones / short viewports / prefers-reduced-motion):
- * the class never lands, `--zoom` stays unset, and the scene renders as a
- * normal static illustrated section. Content is never hidden by default.
+ * Baseline (SSR / no-JS / short viewports / prefers-reduced-motion): the class
+ * never lands, `--zoom` stays unset, and the scene renders as a normal static
+ * illustrated section. Content is never hidden by default.
+ *
+ * The height gate is *reactive* — it re-evaluates when the viewport crosses the
+ * threshold, so rotating a phone between portrait (pinned) and a short landscape
+ * (static) flips the scene live, with no refresh. Reduced-motion is a hard
+ * opt-out: those listeners are never even attached.
  *
  * Identical contract to the hero portal controller; rAF-throttled passive
  * listeners, transform/opacity-only consumers.
@@ -35,12 +40,8 @@ export class SceneDirective {
     afterNextRender(() => {
       if (!isPlatformBrowser(this.platformId)) return;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      // Desktop only — pinned camera moves want room and steady wheel/trackpad
-      // scrolling. Short viewports would clip pinned content.
-      if (!window.matchMedia('(min-width: 1024px) and (min-height: 600px)').matches) return;
 
       const el = this.host.nativeElement;
-      el.classList.add('scene--active');
 
       // Camera-target plumbing: scenes that zoom into a point of an SVG art
       // layer declare it in viewBox coordinates via data-scene-x/y (and
@@ -54,11 +55,24 @@ export class SceneDirective {
       const vbW = parseFloat(el.dataset['sceneVw'] ?? '1440');
       const vbH = parseFloat(el.dataset['sceneVh'] ?? '900');
       const art = el.querySelector<HTMLElement>('.scene__art');
+      // Measure the pinned stage's real rendered height rather than
+      // window.innerHeight: on mobile innerHeight tracks the large viewport and
+      // doesn't move with the URL bar, so it disagrees with the svh-sized stage
+      // and the progress drifts. The stage's offsetHeight is always truthful.
+      const stage = el.querySelector<HTMLElement>('.scene__stage');
+
+      // Reactive height gate: pin only on viewports tall enough to hold the
+      // scene (phones in portrait included); short/landscape-phone heights stay
+      // static. Tracked live so an orientation change flips it without a reload.
+      const tallEnough = window.matchMedia('(min-height: 500px)');
+      let active = false;
 
       let ticking = false;
       const update = () => {
         ticking = false;
-        const range = el.offsetHeight - window.innerHeight;
+        if (!active) return;
+        const stageH = stage?.offsetHeight ?? window.innerHeight;
+        const range = el.offsetHeight - stageH;
         const progress = range > 0 ? -el.getBoundingClientRect().top / range : 0;
         el.style.setProperty('--zoom', Math.min(1, Math.max(0, progress)).toFixed(4));
 
@@ -82,12 +96,23 @@ export class SceneDirective {
         requestAnimationFrame(update);
       };
 
+      const setActive = (on: boolean) => {
+        if (on === active) return;
+        active = on;
+        el.classList.toggle('scene--active', on);
+        if (on) update();
+        else el.style.removeProperty('--zoom');
+      };
+      const onGate = () => setActive(tallEnough.matches);
+
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll, { passive: true });
-      update();
+      tallEnough.addEventListener('change', onGate);
+      onGate();
       this.destroyRef.onDestroy(() => {
         window.removeEventListener('scroll', onScroll);
         window.removeEventListener('resize', onScroll);
+        tallEnough.removeEventListener('change', onGate);
       });
     });
   }

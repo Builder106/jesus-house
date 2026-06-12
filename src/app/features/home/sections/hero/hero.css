@@ -74,13 +74,13 @@
    these need no media gate. --enter (0→1) is set from scroll by the component. */
 :host(.portal--active) {
   display: block;
-  height: 300vh;
+  height: 300svh;
 }
 
 :host(.portal--active) .portal__stage {
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: 100svh;
   min-height: 0;
   padding-block: 0;
   overflow: hidden;
