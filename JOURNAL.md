@@ -6,6 +6,22 @@
 > Tag with `#decision` / `#pivot` / `#incident` / `#quote` / `#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-06-12 — Sunday-mornings carousel: richer cards, slower beats #feedback
+
+User: "The cards are bland and they move way too fast as I scroll." Two fixes.
+Bland → each beat is now an editorial index: a big gold Fraunces numeral, a
+mono-caps label kicker, the word, the line, plus carousel progress dots (in a
+small frosted pill so they stay legible over the busy sanctuary art; the active
+tick fills gold and widens). Too-fast → partly self-inflicted: the dead-scroll-gap
+fix the day before had compressed this scene's action into the front of its pin
+via `--p`, which sped the carousel up as a side effect. Fixed by holding each beat
+at full opacity for ~76% of its window (was ~41%) and drifting the card only
+during the fades so it sits still while you read it, plus a height bump (400→440svh,
+re-deriving f so the story overlap still lands on the pin-end). Lesson: a global
+timing remap (the `--p` compression) silently re-paces every per-scene animation
+keyed off it — worth re-checking the content beats, not just the hand-off, after
+that kind of change.
+
 ## 2026-06-12 — Journey now plays regardless of Reduce Motion #incident #decision
 
 User: "On mobile, the site just scrolls like any other regular webpage. I'm not
