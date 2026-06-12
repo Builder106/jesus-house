@@ -36,6 +36,12 @@
   --color-jh-gold: #c9a227; /* warm accent + script-feel eyebrow on dark */
   --color-jh-rule: #e7e1d6; /* hairline rules on cream */
 
+  /* RCF sub-brand — the campus fellowship. Signature is the RCCG-seal green
+     (jh-green) brought forward, which gives RCF its own lane (vs the parish's
+     red-door identity) while staying in the family. rcf-night = its deep-green
+     "after dark", the green answer to jh-night for the RCF page's close. */
+  --color-rcf-night: #0c3b29;
+
   /* Type */
   --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
   --font-body: 'Mulish', system-ui, -apple-system, 'Segoe UI', sans-serif;

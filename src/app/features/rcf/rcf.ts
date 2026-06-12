@@ -21,8 +21,9 @@ import { RevealDirective } from '../../shared/motion/reveal.directive';
  *     all content fully visible.
  *
  * Verified facts only (RCF launch + meeting flyers, Apr–May 2026): Friday
- * fellowship 4–5 PM in Rehearsal Hall 109; Saturday study in PAC 333; Sunday
- * service 9:00 AM, 120 Washington Street. NO student names or photos (PII) —
+ * fellowship 4–5 PM in Rehearsal Hall 109 (worship · prayer · Bible games · ice
+ * cream); Saturday study 5–7 PM in PAC 333; Sunday service 9:00 AM, 120
+ * Washington Street. NO student names or photos (PII) —
  * "student leaders" stays generic; PHOTO SLOT placeholders only. No emoji.
  */
 @Component({
@@ -52,13 +53,13 @@ export class Rcf {
       name: 'Friday Fellowship',
       when: 'Fridays · 4–5 PM',
       where: 'Rehearsal Hall 109',
-      blurb: 'Worship, a short word, games, and snacks to close out the week together.',
+      blurb: 'Worship, prayer, Bible games — and ice cream to close out the week together.',
     },
     {
       name: 'Saturday Study',
-      when: 'Saturdays',
+      when: 'Saturdays · 5–7 PM',
       where: 'PAC 333',
-      blurb: 'Open the Bible together at an easy pace — bring your questions, no experience needed.',
+      blurb: 'Prayer, group study, and snacks — bring your questions, no experience needed.',
     },
     {
       name: 'Sunday Service',
