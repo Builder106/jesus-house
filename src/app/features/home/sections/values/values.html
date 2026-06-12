@@ -286,14 +286,26 @@
   </div>
 
   <!-- The four beats. Static: a 2×2 grid below the heading. Active: each beat
-       takes the stage alone, timed to its window of the pin. -->
+       takes the stage alone, timed to its window of the pin (a scroll carousel).
+       Each card is an editorial index: gold numeral · label kicker · word · line. -->
   <ul class="scene__beats relative z-[2] mx-auto w-full max-w-5xl px-6" aria-label="What Sunday is like">
     @for (beat of beats; track beat.word; let i = $index) {
       <li class="scene__beat" [style.--bs]="0.06 + i * 0.115">
-        <p class="jh-eyebrow text-jh-soft">{{ beat.eyebrow }}</p>
+        <span class="scene__beat-num font-display" aria-hidden="true">{{ beat.index }}</span>
+        <p class="scene__beat-label jh-eyebrow text-jh-soft">{{ beat.label }}</p>
         <h3 class="scene__beat-word mt-3 font-display font-semibold text-jh-blue">{{ beat.word }}</h3>
-        <p class="mx-auto mt-3 max-w-md text-lg leading-relaxed text-jh-ink">{{ beat.line }}</p>
+        <p class="scene__beat-line mx-auto mt-3 max-w-md text-lg leading-relaxed text-jh-ink">
+          {{ beat.line }}
+        </p>
       </li>
+    }
+  </ul>
+
+  <!-- Carousel progress: one tick per beat, the active one fills gold. Active
+       (pinned) only — decorative, so aria-hidden; the static grid shows all four. -->
+  <ul class="scene__dots" aria-hidden="true">
+    @for (beat of beats; track beat.word; let i = $index) {
+      <li class="scene__dot" [style.--bs]="0.06 + i * 0.115"></li>
     }
   </ul>
 

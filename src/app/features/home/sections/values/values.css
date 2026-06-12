@@ -1,11 +1,13 @@
 /* SCENE 4 — SUNDAY MORNING (the sanctuary).
- * The four beats play over the pinned scene, then the camera zooms into the
- * stained-glass arch (origin 50% 38%); its indigo glass fills the frame and
- * the jh-night veil hands off seamlessly to the cathedral section below.
- * Active timeline (--zoom 0→1):
- *   0–.10 heading · .06–.54 beats (windows of .135 with ~30% crossfade ramps
- *   and an upward drift — a scroll-driven carousel) · .56–.92 zoom into the
- *   glass · .84–1 night veil. Static baseline: heading panel + 2×2 grid. */
+ * The four beats play over the pinned scene as a scroll-driven carousel, then
+ * the camera zooms into the stained-glass arch; its indigo glass fills the
+ * frame and the jh-night veil hands off to the cathedral section below.
+ * Active timeline runs on --p (the scene's action, --zoom 0→.706, before the
+ * cathedral rises through the held veil over the back):
+ *   0–.10 heading · .06–.54 beats (each card holds at full opacity for most of
+ *   its .135 window, with a gentle drift + crossfade; gold progress dots track
+ *   the active beat) · .56–.92 zoom into the glass · .84–1 night veil.
+ * Static baseline: heading panel + a 2×2 grid of the same cards (no dots). */
 :host {
   display: block;
 }
@@ -48,9 +50,29 @@
   padding: 1.75rem;
 }
 
+/* Editorial index numeral — the gold accent that anchors each card. */
+.scene__beat-num {
+  display: block;
+  font-size: clamp(2.25rem, 5vw, 3rem);
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-jh-gold);
+}
+
+.scene__beat-label {
+  margin-top: 0.5rem;
+}
+
 .scene__beat-word {
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   line-height: 1.05;
+}
+
+/* Carousel progress dots — hidden in the static grid (all four cards show);
+   the active pinned carousel reveals + drives them (see active block below). */
+.scene__dots {
+  display: none;
 }
 
 .scene__cue {
@@ -74,7 +96,7 @@
 
 /* ── Active camera move (tall viewports + motion-OK) ───────────────────── */
 :host(.scene--active) {
-  height: 400svh;
+  height: 440svh;
 }
 
 :host(.scene--active) .scene__stage {
@@ -88,11 +110,12 @@
 
 :host(.scene--active) .scene__stage {
   /* Scene action (heading → 4-beat carousel → zoom into the glass → night veil)
-     runs over the front of the pin via --p (0→1 as --zoom 0→.667 — more room
-     than the others because of the beats), then holds while the cathedral rises
-     up through the held veil over the back third. See the -100svh overlap in
-     styles.css. All original beat fractions are kept, keyed off --p. */
-  --p: clamp(0, calc(var(--zoom, 0) / 0.667), 1);
+     runs over the front of the pin via --p (0→1 as --zoom 0→.706 — the tallest
+     scene of the set, so the carousel reads slowly), then holds while the
+     cathedral rises up through the held veil over the back. f = 1 − 100svh/pin
+     (440svh tall → 340svh pin → .706); keeps the -100svh story overlap landing
+     exactly on this scene's pin-end (see styles.css). Beat fractions keyed off --p. */
+  --p: clamp(0, calc(var(--zoom, 0) / 0.706), 1);
   --n: clamp(0, calc((var(--p) - 0.56) / 0.36), 1);
 }
 
@@ -131,18 +154,74 @@
 
 :host(.scene--active) .scene__beat {
   grid-area: 1 / 1;
-  max-width: 34rem;
+  max-width: 36rem;
   border: 0;
-  border-radius: 0.75rem;
-  padding: 2.25rem 2.75rem;
+  border-radius: 1rem;
+  padding: 2.75rem 3rem 3rem;
+  /* --wp: 0→1 across this beat's window. Opacity holds at full for most of the
+     window (wp .12→.88, ~76%) then crosses to the next beat — so each card sits
+     long enough to read instead of flashing past. The /.12 ramp can't put two
+     cards full at once (windows are .115 apart). */
   --wp: clamp(0, calc((var(--p) - var(--bs)) / 0.135), 1);
-  opacity: clamp(0, calc(min(var(--wp), 1 - var(--wp)) * 3.4), 1);
-  transform: translateY(calc((0.5 - var(--wp)) * 4.5rem));
+  opacity: clamp(0, calc(min(var(--wp), 1 - var(--wp)) / 0.12), 1);
+  /* Drift only during the fades: slides up into place, holds STILL while read,
+     slides up out — so the held card isn't moving under the eye. */
+  transform: translateY(
+    calc(
+      (
+          clamp(0, calc((0.12 - var(--wp)) / 0.12), 1) -
+            clamp(0, calc((var(--wp) - 0.88) / 0.12), 1)
+        ) * 1.2rem
+    )
+  );
   will-change: opacity, transform;
+}
+
+:host(.scene--active) .scene__beat-num {
+  font-size: clamp(2.5rem, 6vw, 3.25rem);
 }
 
 :host(.scene--active) .scene__beat-word {
   font-size: clamp(2.6rem, 5vw, 4rem);
+}
+
+/* Carousel progress dots: revealed while pinned, fading out as the glass zoom
+   begins. Each tick fills gold and widens as its beat takes the stage. */
+:host(.scene--active) .scene__dots {
+  display: flex;
+  gap: 0.55rem;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  bottom: 5rem;
+  transform: translateX(-50%);
+  z-index: 2;
+  margin: 0;
+  /* A small frosted pill keeps the progress track legible over any part of the
+     sanctuary art (cream walls or the red carpet below). */
+  padding: 0.6rem 0.95rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-jh-cream) 72%, transparent);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 20px rgb(20 16 56 / 0.07);
+  list-style: none;
+  opacity: clamp(0, calc(1 - (var(--p) - 0.56) * 8), 1);
+  will-change: opacity;
+}
+
+:host(.scene--active) .scene__dot {
+  width: 1.65rem;
+  height: 3px;
+  border-radius: 2px;
+  --wp: clamp(0, calc((var(--p) - var(--bs)) / 0.135), 1);
+  --da: clamp(0, calc(min(var(--wp), 1 - var(--wp)) * 4), 1);
+  /* inactive = jh-soft (legible on the cream/carpet art), active fills gold */
+  background: color-mix(in srgb, var(--color-jh-gold) calc(var(--da) * 100%), var(--color-jh-soft));
+  opacity: calc(0.45 + var(--da) * 0.55);
+  transform: scaleX(calc(1 + var(--da) * 0.7));
+  transform-origin: center;
+  will-change: transform, opacity, background;
 }
 
 :host(.scene--active) .scene__cue {

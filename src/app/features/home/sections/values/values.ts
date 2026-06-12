@@ -30,25 +30,35 @@ import { SceneDirective } from '../../../../shared/motion/scene.directive';
   styleUrl: './values.css',
 })
 export class HomeValues {
-  /** The four beats of a Sunday, in journey order. */
-  protected readonly beats: ReadonlyArray<{ eyebrow: string; word: string; line: string }> = [
+  /** The four beats of a Sunday, in journey order. The numeral + label render
+   *  as a paired kicker above each beat word (a magazine-style index). */
+  protected readonly beats: ReadonlyArray<{
+    index: string;
+    label: string;
+    word: string;
+    line: string;
+  }> = [
     {
-      eyebrow: '01 — Arrival',
+      index: '01',
+      label: 'Arrival',
       word: 'Welcoming',
       line: "You'll be greeted at the door, never singled out.",
     },
     {
-      eyebrow: '02 — The Word',
+      index: '02',
+      label: 'The Word',
       word: 'Rooted',
       line: 'Honest teaching from the Bible, in about ninety minutes.',
     },
     {
-      eyebrow: '03 — The Family',
+      index: '03',
+      label: 'The Family',
       word: 'Together',
       line: 'A warm, multicultural family: students and neighbors, side by side.',
     },
     {
-      eyebrow: '04 — The Sending',
+      index: '04',
+      label: 'The Sending',
       word: 'Sending',
       line: 'You leave with people who will know your name.',
     },
