@@ -6,6 +6,25 @@
 > Tag with `#decision` / `#pivot` / `#incident` / `#quote` / `#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-06-12 — Journey now plays regardless of Reduce Motion #incident #decision
+
+User: "On mobile, the site just scrolls like any other regular webpage. I'm not
+getting the zoom-in transitions." Reproduced against the live site under
+Android-Chrome emulation (same Blink engine they're on): the journey activated
+fine, `svh` resolved, no console errors, no `overflow` ancestor breaking sticky
+— so the code was sound and the phone was hitting the static fallback for an
+environmental reason. The one gate that bails on a real device but not in my
+clean emulation: `prefers-reduced-motion`. Android's "Remove animations" (and iOS
+Reduce Motion) makes the browser report reduced-motion, and the gate treated that
+as a hard opt-out → plain page. Asked the user how to handle it; they chose "play
+the journey anyway" (over keep-respecting-it or an opt-in toggle). Dropped the
+reduced-motion early-return from both journey controllers — the journey is
+scroll-DRIVEN so it only moves when the user scrolls, and decorative autoplay
+(word-rise, cue bob, door load-swing, reveals) still respects the setting via the
+js-motion system. The redeploy also busts any stale pre-mobile-port bundle. Lesson:
+Chrome device-emulation can't reproduce an OS-level reduced-motion setting, so a
+"works in emulation, broken on device" report should suspect reduced-motion early.
+
 ## 2026-06-11 — Closed the dead-scroll gap at every section hand-off #decision #incident
 
 Scrolling the live zoom-journey, the user: "I scrolled into the door but landed
