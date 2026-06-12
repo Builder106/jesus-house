@@ -6,6 +6,22 @@
 > Tag with `#decision` / `#pivot` / `#incident` / `#quote` / `#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-06-12 — Corrected the RCF flame to the real logo #incident
+
+After I built RCF green-forward, the owner asked "why's the fire green?" and
+shared the RCF launch poster. The actual mark is a **warm flame rising from an
+open book** (the Word) — the classic Redeemed Campus Fellowship logo, with a
+lowercase "rcf" wordmark. My green flame was a double miss: wrong colour (a flame
+reads as fire; the real brand is warm) AND missing the book entirely. Recreated
+it faithfully — warm multi-tone flame (red-orange → orange → gold → cream core)
+on an open white book — as the hero's focal mark and the kit asset. Kept the
+green campus-night scene (warm fire reads beautifully against the cool night),
+but RCF's real brand is warm overall, so whether to also warm the page accents
+(the green eyebrows + gathering times) is an open call with the owner. Lesson:
+when a group already has a logo, get the real asset before inventing a mark — I
+guessed green off a sage-green meeting flyer + the RCCG seal, and both the colour
+and the book were wrong.
+
 ## 2026-06-12 — RCF page got its own scroll signature #decision
 
 User: the RCF page was "pretty standard ... nothing's making it stand out like
