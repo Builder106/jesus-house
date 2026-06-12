@@ -237,3 +237,23 @@
   background: var(--color-jh-cream);
   box-shadow: inset 0 0 0 0.12rem var(--color-jh-rule);
 }
+
+/* ── Journey hand-off: close the pinned-section trailing gap ────────────────
+ * A position:sticky stage inside a tall wrapper leaves exactly one stage-height
+ * (100svh) of trailing scroll AFTER its animation ends — the unpinned stage
+ * sliding away as dead space before the next section reaches the top. For the
+ * hero that tail is a flat cream void: you "enter the door", then scroll a whole
+ * empty screen before the road scene arrives.
+ *
+ * Pull the road section up by that one stage-height so it overlaps the hero's
+ * tail. The hero retimes its door + cream wash to finish by the pin's midpoint
+ * (see hero.css), so through the back half the road scene slides up THROUGH the
+ * completed cream into centre — arriving centred exactly as the door finishes.
+ * The road paints over the unpinning hero stage, so the old void is hidden.
+ *
+ * Gated on portal--active (browser + motion-OK only); the static/no-JS/reduced-
+ * motion layout keeps the sections in normal flow with no overlap. svh, not vh,
+ * to match the stage's own svh sizing under the mobile URL bar. */
+jh-home-hero.portal--active + jh-home-ride {
+  margin-top: -100svh;
+}

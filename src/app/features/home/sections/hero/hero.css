@@ -93,38 +93,40 @@
   will-change: opacity, transform;
 }
 
-/* PHASE 1 (enter 0 → ~0.42): the leaf swings open on its hinge as you scroll —
+/* PHASE 1 (enter 0 → ~0.29): the leaf swings open on its hinge as you scroll —
    the scroll drives the swing, so we override the load animation here. No zoom
    yet, so it can't balloon over the headline. */
 :host(.portal--active) .jh-door__leaf {
   animation: none;
-  transform: rotateY(calc(min(1, var(--enter, 0) * 2.4) * -115deg));
+  transform: rotateY(calc(min(1, var(--enter, 0) * 3.5) * -115deg));
 }
 
-/* PHASE 2 (enter ~0.4 → 1): with the door open, the doorway eases toward you a
-   little and dissolves as the light takes over — a gentle step-through, not a
-   uniform zoom. */
+/* PHASE 2 (enter ~0.18 → 0.46): with the door open, the doorway eases toward
+   you and dissolves as the light takes over — a gentle step-through, not a
+   uniform zoom. It completes by the pin's midpoint so the cream wash is whole
+   before the next scene rises into it (see the -100svh overlap in styles.css). */
 :host(.portal--active) .portal__art {
-  transform: scale(calc(1 + max(0, var(--enter, 0) - 0.4) * 4.5));
+  transform: scale(calc(1 + max(0, var(--enter, 0) - 0.18) * 7));
   transform-origin: 50% 46%;
-  opacity: clamp(0, calc(1 - (var(--enter, 0) - 0.55) * 3.4), 1);
+  opacity: clamp(0, calc(1 - (var(--enter, 0) - 0.2) * 4), 1);
   will-change: transform, opacity;
 }
 
 /* The centred light grows and brightens once the door is open — the threshold
    you cross as you move through. */
 :host(.portal--active) .portal__light {
-  transform: translate(-50%, -50%) scale(calc(0.4 + max(0, var(--enter, 0) - 0.28) * 3.4));
-  opacity: clamp(0, calc((var(--enter, 0) - 0.34) * 2.1), 1);
+  transform: translate(-50%, -50%) scale(calc(0.4 + max(0, var(--enter, 0) - 0.15) * 5));
+  opacity: clamp(0, calc((var(--enter, 0) - 0.2) * 4), 1);
 }
 
-/* Cream wash finishes the transition, matching the page ground beneath. */
+/* Cream wash finishes the transition by the pin's midpoint, matching the page
+   ground beneath — the ride scene then slides up through it into centre. */
 :host(.portal--active) .portal__veil {
   display: block;
   position: absolute;
   inset: 0;
   background: var(--color-jh-cream);
-  opacity: clamp(0, calc((var(--enter, 0) - 0.72) * 3.6), 1);
+  opacity: clamp(0, calc((var(--enter, 0) - 0.26) * 5), 1);
   pointer-events: none;
   z-index: 5;
 }
