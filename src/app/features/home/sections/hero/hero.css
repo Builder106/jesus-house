@@ -19,7 +19,9 @@
 .portal__content {
   position: relative;
   z-index: 1;
-  gap: clamp(1.25rem, 4vh, 2.25rem);
+  /* Slightly tighter than before so the door + copy leave a clean band at the
+     bottom for the scroll-mouse cue on shorter viewports. */
+  gap: clamp(0.85rem, 2.4vh, 1.5rem);
 }
 
 /* Slightly smaller, centred headline so the door + copy share one screen. */
@@ -34,7 +36,7 @@
   place-items: center;
 }
 .portal__art .jh-door {
-  max-width: clamp(8.5rem, 22vh, 12rem);
+  max-width: clamp(7rem, 17vh, 10rem);
 }
 
 /* The warm light you move toward — a centred radial glow, off until you scroll. */
@@ -132,6 +134,14 @@
 }
 
 :host(.portal--active) .portal__cue {
+  /* Pin to the viewport bottom rather than the stage bottom: the pinned stage is
+     100svh but sits 84px down (main's header clearance), so a stage-anchored cue
+     falls below the fold at landing. The stage has no transform, so `fixed`
+     resolves to the viewport — the cue reads at the bottom of the first screen on
+     any viewport, and --enter fades it out as you move through the door. */
+  position: fixed;
+  bottom: 1.5rem;
+  pointer-events: none;
   opacity: clamp(0, calc(1 - var(--enter, 0) * 4.5), 1);
 }
 
@@ -174,7 +184,8 @@
    :host(.portal--active) above, and the load swing below) layers on top. */
 
 /* ── Scroll cue ───────────────────────────────────────────────────────────
-   The chevron gives a slow, calm bob only when motion is allowed. */
+   A themed scroll-mouse (.jh-mouse, in global styles) above a small label; the
+   wheel dot drifts down only when motion is allowed. */
 .jh-hero__cue {
   letter-spacing: 0.01em;
 }
@@ -201,10 +212,6 @@
     will-change: transform, opacity;
   }
 
-  html.js-motion .jh-hero__chevron {
-    animation: jh-hero-bob 2.4s ease-in-out 1.6s infinite;
-  }
-
   /* Enhancement: swing the leaf from closed to its open resting state once, a
      beat after load. Pure CSS (no js-motion dependency) so it can't get stuck;
      `both` holds the closed start during the delay and the open end after. */
@@ -227,15 +234,5 @@
   to {
     transform: translateY(0);
     opacity: 1;
-  }
-}
-
-@keyframes jh-hero-bob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(3px);
   }
 }

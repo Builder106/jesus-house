@@ -10,7 +10,6 @@ import {
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { RevealDirective } from '../../../../shared/motion/reveal.directive';
-import { Lottie } from '../../../../shared/ui/lottie/lottie';
 
 /**
  * jh-home-hero — THE PORTAL (first screen + "enter the door" scroll scene).
@@ -35,7 +34,7 @@ import { Lottie } from '../../../../shared/ui/lottie/lottie';
 @Component({
   selector: 'jh-home-hero',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, RevealDirective, Lottie],
+  imports: [RouterLink, RevealDirective],
   templateUrl: './hero.html',
   styleUrl: './hero.css',
   host: { class: 'portal' },

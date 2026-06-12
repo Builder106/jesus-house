@@ -69,9 +69,9 @@
   <!-- Warm cream wash — carries you "inside" near the end, handing off to the page. -->
   <div class="portal__veil" aria-hidden="true"></div>
 
-  <!-- Scroll-to-enter cue (fades as you begin to move through). -->
-  <p class="portal__cue jh-hero__cue inline-flex items-center gap-2 text-sm font-semibold text-jh-blue">
-    <span>Scroll to enter</span>
-    <jh-lottie src="/animations/chevron.json" class="jh-hero__chevron h-5 w-5" />
-  </p>
+  <!-- Scroll-to-enter cue: a themed scroll-mouse whose wheel dot drifts down.
+       Decorative (aria-hidden); the whole cue fades as you move through. -->
+  <div class="portal__cue jh-hero__cue flex justify-center text-jh-blue" aria-hidden="true">
+    <span class="jh-mouse"><span class="jh-mouse__wheel"></span></span>
+  </div>
 </section>

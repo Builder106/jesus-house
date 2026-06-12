@@ -270,3 +270,57 @@ jh-home-values.scene--active + jh-home-story,
 jh-home-story.scene--active + jh-home-comeandsee {
   margin-top: -100svh;
 }
+
+/* ── Scroll-mouse cue ───────────────────────────────────────────────────────
+ * The universal "scroll" hint — a rounded mouse body whose wheel-dot drifts
+ * down — themed to the site: body outlined in currentColor (jh-blue where used),
+ * a soft cream fill + shadow for a little weight, and a jh-red wheel dot.
+ * Baseline (SSR / no-JS / reduced-motion): the dot rests at the top, so it still
+ * reads as a scroll cue. The drift only runs under html.js-motion (browser +
+ * motion-OK), so reduced-motion users get the calm static mark. */
+.jh-mouse {
+  position: relative;
+  display: block;
+  width: 1.6rem;
+  height: 2.65rem;
+  border-radius: 999px;
+  border: 2px solid currentColor;
+  background: color-mix(in srgb, #fff 60%, transparent);
+  box-shadow: 0 6px 18px rgb(20 16 56 / 0.1);
+}
+
+.jh-mouse__wheel {
+  position: absolute;
+  left: 50%;
+  top: 0.5rem;
+  width: 0.34rem;
+  height: 0.34rem;
+  border-radius: 999px;
+  background: var(--color-jh-red);
+  transform: translateX(-50%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js-motion .jh-mouse__wheel {
+    animation: jh-mouse-scroll 1.9s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+}
+
+@keyframes jh-mouse-scroll {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  55% {
+    transform: translate(-50%, 0.95rem);
+    opacity: 1;
+  }
+  80% {
+    transform: translate(-50%, 1.1rem);
+    opacity: 0;
+  }
+}
