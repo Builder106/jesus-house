@@ -323,3 +323,78 @@ jh-home-story.scene--active + jh-home-comeandsee {
     opacity: 0;
   }
 }
+
+/* ── Swipe-phone cue (touch devices) ────────────────────────────────────────
+ * The touch counterpart to the scroll-mouse, for the same "scroll down" job: a
+ * phone outline (jh-blue, cream fill, home-indicator line) with a jh-red finger
+ * that repeatedly swipes down. Hidden by default; shown instead of the mouse
+ * under a coarse pointer (the swap is at the bottom of this block). Same
+ * unconditional animation so it loops regardless of the OS reduce-motion. */
+.jh-swipe {
+  position: relative;
+  display: none;
+  width: 1.5rem;
+  height: 2.7rem;
+  border-radius: 0.5rem;
+  border: 2px solid currentColor;
+  background: color-mix(in srgb, #fff 60%, transparent);
+  box-shadow: 0 6px 18px rgb(20 16 56 / 0.1);
+  overflow: hidden;
+}
+
+/* Home-indicator line — reads the rounded rectangle clearly as a phone. */
+.jh-swipe::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0.28rem;
+  width: 0.7rem;
+  height: 0.14rem;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.4;
+  transform: translateX(-50%);
+}
+
+.jh-swipe__finger {
+  position: absolute;
+  left: 50%;
+  top: 0.5rem;
+  width: 0.46rem;
+  height: 1.05rem;
+  border-radius: 999px;
+  background: var(--color-jh-red);
+  transform: translate(-50%, 0);
+  animation: jh-swipe-down 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes jh-swipe-down {
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  55% {
+    transform: translate(-50%, 1.05rem);
+    opacity: 1;
+  }
+  80%,
+  100% {
+    transform: translate(-50%, 1.25rem);
+    opacity: 0;
+  }
+}
+
+/* Input-appropriate swap: scroll-mouse for fine pointers (desktop), phone-swipe
+   for coarse pointers (touch). */
+@media (pointer: coarse) {
+  .jh-mouse {
+    display: none;
+  }
+
+  .jh-swipe {
+    display: block;
+  }
+}

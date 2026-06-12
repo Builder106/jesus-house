@@ -69,9 +69,12 @@
   <!-- Warm cream wash — carries you "inside" near the end, handing off to the page. -->
   <div class="portal__veil" aria-hidden="true"></div>
 
-  <!-- Scroll-to-enter cue: a themed scroll-mouse whose wheel dot drifts down.
-       Decorative (aria-hidden); the whole cue fades as you move through. -->
+  <!-- Scroll-to-enter cue. Desktop (fine pointer): a scroll-mouse whose wheel
+       dot drifts down. Touch (coarse pointer): a phone whose finger swipes down.
+       Swapped by pointer type in styles.css. Decorative (aria-hidden); the whole
+       cue fades as you move through. -->
   <div class="portal__cue jh-hero__cue flex justify-center text-jh-blue" aria-hidden="true">
     <span class="jh-mouse"><span class="jh-mouse__wheel"></span></span>
+    <span class="jh-swipe"><span class="jh-swipe__finger"></span></span>
   </div>
 </section>
