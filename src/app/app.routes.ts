@@ -11,4 +11,9 @@ export const routes: Routes = [
     loadComponent: () => import('./features/visit/visit').then((m) => m.Visit),
     title: 'Plan a Visit — RCCG Jesus House, Middletown',
   },
+  {
+    path: 'rcf',
+    loadComponent: () => import('./features/rcf/rcf').then((m) => m.Rcf),
+    title: 'Wesleyan RCF — RCCG Jesus House, Middletown',
+  },
 ];

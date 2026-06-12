@@ -18,6 +18,7 @@
       <a routerLink="/visit" routerLinkActive="jh-header__link--active" class="jh-header__link"
         >Plan a Visit</a
       >
+      <a routerLink="/rcf" routerLinkActive="jh-header__link--active" class="jh-header__link">RCF</a>
       <a [href]="rideHref" class="jh-header__cta">Need a ride?</a>
     </div>
 
@@ -53,6 +54,13 @@
         class="jh-header__menu-link"
         (click)="closeMenu()"
         >Plan a Visit</a
+      >
+      <a
+        routerLink="/rcf"
+        routerLinkActive="jh-header__menu-link--active"
+        class="jh-header__menu-link"
+        (click)="closeMenu()"
+        >RCF</a
       >
       <a [href]="rideHref" class="jh-header__menu-cta" (click)="closeMenu()">Need a ride?</a>
     </div>

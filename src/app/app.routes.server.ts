@@ -8,5 +8,9 @@ export const serverRoutes: ServerRoute[] = [
   {
     path: 'visit',
     renderMode: RenderMode.Prerender
+  },
+  {
+    path: 'rcf',
+    renderMode: RenderMode.Prerender
   }
 ];

@@ -1,0 +1,13 @@
+/* jh-rcf — Wesleyan RCF page. Layout is Tailwind in the template; this file
+   only owns the flame mark. Shares the global jhReveal / eyebrow / panel
+   conventions, so there's nothing else section-specific here. */
+:host {
+  display: block;
+}
+
+/* RCF's flame mark — gold body, red core. Sits above the hero eyebrow. */
+.jh-flame {
+  display: block;
+  width: 2.4rem;
+  height: auto;
+}

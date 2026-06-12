@@ -1,0 +1,193 @@
+<!--
+  Wesleyan RCF — Redeemed Campus Fellowship. The parish's student ministry,
+  in the "COME AND SEE" language. Warm/light throughout, one deep-indigo
+  (jh-night) close. Verified facts only (launch + meeting flyers); NO student
+  names or photos; PHOTO SLOT placeholders + the flame motif only.
+-->
+
+<!-- Intro -->
+<section aria-labelledby="rcf-heading">
+  <div class="mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
+    <!-- RCF flame mark (decorative) -->
+    <svg
+      jhReveal
+      jhRevealDir="none"
+      class="jh-flame"
+      viewBox="0 0 40 48"
+      aria-hidden="true"
+      focusable="false"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M20 3 C 27 16 31 21 31 30 A 11 11 0 1 1 9 30 C 9 23 12 18 17 13 C 16 18 19 18 20 14 C 20 10 19 7 20 3 Z"
+        fill="var(--color-jh-gold)"
+      />
+      <path
+        d="M20 18 C 24 25 26 27 26 31 A 6 6 0 1 1 14 31 C 14 27 16 24 20 18 Z"
+        fill="var(--color-jh-red)"
+      />
+    </svg>
+
+    <p jhReveal jhRevealDir="none" class="jh-script-eyebrow mt-5 text-jh-blue">Wesleyan RCF</p>
+
+    <h1
+      jhReveal="90"
+      id="rcf-heading"
+      class="mt-3 max-w-2xl font-display text-4xl font-semibold leading-tight text-jh-ink sm:text-5xl"
+    >
+      Faith and friends, right on campus.
+    </h1>
+
+    <p jhReveal="180" class="mt-5 max-w-xl text-lg leading-relaxed text-jh-soft">
+      RCF — the Redeemed Campus Fellowship — is Jesus House's student family at Wesleyan. We gather
+      through the week to worship, dig into the Bible, and just be together. Whoever you are and
+      wherever you're starting from, there's a seat for you.
+    </p>
+
+    <!-- Primary + ghost CTAs (rounded-full pills; red is the only CTA hue) -->
+    <div jhReveal="270" class="mt-9 flex flex-wrap items-center gap-4">
+      <a
+        [href]="instagramHref"
+        target="_blank"
+        rel="noopener"
+        class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"
+        >Follow {{ instagramHandle }}</a
+      >
+      <a
+        [routerLink]="visitPath"
+        class="rounded-full border border-jh-blue px-6 py-3 text-sm font-bold text-jh-blue transition-colors hover:bg-jh-blue hover:text-white"
+        >Plan a Sunday visit</a
+      >
+    </div>
+  </div>
+</section>
+
+<!-- Who we are -->
+<section class="border-t border-jh-rule" aria-labelledby="rcf-who-heading">
+  <div class="mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
+    <p jhReveal class="jh-eyebrow text-jh-soft">Who we are</p>
+
+    <h2
+      jhReveal="90"
+      id="rcf-who-heading"
+      class="mt-3 max-w-2xl font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
+    >
+      A campus fellowship, run by students.
+    </h2>
+
+    <div class="mt-6 max-w-xl space-y-4 text-lg leading-relaxed text-jh-soft">
+      <p jhReveal="180">
+        RCF is the student arm of RCCG Jesus House. It launched at Wesleyan in 2026, led by students
+        from the parish who wanted a place to keep their faith and their friendships growing during
+        the week — not just on Sundays.
+      </p>
+      <p jhReveal="240">
+        Expect worship, honest conversation about the Bible, a few games, and always something to eat.
+        You don't need any church background to belong here — come curious.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- When and where -->
+<section class="border-t border-jh-rule" aria-labelledby="rcf-when-heading">
+  <div class="mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
+    <p jhReveal class="jh-eyebrow text-jh-soft">When &amp; where</p>
+
+    <h2
+      jhReveal="90"
+      id="rcf-when-heading"
+      class="mt-3 max-w-2xl font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
+    >
+      Where to find us this week.
+    </h2>
+
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      @for (g of gatherings; track g.name; let i = $index) {
+        <div [jhReveal]="150 + i * 80" class="rounded-lg border border-jh-rule bg-jh-surface p-8">
+          <p class="font-semibold text-jh-ink">{{ g.name }}</p>
+          <p class="mt-1 font-display text-xl font-semibold text-jh-blue">{{ g.when }}</p>
+          <p class="mt-1 text-sm font-semibold uppercase tracking-wide text-jh-gold">{{ g.where }}</p>
+          <p class="mt-4 text-base leading-relaxed text-jh-soft">{{ g.blurb }}</p>
+        </div>
+      }
+    </div>
+
+    <p jhReveal="420" class="mt-6 text-sm leading-relaxed text-jh-soft">
+      Rooms can move week to week — check {{ instagramHandle }} for the latest before you head over.
+    </p>
+  </div>
+</section>
+
+<!-- Rides / campus -->
+<section class="border-t border-jh-rule" aria-labelledby="rcf-rides-heading">
+  <div class="mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
+    <p jhReveal class="jh-eyebrow text-jh-soft">Getting to Sunday</p>
+
+    <h2
+      jhReveal="90"
+      id="rcf-rides-heading"
+      class="mt-3 max-w-2xl font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
+    >
+      No car? We'll come get you.
+    </h2>
+
+    <p jhReveal="180" class="mt-5 max-w-xl text-lg leading-relaxed text-jh-soft">
+      Every Sunday the parish drives out to bring students to the 9:00 AM service — and home again
+      afterward. Tell us where you are, and we'll be there.
+    </p>
+
+    <ul jhReveal="240" class="mt-6 flex flex-wrap gap-3" aria-label="Common Wesleyan pickup spots">
+      @for (spot of ['Exley', 'Usdan', 'Sci-Li', 'Foss Hill', 'Anywhere on campus']; track spot) {
+        <li
+          class="rounded-full border border-jh-rule bg-jh-surface px-4 py-2 text-sm font-semibold text-jh-ink"
+        >
+          {{ spot }}
+        </li>
+      }
+    </ul>
+
+    <div jhReveal="300" class="mt-9">
+      <a
+        [href]="rideMailto"
+        class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"
+        >Request a ride</a
+      >
+    </div>
+  </div>
+</section>
+
+<!-- Close — deep indigo, echoing the home story -->
+<section class="bg-jh-night text-jh-cream" aria-labelledby="rcf-close-heading">
+  <div class="mx-auto w-full max-w-5xl px-6 py-24 text-center sm:py-32">
+    <p jhReveal jhRevealDir="none" class="jh-script-eyebrow text-jh-gold">Come and see</p>
+
+    <h2
+      jhReveal="90"
+      id="rcf-close-heading"
+      class="mx-auto mt-3 max-w-2xl font-display text-3xl font-semibold leading-tight sm:text-4xl"
+    >
+      Your first Friday is on us.
+    </h2>
+
+    <p jhReveal="180" class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-jh-cream/80">
+      Pull up to Rehearsal Hall 109 this Friday, or follow along online and come when you're ready.
+      Either way, we've been saving you a seat.
+    </p>
+
+    <div jhReveal="270" class="mt-9 flex flex-wrap items-center justify-center gap-4">
+      <a
+        [href]="instagramHref"
+        target="_blank"
+        rel="noopener"
+        class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"
+        >Follow {{ instagramHandle }}</a
+      >
+      <a
+        [routerLink]="visitPath"
+        class="rounded-full border border-jh-cream/40 px-6 py-3 text-sm font-bold text-jh-cream transition-colors hover:bg-jh-cream hover:text-jh-ink"
+        >Plan a Sunday visit</a
+      >
+    </div>
+  </div>
+</section>
