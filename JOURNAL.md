@@ -6,6 +6,24 @@
 > Tag with `#decision` / `#pivot` / `#incident` / `#quote` / `#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-06-12 — RCF page got its own scroll signature #decision
+
+User: the RCF page was "pretty standard ... nothing's making it stand out like
+the homepage." Offered three ambition levels (full pinned journey / flame-led
+experience / standout hero only); they picked the **flame-led scroll experience**.
+Built it: a hand-built illustrated campus-dusk hero — College Row with lit
+windows, string lights, a stool circle, and a glowing RCF flame at its heart —
+that pins and draws the camera toward the flame as a warm cream wash washes you
+in. RCF's own "draw near to the flame", the campus answer to the home door-portal,
+reusing that proven pattern (reactive (min-height:500px) gate, no reduce-motion
+gate, stage-measured `--enter`, −100svh overlap so the content rises through the
+finished wash). The Fri/Sat/Sun rhythm became three alternating illustrated
+picture-book beats: Friday (night window + string lights + ice cream), Saturday
+(desk lamp over an open Bible + mug), Sunday (the parish red door + sun rays +
+the ride car — tying RCF back to the home journey). The dark, immersive hero is a
+deliberate contrast to the parish's light pages — RCF stands on its own now. All
+illustration, no faces/PII.
+
 ## 2026-06-12 — Gave RCF its own visual kit #decision
 
 Studied the two Wesleyan RCF meeting flyers (in the `WhatsApp Chat - Wesleyan RCF`
