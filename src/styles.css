@@ -272,12 +272,12 @@ jh-home-story.scene--active + jh-home-comeandsee {
 }
 
 /* ── Scroll-mouse cue ───────────────────────────────────────────────────────
- * The universal "scroll" hint — a rounded mouse body whose wheel-dot drifts
- * down — themed to the site: body outlined in currentColor (jh-blue where used),
- * a soft cream fill + shadow for a little weight, and a jh-red wheel dot.
- * Baseline (SSR / no-JS / reduced-motion): the dot rests at the top, so it still
- * reads as a scroll cue. The drift only runs under html.js-motion (browser +
- * motion-OK), so reduced-motion users get the calm static mark. */
+ * The universal "scroll-down" hint — a rounded mouse body whose jh-red wheel-dot
+ * repeatedly drifts down and fades. Themed to the site: body outlined in
+ * currentColor (jh-blue where used), a soft cream fill + shadow for a little
+ * weight. The drift loops unconditionally (see .jh-mouse__wheel) so it reads as
+ * a scroll prompt for everyone, including phones with the OS reduce-motion /
+ * "remove animations" setting on. */
 .jh-mouse {
   position: relative;
   display: block;
@@ -293,34 +293,33 @@ jh-home-story.scene--active + jh-home-comeandsee {
   position: absolute;
   left: 50%;
   top: 0.5rem;
-  width: 0.34rem;
-  height: 0.34rem;
+  width: 0.36rem;
+  height: 0.36rem;
   border-radius: 999px;
   background: var(--color-jh-red);
   transform: translateX(-50%);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  html.js-motion .jh-mouse__wheel {
-    animation: jh-mouse-scroll 1.9s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-  }
+  /* Always animate — the cue's whole job is to say "scroll down". Pure CSS, so
+     it runs from first paint without waiting on hydration, and (unlike the
+     reveal/bob decorations) it is NOT gated on reduced-motion: this site plays
+     its motion regardless of the OS setting, the owner's standing call. */
+  animation: jh-mouse-scroll 1.7s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 
 @keyframes jh-mouse-scroll {
-  0%,
-  100% {
+  0% {
     transform: translate(-50%, 0);
     opacity: 0;
   }
-  18% {
+  15% {
     opacity: 1;
   }
-  55% {
-    transform: translate(-50%, 0.95rem);
+  50% {
+    transform: translate(-50%, 1.15rem);
     opacity: 1;
   }
-  80% {
-    transform: translate(-50%, 1.1rem);
+  75%,
+  100% {
+    transform: translate(-50%, 1.35rem);
     opacity: 0;
   }
 }
