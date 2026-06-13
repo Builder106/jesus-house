@@ -6,6 +6,22 @@
 > Tag with `#decision` / `#pivot` / `#incident` / `#quote` / `#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-06-12 — RCF hero redesigned: "candlelight vespers" #feedback #pivot
+
+Owner on the illustrated campus-dusk hero: "I really don't like the RCF hero.
+It looks amateur." Their screenshot showed why — on a wide viewport the logo
+collided with the CTA buttons (the mark was painted inside the slice-cropped
+background SVG while copy flowed on top), and the scene itself was clip-art
+(blob-ellipse trees, rect buildings smaller than the logo). The fix was
+restraint, not more illustration: background went to pure atmosphere (dusk
+gradient, sparse stars, warm horizon breath, near-tonal treeline + tiny spire,
+grain), and the mark became a flow element below the copy — grid rows, so the
+collision is impossible by construction. The scroll dive now aims at the mark's
+measured center (`--rcf-ox/--rcf-oy` from its bounding box) instead of a guessed
+percentage. Lesson: never paint a focal element into a `slice`-cropped
+background a copy column floats over — crop math *will* collide them at some
+viewport; and when a scene reads amateur, remove elements rather than refine them.
+
 ## 2026-06-12 — Used the actual RCF logo vector (flame + dove + ring + cap) #incident
 
 The RCF mark took three tries, and the lesson is the headline: **get the real
