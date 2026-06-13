@@ -16,9 +16,11 @@ import { RevealDirective } from '../../shared/motion/reveal.directive';
  * jh-rcf — Wesleyan RCF (Redeemed Campus Fellowship).
  *
  * RCF's own scroll signature — the campus-fellowship answer to the home page's
- * "enter the door". A hand-built illustrated hero (campus dusk, string lights,
- * a glowing RCF flame at the heart of a gathering) PINS and, as you scroll, the
- * camera draws toward the flame while its warm light blooms and washes you in —
+ * "enter the door". A "candlelight vespers" hero: a quiet atmospheric dusk
+ * (gradient, sparse stars, a near-tonal treeline, grain) with ONE warm light —
+ * the official RCF mark, in document flow below the copy. The section PINS and,
+ * as you scroll, the camera dives into the mark (origin = its measured center),
+ * revealing the dove at the flame's heart before the warm wash hands off —
  * "draw near to the flame". Below, the week (Friday · Saturday · Sunday) plays
  * as illustrated picture-book beats that animate in.
  *
@@ -103,6 +105,19 @@ export class Rcf {
       // Measure the pinned stage, not window.innerHeight (which lies under the
       // mobile URL bar and disagrees with the svh-sized stage).
       const stage = heroEl.querySelector<HTMLElement>('.rcf-hero__stage');
+      const mark = heroEl.querySelector<HTMLElement>('.rcf-hero__mark');
+
+      // Aim the dive at the mark's rendered center: it lives in document flow
+      // (so it can never collide with the copy), which means its position
+      // varies with viewport — measure it instead of guessing a percentage.
+      // The mark scales about its own center, so the center is transform-stable.
+      const setOrigin = () => {
+        if (!mark || !stage) return;
+        const m = mark.getBoundingClientRect();
+        const s = stage.getBoundingClientRect();
+        heroEl.style.setProperty('--rcf-ox', `${(m.left + m.width / 2 - s.left).toFixed(1)}px`);
+        heroEl.style.setProperty('--rcf-oy', `${(m.top + m.height / 2 - s.top).toFixed(1)}px`);
+      };
 
       // Reactive height gate — phones in portrait pin too; short/landscape fall
       // back to the static illustrated hero. Flips live on rotation.
@@ -128,18 +143,27 @@ export class Rcf {
         if (on === active) return;
         active = on;
         heroEl.classList.toggle('rcf-hero--active', on);
-        if (on) update();
-        else heroEl.style.removeProperty('--enter');
+        if (on) {
+          setOrigin();
+          update();
+        } else heroEl.style.removeProperty('--enter');
       };
       const onGate = () => setActive(tallEnough.matches);
+      const onResize = () => {
+        setOrigin();
+        onScroll();
+      };
 
       window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll, { passive: true });
+      window.addEventListener('resize', onResize, { passive: true });
       tallEnough.addEventListener('change', onGate);
       onGate();
+      // Re-measure once webfonts land — Fraunces reflows the copy block, which
+      // shifts the mark's center.
+      document.fonts?.ready.then(setOrigin).catch(() => {});
       this.destroyRef.onDestroy(() => {
         window.removeEventListener('scroll', onScroll);
-        window.removeEventListener('resize', onScroll);
+        window.removeEventListener('resize', onResize);
         tallEnough.removeEventListener('change', onGate);
       });
     });
