@@ -119,3 +119,10 @@
     order: 2;
   }
 }
+
+/* Closing sign-off: the official RCF lockup, glowing warm on the deep green. */
+.rcf-close__logo {
+  width: clamp(104px, 14vw, 132px);
+  height: auto;
+  filter: drop-shadow(0 0 22px rgb(244 137 42 / 0.45));
+}
