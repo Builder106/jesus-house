@@ -2,11 +2,12 @@
  * The four beats play over the pinned scene as a scroll-driven carousel, then
  * the camera zooms into the stained-glass arch; its indigo glass fills the
  * frame and the jh-night veil hands off to the cathedral section below.
- * Active timeline runs on --p (the scene's action, --zoom 0→.706, before the
+ * Active timeline runs on --p (the scene's action, --zoom 0→.75, before the
  * cathedral rises through the held veil over the back):
- *   0–.10 heading · .06–.54 beats (each card holds at full opacity for most of
- *   its .135 window, with a gentle drift + crossfade; gold progress dots track
- *   the active beat) · .56–.92 zoom into the glass · .84–1 night veil.
+ *   0–.10 heading · .05–.46 beats (each card glides gently through its .14
+ *   window and dissolves into the next over a .05 crossfade — a continuous
+ *   linear cross-dissolve that always sums to one card; gold progress dots
+ *   track the active beat) · .56–.92 zoom into the glass · .84–1 night veil.
  * Static baseline: heading panel + a 2×2 grid of the same cards (no dots). */
 :host {
   display: block;
@@ -96,7 +97,7 @@
 
 /* ── Active camera move (tall viewports + motion-OK) ───────────────────── */
 :host(.scene--active) {
-  height: 440svh;
+  height: 500svh;
 }
 
 :host(.scene--active) .scene__stage {
@@ -110,12 +111,12 @@
 
 :host(.scene--active) .scene__stage {
   /* Scene action (heading → 4-beat carousel → zoom into the glass → night veil)
-     runs over the front of the pin via --p (0→1 as --zoom 0→.706 — the tallest
+     runs over the front of the pin via --p (0→1 as --zoom 0→.75 — the tallest
      scene of the set, so the carousel reads slowly), then holds while the
      cathedral rises up through the held veil over the back. f = 1 − 100svh/pin
-     (440svh tall → 340svh pin → .706); keeps the -100svh story overlap landing
+     (500svh tall → 400svh pin → .75); keeps the -100svh story overlap landing
      exactly on this scene's pin-end (see styles.css). Beat fractions keyed off --p. */
-  --p: clamp(0, calc(var(--zoom, 0) / 0.706), 1);
+  --p: clamp(0, calc(var(--zoom, 0) / 0.75), 1);
   --n: clamp(0, calc((var(--p) - 0.56) / 0.36), 1);
 }
 
@@ -139,10 +140,12 @@
 }
 
 /* Beats: a scroll-driven carousel. Each beat owns a window of the pin
-   ([--bs, --bs + .135], set in the template) and --wp is its progress through
-   that window. It fades in over the first ~30%, holds, fades out over the
-   last ~30%, while drifting upward through the whole window — so beats glide
-   through each other in a continuous crossfade instead of popping. */
+   ([--bs, --bs + .14], set in the template) and --wp is its progress through
+   that window. Windows are spaced .09 but .14 wide, so each pair overlaps by
+   .05 — and in that overlap one card's linear fade-out exactly mirrors the
+   next card's fade-in (the two opacities always sum to 1). The result is a
+   continuous cross-dissolve over ~15svh of scroll, not a ~3svh snap, while the
+   card glides gently the whole way through so the scroll never feels dead. */
 :host(.scene--active) .scene__beats {
   position: absolute;
   inset: 0;
@@ -158,22 +161,18 @@
   border: 0;
   border-radius: 1rem;
   padding: 2.75rem 3rem 3rem;
-  /* --wp: 0→1 across this beat's window. Opacity holds at full for most of the
-     window (wp .12→.88, ~76%) then crosses to the next beat — so each card sits
-     long enough to read instead of flashing past. The /.12 ramp can't put two
-     cards full at once (windows are .115 apart). */
-  --wp: clamp(0, calc((var(--p) - var(--bs)) / 0.135), 1);
-  opacity: clamp(0, calc(min(var(--wp), 1 - var(--wp)) / 0.12), 1);
-  /* Drift only during the fades: slides up into place, holds STILL while read,
-     slides up out — so the held card isn't moving under the eye. */
-  transform: translateY(
-    calc(
-      (
-          clamp(0, calc((0.12 - var(--wp)) / 0.12), 1) -
-            clamp(0, calc((var(--wp) - 0.88) / 0.12), 1)
-        ) * 1.2rem
-    )
-  );
+  /* --wp: 0→1 across this beat's .14 window. The fade ramps occupy the outer
+     ~36% each side (wp 0→.357 in, .643→1 out) and meet the neighbouring card's
+     ramp inside the .05 overlap, so the dissolve is long and smooth rather than
+     an instant pop. Centre third holds at full opacity to read. */
+  --wp: clamp(0, calc((var(--p) - var(--bs)) / 0.14), 1);
+  opacity: clamp(0, calc(min(var(--wp), 1 - var(--wp)) / 0.357), 1);
+  /* Continuous gentle glide across the whole window (+1.6rem → -1.6rem): the
+     card is always moving as you scroll, so input never reads as dead, and at
+     the crossfade the outgoing card sits visibly higher than the incoming one,
+     so the dissolve reads as a pass-through rather than two stacked cards. Over
+     a ~40svh window the ~3.2rem of travel is still slow enough to read. */
+  transform: translateY(calc((0.5 - var(--wp)) * 3.2rem));
   will-change: opacity, transform;
 }
 
@@ -214,7 +213,7 @@
   width: 1.65rem;
   height: 3px;
   border-radius: 2px;
-  --wp: clamp(0, calc((var(--p) - var(--bs)) / 0.135), 1);
+  --wp: clamp(0, calc((var(--p) - var(--bs)) / 0.14), 1);
   --da: clamp(0, calc(min(var(--wp), 1 - var(--wp)) * 4), 1);
   /* inactive = jh-soft (legible on the cream/carpet art), active fills gold */
   background: color-mix(in srgb, var(--color-jh-gold) calc(var(--da) * 100%), var(--color-jh-soft));

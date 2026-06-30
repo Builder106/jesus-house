@@ -6,6 +6,25 @@
 > Tag with `#decision` / `#pivot` / `#incident` / `#quote` / `#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-06-30 — Sunday-mornings carousel: longer cross-dissolve #feedback #decision
+
+Owner on the values-scene carousel: "feels choppy to scroll through and the
+transition between cards is short, they kinda fade to the next one instantly."
+Root cause was in the math, not the feel — each beat held *completely still* for
+76% of its window and only faded over the outer 12% each side, and consecutive
+windows (spaced .115, .135 wide) overlapped by just .02 of `--p` ≈ ~3svh, so the
+real crossfade was a near-instant snap between long dead holds. Fix: respaced
+beats to `bs = .05 + i*.09` with a `.14` window, giving a `.05` overlap where one
+card's linear fade-out exactly mirrors the next card's fade-in (the two opacities
+always sum to 1 — verified live: .74/.26 → .50/.50 → .21/.79). Replaced the
+hold-still drift with a continuous ±1.6rem glide so scrolling always shows
+motion, and the outgoing card now sits visibly higher than the incoming one so
+the dissolve reads as a pass-through, not two stacked cards. Bumped the section
+500svh (pin 400 → `f = 1 − 100/400 = .75`, a clean `--p` divisor that preserves
+the −100svh story-overlap invariant) for more scroll room per beat. Lesson: a
+"snappy" scroll carousel is usually a *spacing* bug — long dead holds with a
+sub-window crossfade — not a duration knob.
+
 ## 2026-06-12 — RCF hero redesigned: "candlelight vespers" #feedback #pivot
 
 Owner on the illustrated campus-dusk hero: "I really don't like the RCF hero.
