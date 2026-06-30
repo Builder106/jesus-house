@@ -7,7 +7,8 @@
  *   0–.10 heading · .05–.46 beats (each card glides gently through its .14
  *   window and dissolves into the next over a .05 crossfade — a continuous
  *   linear cross-dissolve that always sums to one card; gold progress dots
- *   track the active beat) · .56–.92 zoom into the glass · .84–1 night veil.
+ *   track the active beat) · .47–.88 zoom into the glass (begins the instant
+ *   the last beat clears, no dead stretch) · .80–1 night veil.
  * Static baseline: heading panel + a 2×2 grid of the same cards (no dots). */
 :host {
   display: block;
@@ -117,7 +118,9 @@
      (500svh tall → 400svh pin → .75); keeps the -100svh story overlap landing
      exactly on this scene's pin-end (see styles.css). Beat fractions keyed off --p. */
   --p: clamp(0, calc(var(--zoom, 0) / 0.75), 1);
-  --n: clamp(0, calc((var(--p) - 0.56) / 0.36), 1);
+  /* Glass dive begins the instant the last beat clears (p .46), not after a
+     dead static stretch — so scrolling flows carousel → zoom with no stall. */
+  --n: clamp(0, calc((var(--p) - 0.47) / 0.41), 1);
 }
 
 :host(.scene--active) .scene__art {
@@ -205,7 +208,7 @@
   backdrop-filter: blur(6px);
   box-shadow: 0 6px 20px rgb(20 16 56 / 0.07);
   list-style: none;
-  opacity: clamp(0, calc(1 - (var(--p) - 0.56) * 8), 1);
+  opacity: clamp(0, calc(1 - (var(--p) - 0.47) * 8), 1);
   will-change: opacity;
 }
 
@@ -229,5 +232,5 @@
 }
 
 :host(.scene--active) .scene__veil {
-  opacity: clamp(0, calc((var(--p) - 0.84) * 6.3), 1);
+  opacity: clamp(0, calc((var(--p) - 0.8) * 5), 1);
 }

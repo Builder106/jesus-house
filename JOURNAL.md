@@ -6,6 +6,20 @@
 > Tag with `#decision` / `#pivot` / `#incident` / `#quote` / `#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-06-30 — Closed the dead gap before the glass dive #feedback
+
+Owner, right after the carousel fix: "when I scroll, I literally scroll down to
+the end of that section instead of just starting to zoom in." The pin was fine
+(verified the sticky stage holds top:0 the whole way) — the problem was a dead
+band in the timeline: the last beat cleared at `--p` .46 but the glass zoom
+(`--n`) didn't start until .56, so for ~.10 of `--p` (~250px on mobile) the
+sanctuary just sat there static while you scrolled, before the dive engaged.
+Pulled the zoom start to .47 (the instant the last card clears), so scrolling
+flows carousel → dive with no stall; moved the night veil to .80–1 to match the
+earlier, gentler zoom (.47–.88). Lesson: when a scroll feels like "nothing's
+happening," look for a band where one animation has ended and the next hasn't
+begun — the fix is overlap, not more height.
+
 ## 2026-06-30 — Sunday-mornings carousel: longer cross-dissolve #feedback #decision
 
 Owner on the values-scene carousel: "feels choppy to scroll through and the
