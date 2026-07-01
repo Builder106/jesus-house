@@ -54,7 +54,9 @@
 :host(.scene--active) .scene__stage {
   position: sticky;
   top: 0;
-  height: 100svh;
+  /* dvh, not svh — see ride.css for why: svh leaves a gap of body cream below
+     the stage once Android Chrome's toolbar auto-hides mid-scroll. */
+  height: 100dvh;
   min-height: 0;
 }
 

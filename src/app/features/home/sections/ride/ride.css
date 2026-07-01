@@ -58,7 +58,12 @@
 :host(.scene--active) .scene__stage {
   position: sticky;
   top: 0;
-  height: 100svh;
+  /* dvh, not svh: svh is the viewport's smallest possible height (toolbar fully
+     shown). Android Chrome auto-hides its toolbar as you scroll, so the real
+     viewport grows past 100svh — leaving an unpainted strip of body cream below
+     the stage. dvh tracks the actual current viewport, so the stage (and its
+     art/veil, both inset:0 to it) always fills the real screen. */
+  height: 100dvh;
   min-height: 0;
 }
 

@@ -246,7 +246,7 @@
 
 /* ── Journey hand-off: close the pinned-section trailing gap ────────────────
  * A position:sticky stage inside a tall wrapper leaves exactly one stage-height
- * (100svh) of trailing scroll AFTER its animation ends — the unpinned stage
+ * (100dvh) of trailing scroll AFTER its animation ends — the unpinned stage
  * sliding away as dead space before the next section reaches the top. For the
  * hero that tail is a flat cream void: you "enter the door", then scroll a whole
  * empty screen before the road scene arrives.
@@ -258,10 +258,12 @@
  * The road paints over the unpinning hero stage, so the old void is hidden.
  *
  * Gated on portal--active (browser + motion-OK only); the static/no-JS/reduced-
- * motion layout keeps the sections in normal flow with no overlap. svh, not vh,
- * to match the stage's own svh sizing under the mobile URL bar. */
+ * motion layout keeps the sections in normal flow with no overlap. dvh, not vh
+ * or svh, to match the stage's own dvh sizing (dvh tracks the real viewport as
+ * the mobile URL bar shows/hides; svh — the toolbar-fully-shown minimum — would
+ * undershoot the overlap once the toolbar auto-hides, reopening the gap). */
 jh-home-hero.portal--active + jh-home-ride {
-  margin-top: -100svh;
+  margin-top: -100dvh;
 }
 
 /* The four scene→scene hand-offs work the same way. Each scene compresses its
@@ -274,7 +276,7 @@ jh-home-ride.scene--active + jh-home-audience,
 jh-home-audience.scene--active + jh-home-values,
 jh-home-values.scene--active + jh-home-story,
 jh-home-story.scene--active + jh-home-comeandsee {
-  margin-top: -100svh;
+  margin-top: -100dvh;
 }
 
 /* ── Scroll-mouse cue ───────────────────────────────────────────────────────
