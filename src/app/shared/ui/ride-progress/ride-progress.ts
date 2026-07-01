@@ -9,6 +9,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { ScrollScrubber } from '../../motion/scroll-scrubber';
 
 /**
  * jh-ride-progress — THE SIGNATURE MOTIF.
@@ -21,9 +22,12 @@ import { isPlatformBrowser } from '@angular/common';
  * Behaviour:
  *   • Hidden below 1024px (the rail would crowd narrow layouts).
  *   • Fully hidden + static under prefers-reduced-motion.
- *   • Browser-only: a passive scroll listener schedules a single rAF that
- *     reads scroll position and writes a `--p` custom property (0 → 1). All
- *     visual motion is CSS driven off `--p`, so the JS does no layout-thrash.
+ *   • Browser-only: the per-frame read (scroll position) + write (`--p`)
+ *     goes through the shared ScrollScrubber (see scene.directive.ts's doc
+ *     comment) rather than its own scroll listener, so this component's
+ *     geometry read can't be sandwiched between two other components'
+ *     writes and force a synchronous layout. All visual motion is CSS
+ *     driven off `--p`.
  *
  * SSR / no-JS safety: the rail is gated on the `enabled` signal (starts
  * false). The server renders nothing; the signal only flips true in
@@ -42,8 +46,7 @@ export class RideProgress {
 
   private readonly rail = viewChild<ElementRef<HTMLElement>>('rail');
   private readonly platformId = inject(PLATFORM_ID);
-
-  private ticking = false;
+  private readonly scrollScrubber = inject(ScrollScrubber);
 
   constructor() {
     afterNextRender(() => {
@@ -51,13 +54,36 @@ export class RideProgress {
 
       const mqMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       const mqWide = window.matchMedia('(min-width: 1024px)');
+      let active = false;
+      let unregister: (() => void) | null = null;
+
+      // READ only — no DOM writes. Runs in the scrubber's batched read phase.
+      const measure = (): number => {
+        const doc = document.documentElement;
+        const max = doc.scrollHeight - window.innerHeight;
+        return max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      };
+
+      // WRITE only — no layout reads. Runs in the scrubber's batched write phase.
+      const apply = (progress: number) => {
+        const el = this.rail()?.nativeElement;
+        if (el) el.style.setProperty('--p', String(progress));
+      };
 
       const sync = () => {
         // Show only on wide screens with motion allowed.
-        this.enabled.set(mqWide.matches && !mqMotion.matches);
-        if (this.enabled()) {
-          // Defer one frame so the @if-rendered rail exists before we measure.
-          requestAnimationFrame(() => this.update());
+        const on = mqWide.matches && !mqMotion.matches;
+        this.enabled.set(on);
+        if (on === active) return;
+        active = on;
+        if (on) {
+          // register() schedules the first batched read+write a frame out,
+          // by which point the @if-rendered rail already exists (the signal
+          // write above flushes change detection before the next rAF).
+          unregister = this.scrollScrubber.register({ measure, apply });
+        } else {
+          unregister?.();
+          unregister = null;
         }
       };
 
@@ -65,35 +91,15 @@ export class RideProgress {
       mqMotion.addEventListener('change', sync);
       mqWide.addEventListener('change', sync);
 
-      const onScroll = () => {
-        if (!this.enabled() || this.ticking) return;
-        this.ticking = true;
-        requestAnimationFrame(() => {
-          this.update();
-          this.ticking = false;
-        });
-      };
-
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll, { passive: true });
-
       // Recompute when document height shifts from causes other than scroll —
       // late web-font layout shift and lazy images would otherwise leave the
       // car reading a stale position until the next scroll tick.
-      document.fonts?.ready.then(() => onScroll());
+      document.fonts?.ready.then(() => this.scrollScrubber.requestUpdate());
       if ('ResizeObserver' in window) {
-        new ResizeObserver(() => onScroll()).observe(document.documentElement);
+        new ResizeObserver(() => this.scrollScrubber.requestUpdate()).observe(
+          document.documentElement,
+        );
       }
     });
-  }
-
-  private update(): void {
-    const el = this.rail()?.nativeElement;
-    if (!el) return;
-
-    const doc = document.documentElement;
-    const max = doc.scrollHeight - window.innerHeight;
-    const progress = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-    el.style.setProperty('--p', String(progress));
   }
 }

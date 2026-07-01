@@ -7,6 +7,15 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { ScrollScrubber } from './scroll-scrubber';
+
+interface SceneMeasurement {
+  zoom: number;
+  tox?: string;
+  toy?: string;
+  panx?: string;
+  pany?: string;
+}
 
 /**
  * jhScene — the shared scroll-camera rig for the "Come and see" journey.
@@ -33,14 +42,21 @@ import { isPlatformBrowser } from '@angular/common';
  * motion (reveal fades, the cue bob, the door's load-swing) still honours
  * reduced-motion separately, via the js-motion class + no-preference media query.
  *
- * Identical contract to the hero portal controller; rAF-throttled passive
- * listeners, transform/opacity-only consumers.
+ * The per-frame read (geometry) and write (`--zoom`/`--tox`/etc.) go through
+ * the shared ScrollScrubber rather than this directive's own scroll listener
+ * — with four scene instances (ride/audience/values/story) plus the hero and
+ * ride-progress rail all measuring and writing independently, interleaved
+ * reads/writes across components forced synchronous layout on every scroll
+ * frame (measured: 320ms of forced-reflow time in a single scroll-up burst,
+ * mobile CPU-throttled). The scrubber batches every consumer's read before
+ * any consumer's write, eliminating that thrashing.
  */
 @Directive({ selector: '[jhScene]' })
 export class SceneDirective {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly scrollScrubber = inject(ScrollScrubber);
 
   constructor() {
     afterNextRender(() => {
@@ -74,15 +90,14 @@ export class SceneDirective {
       // static. Tracked live so an orientation change flips it without a reload.
       const tallEnough = window.matchMedia('(min-height: 500px)');
       let active = false;
+      let unregister: (() => void) | null = null;
 
-      let ticking = false;
-      const update = () => {
-        ticking = false;
-        if (!active) return;
+      // READ only — no DOM writes. Runs in the scrubber's batched read phase.
+      const measure = (): SceneMeasurement => {
         const stageH = stage?.offsetHeight ?? window.innerHeight;
         const range = el.offsetHeight - stageH;
         const progress = range > 0 ? -el.getBoundingClientRect().top / range : 0;
-        el.style.setProperty('--zoom', Math.min(1, Math.max(0, progress)).toFixed(4));
+        const zoom = Math.min(1, Math.max(0, progress));
 
         if (art && Number.isFinite(targetX) && Number.isFinite(targetY)) {
           const ew = art.clientWidth;
@@ -91,35 +106,45 @@ export class SceneDirective {
             const s = Math.max(ew / vbW, eh / vbH); // slice scale
             const ox = (ew - vbW * s) / 2 + targetX * s;
             const oy = (eh - vbH * s) / 2 + targetY * s;
-            el.style.setProperty('--tox', `${ox.toFixed(1)}px`);
-            el.style.setProperty('--toy', `${oy.toFixed(1)}px`);
-            el.style.setProperty('--panx', `${(ew / 2 - ox).toFixed(1)}px`);
-            el.style.setProperty('--pany', `${(eh / 2 - oy).toFixed(1)}px`);
+            return {
+              zoom,
+              tox: `${ox.toFixed(1)}px`,
+              toy: `${oy.toFixed(1)}px`,
+              panx: `${(ew / 2 - ox).toFixed(1)}px`,
+              pany: `${(eh / 2 - oy).toFixed(1)}px`,
+            };
           }
         }
+        return { zoom };
       };
-      const onScroll = () => {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(update);
+
+      // WRITE only — no layout reads. Runs in the scrubber's batched write phase.
+      const apply = (m: SceneMeasurement) => {
+        el.style.setProperty('--zoom', m.zoom.toFixed(4));
+        if (m.tox) el.style.setProperty('--tox', m.tox);
+        if (m.toy) el.style.setProperty('--toy', m.toy);
+        if (m.panx) el.style.setProperty('--panx', m.panx);
+        if (m.pany) el.style.setProperty('--pany', m.pany);
       };
 
       const setActive = (on: boolean) => {
         if (on === active) return;
         active = on;
         el.classList.toggle('scene--active', on);
-        if (on) update();
-        else el.style.removeProperty('--zoom');
+        if (on) {
+          unregister = this.scrollScrubber.register({ measure, apply });
+        } else {
+          unregister?.();
+          unregister = null;
+          el.style.removeProperty('--zoom');
+        }
       };
       const onGate = () => setActive(tallEnough.matches);
 
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll, { passive: true });
       tallEnough.addEventListener('change', onGate);
       onGate();
       this.destroyRef.onDestroy(() => {
-        window.removeEventListener('scroll', onScroll);
-        window.removeEventListener('resize', onScroll);
+        unregister?.();
         tallEnough.removeEventListener('change', onGate);
       });
     });

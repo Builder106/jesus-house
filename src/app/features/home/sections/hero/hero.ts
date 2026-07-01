@@ -10,6 +10,7 @@ import {
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { RevealDirective } from '../../../../shared/motion/reveal.directive';
+import { ScrollScrubber } from '../../../../shared/motion/scroll-scrubber';
 
 /**
  * jh-home-hero — THE PORTAL (first screen + "enter the door" scroll scene).
@@ -29,7 +30,12 @@ import { RevealDirective } from '../../../../shared/motion/reveal.directive';
  * to play it for everyone (see scene.directive.ts). Autoplay flourishes (the
  * headline word-rise, the cue bob, the door's load-swing) still respect
  * reduced-motion via the js-motion class + no-preference media query. All motion
- * is transform/opacity only and rAF-throttled.
+ * is transform/opacity only.
+ *
+ * The per-frame read+write goes through the shared ScrollScrubber (see
+ * scene.directive.ts's doc comment) rather than this component's own scroll
+ * listener, so its geometry read can't be sandwiched between two other
+ * components' writes and force a synchronous layout.
  */
 @Component({
   selector: 'jh-home-hero',
@@ -49,6 +55,7 @@ export class HomeHero {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly scrollScrubber = inject(ScrollScrubber);
 
   constructor() {
     afterNextRender(() => {
@@ -69,38 +76,37 @@ export class HomeHero {
       // a reload.
       const tallEnough = window.matchMedia('(min-height: 500px)');
       let active = false;
+      let unregister: (() => void) | null = null;
 
-      let ticking = false;
-      const update = () => {
-        ticking = false;
-        if (!active) return;
+      // READ only — no DOM writes. Runs in the scrubber's batched read phase.
+      const measure = (): number => {
         const stageH = stage?.offsetHeight ?? window.innerHeight;
         const range = el.offsetHeight - stageH;
         const progress = range > 0 ? -el.getBoundingClientRect().top / range : 0;
-        el.style.setProperty('--enter', Math.min(1, Math.max(0, progress)).toFixed(4));
+        return Math.min(1, Math.max(0, progress));
       };
-      const onScroll = () => {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(update);
-      };
+
+      // WRITE only — no layout reads. Runs in the scrubber's batched write phase.
+      const apply = (enter: number) => el.style.setProperty('--enter', enter.toFixed(4));
 
       const setActive = (on: boolean) => {
         if (on === active) return;
         active = on;
         el.classList.toggle('portal--active', on);
-        if (on) update();
-        else el.style.removeProperty('--enter');
+        if (on) {
+          unregister = this.scrollScrubber.register({ measure, apply });
+        } else {
+          unregister?.();
+          unregister = null;
+          el.style.removeProperty('--enter');
+        }
       };
       const onGate = () => setActive(tallEnough.matches);
 
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll, { passive: true });
       tallEnough.addEventListener('change', onGate);
       onGate();
       this.destroyRef.onDestroy(() => {
-        window.removeEventListener('scroll', onScroll);
-        window.removeEventListener('resize', onScroll);
+        unregister?.();
         tallEnough.removeEventListener('change', onGate);
       });
     });
