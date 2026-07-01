@@ -309,8 +309,9 @@ jh-home-story.scene--active + jh-home-comeandsee {
   /* Always animate — the cue's whole job is to say "scroll down". Pure CSS, so
      it runs from first paint without waiting on hydration, and (unlike the
      reveal/bob decorations) it is NOT gated on reduced-motion: this site plays
-     its motion regardless of the OS setting, the owner's standing call. */
-  animation: jh-mouse-scroll 1.7s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+     its motion regardless of the OS setting, the owner's standing call.
+     direction: reverse plays the same keyframes back-to-front (owner's call). */
+  animation: jh-mouse-scroll 1.7s cubic-bezier(0.65, 0, 0.35, 1) infinite reverse;
 }
 
 @keyframes jh-mouse-scroll {
@@ -373,7 +374,9 @@ jh-home-story.scene--active + jh-home-comeandsee {
   border-radius: 999px;
   background: var(--color-jh-red);
   transform: translate(-50%, 0);
-  animation: jh-swipe-down 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  /* direction: reverse plays the same keyframes back-to-front (owner's call),
+     matching the mouse cue above. */
+  animation: jh-swipe-down 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite reverse;
 }
 
 @keyframes jh-swipe-down {
