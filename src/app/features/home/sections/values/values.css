@@ -1,15 +1,14 @@
 /* SCENE 4 — SUNDAY MORNING (the sanctuary).
- * The four beats play over the pinned scene as a scroll-driven carousel, then
- * the camera zooms into the stained-glass arch; its indigo glass fills the
- * frame and the jh-night veil hands off to the cathedral section below.
- * Active timeline runs on --p (the scene's action, --zoom 0→.75, before the
- * cathedral rises through the held veil over the back):
- *   0–.10 heading · .05–.46 beats (each card glides gently through its .14
- *   window and dissolves into the next over a .05 crossfade — a continuous
- *   linear cross-dissolve that always sums to one card; gold progress dots
- *   track the active beat) · .47–.88 zoom into the glass (begins the instant
- *   the last beat clears, no dead stretch) · .80–1 night veil.
- * Static baseline: heading panel + a 2×2 grid of the same cards (no dots). */
+ * A single frosted panel (heading + an Embla-powered carousel of the four
+ * Sunday beats) reads while the scene is pinned, then the camera zooms into
+ * the stained-glass arch; its indigo glass fills the frame and the jh-night
+ * veil hands off to the cathedral section below. Same two-phase rig as
+ * ride/audience: --p (0→1 as --zoom 0→.545) · 0–.30 panel reads · .30–.45
+ * panel lifts away · .45–.92 zoom into the glass · .82–1 night veil.
+ * The carousel is scroll-independent (Embla: swipe / autoplay / dot-click)
+ * — it just sits inside the pinned panel like any other content, and reads
+ * the same whether the scene is pinned or in its static/short-viewport
+ * fallback (a plain 2×2 grid until Embla initialises — see .embla--ready). */
 :host {
   display: block;
 }
@@ -20,7 +19,6 @@
   min-height: 100svh;
   display: grid;
   align-content: center;
-  row-gap: 3rem;
   padding-block: 5rem;
 }
 
@@ -37,25 +35,27 @@
   box-shadow: 0 18px 50px rgb(20 16 56 / 0.08);
 }
 
-/* Static beats grid */
-.scene__beats {
+/* Static beats grid — the permanent layout until Embla initialises (no JS,
+   or before hydration). Not a flash-of-unstyled-carousel: without JS this
+   is what visitors get, full stop. */
+.embla__container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
   gap: 1rem;
 }
 
 .scene__beat {
+  height: 100%;
   border: 1px solid var(--color-jh-rule);
   border-radius: 0.5rem;
-  background: color-mix(in srgb, var(--color-jh-cream) 88%, transparent);
-  backdrop-filter: blur(6px);
-  padding: 1.75rem;
+  background: color-mix(in srgb, var(--color-jh-cream) 60%, transparent);
+  padding: 1.5rem;
 }
 
 /* Editorial index numeral — the gold accent that anchors each card. */
 .scene__beat-num {
   display: block;
-  font-size: clamp(2.25rem, 5vw, 3rem);
+  font-size: clamp(2rem, 5vw, 2.5rem);
   line-height: 1;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -67,24 +67,45 @@
 }
 
 .scene__beat-word {
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-size: clamp(1.4rem, 3vw, 1.75rem);
   line-height: 1.05;
 }
 
-/* Carousel progress dots — hidden in the static grid (all four cards show);
-   the active pinned carousel reveals + drives them (see active block below). */
+/* Progress dots — click one to jump to that beat. Visible (and inert until
+   Embla hydrates) in the static grid too, so the layout never jumps. */
 .scene__dots {
-  display: none;
+  display: flex;
+  gap: 0.55rem;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.scene__cue {
-  position: absolute;
-  bottom: 1.6rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  color: var(--color-jh-soft);
-  display: none;
+.scene__dot {
+  width: 1.65rem;
+  height: 3px;
+  border: 0;
+  border-radius: 2px;
+  padding: 0;
+  background: var(--color-jh-soft);
+  opacity: 0.45;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.scene__dot:focus-visible {
+  outline: 2px solid var(--color-jh-blue);
+  outline-offset: 3px;
+}
+
+.scene__dot--active {
+  background: var(--color-jh-gold);
+  opacity: 1;
+  transform: scaleX(1.7);
 }
 
 .scene__veil {
@@ -96,9 +117,24 @@
   pointer-events: none;
 }
 
+/* ── Embla layout (once JS hydrates and the carousel initialises) ───────── */
+.embla--ready {
+  overflow: hidden;
+}
+
+.embla--ready .embla__container {
+  display: flex;
+  touch-action: pan-y;
+}
+
+.embla--ready .embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
 /* ── Active camera move (tall viewports + motion-OK) ───────────────────── */
 :host(.scene--active) {
-  height: 500svh;
+  height: 320svh;
 }
 
 :host(.scene--active) .scene__stage {
@@ -113,16 +149,11 @@
 }
 
 :host(.scene--active) .scene__stage {
-  /* Scene action (heading → 4-beat carousel → zoom into the glass → night veil)
-     runs over the front of the pin via --p (0→1 as --zoom 0→.75 — the tallest
-     scene of the set, so the carousel reads slowly), then holds while the
-     cathedral rises up through the held veil over the back. f = 1 − 100svh/pin
-     (500svh tall → 400svh pin → .75); keeps the -100svh story overlap landing
-     exactly on this scene's pin-end (see styles.css). Beat fractions keyed off --p. */
-  --p: clamp(0, calc(var(--zoom, 0) / 0.75), 1);
-  /* Glass dive begins the instant the last beat clears (p .46), not after a
-     dead static stretch — so scrolling flows carousel → zoom with no stall. */
-  --n: clamp(0, calc((var(--p) - 0.47) / 0.41), 1);
+  /* Same rig as ride/audience: --p (0→1 as --zoom 0→.545), then holds while
+     the cathedral rises up through the held veil over the back (see the
+     -100dvh overlap in styles.css). */
+  --p: clamp(0, calc(var(--zoom, 0) / 0.545), 1);
+  --n: clamp(0, calc((var(--p) - 0.45) / 0.47), 1);
 }
 
 :host(.scene--active) .scene__art {
@@ -133,106 +164,18 @@
   will-change: transform;
 }
 
-/* Heading reads first, then eases off as the first beat arrives. */
+/* The whole panel (heading + carousel + dots) reads, then lifts away as the
+   dive into the glass begins. */
 :host(.scene--active) .scene__copy {
   position: absolute;
   inset: 0;
   display: grid;
   align-items: center;
-  opacity: clamp(0, calc(1 - (var(--p) - 0.02) * 12), 1);
-  transform: translateY(calc(max(0, var(--p) - 0.02) * -10vh));
+  opacity: clamp(0, calc(1 - (var(--p) - 0.3) * 8.3), 1);
+  transform: translateY(calc(max(0, var(--p) - 0.3) * -6vh));
   will-change: opacity, transform;
-}
-
-/* Beats: a scroll-driven carousel. Each beat owns a window of the pin
-   ([--bs, --bs + .14], set in the template) and --wp is its progress through
-   that window. Windows are spaced .09 but .14 wide, so each pair overlaps by
-   .05 — and in that overlap one card's linear fade-out exactly mirrors the
-   next card's fade-in (the two opacities always sum to 1). The result is a
-   continuous cross-dissolve over ~15svh of scroll, not a ~3svh snap, while the
-   card glides gently the whole way through so the scroll never feels dead. */
-:host(.scene--active) .scene__beats {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  pointer-events: none;
-}
-
-:host(.scene--active) .scene__beat {
-  grid-area: 1 / 1;
-  max-width: 36rem;
-  border: 0;
-  border-radius: 1rem;
-  padding: 2.75rem 3rem 3rem;
-  /* --wp: 0→1 across this beat's .14 window. The fade ramps occupy the outer
-     ~36% each side (wp 0→.357 in, .643→1 out) and meet the neighbouring card's
-     ramp inside the .05 overlap, so the dissolve is long and smooth rather than
-     an instant pop. Centre third holds at full opacity to read. */
-  --wp: clamp(0, calc((var(--p) - var(--bs)) / 0.14), 1);
-  opacity: clamp(0, calc(min(var(--wp), 1 - var(--wp)) / 0.357), 1);
-  /* Continuous gentle glide across the whole window (+1.6rem → -1.6rem): the
-     card is always moving as you scroll, so input never reads as dead, and at
-     the crossfade the outgoing card sits visibly higher than the incoming one,
-     so the dissolve reads as a pass-through rather than two stacked cards. Over
-     a ~40svh window the ~3.2rem of travel is still slow enough to read. */
-  transform: translateY(calc((0.5 - var(--wp)) * 3.2rem));
-  will-change: opacity, transform;
-}
-
-:host(.scene--active) .scene__beat-num {
-  font-size: clamp(2.5rem, 6vw, 3.25rem);
-}
-
-:host(.scene--active) .scene__beat-word {
-  font-size: clamp(2.6rem, 5vw, 4rem);
-}
-
-/* Carousel progress dots: revealed while pinned, fading out as the glass zoom
-   begins. Each tick fills gold and widens as its beat takes the stage. */
-:host(.scene--active) .scene__dots {
-  display: flex;
-  gap: 0.55rem;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  left: 50%;
-  bottom: 5rem;
-  transform: translateX(-50%);
-  z-index: 2;
-  margin: 0;
-  /* A small frosted pill keeps the progress track legible over any part of the
-     sanctuary art (cream walls or the red carpet below). */
-  padding: 0.6rem 0.95rem;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--color-jh-cream) 72%, transparent);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 6px 20px rgb(20 16 56 / 0.07);
-  list-style: none;
-  opacity: clamp(0, calc(1 - (var(--p) - 0.47) * 8), 1);
-  will-change: opacity;
-}
-
-:host(.scene--active) .scene__dot {
-  width: 1.65rem;
-  height: 3px;
-  border-radius: 2px;
-  --wp: clamp(0, calc((var(--p) - var(--bs)) / 0.14), 1);
-  --da: clamp(0, calc(min(var(--wp), 1 - var(--wp)) * 4), 1);
-  /* inactive = jh-soft (legible on the cream/carpet art), active fills gold */
-  background: color-mix(in srgb, var(--color-jh-gold) calc(var(--da) * 100%), var(--color-jh-soft));
-  opacity: calc(0.45 + var(--da) * 0.55);
-  transform: scaleX(calc(1 + var(--da) * 0.7));
-  transform-origin: center;
-  will-change: transform, opacity, background;
-}
-
-:host(.scene--active) .scene__cue {
-  display: block;
-  opacity: clamp(0, calc(1 - var(--p) * 6), 1);
 }
 
 :host(.scene--active) .scene__veil {
-  opacity: clamp(0, calc((var(--p) - 0.8) * 5), 1);
+  opacity: clamp(0, calc((var(--p) - 0.82) * 5.6), 1);
 }

@@ -1,12 +1,19 @@
 <!--
   SCENE 4 — SUNDAY MORNING (values).
-  The sanctuary: chancel, lectern, and the great stained-glass arch. The four
-  beats of a Sunday (Welcoming · Rooted · Together · Sending) play over the
-  scene while it's pinned; then the camera zooms INTO the stained glass and
-  its deep indigo becomes the ground of the cathedral section that follows.
+  The sanctuary: chancel, lectern, and the great stained-glass arch. A single
+  panel (heading + an Embla-powered carousel of the four Sunday beats —
+  Welcoming · Rooted · Together · Sending) reads while the scene is pinned;
+  then the camera zooms INTO the stained glass and its deep indigo becomes
+  the ground of the cathedral section that follows.
+
+  The carousel itself is scroll-independent (swipe, autoplay, or click a
+  dot) — unlike the rest of the page's scroll-driven camera, it doesn't need
+  scroll distance to advance, so it just sits inside the pinned panel.
 
   Static baseline (SSR / no-JS / mobile / reduced-motion): a normal section —
-  the scene illustrates, the heading panel and a 2×2 beats grid read below.
+  the scene illustrates, the heading + a 2×2 grid of the same four cards read
+  below (Embla only initialises in the browser; without it the grid is the
+  permanent layout, not just a flash-of-unstyled-carousel).
 -->
 <section class="scene__stage" aria-labelledby="values-heading">
   <!-- The illustrated sanctuary (decorative). Window panes are future
@@ -285,9 +292,9 @@
     <rect width="1440" height="900" filter="url(#sa-grain)" opacity="0.5" />
   </svg>
 
-  <!-- Heading panel -->
+  <!-- Heading + carousel panel -->
   <div class="scene__copy relative z-[2] mx-auto w-full max-w-5xl px-6">
-    <div class="scene__panel max-w-md rounded-lg border border-jh-rule p-8 sm:p-9">
+    <div class="scene__panel max-w-2xl rounded-lg border border-jh-rule p-8 sm:p-10">
       <p jhReveal class="jh-eyebrow text-jh-soft">Sunday mornings</p>
       <h2
         id="values-heading"
@@ -299,32 +306,45 @@
       <p jhReveal="160" class="mt-4 max-w-sm text-lg leading-relaxed text-jh-soft">
         Four things you can count on the moment you walk through our doors.
       </p>
+
+      <!-- The four beats, as an Embla carousel. Each card is an editorial
+           index: gold numeral · label kicker · word · line. Before Embla
+           initialises (no JS), .embla__container is a plain 2×2 grid — see
+           values.css. -->
+      <div #emblaRoot class="embla mt-8" aria-label="What Sunday is like">
+        <div class="embla__container">
+          @for (beat of beats; track beat.word) {
+            <div class="embla__slide">
+              <div class="scene__beat">
+                <span class="scene__beat-num font-display" aria-hidden="true">{{ beat.index }}</span>
+                <p class="scene__beat-label jh-eyebrow text-jh-soft">{{ beat.label }}</p>
+                <h3 class="scene__beat-word mt-3 font-display font-semibold text-jh-blue">{{ beat.word }}</h3>
+                <p class="scene__beat-line mt-3 text-lg leading-relaxed text-jh-ink">
+                  {{ beat.line }}
+                </p>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Carousel progress: click a dot to jump to that beat. -->
+      <ul class="scene__dots mt-6" aria-label="Choose a beat of Sunday morning">
+        @for (beat of beats; track beat.word; let i = $index) {
+          <li>
+            <button
+              type="button"
+              class="scene__dot"
+              [class.scene__dot--active]="activeIndex() === i"
+              [attr.aria-current]="activeIndex() === i ? 'true' : null"
+              [attr.aria-label]="'Show: ' + beat.word"
+              (click)="scrollToBeat(i)"
+            ></button>
+          </li>
+        }
+      </ul>
     </div>
   </div>
-
-  <!-- The four beats. Static: a 2×2 grid below the heading. Active: each beat
-       takes the stage alone, timed to its window of the pin (a scroll carousel).
-       Each card is an editorial index: gold numeral · label kicker · word · line. -->
-  <ul class="scene__beats relative z-[2] mx-auto w-full max-w-5xl px-6" aria-label="What Sunday is like">
-    @for (beat of beats; track beat.word; let i = $index) {
-      <li class="scene__beat" [style.--bs]="0.05 + i * 0.09">
-        <span class="scene__beat-num font-display" aria-hidden="true">{{ beat.index }}</span>
-        <p class="scene__beat-label jh-eyebrow text-jh-soft">{{ beat.label }}</p>
-        <h3 class="scene__beat-word mt-3 font-display font-semibold text-jh-blue">{{ beat.word }}</h3>
-        <p class="scene__beat-line mx-auto mt-3 max-w-md text-lg leading-relaxed text-jh-ink">
-          {{ beat.line }}
-        </p>
-      </li>
-    }
-  </ul>
-
-  <!-- Carousel progress: one tick per beat, the active one fills gold. Active
-       (pinned) only — decorative, so aria-hidden; the static grid shows all four. -->
-  <ul class="scene__dots" aria-hidden="true">
-    @for (beat of beats; track beat.word; let i = $index) {
-      <li class="scene__dot" [style.--bs]="0.05 + i * 0.09"></li>
-    }
-  </ul>
 
   <!-- Camera veil (deep indigo — the glass hands off to the cathedral) -->
   <div class="scene__veil" aria-hidden="true"></div>
