@@ -43,23 +43,15 @@ export class HomeRide {
   protected readonly rideTel = 'tel:+18605184640';
 
   /**
-   * Common Wesleyan pickup spots, each a live link that opens the ride email
-   * with the pickup spot already in the body — the chips looked like buttons,
-   * so they now ARE buttons (and a first step toward the Phase 3 ride form).
-   * The final "Anywhere on campus" chip widens the offer so no student rules
-   * themselves out for living off the beaten path. Order chosen so the
-   * stagger reads naturally left-to-right.
+   * Common Wesleyan pickup spots. The final "Anywhere on campus" chip widens
+   * the offer so no student rules themselves out for living off the beaten
+   * path. Order chosen so the stagger reads naturally left-to-right.
    */
-  protected readonly pickupSpots: readonly { label: string; href: string }[] = [
+  protected readonly pickupSpots: readonly string[] = [
     'Exley',
     'Usdan',
     'Sci-Li',
     'Foss Hill',
     'Anywhere on campus',
-  ].map((label) => ({
-    label,
-    href:
-      'mailto:rccgjhmiddletown@gmail.com?subject=Ride%20request&body=' +
-      encodeURIComponent(`Hi! I'd like a ride this Sunday. Pickup: ${label}.`),
-  }));
+  ];
 }

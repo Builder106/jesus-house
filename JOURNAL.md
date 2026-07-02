@@ -21,10 +21,10 @@ old .30-start slow copy fade let the car read *through* the "Request a ride"
 button — signature ministry, occluded signature CTA. Fixed by holding all
 three panel scenes at full opacity until `--p` .38 with a fast .38–.46 exit
 (which also closes values' old .42–.45 dead band) and bumping the ride panel
-to 92% cream. Affordance pass: the pickup chips looked like buttons, so now
-they are — each opens the ride email with the pickup spot prefilled (a first
-step toward the Phase 3 form) — and the audience chips de-buttoned to muted
-tags. Lesson: when a scroll journey needs a "held" frame, the hold must carry
+to 92% cream. An affordance pass (pickup chips → live prefilled-mailto links,
+audience chips → muted tags) shipped in the same batch but the owner had it
+reverted same-day — the chips stay static pills until the real Phase 3 ride
+form. Lesson: when a scroll journey needs a "held" frame, the hold must carry
 content of its own; blank paper held for 900px of scroll reads as a bug.
 
 ## 2026-06-30 — Closed the dead gap before the glass dive #feedback
