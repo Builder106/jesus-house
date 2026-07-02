@@ -40,6 +40,38 @@
   box-shadow: 0 10px 30px -14px rgba(34, 30, 58, 0.4);
 }
 
+/* ── Dark-scene variant ──────────────────────────────────────────────────
+   While a data-jh-header-dark section sits under the pill (see site-header.ts)
+   the pill flips to a night surface so the nav stays in the scene instead of
+   floating as a bright island over the dark beats. The red CTA carries over
+   unchanged — red-on-night is already the footer's language. */
+.jh-header--dark .jh-header__pill {
+  background-color: color-mix(in srgb, var(--color-jh-night) 78%, transparent);
+  border-color: rgba(250, 247, 239, 0.16);
+  box-shadow: 0 6px 20px -12px rgba(0, 0, 0, 0.65);
+}
+
+.jh-header--dark.jh-header--scrolled .jh-header__pill {
+  background-color: color-mix(in srgb, var(--color-jh-night) 90%, transparent);
+}
+
+.jh-header--dark .jh-header__name {
+  color: var(--color-jh-cream);
+}
+
+.jh-header--dark .jh-header__link {
+  color: color-mix(in srgb, var(--color-jh-cream) 75%, transparent);
+}
+
+.jh-header--dark .jh-header__link:hover,
+.jh-header--dark .jh-header__link--active {
+  color: #fff;
+}
+
+.jh-header--dark .jh-header__bars span {
+  background-color: var(--color-jh-cream);
+}
+
 .jh-header__brand {
   display: flex;
   align-items: center;
@@ -63,6 +95,7 @@
   font-size: 1.05rem;
   color: var(--color-jh-blue);
   white-space: nowrap;
+  transition: color 0.3s ease;
 }
 
 .jh-header__links {

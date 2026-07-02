@@ -1,4 +1,8 @@
-<header class="jh-header" [class.jh-header--scrolled]="scrolled()">
+<header
+  class="jh-header"
+  [class.jh-header--scrolled]="scrolled()"
+  [class.jh-header--dark]="overDark()"
+>
   <nav class="jh-header__pill" aria-label="Primary">
     <!-- Wordmark -->
     <a routerLink="/" class="jh-header__brand" (click)="closeMenu()">

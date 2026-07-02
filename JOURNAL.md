@@ -6,6 +6,25 @@
 > Tag with `#decision` / `#pivot` / `#incident` / `#quote` / `#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-07-02 — The header joined the scene; the empty half-screens got their art #decision
+
+Sprint B of the July UI round. The floating white pill over the night scenes
+was the last "UI island" — now sections mark themselves `data-jh-header-dark`
+(plain / `until-veil` / `when-veiled`) and the header runs one ScrollScrubber
+consumer that flips it to a night pill while a dark surface sits underneath;
+veil-covered checks read the veil's computed opacity, and a trailing 120ms
+re-check after each scroll burst corrects the one-frame staleness that a
+discrete End/Home jump would otherwise leave behind. The desktop right-half
+emptiness on /visit and RCF got scene-language vignette cards instead of
+whitespace: the meetinghouse portrait (hero), the pew with a seat saved
+(what-to-expect), and RCF's lantern-and-stools gathering circle — each with a
+PHOTO SLOT comment for when the parish photo session happens. Contrast pass:
+new `--color-jh-gold-ink` (#7d6212, ≥5:1 on cream) for gold TEXT on light
+grounds — RCF times/places and every gold eyebrow on cream — while bright
+gold stays for dark grounds and decoration. RCF's CTA hierarchy flipped:
+"Plan a Sunday visit" is primary; the regional (still unconfirmed)
+@rcfcampus follow is secondary until the parish confirms a handle.
+
 ## 2026-07-02 — Veils became light; the ride CTA stopped losing to its own car #decision #incident
 
 A full walkthrough of the live journey (every ~800px, desktop + mobile) found

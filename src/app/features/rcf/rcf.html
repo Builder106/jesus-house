@@ -10,7 +10,7 @@
      on .rcf-hero from scroll. Baseline (SSR / no-JS / short viewport): a static
      illustrated hero with all copy visible. -->
 <section class="rcf-hero">
-  <div class="rcf-hero__stage">
+  <div class="rcf-hero__stage" data-jh-header-dark="until-veil">
     <!-- Campus dusk: College Row behind, string lights above, a glowing RCF
          flame at the heart of the gathering. The flame is the camera target. -->
     <svg
@@ -85,7 +85,7 @@
     <!-- scrim so the cream copy reads over the dusk + halo -->
     <div class="rcf-hero__scrim" aria-hidden="true"></div>
     <!-- warm wash: draws you "into the flame" and hands off to the content below -->
-    <div class="rcf-hero__veil" aria-hidden="true"></div>
+    <div class="rcf-hero__veil" data-jh-header-dark-veil aria-hidden="true"></div>
 
     <!-- Copy overlay -->
     <div class="rcf-hero__content mx-auto w-full max-w-3xl px-6 text-center">
@@ -101,18 +101,22 @@
         RCF — the Redeemed Campus Fellowship — is Jesus House's student family at Wesleyan. We gather
         through the week to worship, dig into the Bible, and just be together.
       </p>
+      <!-- "Plan a Sunday visit" is the primary action: it converts to a real
+           visit, and the Instagram handle is the regional account (still
+           unconfirmed as Wesleyan-specific) — it stays secondary until the
+           parish confirms or replaces it. -->
       <div jhReveal="270" class="mt-9 flex flex-wrap items-center justify-center gap-4">
+        <a
+          [routerLink]="visitPath"
+          class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"
+          >Plan a Sunday visit</a
+        >
         <a
           [href]="instagramHref"
           target="_blank"
           rel="noopener"
-          class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"
-          >Follow {{ instagramHandle }}</a
-        >
-        <a
-          [routerLink]="visitPath"
           class="rounded-full border border-jh-cream/45 px-6 py-3 text-sm font-bold text-jh-cream transition-colors hover:bg-jh-cream hover:text-jh-ink"
-          >Plan a Sunday visit</a
+          >Follow {{ instagramHandle }}</a
         >
       </div>
     </div>
@@ -151,26 +155,100 @@
 <!-- Who we are -->
 <section class="border-t border-jh-rule" aria-labelledby="rcf-who-heading">
   <div class="mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
-    <p jhReveal class="jh-eyebrow text-jh-gold">Who we are</p>
+    <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
+      <!-- Copy column -->
+      <div>
+        <p jhReveal class="jh-eyebrow text-jh-gold-ink">Who we are</p>
 
-    <h2
-      jhReveal="90"
-      id="rcf-who-heading"
-      class="mt-3 max-w-2xl font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
-    >
-      A campus fellowship, run by students.
-    </h2>
+        <h2
+          jhReveal="90"
+          id="rcf-who-heading"
+          class="mt-3 max-w-2xl font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
+        >
+          A campus fellowship, run by students.
+        </h2>
 
-    <div class="mt-6 max-w-xl space-y-4 text-lg leading-relaxed text-jh-soft">
-      <p jhReveal="180">
-        RCF is the student arm of RCCG Jesus House. It launched at Wesleyan in 2026, led by students
-        from the parish who wanted a place to keep their faith and their friendships growing during
-        the week — not just on Sundays.
-      </p>
-      <p jhReveal="240">
-        Expect worship, honest conversation about the Bible, a few games, and always something to eat.
-        You don't need any church background to belong here — come curious.
-      </p>
+        <div class="mt-6 max-w-xl space-y-4 text-lg leading-relaxed text-jh-soft">
+          <p jhReveal="180">
+            RCF is the student arm of RCCG Jesus House. It launched at Wesleyan in 2026, led by
+            students from the parish who wanted a place to keep their faith and their friendships
+            growing during the week — not just on Sundays.
+          </p>
+          <p jhReveal="240">
+            Expect worship, honest conversation about the Bible, a few games, and always something to
+            eat. You don't need any church background to belong here — come curious.
+          </p>
+        </div>
+      </div>
+
+      <!-- The gathering, before everyone arrives: lantern lit, stools out, a
+           seat open — drawn in the week-beats' green language. No faces (PII). -->
+      <!-- PHOTO SLOT: an RCF gathering wide shot (consent required, no minors). -->
+      <div jhReveal jhRevealDir="left" class="rcf-beat__art">
+        <svg viewBox="0 0 440 320" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="rw-halo" cx="0.5" cy="0.55" r="0.55">
+              <stop offset="0" stop-color="#ffd877" stop-opacity="0.45" />
+              <stop offset="1" stop-color="#ffd877" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+
+          <rect width="440" height="320" rx="18" fill="#0c3b29" />
+          <rect width="440" height="150" fill="#0a3526" />
+
+          <!-- string lights -->
+          <path d="M30 44 Q 220 96 410 44" fill="none" stroke="#1b5a3f" stroke-width="3" />
+          <g fill="#ffd877">
+            <circle cx="86" cy="60" r="5" />
+            <circle cx="152" cy="72" r="5" />
+            <circle cx="220" cy="78" r="5" />
+            <circle cx="288" cy="72" r="5" />
+            <circle cx="354" cy="60" r="5" />
+          </g>
+
+          <!-- lantern-light pooling where the circle gathers -->
+          <ellipse cx="220" cy="216" rx="185" ry="112" fill="url(#rw-halo)" />
+
+          <!-- lantern on a crate at the centre -->
+          <g transform="translate(220 206)">
+            <rect x="-27" y="8" width="54" height="34" rx="4" fill="#09301f" stroke="#1b5a3f" stroke-width="2" />
+            <rect x="-14" y="-32" width="28" height="40" rx="6" fill="none" stroke="#C9A227" stroke-width="4" />
+            <path d="M-8 -32 q 8 -13 16 0" fill="none" stroke="#C9A227" stroke-width="4" />
+            <ellipse cx="0" cy="-12" rx="7" ry="10" fill="#ffd877" />
+          </g>
+
+          <!-- stools in a circle — empty seats, room for you -->
+          <g fill="#d79a4e">
+            <g transform="translate(108 232)">
+              <ellipse cx="0" cy="0" rx="26" ry="9" />
+              <rect x="-22" y="4" width="7" height="30" />
+              <rect x="15" y="4" width="7" height="30" />
+            </g>
+            <g transform="translate(332 232)">
+              <ellipse cx="0" cy="0" rx="26" ry="9" />
+              <rect x="-22" y="4" width="7" height="30" />
+              <rect x="15" y="4" width="7" height="30" />
+            </g>
+            <g transform="translate(164 278)">
+              <ellipse cx="0" cy="0" rx="28" ry="10" />
+              <rect x="-24" y="5" width="7" height="28" />
+              <rect x="17" y="5" width="7" height="28" />
+            </g>
+            <g transform="translate(276 278)">
+              <ellipse cx="0" cy="0" rx="28" ry="10" />
+              <rect x="-24" y="5" width="7" height="28" />
+              <rect x="17" y="5" width="7" height="28" />
+            </g>
+          </g>
+
+          <!-- an open Bible left on a stool -->
+          <g transform="translate(164 268)">
+            <path d="M-22 6 Q -11 1 0 4 Q 11 1 22 6 L 22 10 Q 11 5 0 8 Q -11 5 -22 10 Z" fill="#b98d43" />
+            <path d="M-20 4 Q -10 -1 0 2 L 0 -10 Q -10 -8 -20 -4 Z" fill="#fffaf0" />
+            <path d="M20 4 Q 10 -1 0 2 L 0 -10 Q 10 -8 20 -4 Z" fill="#fffaf0" />
+          </g>
+        </svg>
+      </div>
     </div>
   </div>
 </section>
@@ -179,7 +257,7 @@
      animating in as you scroll. -->
 <section class="border-t border-jh-rule" aria-labelledby="rcf-when-heading">
   <div class="mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
-    <p jhReveal class="jh-eyebrow text-jh-gold">Your week</p>
+    <p jhReveal class="jh-eyebrow text-jh-gold-ink">Your week</p>
     <h2
       jhReveal="90"
       id="rcf-when-heading"
@@ -293,8 +371,8 @@
           <div jhReveal="120" class="rcf-beat__copy">
             <span class="font-display text-4xl font-semibold text-jh-gold/35" aria-hidden="true">{{ g.index }}</span>
             <h3 class="mt-1 font-display text-2xl font-semibold text-jh-ink">{{ g.name }}</h3>
-            <p class="mt-1 font-display text-lg font-semibold text-jh-gold">{{ g.when }}</p>
-            <p class="mt-1 text-sm font-semibold uppercase tracking-wide text-jh-gold">{{ g.where }}</p>
+            <p class="mt-1 font-display text-lg font-semibold text-jh-gold-ink">{{ g.when }}</p>
+            <p class="mt-1 text-sm font-semibold uppercase tracking-wide text-jh-gold-ink">{{ g.where }}</p>
             <p class="mt-4 max-w-md text-base leading-relaxed text-jh-soft">{{ g.blurb }}</p>
           </div>
         </div>
@@ -310,7 +388,7 @@
 <!-- Rides / campus -->
 <section class="border-t border-jh-rule" aria-labelledby="rcf-rides-heading">
   <div class="mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
-    <p jhReveal class="jh-eyebrow text-jh-gold">Getting to Sunday</p>
+    <p jhReveal class="jh-eyebrow text-jh-gold-ink">Getting to Sunday</p>
 
     <h2
       jhReveal="90"
@@ -346,7 +424,7 @@
 </section>
 
 <!-- Close — RCF's deep green (its own "after dark"), echoing the home story -->
-<section class="bg-rcf-night text-jh-cream" aria-labelledby="rcf-close-heading">
+<section class="bg-rcf-night text-jh-cream" data-jh-header-dark aria-labelledby="rcf-close-heading">
   <div class="mx-auto w-full max-w-5xl px-6 py-24 text-center sm:py-32">
     <img
       jhReveal
@@ -372,18 +450,20 @@
       Either way, we've been saving you a seat.
     </p>
 
+    <!-- Same hierarchy as the hero: visiting is primary; the (regional,
+         unconfirmed) Instagram stays secondary. -->
     <div jhReveal="270" class="mt-9 flex flex-wrap items-center justify-center gap-4">
+      <a
+        [routerLink]="visitPath"
+        class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"
+        >Plan a Sunday visit</a
+      >
       <a
         [href]="instagramHref"
         target="_blank"
         rel="noopener"
-        class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"
-        >Follow {{ instagramHandle }}</a
-      >
-      <a
-        [routerLink]="visitPath"
         class="rounded-full border border-jh-cream/40 px-6 py-3 text-sm font-bold text-jh-cream transition-colors hover:bg-jh-cream hover:text-jh-ink"
-        >Plan a Sunday visit</a
+        >Follow {{ instagramHandle }}</a
       >
     </div>
   </div>

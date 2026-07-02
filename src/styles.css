@@ -34,6 +34,9 @@
   /* Cinematic / cathedral additions */
   --color-jh-night: #141038; /* deep indigo ground for dark sections */
   --color-jh-gold: #c9a227; /* warm accent + script-feel eyebrow on dark */
+  --color-jh-gold-ink: #7d6212; /* gold for TEXT on cream/light grounds — #c9a227
+     on cream is ~2.3:1 (fails AA); this reads as the same gold family at ≥5:1.
+     Keep --color-jh-gold for dark grounds and pure decoration. */
   --color-jh-rule: #e7e1d6; /* hairline rules on cream */
 
   /* RCF sub-brand — the campus fellowship. Signature is the RCCG-seal green
@@ -93,7 +96,8 @@
    * Script eyebrow — warm "script-feel" label.
    * Fraunces italic in gold. Reads as a handwritten flourish; especially
    * intended for dark (jh-night) cathedral sections. Override the color with
-   * a text-* utility when a different hue is wanted.
+   * a text-* utility when a different hue is wanted — on cream/light grounds
+   * ALWAYS override with text-jh-gold-ink (the default gold fails AA there).
    */
   .jh-script-eyebrow {
     font-family: var(--font-display);
