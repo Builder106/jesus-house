@@ -117,19 +117,42 @@
   pointer-events: none;
 }
 
-/* ── Embla layout (once JS hydrates and the carousel initialises) ───────── */
+/* ── Embla layout (once JS hydrates and the carousel initialises) ─────────
+ * Vertical axis, matching the rest of the page's vertical journey. Drag is
+ * disabled (see values.ts) — a vertically-draggable carousel nested inside
+ * a vertically-scrolling page would fight the page's own scroll gesture, so
+ * navigation is autoplay + dot-click only.
+ *
+ * The container needs an explicit height: 100% (inherited from .embla--
+ * ready's fixed height below), not auto — with an auto-height flex column,
+ * a slide's flex-basis: 100% is circular/undefined and browsers fall back
+ * to sizing it by content instead of stretching it, which left every slide
+ * a different height. Embla measures each slide's height to build its list
+ * of scroll-snap positions, so with every slide silently sized differently
+ * it detected only one snap point total and had nowhere to scroll to —
+ * confirmed by testing this exact config in isolation outside Angular.
+ * With height: 100% resolving concretely, every slide is a real, uniform
+ * 16rem tall (overflowing the container, which is fine: .embla--ready's
+ * own overflow: hidden is what clips it, and Embla translates the
+ * container within that to bring each slide into view in turn). */
 .embla--ready {
   overflow: hidden;
+  height: 16rem;
 }
 
 .embla--ready .embla__container {
   display: flex;
-  touch-action: pan-y;
+  flex-direction: column;
+  height: 100%;
 }
 
 .embla--ready .embla__slide {
   flex: 0 0 100%;
-  min-width: 0;
+  min-height: 0;
+}
+
+.embla--ready .scene__beat {
+  height: 100%;
 }
 
 /* ── Active camera move (tall viewports + motion-OK) ───────────────────── */

@@ -24,18 +24,20 @@ import { SceneDirective } from '../../../../shared/motion/scene.directive';
  * Sending) reads, then the camera zooms INTO the stained glass, whose deep
  * indigo hands off seamlessly to the cathedral story section below.
  *
- * The beats are an Embla carousel (swipe, autoplay, or click a dot) rather
- * than scroll-driven — unlike the rest of the page's scroll-scrubbed camera,
- * they don't need scroll distance to advance, so they just sit inside the
- * pinned panel. Embla initialises unconditionally in the browser (it isn't
- * gated on the scene's own pin/viewport-height check, since a compact
- * one-at-a-time carousel is a fine fit for short viewports too — the static
- * 2×2 grid is the true no-JS/pre-hydration fallback, not a short-viewport
- * fallback).
+ * The beats are an Embla carousel (vertical axis, matching the rest of the
+ * page's vertical rhythm — autoplay or click a dot; drag is off, since a
+ * vertically-draggable carousel nested in a vertically-scrolling page would
+ * fight the page's own scroll gesture) rather than scroll-driven — unlike
+ * the rest of the page's scroll-scrubbed camera, the carousel doesn't need
+ * scroll distance to advance, so it just sits inside the pinned panel. Embla
+ * initialises unconditionally in the browser (it isn't gated on the scene's
+ * own pin/viewport-height check, since a compact one-at-a-time carousel is a
+ * fine fit for short viewports too — the static 2×2 grid is the true no-JS/
+ * pre-hydration fallback, not a short-viewport fallback).
  *
  * Autoplay is a self-looping animation (unlike the scroll-driven camera,
  * which only moves on user scroll) — it honours prefers-reduced-motion on
- * its own; swipe/click navigation stays available either way.
+ * its own; dot-click navigation stays available either way.
  *
  * Static baseline (SSR / no-JS / before hydration): the scene illustrates a
  * normal section — heading panel + a 2×2 beats grid, all fully visible. No
@@ -110,9 +112,20 @@ export class HomeValues {
         ? []
         : [Autoplay({ delay: 4500, stopOnMouseEnter: true })];
 
-      const emblaApi = EmblaCarousel(root, { loop: true }, plugins);
-      this.emblaApi = emblaApi;
+      // Switch to the vertical-carousel layout BEFORE Embla measures the
+      // DOM: Embla reads slide sizes once at init, and if it measures the
+      // pre-hydration 2×2 grid instead of the final one-slide-per-row
+      // layout, its internal snap points are wrong from the start —
+      // watchResize's automatic recovery from that isn't reliable here.
       root.classList.add('embla--ready');
+
+      // axis: 'y' matches the vertical rhythm of the rest of the page. Drag
+      // is off (watchDrag: false) rather than left on: a vertically-
+      // draggable carousel nested inside a vertically-scrolling page would
+      // fight the page's own scroll gesture, so navigation is autoplay +
+      // dot-click only.
+      const emblaApi = EmblaCarousel(root, { loop: true, axis: 'y', watchDrag: false }, plugins);
+      this.emblaApi = emblaApi;
 
       const onSelect = () => this.activeIndex.set(emblaApi.selectedScrollSnap());
       emblaApi.on('select', onSelect);
