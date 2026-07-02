@@ -9,6 +9,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { isDarkGroundInBand } from '../../motion/dark-ground';
 import { ScrollScrubber } from '../../motion/scroll-scrubber';
 
 /**
@@ -28,6 +29,16 @@ import { ScrollScrubber } from '../../motion/scroll-scrubber';
  *     geometry read can't be sandwiched between two other components'
  *     writes and force a synchronous layout. All visual motion is CSS
  *     driven off `--p`.
+ *   • Dark-ground aware (same `data-jh-header-dark` marks + `dark-ground.ts`
+ *     helper the header uses): the untraveled track is a quiet violet-grey
+ *     tint on the cream ground, but that colour is nearly invisible on cream
+ *     itself (owner feedback, 2026-07-02: "nearly invisible at 1440... reads
+ *     as a stray line on dark scenes") and reads as a stray pale thread once
+ *     it crosses a night scene. `.jh-rail--dark` swaps the track to a
+ *     translucent gold, matching the gold-on-dark accent used everywhere
+ *     else on the page (eyebrows, script-eyebrows). The rail's own band is
+ *     computed analytically (fixed, vertically centred, `--rail-h` tall) —
+ *     no DOM measurement needed for a `position: fixed` element.
  *
  * SSR / no-JS safety: the rail is gated on the `enabled` signal (starts
  * false). The server renders nothing; the signal only flips true in
@@ -43,6 +54,7 @@ import { ScrollScrubber } from '../../motion/scroll-scrubber';
 })
 export class RideProgress {
   protected readonly enabled = signal(false);
+  protected readonly onDark = signal(false);
 
   private readonly rail = viewChild<ElementRef<HTMLElement>>('rail');
   private readonly platformId = inject(PLATFORM_ID);
@@ -58,16 +70,24 @@ export class RideProgress {
       let unregister: (() => void) | null = null;
 
       // READ only — no DOM writes. Runs in the scrubber's batched read phase.
-      const measure = (): number => {
+      // Rail band computed analytically (matches --rail-h: 62vh, centred) —
+      // cheaper and simpler than measuring a position:fixed element's own
+      // rect, and correct by construction since the CSS defines that geometry.
+      const measure = (): { progress: number; dark: boolean } => {
         const doc = document.documentElement;
         const max = doc.scrollHeight - window.innerHeight;
-        return max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+        const progress = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+        const railH = window.innerHeight * 0.62;
+        const top = (window.innerHeight - railH) / 2;
+        const dark = isDarkGroundInBand(top, top + railH);
+        return { progress, dark };
       };
 
       // WRITE only — no layout reads. Runs in the scrubber's batched write phase.
-      const apply = (progress: number) => {
+      const apply = ({ progress, dark }: { progress: number; dark: boolean }) => {
         const el = this.rail()?.nativeElement;
         if (el) el.style.setProperty('--p', String(progress));
+        this.onDark.set(dark);
       };
 
       const sync = () => {

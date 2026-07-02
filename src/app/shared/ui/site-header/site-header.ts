@@ -7,9 +7,11 @@ import {
   inject,
   PLATFORM_ID,
   signal,
+  viewChild,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { isDarkGroundInBand } from '../../motion/dark-ground';
 import { ScrollScrubber } from '../../motion/scroll-scrubber';
 
 /**
@@ -34,6 +36,17 @@ import { ScrollScrubber } from '../../motion/scroll-scrubber';
  * The check runs through the shared ScrollScrubber (batched read → write) and
  * re-runs after navigation. SSR / no-JS: the class never lands; the light
  * pill is the baseline everywhere.
+ *
+ * Mobile menu focus management (WAI-ARIA APG disclosure pattern): opening
+ * moves focus to the panel's first link (a keyboard user just activated the
+ * toggle — send them straight into the menu rather than making them Tab past
+ * it again); Escape closes the menu FROM ANYWHERE (not just while focus is
+ * still inside the panel — a document-level listener, live only while open)
+ * and returns focus to the toggle button, as does re-clicking the toggle
+ * itself. A link click also closes the menu but deliberately does NOT
+ * return focus to the toggle — the browser's own navigation is about to move
+ * the user's attention to the destination page, and yanking focus back to a
+ * now-offscreen toggle button would fight that.
  */
 @Component({
   selector: 'jh-site-header',
@@ -51,11 +64,14 @@ export class SiteHeader {
   /** mailto for the ride CTA (kept here so the template stays declarative). */
   protected readonly rideHref = 'mailto:rccgjhmiddletown@gmail.com?subject=Ride%20request';
 
+  private readonly menuToggle = viewChild<ElementRef<HTMLButtonElement>>('menuToggle');
   private readonly platformId = inject(PLATFORM_ID);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly router = inject(Router);
   private readonly scrollScrubber = inject(ScrollScrubber);
   private readonly destroyRef = inject(DestroyRef);
+
+  private onMenuKeydown: ((event: KeyboardEvent) => void) | null = null;
 
   constructor() {
     afterNextRender(() => {
@@ -80,22 +96,11 @@ export class SiteHeader {
 
       // READ phase — pill band vs. every dark-marked surface currently in the
       // document (queried per frame: route content comes and goes, and the set
-      // is tiny). getComputedStyle on a veil reads the PREVIOUS frame's
-      // opacity (this frame's --zoom write hasn't run yet) — one frame of lag,
-      // imperceptible at veil-fade speeds.
+      // is tiny). See dark-ground.ts for the one-frame-staleness note.
       const measure = (): boolean => {
         if (!pill) return false;
         const band = pill.getBoundingClientRect();
-        for (const el of document.querySelectorAll<HTMLElement>('[data-jh-header-dark]')) {
-          const r = el.getBoundingClientRect();
-          if (r.height === 0 || r.top >= band.bottom || r.bottom <= band.top) continue;
-          const mode = el.getAttribute('data-jh-header-dark') || 'dark';
-          if (mode === 'dark') return true;
-          const veil = el.querySelector('[data-jh-header-dark-veil]');
-          const veiled = veil ? parseFloat(getComputedStyle(veil).opacity) > 0.5 : false;
-          if (mode === 'until-veil' ? !veiled : veiled) return true;
-        }
-        return false;
+        return isDarkGroundInBand(band.top, band.bottom);
       };
       const unregister = this.scrollScrubber.register({
         measure,
@@ -115,15 +120,40 @@ export class SiteHeader {
         window.removeEventListener('scroll', onScroll);
         unregister();
         sub.unsubscribe();
+        if (this.onMenuKeydown) document.removeEventListener('keydown', this.onMenuKeydown);
       });
     });
   }
 
   protected toggleMenu(): void {
-    this.menuOpen.update((v) => !v);
+    if (this.menuOpen()) this.closeMenu(true);
+    else this.openMenu();
   }
 
-  protected closeMenu(): void {
+  /** `returnFocus` is false by default so a link click (which also calls
+   *  this) lets the browser's own navigation own focus — see class doc. */
+  protected closeMenu(returnFocus = false): void {
+    if (!this.menuOpen()) return;
     this.menuOpen.set(false);
+    if (this.onMenuKeydown) {
+      document.removeEventListener('keydown', this.onMenuKeydown);
+      this.onMenuKeydown = null;
+    }
+    if (returnFocus) this.menuToggle()?.nativeElement.focus();
+  }
+
+  private openMenu(): void {
+    this.menuOpen.set(true);
+    // The panel is @if-gated — its DOM lands after this change-detection
+    // pass, so the focus move waits a tick.
+    setTimeout(() => {
+      this.host.nativeElement.querySelector<HTMLElement>('.jh-header__menu-link')?.focus();
+    });
+    this.onMenuKeydown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      event.stopPropagation();
+      this.closeMenu(true);
+    };
+    document.addEventListener('keydown', this.onMenuKeydown);
   }
 }

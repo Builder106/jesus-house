@@ -294,7 +294,13 @@
 
   <!-- Heading + carousel panel -->
   <div class="scene__copy relative z-[2] mx-auto w-full max-w-5xl px-6">
-    <div class="scene__panel max-w-2xl rounded-lg border border-jh-rule p-8 sm:p-10">
+    <!-- max-w-xl, matching ride/audience's panel width (not the 2xl it used
+         to be): at 2xl the panel's right edge landed almost exactly on the
+         dive target (the cross at x=720 of the 1440-wide art), burying the
+         thing the camera is about to zoom into behind the copy for the whole
+         read phase. Narrower pulls the right edge clear so the arch is
+         visible beside the card while it reads. -->
+    <div class="scene__panel max-w-xl rounded-lg border border-jh-rule p-8 sm:p-10">
       <p jhReveal class="jh-eyebrow text-jh-soft">Sunday mornings</p>
       <h2
         id="values-heading"

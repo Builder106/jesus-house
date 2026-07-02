@@ -48,6 +48,14 @@
 
 .scene__beat {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* Vertically centre the numeral/label/word/line block in the card. In the
+     fixed-height (16rem) post-ready carousel this fills the card instead of
+     top-aligning with a dead gap below the (usually two-line) copy; in the
+     static pre-ready grid, whose cards are taller than their content, it
+     reads as intentional composition rather than an accident either way. */
+  justify-content: center;
   border: 1px solid var(--color-jh-rule);
   border-radius: 0.5rem;
   background: color-mix(in srgb, var(--color-jh-cream) 60%, transparent);
@@ -57,7 +65,7 @@
 /* Editorial index numeral — the gold accent that anchors each card. */
 .scene__beat-num {
   display: block;
-  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-size: clamp(2rem, 5vw, 2.75rem);
   line-height: 1;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -69,8 +77,12 @@
 }
 
 .scene__beat-word {
-  font-size: clamp(1.4rem, 3vw, 1.75rem);
+  font-size: clamp(1.4rem, 3vw, 2rem);
   line-height: 1.05;
+}
+
+.scene__beat-line {
+  max-width: 32rem;
 }
 
 /* Progress dots — click one to jump to that beat. Visible (and inert until
@@ -85,13 +97,13 @@
 }
 
 .scene__dot {
-  width: 1.65rem;
-  height: 3px;
+  width: 2.25rem;
+  height: 5px;
   border: 0;
-  border-radius: 2px;
+  border-radius: 3px;
   padding: 0;
   background: var(--color-jh-soft);
-  opacity: 0.45;
+  opacity: 0.5;
   cursor: pointer;
   transition:
     background-color 0.3s ease,

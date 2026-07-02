@@ -28,11 +28,12 @@
 
     <!-- Mobile disclosure toggle -->
     <button
+      #menuToggle
       type="button"
       class="jh-header__toggle"
       [attr.aria-expanded]="menuOpen()"
       aria-controls="jh-mobile-menu"
-      aria-label="Toggle navigation menu"
+      [attr.aria-label]="menuOpen() ? 'Close navigation menu' : 'Open navigation menu'"
       (click)="toggleMenu()"
     >
       <span class="jh-header__bars" [class.jh-header__bars--open]="menuOpen()" aria-hidden="true">

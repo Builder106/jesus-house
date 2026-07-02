@@ -22,7 +22,13 @@
   pointer-events: none;
 }
 
-/* faint full-height track */
+/* Full-height track. --color-jh-rule (a near-cream hairline, meant for
+   borders ON cream) was nearly invisible here — the untraveled two-thirds of
+   the rail read as blank space rather than a track waiting for its car. A
+   soft violet-grey tint reads clearly against cream without competing with
+   the jh-red fill; .jh-rail--dark swaps it to translucent gold (the site's
+   established gold-on-dark accent) once a night scene is under the rail, so
+   it never reads as a stray pale line over a dark ground. */
 .jh-rail__track {
   position: absolute;
   left: 50%;
@@ -31,7 +37,12 @@
   width: 2px;
   transform: translateX(-50%);
   border-radius: 2px;
-  background-color: var(--color-jh-rule);
+  background-color: color-mix(in srgb, var(--color-jh-soft) 40%, transparent);
+  transition: background-color 0.4s ease;
+}
+
+.jh-rail--dark .jh-rail__track {
+  background-color: color-mix(in srgb, var(--color-jh-gold) 55%, transparent);
 }
 
 /* jh-red fill grows from the top down to the car */

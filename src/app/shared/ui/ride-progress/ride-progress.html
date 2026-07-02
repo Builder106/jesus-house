@@ -1,5 +1,5 @@
 @if (enabled()) {
-  <div #rail class="jh-rail" aria-hidden="true">
+  <div #rail class="jh-rail" [class.jh-rail--dark]="onDark()" aria-hidden="true">
     <!-- the track -->
     <span class="jh-rail__track"></span>
     <!-- jh-red fill that grows behind the car as you descend -->
