@@ -170,6 +170,23 @@
   height: 100%;
 }
 
+/* ── Continuous scroll-linked position (while pinned) ──────────────────────
+ * .embla--scrubbing is added by values.ts only while the scene is pinned —
+ * it swaps Embla's own eased, discrete scrollTo for a plain transform keyed
+ * off --carousel-scrub, a continuous 0→3 position across the four beats
+ * (each slide is exactly 16rem, .embla--ready's fixed height). Matches how
+ * the door/glass camera moves elsewhere on the page work: the card tracks
+ * scroll pixel-for-pixel, not "snap on crossing a threshold." No transition
+ * here on purpose — any easing would decouple the card's motion from the
+ * scroll gesture driving it, which is exactly what this replaces. Embla is
+ * not calling scrollTo while this class is present, so nothing else is
+ * competing for the transform; !important is cheap insurance against Embla
+ * reasserting its own inline transform from an internal resize reflow. */
+.embla--scrubbing .embla__container {
+  transition: none;
+  transform: translateY(calc(var(--carousel-scrub, 0) * -16rem)) !important;
+}
+
 /* ── Active camera move (tall viewports + motion-OK) ───────────────────── */
 :host(.scene--active) {
   height: 320svh;

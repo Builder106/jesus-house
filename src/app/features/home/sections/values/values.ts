@@ -26,19 +26,33 @@ import { ScrollScrubber } from '../../../../shared/motion/scroll-scrubber';
  * indigo hands off seamlessly to the cathedral story section below.
  *
  * The beats are an Embla carousel (vertical axis, matching the rest of the
- * page's vertical rhythm). While the scene is PINNED, which beat shows is
- * driven by scroll position — like every other scene on this page, scroll
- * IS the interaction, so a carousel that only responded to autoplay/dot-
- * clicks while everything around it responds to scroll read as broken (owner
- * feedback, 2026-07-02: "the cards don't move as I scroll"). The pinned
- * scene's own `--zoom` custom property (written every frame by the shared
- * jhScene directive on this same host) is read back here — not re-measured —
- * and mapped onto the four beats across the panel's existing 0→.38 "read"
- * window (see values.css); crossing a beat's threshold calls Embla's own
- * `scrollTo`, so the beat transition uses Embla's normal eased animation
- * rather than a hand-rolled transform. This plays for everyone, including
- * reduced-motion, exactly like the rest of the scroll-driven journey — it is
- * scroll-DRIVEN, not a self-looping autoplay.
+ * page's vertical rhythm) — but ONLY in the unpinned static/short-viewport
+ * fallback (autoplay + dot-click there, Embla's normal eased `scrollTo`).
+ * While the scene is PINNED, Embla's own positioning is bypassed entirely:
+ * the card position tracks scroll CONTINUOUSLY, pixel-for-pixel, the same
+ * way the door/glass camera moves elsewhere on the page do (owner feedback,
+ * 2026-07-03, after a first pass that snapped between beats on scroll-
+ * threshold crossings: "link it to vertical scroll instead"). A `.embla--
+ * scrubbing` class swaps in a CSS transform keyed off `--carousel-scrub` (a
+ * continuous 0→3 position across the four beats) with `!important` — since
+ * Embla is not driving `scrollTo` in this mode, nothing else is fighting for
+ * the container's transform, but `!important` is cheap insurance against
+ * Embla reasserting its own inline transform from an internal resize reflow.
+ * `--carousel-scrub` itself is derived from the SAME `--zoom` the pinned
+ * scene's shared jhScene directive already writes every frame (read back,
+ * not re-measured) across the panel's existing 0→.38 "read" window (see
+ * values.css). No loop-wraparound handling is needed for this: scrolling
+ * through the pinned scene is a single linear pass through the four beats,
+ * never an infinite carousel — Embla's `loop: true` config only matters for
+ * the unpinned autoplay case, where it still owns positioning normally.
+ * This continuous tracking plays for everyone, including reduced-motion,
+ * exactly like the rest of the scroll-driven journey — it is scroll-DRIVEN,
+ * not a self-looping autoplay.
+ *
+ * On leaving the pin (scrolling back up out of it, or a live orientation
+ * change), Embla's real internal slide is snapped (jump: true, no animation)
+ * to wherever the continuous scrub last left off, so autoplay/dot-click
+ * resume from the right visual spot with no jump.
  *
  * Drag stays off (watchDrag: false): a vertically-draggable carousel nested
  * inside a vertically-scrolling page would fight the page's own scroll
@@ -150,16 +164,15 @@ export class HomeValues {
       emblaApi.on('select', onSelect);
       onSelect();
 
-      // Scroll-driven advance while the scene is pinned. `--zoom` is written
-      // every scroll frame by the shared jhScene directive (a host directive
-      // on this same element) — read it back here rather than re-measuring
-      // the same geometry a second time. Reading a sibling consumer's write
-      // from within the ScrollScrubber's own batched read phase is one frame
-      // stale (it hasn't applied yet this tick); imperceptible for a
-      // beat-threshold crossing, unlike a visible layout property.
+      // Continuous scroll-driven position while the scene is pinned. `--zoom`
+      // is written every scroll frame by the shared jhScene directive (a host
+      // directive on this same element) — read it back here rather than
+      // re-measuring the same geometry a second time. Reading a sibling
+      // consumer's write from within the ScrollScrubber's own batched read
+      // phase is one frame stale (it hasn't applied yet this tick);
+      // imperceptible at scroll-frame cadence.
       const hostEl = this.host.nativeElement;
-      let lastIndex = -1;
-      let wasPinned = false;
+      let pinned = false;
       const measure = (): number => {
         if (!hostEl.classList.contains('scene--active')) return -1;
         const zoom = parseFloat(getComputedStyle(hostEl).getPropertyValue('--zoom')) || 0;
@@ -168,22 +181,30 @@ export class HomeValues {
         return Math.min(1, zoom / 0.545);
       };
       const apply = (p: number) => {
-        const pinned = p >= 0;
-        if (pinned !== wasPinned) {
-          wasPinned = pinned;
-          if (pinned) autoplay?.stop();
-          else autoplay?.play();
+        const isPinned = p >= 0;
+        if (isPinned !== pinned) {
+          pinned = isPinned;
+          root.classList.toggle('embla--scrubbing', pinned);
+          if (pinned) {
+            autoplay?.stop();
+          } else {
+            // Leaving the pin: hand the real slide back to Embla wherever
+            // the continuous scrub last left off (jump: true skips Embla's
+            // own animation) so autoplay/dot-click resume without a jump.
+            const lastScrub = parseFloat(root.style.getPropertyValue('--carousel-scrub')) || 0;
+            emblaApi.scrollTo(Math.round(lastScrub), true);
+            autoplay?.play();
+          }
         }
         if (!pinned) return;
         // The beats share the panel's own 0→.38 "read" window (values.css) —
         // after .38 the panel is lifting away into the dive, so there's no
-        // point still advancing beats.
+        // point still advancing. Continuous, not floored to an index: this
+        // is a position (0→3 across 4 beats), not a threshold crossing.
         const t = Math.min(1, p / 0.38);
-        const index = Math.min(this.beats.length - 1, Math.floor(t * this.beats.length));
-        if (index !== lastIndex) {
-          lastIndex = index;
-          emblaApi.scrollTo(index);
-        }
+        const scrub = t * (this.beats.length - 1);
+        root.style.setProperty('--carousel-scrub', scrub.toFixed(4));
+        this.activeIndex.set(Math.round(scrub));
       };
       const unregisterScrub = this.scrollScrubber.register({ measure, apply });
 
@@ -199,10 +220,18 @@ export class HomeValues {
     // autoplay setting never sees a dot click as "interaction" — without
     // this, autoplay keeps ticking underneath and can race with (and
     // silently override) the click a moment later. Stop it explicitly.
-    // (If the scene is pinned, the next scroll event re-asserts whichever
-    // beat the current scroll position maps to — scroll position is the
-    // source of truth once pinned, same as the rest of the journey.)
     this.emblaApi?.plugins().autoplay?.stop();
-    this.emblaApi?.scrollTo(index);
+    const root = this.emblaRoot()?.nativeElement;
+    if (root?.classList.contains('embla--scrubbing')) {
+      // Pinned: position is continuously scroll-driven, so a click just
+      // jumps the scrub value directly — no Embla animation in this mode.
+      // The very next scroll event re-asserts whatever the actual scroll
+      // position maps to anyway, same as the rest of the journey once
+      // pinned; this is a momentary jump, not a lasting override.
+      root.style.setProperty('--carousel-scrub', String(index));
+      this.activeIndex.set(index);
+    } else {
+      this.emblaApi?.scrollTo(index);
+    }
   }
 }
