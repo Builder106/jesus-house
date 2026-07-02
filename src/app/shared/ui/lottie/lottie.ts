@@ -18,23 +18,43 @@ import { isPlatformBrowser } from '@angular/common';
  * Renders a decorative dotLottie animation into a <canvas>. The heavy WASM
  * player is dynamically imported and only initialised in the browser, when the
  * element scrolls near the viewport, and only when the user has not requested
- * reduced motion. On the server / with JS disabled / under reduced-motion the
- * canvas simply stays empty — the surrounding layout reserves the space, so
- * nothing shifts and no content depends on it. The animation is purely
- * decorative (aria-hidden).
+ * reduced motion.
+ *
+ * Static fallback: project a static SVG as content —
+ *   <jh-lottie src="…"><svg …>…</svg></jh-lottie>
+ * It renders on the server, with JS disabled, under reduced-motion, and if the
+ * player chunk fails to load — then hides the moment the animation take over.
+ * This keeps the site's baseline contract: content (even decorative accents)
+ * is never simply absent because motion is off; the owner's phone runs
+ * Android "Remove animations", which used to leave an empty hole where the
+ * dove should be (2026-07-02). The animation remains purely decorative
+ * (aria-hidden), fallback included.
  */
 @Component({
   selector: 'jh-lottie',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<canvas #canvas aria-hidden="true" class="block h-full w-full"></canvas>`,
+  template: `
+    <canvas #canvas aria-hidden="true" class="block h-full w-full"></canvas>
+    <div class="jh-lottie__fallback" aria-hidden="true"><ng-content /></div>
+  `,
   styles: [
     `
       :host {
+        position: relative;
         display: block;
       }
+      /* The static stand-in occupies the same box as the canvas; visible by
+         default (SSR / no-JS / reduced-motion / player-load failure). */
+      .jh-lottie__fallback {
+        position: absolute;
+        inset: 0;
+      }
       /* Hidden only once JS has opted in (browser + motion-OK); the server and
-         reduced-motion paths never add this class, so the empty canvas stays
-         in normal flow and nothing shifts. */
+         reduced-motion paths never add these classes, so the fallback stays. */
+      :host(.jh-lottie--pending) .jh-lottie__fallback,
+      :host(.jh-lottie--in) .jh-lottie__fallback {
+        display: none;
+      }
       :host(.jh-lottie--pending) {
         opacity: 0;
       }
@@ -73,7 +93,8 @@ export class Lottie {
   /** Loop the animation (default true). */
   readonly loop = input(true);
 
-  /** Entrance state: idle (SSR/no-JS/reduced-motion) → pending (hidden) → in (descends). */
+  /** Entrance state: idle (SSR/no-JS/reduced-motion → fallback shows) →
+   *  pending (hidden while the player loads) → in (canvas descends in). */
   protected readonly state = signal<'idle' | 'pending' | 'in'>('idle');
 
   private readonly canvas = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
@@ -95,7 +116,11 @@ export class Lottie {
           if (started || !entries.some((e) => e.isIntersecting)) return;
           started = true;
           io.disconnect();
-          void this.start();
+          void this.start().catch(() => {
+            // Player chunk failed (offline, blocked, old browser): fall back to
+            // the static stand-in rather than holding the box invisible.
+            this.state.set('idle');
+          });
         },
         { rootMargin: '200px' },
       );

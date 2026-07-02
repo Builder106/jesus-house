@@ -69,14 +69,24 @@ export class ScrollScrubber {
       this.ticking = false;
       // READ phase — every measure() runs before any apply(), so a write
       // from one consumer can never force a layout recompute for the next
-      // consumer's read.
+      // consumer's read. Each consumer is isolated: an exception in one
+      // (e.g. a device-specific API quirk) must not freeze every pinned
+      // scene's --zoom for the rest of the session.
       const pending: Array<[(value: unknown) => void, unknown]> = [];
       for (const entry of this.entries) {
-        pending.push([entry.apply, entry.measure()]);
+        try {
+          pending.push([entry.apply, entry.measure()]);
+        } catch {
+          /* skip this consumer this frame */
+        }
       }
-      // WRITE phase
+      // WRITE phase — same isolation.
       for (const [apply, value] of pending) {
-        apply(value);
+        try {
+          apply(value);
+        } catch {
+          /* skip */
+        }
       }
     });
   }

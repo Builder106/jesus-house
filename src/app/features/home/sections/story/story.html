@@ -35,12 +35,29 @@
     <div class="scene__content relative mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
     <div class="max-w-2xl">
       <!-- Reverent accent: a dove (the Holy Spirit) settling over the section.
-           Decorative, browser-only, reduced-motion-safe. Lottie by Asim via LottieFiles. -->
-      <jh-lottie
-        src="/animations/dove.lottie"
-        [speed]="0.8"
-        class="jh-story-dove mb-2 h-16 w-16"
-      />
+           Decorative, browser-only. Lottie by Asim via LottieFiles; the projected
+           SVG is the static stand-in (reduced motion / no-JS / player failure). -->
+      <jh-lottie src="/animations/dove.lottie" [speed]="0.8" class="jh-story-dove mb-2 h-16 w-16">
+        <svg
+          viewBox="0 0 64 40"
+          class="h-full w-full"
+          xmlns="http://www.w3.org/2000/svg"
+          focusable="false"
+          aria-hidden="true"
+        >
+          <!-- beak -->
+          <path d="M11 15 l-6 1.5 6 3 Z" fill="var(--color-jh-gold)" />
+          <!-- body: head left, tail right -->
+          <path
+            d="M10 15 q3 -5 9 -5 q4 0 7 3 q10 8 22 9 l8 -2 q-2 6 -9 8 q-14 4 -24 -2 q-6 -3 -8 -7 q-3 -2 -5 -4 Z"
+            fill="var(--color-jh-cream)"
+          />
+          <!-- raised wing -->
+          <path d="M28 13 q6 -12 18 -12 q-4 9 -10 13 q-4 2 -8 0 Z" fill="var(--color-jh-cream)" opacity="0.85" />
+          <!-- eye -->
+          <circle cx="16" cy="13.5" r="1" fill="var(--color-jh-night)" />
+        </svg>
+      </jh-lottie>
       <p jhReveal jhRevealDir="none" class="jh-script-eyebrow">Our family</p>
       <h2
         id="story-heading"

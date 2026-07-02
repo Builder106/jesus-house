@@ -6,6 +6,26 @@
 > Tag with `#decision` / `#pivot` / `#incident` / `#quote` / `#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-07-02 — The invisible dove: Lottie accents now have static stand-ins #incident #feedback
+
+Owner: "The dove Lottie doesn't appear on mobile and you don't zoom into the
+door when scrolling on mobile." Reproduced the dove under Playwright's
+`reducedMotion: 'reduce'` + Pixel-7 profile against prod: `jh-lottie`
+early-returns under reduced motion and leaves a blank canvas — the one place
+the site broke its own "content is never hidden as a baseline" rule (their
+phone runs Android "Remove animations", the June-12 lesson again). Fix:
+`jh-lottie` now projects a static SVG fallback (`<jh-lottie><svg…/></jh-lottie>`)
+shown on SSR / no-JS / reduced-motion / player-load failure and hidden once
+the animation takes over — a hand-drawn dove for the story scene, a map pin
+for the two "Get directions" links; a failed player import also falls back
+instead of holding the box invisible. The door-zoom half did NOT reproduce:
+same emulation shows `portal--active`, `--enter` progressing, art scaling,
+zero console errors. Suspect a stale cached bundle or an in-app WebView on
+the specific phone; as defense, the ScrollScrubber now isolates each
+consumer in try/catch so one device-quirk exception can never freeze every
+pinned scene's `--zoom` again (previously a single throw killed the whole
+batch — the exact signature of "scrolls like a regular webpage").
+
 ## 2026-07-02 — The header joined the scene; the empty half-screens got their art #decision
 
 Sprint B of the July UI round. The floating white pill over the night scenes
