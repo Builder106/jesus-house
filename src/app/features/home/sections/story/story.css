@@ -87,7 +87,8 @@
   position: absolute;
   inset: 0;
   z-index: 3;
-  background: var(--color-jh-cream);
+  /* Warm veil ground (styles.css) — the held wash reads as light, not blank. */
+  background: var(--jh-veil-warm);
   opacity: 0;
   pointer-events: none;
 }

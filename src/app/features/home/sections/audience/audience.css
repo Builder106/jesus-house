@@ -1,7 +1,7 @@
 /* SCENE 3 — A PLACE FOR YOU.
  * Pew interior vignette; the camera zooms into the open hymnal on the pew
  * (origin 63.9% 60% = the book in the 1440×900 art). Same rig + timings as
- * scene 2: 0–.30 read · .30–.45 copy lifts · .45–.92 zoom · .82–1 cream veil. */
+ * scene 2: 0–.38 read · .38–.46 copy lifts · .45–.92 zoom · .82–1 cream veil. */
 :host {
   display: block;
 }
@@ -41,7 +41,8 @@
   position: absolute;
   inset: 0;
   z-index: 3;
-  background: var(--color-jh-cream);
+  /* Warm veil ground (styles.css) — the held wash reads as light, not blank. */
+  background: var(--jh-veil-warm);
   opacity: 0;
   pointer-events: none;
 }
@@ -78,8 +79,8 @@
 }
 
 :host(.scene--active) .scene__copy {
-  opacity: clamp(0, calc(1 - (var(--p) - 0.3) * 8.3), 1);
-  transform: translateY(calc(max(0, var(--p) - 0.3) * -6vh));
+  opacity: clamp(0, calc(1 - (var(--p) - 0.38) * 12.5), 1);
+  transform: translateY(calc(max(0, var(--p) - 0.38) * -8vh));
   will-change: opacity, transform;
 }
 

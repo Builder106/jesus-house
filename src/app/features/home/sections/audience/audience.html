@@ -265,12 +265,14 @@
         There's a place for you here.
       </h2>
 
+      <!-- Static tags, not buttons — muted tint (no raised white surface) so they
+           don't read as clickable next to the ride scene's live pickup chips. -->
       <ul class="mt-8 flex flex-wrap gap-3" aria-label="People who are welcome at Jesus House">
         @for (audience of audiences; track audience; let i = $index) {
           <li
             [jhReveal]="180 + i * 70"
             jhRevealDir="up"
-            class="rounded-full border border-jh-rule bg-jh-surface px-5 py-2.5 text-sm font-semibold text-jh-ink"
+            class="rounded-full bg-jh-ink/5 px-4 py-2 text-sm font-semibold text-jh-soft"
           >
             {{ audience }}
           </li>

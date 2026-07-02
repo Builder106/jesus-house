@@ -6,6 +6,27 @@
 > Tag with `#decision` / `#pivot` / `#incident` / `#quote` / `#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-07-02 — Veils became light; the ride CTA stopped losing to its own car #decision #incident
+
+A full walkthrough of the live journey (every ~800px, desktop + mobile) found
+the residue of the June hand-off fixes: the held veils worked, but a flat cream
+or navy veil occupies most of the frame for ~a viewport of scroll at every
+boundary — five near-blank frames across the 11k-px home scroll. Rather than
+retouch the tuned `--p` timeline, the veils themselves got content: a shared
+warm bloom ground (`--jh-veil-warm`) for the cream washes and a moonlit
+bloom + faint stars (`--jh-veil-night`) for the glass dive, blooms centred
+high so the seam with the rising scene stays flat. Worse find: on narrow
+slice-crops the red car sits directly behind the ride panel's CTA, and the
+old .30-start slow copy fade let the car read *through* the "Request a ride"
+button — signature ministry, occluded signature CTA. Fixed by holding all
+three panel scenes at full opacity until `--p` .38 with a fast .38–.46 exit
+(which also closes values' old .42–.45 dead band) and bumping the ride panel
+to 92% cream. Affordance pass: the pickup chips looked like buttons, so now
+they are — each opens the ride email with the pickup spot prefilled (a first
+step toward the Phase 3 form) — and the audience chips de-buttoned to muted
+tags. Lesson: when a scroll journey needs a "held" frame, the hold must carry
+content of its own; blank paper held for 900px of scroll reads as a bug.
+
 ## 2026-06-30 — Closed the dead gap before the glass dive #feedback
 
 Owner, right after the carousel fix: "when I scroll, I literally scroll down to

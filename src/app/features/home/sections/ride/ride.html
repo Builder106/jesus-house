@@ -272,15 +272,18 @@
         Tell us where you are, and we'll come get you.
       </p>
 
-      <!-- Pickup spots -->
-      <p jhReveal="260" class="jh-eyebrow mt-8 text-jh-soft">Common pickups</p>
+      <!-- Pickup spots — each chip opens the ride email with the spot prefilled -->
+      <p jhReveal="260" class="jh-eyebrow mt-8 text-jh-soft">Common pickups — tap yours</p>
       <ul class="mt-4 flex flex-wrap gap-3" aria-label="Common Wesleyan pickup spots">
-        @for (spot of pickupSpots; track spot; let i = $index) {
-          <li
-            [jhReveal]="320 + i * 70"
-            class="rounded-full border border-jh-rule bg-jh-surface px-5 py-2.5 text-sm font-semibold text-jh-ink"
-          >
-            {{ spot }}
+        @for (spot of pickupSpots; track spot.label; let i = $index) {
+          <li [jhReveal]="320 + i * 70">
+            <a
+              [href]="spot.href"
+              [attr.aria-label]="'Request a ride — pickup at ' + spot.label"
+              class="block rounded-full border border-jh-rule bg-jh-surface px-5 py-2.5 text-sm font-semibold text-jh-ink transition-colors hover:border-jh-red hover:text-jh-red"
+            >
+              {{ spot.label }}
+            </a>
           </li>
         }
       </ul>

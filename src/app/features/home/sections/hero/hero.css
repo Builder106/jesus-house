@@ -124,12 +124,13 @@
 }
 
 /* Cream wash finishes the transition by the pin's midpoint, matching the page
-   ground beneath — the ride scene then slides up through it into centre. */
+   ground beneath — the ride scene then slides up through it into centre. Warm
+   veil ground (styles.css), not flat cream, so the held wash reads as light. */
 :host(.portal--active) .portal__veil {
   display: block;
   position: absolute;
   inset: 0;
-  background: var(--color-jh-cream);
+  background: var(--jh-veil-warm);
   opacity: clamp(0, calc((var(--enter, 0) - 0.26) * 5), 1);
   pointer-events: none;
   z-index: 5;

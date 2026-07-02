@@ -3,8 +3,10 @@
  * Sunday beats) reads while the scene is pinned, then the camera zooms into
  * the stained-glass arch; its indigo glass fills the frame and the jh-night
  * veil hands off to the cathedral section below. Same two-phase rig as
- * ride/audience: --p (0→1 as --zoom 0→.545) · 0–.30 panel reads · .30–.45
+ * ride/audience: --p (0→1 as --zoom 0→.545) · 0–.38 panel reads · .38–.46
  * panel lifts away · .45–.92 zoom into the glass · .82–1 night veil.
+ * (The late-start/fast-ramp lift also closes the old .42–.45 dead band where
+ * the panel had gone but the dive hadn't visibly begun.)
  * The carousel is scroll-independent (Embla: swipe / autoplay / dot-click)
  * — it just sits inside the pinned panel like any other content, and reads
  * the same whether the scene is pinned or in its static/short-viewport
@@ -112,7 +114,8 @@
   position: absolute;
   inset: 0;
   z-index: 3;
-  background: var(--color-jh-night);
+  /* Night veil ground (styles.css) — moonlit bloom + faint stars, not flat navy. */
+  background: var(--jh-veil-night);
   opacity: 0;
   pointer-events: none;
 }
@@ -194,8 +197,8 @@
   inset: 0;
   display: grid;
   align-items: center;
-  opacity: clamp(0, calc(1 - (var(--p) - 0.3) * 8.3), 1);
-  transform: translateY(calc(max(0, var(--p) - 0.3) * -6vh));
+  opacity: clamp(0, calc(1 - (var(--p) - 0.38) * 12.5), 1);
+  transform: translateY(calc(max(0, var(--p) - 0.38) * -8vh));
   will-change: opacity, transform;
 }
 

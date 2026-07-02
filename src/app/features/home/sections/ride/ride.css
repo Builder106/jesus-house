@@ -4,8 +4,12 @@
  * Baseline = static illustrated section; .scene--active (set by jhScene on
  * any tall-enough viewport, motion-OK) pins the stage and drives the move off
  * --zoom (0→1):
- *   0–.30 read copy · .30–.45 copy lifts away · .45–.92 zoom into the glass ·
- *   .82–1 cream veil hands off to the pew scene. */
+ *   0–.38 read copy · .38–.46 copy lifts away · .45–.92 zoom into the glass ·
+ *   .82–1 cream veil hands off to the pew scene.
+ * The copy holds at FULL opacity until .38 (was .30 with a slow ramp): the
+ * panel is translucent, and on narrow slice-crops the car sits right behind
+ * the ride CTA — a long mid-fade let the car read through the button. Late
+ * start + fast ramp keeps the CTA solid while it's readable. */
 :host {
   display: block;
 }
@@ -26,7 +30,9 @@
 }
 
 .scene__panel {
-  background: color-mix(in srgb, var(--color-jh-cream) 88%, transparent);
+  /* 92% (not the 88% of the quieter scenes): on narrow slice-crops the red car
+     sits directly behind this panel's CTA — it needs the extra opacity. */
+  background: color-mix(in srgb, var(--color-jh-cream) 92%, transparent);
   backdrop-filter: blur(6px);
   box-shadow: 0 18px 50px rgb(20 16 56 / 0.08);
 }
@@ -45,7 +51,8 @@
   position: absolute;
   inset: 0;
   z-index: 3;
-  background: var(--color-jh-cream);
+  /* Warm veil ground (styles.css) — the held wash reads as light, not blank. */
+  background: var(--jh-veil-warm);
   opacity: 0;
   pointer-events: none;
 }
@@ -88,8 +95,8 @@
 }
 
 :host(.scene--active) .scene__copy {
-  opacity: clamp(0, calc(1 - (var(--p) - 0.3) * 8.3), 1);
-  transform: translateY(calc(max(0, var(--p) - 0.3) * -6vh));
+  opacity: clamp(0, calc(1 - (var(--p) - 0.38) * 12.5), 1);
+  transform: translateY(calc(max(0, var(--p) - 0.38) * -8vh));
   will-change: opacity, transform;
 }
 
