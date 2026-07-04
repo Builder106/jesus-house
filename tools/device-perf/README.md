@@ -56,6 +56,19 @@ temporary CSS kill-switch for bisection. Watch skin temperature between
 runs (`adb shell dumpsys thermalservice`) — back-to-back GPU-heavy runs on
 a fanless phone produce phantom regressions.
 
+Before ANY comparison, also check the device's power state — Samsung's power
+saving mode pins the display to 60Hz and caps the CPU, producing a page-wide
+~40fps ceiling that no CSS kill-switch will move (the tell: fpsmeter p50
+16.7ms on a 90Hz panel):
+
+```bash
+adb shell settings get global low_power
+adb shell settings get secure refresh_rate_mode
+```
+
+`low_power` must be 0 and `refresh_rate_mode` 2 (adaptive). Turning power
+saving off via adb does not restore the refresh rate — set both.
+
 Note: Chrome's HTTP target list (`/json/list`) is often empty on Android;
 these scripts attach through the browser-level WebSocket instead, which is
 why they don't use `chrome-remote-interface`.
