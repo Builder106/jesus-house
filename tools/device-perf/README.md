@@ -42,6 +42,20 @@ The first argument is a substring of the target tab's URL
 (default `jesus-house.vercel.app`). The trace file loads directly into the
 Chrome DevTools Performance panel for a flame-chart view.
 
+For quick A/B experiments prefer the tracing-free frame meter — DevTools
+tracing itself costs ~30% overhead and heats the phone into throttling:
+
+```bash
+node fpsmeter.mjs "localhost:4000" up
+node fpsmeter.mjs "localhost:4000" up ".some-suspect { display: none !important; }"
+```
+
+It reports avg fps and frame-time percentiles from an in-page rAF meter
+during the same synthesized scroll; the optional third argument injects a
+temporary CSS kill-switch for bisection. Watch skin temperature between
+runs (`adb shell dumpsys thermalservice`) — back-to-back GPU-heavy runs on
+a fanless phone produce phantom regressions.
+
 Note: Chrome's HTTP target list (`/json/list`) is often empty on Android;
 these scripts attach through the browser-level WebSocket instead, which is
 why they don't use `chrome-remote-interface`.

@@ -196,8 +196,13 @@
     transform: scale(2.89);
     opacity: 0;
   }
+  /* HOLD at the last visible scale: the art is opacity-0 from 45% on, but
+     scaling an invisible layer still makes the compositor re-raster the DOM
+     door at quadratically growing raster scales (2.89²→6.74² ≈ 5× the
+     texture area for literally nothing on screen — measured hero bursts on
+     a throttled Galaxy A15, 2026-07-04). Same visual, fraction of the cost. */
   100% {
-    transform: scale(6.74);
+    transform: scale(2.89);
     opacity: 0;
   }
 }
@@ -218,8 +223,10 @@
     transform: translate(-50%, -50%) scale(1.9);
     opacity: 1;
   }
+  /* HOLD: the opaque portal veil (z-index 5, above the light) fully covers
+     by ~46% — scaling further only buys invisible re-raster. */
   100% {
-    transform: translate(-50%, -50%) scale(4.65);
+    transform: translate(-50%, -50%) scale(1.9);
     opacity: 1;
   }
 }

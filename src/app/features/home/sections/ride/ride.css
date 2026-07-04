@@ -27,6 +27,12 @@
   inset: 0;
   width: 100%;
   height: 100%;
+  /* The art is a bitmap (art-src/ has the SVG source; public/art/ the capture):
+     bitmap layers re-raster as a texture sample, where the inline vector art
+     re-rendered ~100 paths at every raster-scale step of the dive — measured
+     at 12fps vs 44fps on a throttled Galaxy A15 (2026-07-04). object-fit:
+     cover reproduces the old preserveAspectRatio="xMidYMid slice" framing. */
+  object-fit: cover;
 }
 
 .scene__panel {

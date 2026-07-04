@@ -110,7 +110,10 @@
    uniform zoom. It completes by the pin's midpoint so the cream wash is whole
    before the next scene rises into it (see the -100svh overlap in styles.css). */
 :host(.portal--active) .portal__art {
-  transform: scale(calc(1 + max(0, var(--enter, 0) - 0.18) * 7));
+  /* min(0.27, …) holds the scale at 2.89 past enter 0.45 — the art is
+     opacity-0 by then, and scaling an invisible layer only buys re-raster
+     (see the jh-portal-art keyframes note in styles.css). */
+  transform: scale(calc(1 + min(0.27, max(0, var(--enter, 0) - 0.18)) * 7));
   transform-origin: 50% 46%;
   opacity: clamp(0, calc(1 - (var(--enter, 0) - 0.2) * 4), 1);
   will-change: transform, opacity;
@@ -119,7 +122,9 @@
 /* The centred light grows and brightens once the door is open — the threshold
    you cross as you move through. */
 :host(.portal--active) .portal__light {
-  transform: translate(-50%, -50%) scale(calc(0.4 + max(0, var(--enter, 0) - 0.15) * 5));
+  /* min(0.3, …) holds the scale at 1.9 once the opaque veil covers (~0.46) —
+     see the jh-portal-light keyframes note in styles.css. */
+  transform: translate(-50%, -50%) scale(calc(0.4 + min(0.3, max(0, var(--enter, 0) - 0.15)) * 5));
   opacity: clamp(0, calc((var(--enter, 0) - 0.2) * 4), 1);
 }
 

@@ -1,0 +1,274 @@
+<svg
+    class="scene__art"
+    data-scene-var
+    viewBox="0 0 1440 900"
+    preserveAspectRatio="xMidYMid slice"
+    aria-hidden="true"
+    focusable="false"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <linearGradient id="sa-wall" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#f9f4e6" />
+        <stop offset="1" stop-color="#f2ead5" />
+      </linearGradient>
+      <linearGradient id="sa-glassfield" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#1d1850" />
+        <stop offset="0.55" stop-color="var(--color-jh-night)" />
+        <stop offset="1" stop-color="#100c2c" />
+      </linearGradient>
+      <radialGradient id="sa-halo" cx="0.5" cy="0.42" r="0.6">
+        <stop offset="0" stop-color="#e9c95c" stop-opacity="0.22" />
+        <stop offset="0.7" stop-color="#e9c95c" stop-opacity="0.06" />
+        <stop offset="1" stop-color="#e9c95c" stop-opacity="0" />
+      </radialGradient>
+      <filter id="sa-grain">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" />
+        <feColorMatrix type="matrix" values="0 0 0 0 0.13 0 0 0 0 0.11 0 0 0 0 0.07 0 0 0 0.05 0" />
+      </filter>
+    </defs>
+
+    <!-- apse wall -->
+    <rect width="1440" height="900" fill="url(#sa-wall)" />
+    <!-- recessed arch alcove behind the window -->
+    <path d="M520 660 V300 a200 200 0 0 1 400 0 V660 Z" fill="var(--color-jh-ink)" opacity="0.05" />
+    <ellipse cx="720" cy="380" rx="330" ry="330" fill="url(#sa-halo)" />
+
+    <!-- crown moulding -->
+    <rect y="64" width="1440" height="8" fill="#e7ddc4" />
+    <rect y="72" width="1440" height="3" fill="#fbf7ec" />
+
+    <!-- pilasters with caps and bases -->
+    <g>
+      <g transform="translate(120 0)">
+        <rect x="-22" y="74" width="44" height="540" fill="#f2ebd8" />
+        <g stroke="#e0d5b8" stroke-width="2.5">
+          <line x1="-10" y1="92" x2="-10" y2="596" />
+          <line x1="0" y1="92" x2="0" y2="596" />
+          <line x1="10" y1="92" x2="10" y2="596" />
+        </g>
+        <rect x="-28" y="74" width="56" height="14" fill="#e7ddc4" />
+        <rect x="-28" y="600" width="56" height="16" fill="#e0d5b8" />
+      </g>
+      <g transform="translate(414 0)">
+        <rect x="-22" y="74" width="44" height="540" fill="#f2ebd8" />
+        <g stroke="#e0d5b8" stroke-width="2.5">
+          <line x1="-10" y1="92" x2="-10" y2="596" />
+          <line x1="0" y1="92" x2="0" y2="596" />
+          <line x1="10" y1="92" x2="10" y2="596" />
+        </g>
+        <rect x="-28" y="74" width="56" height="14" fill="#e7ddc4" />
+        <rect x="-28" y="600" width="56" height="16" fill="#e0d5b8" />
+      </g>
+      <g transform="translate(1026 0)">
+        <rect x="-22" y="74" width="44" height="540" fill="#f2ebd8" />
+        <g stroke="#e0d5b8" stroke-width="2.5">
+          <line x1="-10" y1="92" x2="-10" y2="596" />
+          <line x1="0" y1="92" x2="0" y2="596" />
+          <line x1="10" y1="92" x2="10" y2="596" />
+        </g>
+        <rect x="-28" y="74" width="56" height="14" fill="#e7ddc4" />
+        <rect x="-28" y="600" width="56" height="16" fill="#e0d5b8" />
+      </g>
+      <g transform="translate(1320 0)">
+        <rect x="-22" y="74" width="44" height="540" fill="#f2ebd8" />
+        <g stroke="#e0d5b8" stroke-width="2.5">
+          <line x1="-10" y1="92" x2="-10" y2="596" />
+          <line x1="0" y1="92" x2="0" y2="596" />
+          <line x1="10" y1="92" x2="10" y2="596" />
+        </g>
+        <rect x="-28" y="74" width="56" height="14" fill="#e7ddc4" />
+        <rect x="-28" y="600" width="56" height="16" fill="#e0d5b8" />
+      </g>
+    </g>
+
+    <!-- side lancet windows -->
+    <g transform="translate(218 250)">
+      <path d="M-10 210 V84 a62 62 0 0 1 124 0 V210 Z" fill="#e7ddc4" />
+      <path d="M-2 210 V84 a54 54 0 0 1 108 0 V210 Z" fill="#f3dfa0" />
+      <g stroke="#cfa94e" stroke-width="1.2" opacity="0.5">
+        <path d="M-2 120 l108 54 M-2 174 l88 44 M34 40 l72 36" />
+        <path d="M106 120 l-108 54 M106 174 l-88 44 M70 40 l-72 36" />
+      </g>
+      <path d="M52 36 V210" stroke="#b9a878" stroke-width="5" />
+      <rect x="-16" y="208" width="136" height="10" fill="#e0d4b6" />
+    </g>
+    <g transform="translate(1098 250)">
+      <path d="M-10 210 V84 a62 62 0 0 1 124 0 V210 Z" fill="#e7ddc4" />
+      <path d="M-2 210 V84 a54 54 0 0 1 108 0 V210 Z" fill="#f3dfa0" />
+      <g stroke="#cfa94e" stroke-width="1.2" opacity="0.5">
+        <path d="M-2 120 l108 54 M-2 174 l88 44 M34 40 l72 36" />
+        <path d="M106 120 l-108 54 M106 174 l-88 44 M70 40 l-72 36" />
+      </g>
+      <path d="M52 36 V210" stroke="#b9a878" stroke-width="5" />
+      <rect x="-16" y="208" width="136" height="10" fill="#e0d4b6" />
+    </g>
+
+    <!-- THE GREAT STAINED-GLASS ARCH — the camera target (centred 720,330) -->
+    <g transform="translate(580 120)">
+      <!-- stone double surround -->
+      <path d="M-22 432 V140 a162 162 0 0 1 324 0 V432 Z" fill="#e7ddc4" />
+      <path d="M-10 432 V140 a150 150 0 0 1 300 0 V432 Z" fill="#d9cca9" />
+      <!-- glass field -->
+      <path d="M0 420 V140 a140 140 0 0 1 280 0 V420 Z" fill="url(#sa-glassfield)" />
+      <!-- subtle pane-tone variation -->
+      <g opacity="0.5">
+        <path d="M16 420 V160 a124 124 0 0 1 36 -78 L52 420 Z" fill="#241c66" />
+        <path d="M264 420 V160 a124 124 0 0 0 -36 -78 L228 420 Z" fill="#241c66" />
+        <rect x="98" y="210" width="84" height="58" fill="#1d1850" />
+      </g>
+      <!-- rose: gold centre with cross, ringed -->
+      <circle cx="140" cy="128" r="50" fill="var(--color-jh-gold)" opacity="0.95" />
+      <circle cx="140" cy="128" r="50" fill="none" stroke="#b08a1e" stroke-width="3" opacity="0.8" />
+      <circle cx="140" cy="128" r="34" fill="none" stroke="var(--color-jh-night)" stroke-width="7" />
+      <path d="M140 84 v88 M96 128 h88" stroke="var(--color-jh-night)" stroke-width="9" />
+      <circle cx="140" cy="128" r="9" fill="#fdf2cf" />
+      <!-- petal foils around the rose -->
+      <g fill="#3b2d8f" opacity="0.85">
+        <circle cx="140" cy="62" r="13" />
+        <circle cx="196" cy="86" r="13" />
+        <circle cx="206" cy="146" r="13" />
+        <circle cx="84" cy="86" r="13" />
+        <circle cx="74" cy="146" r="13" />
+      </g>
+      <!-- red lancet panels -->
+      <rect x="58" y="250" width="56" height="92" fill="var(--color-jh-red)" opacity="0.85" />
+      <rect x="166" y="250" width="56" height="92" fill="var(--color-jh-red)" opacity="0.85" />
+      <path d="M58 250 h56 M166 250 h56" stroke="#f2c2be" stroke-width="2" opacity="0.5" />
+      <!-- gold border course -->
+      <path d="M10 420 V146 a130 130 0 0 1 260 0 V420" fill="none" stroke="var(--color-jh-gold)" stroke-width="5" opacity="0.55" />
+      <!-- leading: radial in the arch, rectilinear below -->
+      <g stroke="#3b3380" stroke-width="3.5" opacity="0.85">
+        <line x1="46" y1="200" x2="234" y2="200" />
+        <line x1="28" y1="250" x2="252" y2="250" />
+        <line x1="28" y1="342" x2="252" y2="342" />
+        <line x1="58" y1="296" x2="222" y2="296" />
+        <line x1="92" y1="200" x2="92" y2="420" />
+        <line x1="140" y1="178" x2="140" y2="420" />
+        <line x1="188" y1="200" x2="188" y2="420" />
+        <line x1="40" y1="200" x2="40" y2="420" />
+        <line x1="240" y1="200" x2="240" y2="420" />
+        <path d="M140 128 l-90 -62 M140 128 l90 -62 M140 128 l-112 8 M140 128 l112 8" />
+      </g>
+      <!-- central Latin cross — the camera's focal point. Crossing sits at local
+           (140,210) = the data-scene-x/y target (720,330); the upright runs down
+           the dark channel between the two red lancet panels. -->
+      <path
+        d="M130 180 H150 V202 H182 V222 H150 V352 H130 V222 H98 V202 H130 Z"
+        fill="#e7c25a"
+        stroke="#2c2570"
+        stroke-width="3.5"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M140 186 V346 M104 212 H176"
+        stroke="#fbe6a8"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        opacity="0.6"
+      />
+      <!-- sill -->
+      <rect x="-30" y="430" width="340" height="14" fill="#e0d4b6" />
+    </g>
+
+    <!-- altar: clothed table with runner, candlesticks, open book -->
+    <g transform="translate(720 596)">
+      <ellipse cx="0" cy="66" rx="170" ry="12" fill="var(--color-jh-ink)" opacity="0.09" />
+      <rect x="-150" y="-6" width="300" height="64" rx="3" fill="#fdfaf1" />
+      <g stroke="#e8e0c8" stroke-width="2">
+        <line x1="-104" y1="0" x2="-110" y2="56" />
+        <line x1="-52" y1="0" x2="-55" y2="56" />
+        <line x1="52" y1="0" x2="55" y2="56" />
+        <line x1="104" y1="0" x2="110" y2="56" />
+      </g>
+      <rect x="-150" y="-6" width="300" height="7" fill="#f1ead7" />
+      <!-- gold runner with cross emblem -->
+      <rect x="-26" y="-6" width="52" height="64" fill="var(--color-jh-gold)" opacity="0.9" />
+      <path d="M0 14 v22 M-9 23 h18" stroke="#fdf6e3" stroke-width="4.5" stroke-linecap="round" />
+      <!-- candlesticks -->
+      <g transform="translate(-92 -6)">
+        <path d="M-11 0 h22 l-3 -7 h-16 Z" fill="#c49a25" />
+        <rect x="-3" y="-26" width="6" height="20" fill="#c49a25" />
+        <rect x="-5.5" y="-44" width="11" height="18" rx="2" fill="#fdf6e3" />
+        <path d="M0 -48 q4.5 -8 0 -14 q-4.5 6 0 14" fill="var(--color-jh-gold)" />
+      </g>
+      <g transform="translate(92 -6)">
+        <path d="M-11 0 h22 l-3 -7 h-16 Z" fill="#c49a25" />
+        <rect x="-3" y="-26" width="6" height="20" fill="#c49a25" />
+        <rect x="-5.5" y="-44" width="11" height="18" rx="2" fill="#fdf6e3" />
+        <path d="M0 -48 q4.5 -8 0 -14 q-4.5 6 0 14" fill="var(--color-jh-gold)" />
+      </g>
+      <!-- open book on a low stand -->
+      <path d="M-22 -10 L0 -6 L22 -10 L22 -6 L0 -2 L-22 -6 Z" fill="var(--color-jh-blue)" />
+      <path d="M-19 -16 C -10 -20 -3 -20 0 -17 L 0 -7 C -4 -10 -11 -10 -19 -8 Z" fill="#fffdf6" />
+      <path d="M19 -16 C 10 -20 3 -20 0 -17 L 0 -7 C 4 -10 11 -10 19 -8 Z" fill="#fffdf6" />
+    </g>
+
+    <!-- lectern, panelled with sloped top -->
+    <g transform="translate(442 560)">
+      <ellipse cx="0" cy="130" rx="56" ry="8" fill="var(--color-jh-ink)" opacity="0.09" />
+      <path d="M-34 -14 L34 -22 L40 -4 L-28 4 Z" fill="#cdb98c" />
+      <path d="M-26 -12 L26 -18 L29 -8 L-22 -3 Z" fill="#8f1812" />
+      <rect x="-22" y="2" width="44" height="92" rx="3" fill="#e0cfa9" />
+      <rect x="-14" y="12" width="28" height="56" rx="2" fill="#d2bd8e" />
+      <path d="M-30 94 h60 l-6 14 h-48 Z" fill="#cdb98c" />
+      <path d="M0 22 v34 M-8 32 h16" stroke="#b08a1e" stroke-width="3.5" stroke-linecap="round" />
+    </g>
+
+    <!-- standing cross on a base -->
+    <g transform="translate(1000 520)">
+      <ellipse cx="0" cy="142" rx="44" ry="7" fill="var(--color-jh-ink)" opacity="0.09" />
+      <path d="M-24 138 h48 l-6 -12 h-36 Z" fill="#c49a25" />
+      <rect x="-4" y="-6" width="8" height="132" rx="3" fill="var(--color-jh-gold)" />
+      <rect x="-30" y="26" width="60" height="8" rx="3" fill="var(--color-jh-gold)" />
+      <circle cx="0" cy="30" r="5" fill="#fdf2cf" />
+    </g>
+
+    <!-- pendant lights -->
+    <g>
+      <line x1="320" y1="0" x2="320" y2="178" stroke="#9c8f6e" stroke-width="2.5" />
+      <path d="M296 178 h48 l-9 22 h-30 Z" fill="#c49a25" />
+      <circle cx="320" cy="208" r="6" fill="#fdf2cf" />
+      <circle cx="320" cy="212" r="22" fill="var(--color-jh-gold)" opacity="0.14" />
+      <line x1="1120" y1="0" x2="1120" y2="178" stroke="#9c8f6e" stroke-width="2.5" />
+      <path d="M1096 178 h48 l-9 22 h-30 Z" fill="#c49a25" />
+      <circle cx="1120" cy="208" r="6" fill="#fdf2cf" />
+      <circle cx="1120" cy="212" r="22" fill="var(--color-jh-gold)" opacity="0.14" />
+    </g>
+
+    <!-- floor: boards, chancel steps, carpet runner -->
+    <rect y="660" width="1440" height="240" fill="#e6d3ae" />
+    <g stroke="#d4bd90" stroke-width="2" opacity="0.8">
+      <line x1="0" y1="716" x2="1440" y2="716" />
+      <line x1="0" y1="784" x2="1440" y2="784" />
+      <line x1="0" y1="852" x2="1440" y2="852" />
+    </g>
+    <!-- chancel platform: two steps -->
+    <path d="M400 660 H1040 L1078 700 H362 Z" fill="#e0cfa9" />
+    <path d="M400 660 H1040" stroke="#f2e7c9" stroke-width="3" opacity="0.9" />
+    <path d="M362 700 H1078 L1110 744 H330 Z" fill="#d8c69c" />
+    <path d="M362 700 H1078" stroke="#efe2c2" stroke-width="3" opacity="0.9" />
+    <!-- carpet runner down the aisle -->
+    <path d="M652 744 H788 L836 900 H604 Z" fill="var(--color-jh-red)" opacity="0.85" />
+    <path d="M668 744 H772 L812 900 H628 Z" fill="none" stroke="#f2c2be" stroke-width="2.5" opacity="0.5" />
+    <path d="M652 744 H788 M604 900 H836" stroke="#8f1812" stroke-width="3" opacity="0.6" />
+
+    <!-- receding pew rows, cropped at the frame edges -->
+    <g>
+      <rect x="-80" y="756" width="600" height="12" rx="3" fill="#cdb98c" />
+      <rect x="-86" y="766" width="612" height="26" rx="4" fill="#e0cfa9" />
+      <rect x="-86" y="790" width="612" height="5" fill="#c3ad7c" opacity="0.7" />
+      <rect x="920" y="756" width="600" height="12" rx="3" fill="#cdb98c" />
+      <rect x="914" y="766" width="612" height="26" rx="4" fill="#e0cfa9" />
+      <rect x="914" y="790" width="612" height="5" fill="#c3ad7c" opacity="0.7" />
+      <rect x="-60" y="816" width="580" height="14" rx="3" fill="#c9b384" />
+      <rect x="-66" y="828" width="592" height="32" rx="4" fill="#dcc89c" />
+      <rect x="-66" y="858" width="592" height="6" fill="#bda878" opacity="0.7" />
+      <rect x="920" y="816" width="580" height="14" rx="3" fill="#c9b384" />
+      <rect x="914" y="828" width="592" height="32" rx="4" fill="#dcc89c" />
+      <rect x="914" y="858" width="592" height="6" fill="#bda878" opacity="0.7" />
+    </g>
+
+    <!-- paper grain -->
+    <rect width="1440" height="900" filter="url(#sa-grain)" opacity="0.5" />
+  </svg>
