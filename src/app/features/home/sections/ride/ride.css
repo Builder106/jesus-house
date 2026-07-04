@@ -43,16 +43,6 @@
   box-shadow: 0 18px 50px rgb(20 16 56 / 0.08);
 }
 
-.scene__cue {
-  position: absolute;
-  bottom: 1.6rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  color: var(--color-jh-soft);
-  display: none;
-}
-
 .scene__veil {
   position: absolute;
   inset: 0;
@@ -114,11 +104,6 @@
   opacity: clamp(0, calc(1 - (var(--p) - 0.38) * 12.5), 1);
   transform: translateY(calc(max(0, var(--p) - 0.38) * -8vh));
   will-change: opacity, transform;
-}
-
-:host(.scene--active) .scene__cue {
-  display: block;
-  opacity: clamp(0, calc(1 - var(--p) * 6), 1);
 }
 
 :host(.scene--active) .scene__veil {

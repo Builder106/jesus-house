@@ -83,17 +83,6 @@
   pointer-events: none;
 }
 
-.scene__cue {
-  position: absolute;
-  bottom: 1.6rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  color: var(--color-jh-cream);
-  opacity: 0.55;
-  display: none;
-}
-
 .scene__veil {
   position: absolute;
   inset: 0;
@@ -165,11 +154,6 @@
 
 :host(.scene--active) .scene__doorlight {
   opacity: clamp(0, calc((var(--p) - 0.48) * 2.4), 0.95);
-}
-
-:host(.scene--active) .scene__cue {
-  display: block;
-  opacity: clamp(0, calc(0.55 - var(--p) * 3), 0.55);
 }
 
 :host(.scene--active) .scene__veil {
