@@ -87,7 +87,7 @@
 
     <!-- Stats row — hairline + value + label, gold accents. -->
     <hr jhReveal="240" class="mt-12 border-jh-cream/15" />
-    <dl class="grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-4">
+    <dl class="grid grid-cols-1 gap-px sm:grid-cols-2">
       @for (stat of stats; track stat.value; let i = $index) {
         <div jhReveal="{{ 300 + i * 90 }}" jhRevealDir="up" class="jh-stat pt-8">
           <span class="jh-stat-mark" aria-hidden="true"></span>

@@ -34,7 +34,5 @@ export class HomeStory {
   protected readonly stats: ReadonlyArray<{ value: string; label: string }> = [
     { value: '9:00 AM', label: 'Every Sunday' },
     { value: '120 Washington St', label: 'Middletown, CT' },
-    { value: 'A ride away', label: "We'll come get you" },
-    { value: 'All welcome', label: 'Come as you are' },
   ];
 }
