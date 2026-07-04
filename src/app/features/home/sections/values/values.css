@@ -192,7 +192,13 @@
 
 /* ── Active camera move (tall viewports + motion-OK) ───────────────────── */
 :host(.scene--active) {
-  height: 320svh;
+  /* 400svh, not the 320svh of ride/audience: the carousel's four beats need
+     ~768px of card travel, and at 320svh they moved ~2.3× finger speed
+     (owner, 2026-07-04 — "faster than the rest of the site"). 400svh with
+     the wider 0→0.667 action window (see --p below) puts the beats at ~1:1
+     with the finger on a phone. The held-veil tail stays ~116svh, matched
+     to the story's -100svh rise overlap (styles.css), so no dead scroll. */
+  height: 400svh;
 }
 
 :host(.scene--active) .scene__stage {
@@ -207,14 +213,19 @@
 }
 
 :host(.scene--active) [data-scene-var] {
-  /* Same rig as ride/audience: --p (0→1 as --zoom 0→.545), then holds while
-     the cathedral rises up through the held veil over the back (see the
-     -100dvh overlap in styles.css).
+  /* Same rig as ride/audience but a wider action window: --p runs 0→1 as
+     --zoom runs 0→.667 (not .545 — paired with the 400svh pin above so the
+     carousel reads at finger speed), then holds while the cathedral rises
+     up through the held veil over the back (see the -100dvh overlap in
+     styles.css).
      Derived per consumer, not on the stage: --zoom/--p/--n are registered
      non-inherited (styles.css) so a scroll write costs one element's style,
      and jhScene writes --zoom straight onto every [data-scene-var] element. */
-  --p: clamp(0, calc(var(--zoom, 0) / 0.545), 1);
-  --n: clamp(0, calc((var(--p) - 0.45) / 0.47), 1);
+  --p: clamp(0, calc(var(--zoom, 0) / 0.667), 1);
+  /* Dive starts at .62, not the .45 of ride/audience: the carousel needs a
+     longer read window (beats run 0→.55, see values.ts — at the old .38
+     window the cards scrolled ~2.3× finger speed). End unchanged at .92. */
+  --n: clamp(0, calc((var(--p) - 0.62) / 0.3), 1);
 }
 
 :host(.scene--active) .scene__art {
@@ -235,8 +246,8 @@
   inset: 0;
   display: grid;
   align-items: center;
-  opacity: clamp(0, calc(1 - (var(--p) - 0.38) * 12.5), 1);
-  transform: translateY(calc(max(0, var(--p) - 0.38) * -8vh));
+  opacity: clamp(0, calc(1 - (var(--p) - 0.55) * 12.5), 1);
+  transform: translateY(calc(max(0, var(--p) - 0.55) * -8vh));
   will-change: opacity, transform;
 }
 

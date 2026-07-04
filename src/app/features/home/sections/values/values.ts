@@ -182,9 +182,10 @@ export class HomeValues {
       const measure = (): number => {
         if (!hostEl.classList.contains('scene--active')) return -1;
         const zoom = parseFloat(getComputedStyle(hostEl).getPropertyValue('--zoom')) || 0;
-        // Mirrors the --p defined in values.css: the scene's action runs
-        // over --zoom 0→.545, then holds.
-        return Math.min(1, zoom / 0.545);
+        // Mirrors the --p defined in values.css: this scene's action runs
+        // over --zoom 0→.667 (wider than the other scenes' .545 — see the
+        // 400svh pin note in values.css), then holds.
+        return Math.min(1, zoom / 0.667);
       };
       let lastScrubValue: string | null = null;
       const apply = (p: number) => {
@@ -204,11 +205,14 @@ export class HomeValues {
           }
         }
         if (!pinned) return;
-        // The beats share the panel's own 0→.38 "read" window (values.css) —
-        // after .38 the panel is lifting away into the dive, so there's no
-        // point still advancing. Continuous, not floored to an index: this
-        // is a position (0→3 across 4 beats), not a threshold crossing.
-        const t = Math.min(1, p / 0.38);
+        // The beats share the panel's own 0→.55 "read" window (values.css) —
+        // after .55 the panel is lifting away into the dive, so there's no
+        // point still advancing. .55 (was .38): at .38 the four beats spanned
+        // ~330px of page scroll — cards moved ~2.3× finger speed, visibly
+        // faster than the rest of the page's 1:1 motion (owner, 2026-07-04).
+        // Continuous, not floored to an index: this is a position (0→3
+        // across 4 beats), not a threshold crossing.
+        const t = Math.min(1, p / 0.55);
         const scrub = (t * (this.beats.length - 1)).toFixed(4);
         if (scrub === lastScrubValue) return;
         lastScrubValue = scrub;

@@ -107,6 +107,10 @@
   }
   jh-home-values.scene--active .scene__art {
     animation-name: jh-values-dive;
+    /* Values runs a wider, later window than ride/audience: 400svh pin,
+       action over zoom 0→0.667, dive over --p 0.62→0.92 (see values.css) —
+       so the range is 0.62 × 0.667 = 41.35% → 0.92 × 0.667 = 61.36%. */
+    animation-range: contain 41.35% contain 61.36%;
   }
 
   jh-home-story.scene--active .scene__frame {
