@@ -92,6 +92,13 @@ export class Lottie {
   readonly speed = input(1);
   /** Loop the animation (default true). */
   readonly loop = input(true);
+  /** Play even when the OS requests reduced motion (default false — the
+   *  static fallback shows instead). Reserve for gentle, small accents the
+   *  owner has explicitly asked to keep animated everywhere; Android's
+   *  "Remove animations" is common on low-end phones for performance, and a
+   *  16×16 dove is not the motion that setting is protecting against
+   *  (owner, 2026-07-04). */
+  readonly ignoreReducedMotion = input(false);
 
   /** Entrance state: idle (SSR/no-JS/reduced-motion → fallback shows) →
    *  pending (hidden while the player loads) → in (canvas descends in). */
@@ -105,7 +112,12 @@ export class Lottie {
   constructor() {
     afterNextRender(() => {
       if (!isPlatformBrowser(this.platformId)) return;
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (
+        !this.ignoreReducedMotion() &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ) {
+        return;
+      }
 
       // Opt in to the hidden-until-entrance state now that we know motion is OK.
       this.state.set('pending');

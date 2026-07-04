@@ -40,8 +40,16 @@
     <div class="max-w-2xl">
       <!-- Reverent accent: a dove (the Holy Spirit) settling over the section.
            Decorative, browser-only. Lottie by Asim via LottieFiles; the projected
-           SVG is the static stand-in (reduced motion / no-JS / player failure). -->
-      <jh-lottie src="/animations/dove.lottie" [speed]="0.8" class="jh-story-dove mb-2 h-16 w-16">
+           SVG is the static stand-in (no-JS / player failure). It plays under
+           reduced motion too — owner request (2026-07-04): their phone runs
+           Android "Remove animations" and the dove was the one accent worth
+           keeping alive there. -->
+      <jh-lottie
+        src="/animations/dove.lottie"
+        [speed]="0.8"
+        [ignoreReducedMotion]="true"
+        class="jh-story-dove mb-2 h-16 w-16"
+      >
         <svg
           viewBox="0 0 64 40"
           class="h-full w-full"
