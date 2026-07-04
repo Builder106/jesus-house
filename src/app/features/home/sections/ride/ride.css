@@ -74,12 +74,15 @@
   min-height: 0;
 }
 
-:host(.scene--active) .scene__stage {
+:host(.scene--active) [data-scene-var] {
   /* The whole scene action (copy read → zoom into the window → cream veil) runs
      over the FRONT of the pin via --p (0→1 as --zoom 0→.545), then holds at its
      end state while the next scene rises up through the held cream over the back
      ~45% — so the hand-off has no dead-scroll gap (see the -100svh overlap in
-     styles.css). All the original beat fractions are kept, just keyed off --p. */
+     styles.css). All the original beat fractions are kept, just keyed off --p.
+     Derived per consumer, not on the stage: --zoom/--p/--n are registered
+     non-inherited (styles.css) so a scroll write costs one element's style,
+     and jhScene writes --zoom straight onto every [data-scene-var] element. */
   --p: clamp(0, calc(var(--zoom, 0) / 0.545), 1);
   /* normalized zoom-phase progress within the action window: 0 until .45, 1 by .92 */
   --n: clamp(0, calc((var(--p) - 0.45) / 0.47), 1);
@@ -93,6 +96,13 @@
     scale(calc(1 + var(--n) * 23));
   will-change: transform;
 }
+
+/* NOTE: where scroll-driven animations are supported, the art's transform is
+   overridden by a compositor-driven view-timeline animation defined GLOBALLY
+   in styles.css ("Compositor-driven dives") — Angular scopes @keyframes names
+   in component styles but misses animation-name references inside @supports,
+   so the whole block must live unscoped. The var(--n) transform above is the
+   fallback for browsers without scroll-driven animations. */
 
 :host(.scene--active) .scene__copy {
   opacity: clamp(0, calc(1 - (var(--p) - 0.38) * 12.5), 1);

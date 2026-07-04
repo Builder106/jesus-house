@@ -79,6 +79,12 @@ export class SceneDirective {
       const vbW = parseFloat(el.dataset['sceneVw'] ?? '1440');
       const vbH = parseFloat(el.dataset['sceneVh'] ?? '900');
       const art = el.querySelector<HTMLElement>('.scene__art');
+      // --zoom (and the --p/--n the scene CSS derives from it) is registered
+      // `inherits: false` (styles.css) so a per-frame write can't invalidate a
+      // whole subtree's style. The cost of that: the value doesn't travel down
+      // the tree on its own — every element whose CSS reads var(--zoom)/--p/--n
+      // is marked [data-scene-var] in the template and written to directly.
+      const consumers = Array.from(el.querySelectorAll<HTMLElement>('[data-scene-var]'));
       // Measure the pinned stage's real rendered height rather than
       // window.innerHeight: on mobile innerHeight tracks the large viewport and
       // doesn't move with the URL bar, so it disagrees with the svh-sized stage
@@ -119,12 +125,30 @@ export class SceneDirective {
       };
 
       // WRITE only — no layout reads. Runs in the scrubber's batched write phase.
+      // Unchanged values are skipped: a scene resting at zoom 0 or 1 (most of
+      // the page, most of the time) costs zero style work per scroll frame.
+      let lastZoom: string | null = null;
+      let lastTox: string | undefined;
       const apply = (m: SceneMeasurement) => {
-        el.style.setProperty('--zoom', m.zoom.toFixed(4));
-        if (m.tox) el.style.setProperty('--tox', m.tox);
-        if (m.toy) el.style.setProperty('--toy', m.toy);
-        if (m.panx) el.style.setProperty('--panx', m.panx);
-        if (m.pany) el.style.setProperty('--pany', m.pany);
+        const zoom = m.zoom.toFixed(4);
+        if (zoom !== lastZoom) {
+          lastZoom = zoom;
+          // Host copy kept for JS readers (values.ts scrubs its carousel off
+          // the host's computed --zoom); non-inherited, so it costs one element.
+          el.style.setProperty('--zoom', zoom);
+          for (const c of consumers) c.style.setProperty('--zoom', zoom);
+        }
+        // Origin/pan are viewport geometry — constant while scrolling, so these
+        // writes only happen on activation and resize. They stay unregistered
+        // (their 50% fallbacks can't be an @property initial-value), which is
+        // fine at that cadence, and only the art element reads them.
+        if (art && m.tox && m.tox !== lastTox) {
+          lastTox = m.tox;
+          art.style.setProperty('--tox', m.tox);
+          if (m.toy) art.style.setProperty('--toy', m.toy);
+          if (m.panx) art.style.setProperty('--panx', m.panx);
+          if (m.pany) art.style.setProperty('--pany', m.pany);
+        }
       };
 
       const setActive = (on: boolean) => {
@@ -136,7 +160,9 @@ export class SceneDirective {
         } else {
           unregister?.();
           unregister = null;
+          lastZoom = null;
           el.style.removeProperty('--zoom');
+          for (const c of consumers) c.style.removeProperty('--zoom');
         }
       };
       const onGate = () => setActive(tallEnough.matches);

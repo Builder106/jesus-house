@@ -12,6 +12,7 @@
   <!-- The illustrated road scene (decorative; copy carries the content). -->
   <svg
     class="scene__art"
+    data-scene-var
     viewBox="0 0 1440 900"
     preserveAspectRatio="xMidYMid slice"
     aria-hidden="true"
@@ -255,7 +256,7 @@
   </svg>
 
   <!-- Copy panel -->
-  <div class="scene__copy relative z-[2] mx-auto w-full max-w-5xl px-6">
+  <div class="scene__copy relative z-[2] mx-auto w-full max-w-5xl px-6" data-scene-var>
     <div class="scene__panel max-w-xl rounded-lg border border-jh-rule p-8 sm:p-10">
       <p jhReveal class="jh-script-eyebrow text-jh-gold-ink">The road to us</p>
 
@@ -300,5 +301,5 @@
   </div>
 
   <!-- Camera veil -->
-  <div class="scene__veil" aria-hidden="true"></div>
+  <div class="scene__veil" data-scene-var aria-hidden="true"></div>
 </section>

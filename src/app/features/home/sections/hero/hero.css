@@ -123,6 +123,9 @@
   opacity: clamp(0, calc((var(--enter, 0) - 0.2) * 4), 1);
 }
 
+/* Compositor-driven step-through override lives globally in styles.css — see
+   the note in ride.css for why it can't live here. */
+
 /* Cream wash finishes the transition by the pin's midpoint, matching the page
    ground beneath — the ride scene then slides up through it into centre. Warm
    veil ground (styles.css), not flat cream, so the held wash reads as light. */

@@ -69,6 +69,10 @@ export class HomeHero {
       // Measure the pinned stage rather than window.innerHeight (which tracks
       // the large viewport on mobile and disagrees with the svh-sized stage).
       const stage = el.querySelector<HTMLElement>('.portal__stage');
+      // --enter is registered `inherits: false` (styles.css — one write must
+      // not restyle the whole portal subtree), so each element whose CSS reads
+      // var(--enter) is marked [data-scene-var] and written to directly.
+      const consumers = Array.from(el.querySelectorAll<HTMLElement>('[data-scene-var]'));
 
       // Reactive height gate: any viewport tall enough to hold the pinned
       // fly-through (phones in portrait included); short/landscape-phone heights
@@ -87,7 +91,15 @@ export class HomeHero {
       };
 
       // WRITE only — no layout reads. Runs in the scrubber's batched write phase.
-      const apply = (enter: number) => el.style.setProperty('--enter', enter.toFixed(4));
+      // Unchanged values are skipped, so the portal at rest (enter pinned at
+      // 0 or 1) costs zero style work per scroll frame.
+      let lastEnter: string | null = null;
+      const apply = (enter: number) => {
+        const value = enter.toFixed(4);
+        if (value === lastEnter) return;
+        lastEnter = value;
+        for (const c of consumers) c.style.setProperty('--enter', value);
+      };
 
       const setActive = (on: boolean) => {
         if (on === active) return;
@@ -98,7 +110,8 @@ export class HomeHero {
         } else {
           unregister?.();
           unregister = null;
-          el.style.removeProperty('--enter');
+          lastEnter = null;
+          for (const c of consumers) c.style.removeProperty('--enter');
         }
       };
       const onGate = () => setActive(tallEnough.matches);

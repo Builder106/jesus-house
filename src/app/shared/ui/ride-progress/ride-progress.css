@@ -4,11 +4,11 @@
 
 /*
  * The rail lives near the left margin, vertically centred, spanning ~62% of
- * the viewport height. `--p` (0 → 1) is written by the component on scroll;
- * all motion is derived from it so scrolling never triggers layout.
+ * the viewport height. `--p` (0 → 1) is written by the component on scroll —
+ * directly onto the fill and car, since --p is registered non-inherited
+ * (styles.css) and would not travel down from the rail.
  */
 .jh-rail {
-  --p: 0;
   --rail-h: 62vh;
   --car: 28px;
 

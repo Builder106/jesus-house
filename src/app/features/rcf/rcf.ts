@@ -106,6 +106,10 @@ export class Rcf {
       // mobile URL bar and disagrees with the svh-sized stage).
       const stage = heroEl.querySelector<HTMLElement>('.rcf-hero__stage');
       const mark = heroEl.querySelector<HTMLElement>('.rcf-hero__mark');
+      // --enter is registered `inherits: false` (styles.css — one write must
+      // not restyle the whole hero subtree), so each element whose CSS reads
+      // var(--enter) is marked [data-scene-var] and written to directly.
+      const consumers = Array.from(heroEl.querySelectorAll<HTMLElement>('[data-scene-var]'));
 
       // Aim the dive at the mark's rendered center: it lives in document flow
       // (so it can never collide with the copy), which means its position
@@ -125,13 +129,17 @@ export class Rcf {
       let active = false;
 
       let ticking = false;
+      let lastEnter: string | null = null;
       const update = () => {
         ticking = false;
         if (!active) return;
         const stageH = stage?.offsetHeight ?? window.innerHeight;
         const range = heroEl.offsetHeight - stageH;
         const progress = range > 0 ? -heroEl.getBoundingClientRect().top / range : 0;
-        heroEl.style.setProperty('--enter', Math.min(1, Math.max(0, progress)).toFixed(4));
+        const value = Math.min(1, Math.max(0, progress)).toFixed(4);
+        if (value === lastEnter) return;
+        lastEnter = value;
+        for (const c of consumers) c.style.setProperty('--enter', value);
       };
       const onScroll = () => {
         if (ticking) return;
@@ -146,7 +154,10 @@ export class Rcf {
         if (on) {
           setOrigin();
           update();
-        } else heroEl.style.removeProperty('--enter');
+        } else {
+          lastEnter = null;
+          for (const c of consumers) c.style.removeProperty('--enter');
+        }
       };
       const onGate = () => setActive(tallEnough.matches);
       const onResize = () => {

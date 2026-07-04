@@ -203,10 +203,13 @@
   padding-block: 0;
 }
 
-:host(.scene--active) .scene__stage {
+:host(.scene--active) [data-scene-var] {
   /* Same rig as ride/audience: --p (0→1 as --zoom 0→.545), then holds while
      the cathedral rises up through the held veil over the back (see the
-     -100dvh overlap in styles.css). */
+     -100dvh overlap in styles.css).
+     Derived per consumer, not on the stage: --zoom/--p/--n are registered
+     non-inherited (styles.css) so a scroll write costs one element's style,
+     and jhScene writes --zoom straight onto every [data-scene-var] element. */
   --p: clamp(0, calc(var(--zoom, 0) / 0.545), 1);
   --n: clamp(0, calc((var(--p) - 0.45) / 0.47), 1);
 }
@@ -218,6 +221,9 @@
     scale(calc(1 + var(--n) * 7));
   will-change: transform;
 }
+
+/* Compositor-driven dive override lives globally in styles.css — see the
+   note in ride.css for why it can't live here. */
 
 /* The whole panel (heading + carousel + dots) reads, then lifts away as the
    dive into the glass begins. */

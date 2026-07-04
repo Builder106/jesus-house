@@ -147,6 +147,12 @@ export class HomeValues {
       // watchResize's automatic recovery from that isn't reliable here.
       root.classList.add('embla--ready');
 
+      // --carousel-scrub is registered `inherits: false` (styles.css) so the
+      // per-frame scrub write can't restyle every card in the subtree — which
+      // means it must be written on the element whose CSS reads it (the
+      // container carrying the translateY), not on the root above it.
+      const container = root.querySelector<HTMLElement>('.embla__container');
+
       // axis: 'y' matches the vertical rhythm of the rest of the page. Drag
       // is off (watchDrag: false) rather than left on: a vertically-
       // draggable carousel nested inside a vertically-scrolling page would
@@ -180,6 +186,7 @@ export class HomeValues {
         // over --zoom 0→.545, then holds.
         return Math.min(1, zoom / 0.545);
       };
+      let lastScrubValue: string | null = null;
       const apply = (p: number) => {
         const isPinned = p >= 0;
         if (isPinned !== pinned) {
@@ -191,7 +198,7 @@ export class HomeValues {
             // Leaving the pin: hand the real slide back to Embla wherever
             // the continuous scrub last left off (jump: true skips Embla's
             // own animation) so autoplay/dot-click resume without a jump.
-            const lastScrub = parseFloat(root.style.getPropertyValue('--carousel-scrub')) || 0;
+            const lastScrub = parseFloat(container?.style.getPropertyValue('--carousel-scrub') ?? '') || 0;
             emblaApi.scrollTo(Math.round(lastScrub), true);
             autoplay?.play();
           }
@@ -202,9 +209,11 @@ export class HomeValues {
         // point still advancing. Continuous, not floored to an index: this
         // is a position (0→3 across 4 beats), not a threshold crossing.
         const t = Math.min(1, p / 0.38);
-        const scrub = t * (this.beats.length - 1);
-        root.style.setProperty('--carousel-scrub', scrub.toFixed(4));
-        this.activeIndex.set(Math.round(scrub));
+        const scrub = (t * (this.beats.length - 1)).toFixed(4);
+        if (scrub === lastScrubValue) return;
+        lastScrubValue = scrub;
+        container?.style.setProperty('--carousel-scrub', scrub);
+        this.activeIndex.set(Math.round(parseFloat(scrub)));
       };
       const unregisterScrub = this.scrollScrubber.register({ measure, apply });
 
@@ -228,7 +237,7 @@ export class HomeValues {
       // The very next scroll event re-asserts whatever the actual scroll
       // position maps to anyway, same as the rest of the journey once
       // pinned; this is a momentary jump, not a lasting override.
-      root.style.setProperty('--carousel-scrub', String(index));
+      root.querySelector<HTMLElement>('.embla__container')?.style.setProperty('--carousel-scrub', String(index));
       this.activeIndex.set(index);
     } else {
       this.emblaApi?.scrollTo(index);

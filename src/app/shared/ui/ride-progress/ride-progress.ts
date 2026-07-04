@@ -84,9 +84,18 @@ export class RideProgress {
       };
 
       // WRITE only — no layout reads. Runs in the scrubber's batched write phase.
+      // --p is registered `inherits: false` (styles.css), so it must land on
+      // the elements whose CSS reads it (fill + car), not on the rail above.
+      let lastP: string | null = null;
       const apply = ({ progress, dark }: { progress: number; dark: boolean }) => {
         const el = this.rail()?.nativeElement;
-        if (el) el.style.setProperty('--p', String(progress));
+        const value = progress.toFixed(4);
+        if (el && value !== lastP) {
+          lastP = value;
+          for (const part of el.querySelectorAll<HTMLElement>('.jh-rail__fill, .jh-rail__car')) {
+            part.style.setProperty('--p', value);
+          }
+        }
         this.onDark.set(dark);
       };
 

@@ -12,10 +12,10 @@
 -->
 <section class="portal__stage" aria-labelledby="hero-heading">
   <!-- The light you move toward — a centred warm glow that grows on scroll. -->
-  <div class="portal__light" aria-hidden="true"></div>
+  <div class="portal__light" data-scene-var aria-hidden="true"></div>
 
   <div class="portal__content mx-auto flex w-full max-w-2xl flex-col items-center px-6 text-center">
-    <div class="portal__fade">
+    <div class="portal__fade" data-scene-var>
       <p jhReveal class="jh-eyebrow text-jh-soft">RCCG &middot; Middletown, Connecticut</p>
 
       <h1 id="hero-heading" class="jh-hero__headline mt-5 font-display font-semibold text-jh-ink">
@@ -31,11 +31,11 @@
     </div>
 
     <!-- The doorway you pass through. PHOTO SLOT: meetinghouse exterior. -->
-    <div class="portal__art" aria-hidden="true">
+    <div class="portal__art" data-scene-var aria-hidden="true">
       <div class="jh-door">
         <div class="jh-door__scene">
           <div class="jh-door__glow"></div>
-          <div class="jh-door__leaf">
+          <div class="jh-door__leaf" data-scene-var>
             <span class="jh-door__panel jh-door__panel--top"></span>
             <span class="jh-door__panel jh-door__panel--bottom"></span>
             <span class="jh-door__knob"></span>
@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <div class="portal__fade">
+    <div class="portal__fade" data-scene-var>
       <p class="jh-hero__subline mt-8 max-w-xl text-lg leading-relaxed text-jh-soft">
         A Redeemed Christian Church of God family on Washington Street. Worship with us this
         Sunday at <span class="font-semibold text-jh-ink">9:00&nbsp;AM</span>.
@@ -67,13 +67,13 @@
   </div>
 
   <!-- Warm cream wash — carries you "inside" near the end, handing off to the page. -->
-  <div class="portal__veil" aria-hidden="true"></div>
+  <div class="portal__veil" data-scene-var aria-hidden="true"></div>
 
   <!-- Scroll-to-enter cue. Desktop (fine pointer): a scroll-mouse whose wheel
        dot drifts down. Touch (coarse pointer): a phone whose finger swipes down.
        Swapped by pointer type in styles.css. Decorative (aria-hidden); the whole
        cue fades as you move through. -->
-  <div class="portal__cue jh-hero__cue flex justify-center text-jh-blue" aria-hidden="true">
+  <div class="portal__cue jh-hero__cue flex justify-center text-jh-blue" data-scene-var aria-hidden="true">
     <span class="jh-mouse"><span class="jh-mouse__wheel"></span></span>
     <span class="jh-swipe"><span class="jh-swipe__finger"></span></span>
   </div>

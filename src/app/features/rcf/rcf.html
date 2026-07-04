@@ -15,6 +15,7 @@
          flame at the heart of the gathering. The flame is the camera target. -->
     <svg
       class="rcf-hero__art"
+      data-scene-var
       viewBox="0 0 1440 900"
       preserveAspectRatio="xMidYMid slice"
       aria-hidden="true"
@@ -83,12 +84,12 @@
     </svg>
 
     <!-- scrim so the cream copy reads over the dusk + halo -->
-    <div class="rcf-hero__scrim" aria-hidden="true"></div>
+    <div class="rcf-hero__scrim" data-scene-var aria-hidden="true"></div>
     <!-- warm wash: draws you "into the flame" and hands off to the content below -->
-    <div class="rcf-hero__veil" data-jh-header-dark-veil aria-hidden="true"></div>
+    <div class="rcf-hero__veil" data-scene-var data-jh-header-dark-veil aria-hidden="true"></div>
 
     <!-- Copy overlay -->
-    <div class="rcf-hero__content mx-auto w-full max-w-3xl px-6 text-center">
+    <div class="rcf-hero__content mx-auto w-full max-w-3xl px-6 text-center" data-scene-var>
       <p jhReveal jhRevealDir="none" class="jh-script-eyebrow text-jh-gold">Wesleyan RCF</p>
       <h1
         jhReveal="90"
@@ -126,7 +127,7 @@
          collide with the CTAs. The scroll camera dives into it (the component
          measures its rendered center and aims the zoom origin there), revealing
          the dove at the flame's heart before the warm veil washes over. -->
-    <div class="rcf-hero__mark" aria-hidden="true">
+    <div class="rcf-hero__mark" data-scene-var aria-hidden="true">
       <svg viewBox="0 0 325 342" focusable="false" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="rcf-markFlame" x1="0" y1="0" x2="0" y2="1">

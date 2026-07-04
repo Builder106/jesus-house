@@ -55,8 +55,19 @@
  * step back out into the light, resolving onto the closing invitation. On
  * phones the arch is off-screen, so the scale-up re-centres (media block below). */
 .scene__frame {
-  position: relative;
-  height: 100%;
+  /* Absolute, not in-flow: the copy block (a sibling, see story.html) sizes
+     the stage in the static baseline; the frame just covers it. Same box as
+     the old relative/height-100% wrapper in both modes, so the door/doorlight
+     anchors and the scale origin are unchanged. */
+  position: absolute;
+  inset: 0;
+}
+
+/* Keep the copy at the top of the pinned stage (the active stage is a grid
+   with align-items: center; before the frame split, the copy flowed from the
+   top of the full-height frame). */
+:host(.scene--active) .scene__content {
+  align-self: start;
 }
 
 .scene__doorlight {
@@ -108,11 +119,14 @@
   align-items: center;
 }
 
-:host(.scene--active) .scene__stage {
+:host(.scene--active) [data-scene-var] {
   /* Scene action (cathedral reads → camera out through the arch → cream veil)
      runs over the front of the pin via --p (0→1 as --zoom 0→.545), then holds
      while the closing invitation rises up through the held veil over the back
-     ~45% — closing the hand-off gap. See the -100svh overlap in styles.css. */
+     ~45% — closing the hand-off gap. See the -100svh overlap in styles.css.
+     Derived per consumer, not on the stage: --zoom/--p/--n are registered
+     non-inherited (styles.css) so a scroll write costs one element's style,
+     and jhScene writes --zoom straight onto every [data-scene-var] element. */
   --p: clamp(0, calc(var(--zoom, 0) / 0.545), 1);
   --n: clamp(0, calc((var(--p) - 0.5) / 0.42), 1);
 }
@@ -124,6 +138,9 @@
   transform: translate(calc(var(--n) * (154px - 50vw)), 0) scale(calc(1 + var(--n) * 11));
   will-change: transform;
 }
+
+/* Compositor-driven move-out override lives globally in styles.css — see the
+   note in ride.css for why it can't live here. */
 
 /* On phones/tablets the right-side arch is off-screen, so move out through the
    centre of the frame instead — a clean push into the light. The doorlight is

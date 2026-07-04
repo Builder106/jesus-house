@@ -21,6 +21,209 @@
 @import '@fontsource/mulish/latin-600.css';
 @import '@fontsource/mulish/latin-700.css';
 
+/* ── Scroll-scrub custom properties: registered NON-INHERITED ──────────────
+ * Every pinned scene writes a progress number per scroll frame (--zoom /
+ * --enter / --carousel-scrub, and the CSS-derived --p / --n). Unregistered
+ * custom properties inherit, so one per-frame write on a scene host used to
+ * invalidate style for its entire subtree — a device trace (Galaxy A15,
+ * 2026-07-03) measured 178–401 elements recalculated per write, 1,030ms of
+ * style recalc across a 9s scroll, 18% dropped frames. `inherits: false`
+ * stops the cascade at the written element, so a write costs exactly one
+ * element's recalc. The flip side of non-inheritance: these values do NOT
+ * travel down the tree — every element whose CSS reads one of these vars
+ * must receive its own copy. Scene templates mark those elements with
+ * `data-scene-var`, and the writers (jhScene, hero, rcf, values) write to
+ * each marked element directly. */
+@property --zoom {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --p {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --n {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --enter {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --carousel-scrub {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+/* ── Compositor-driven dives (scroll-driven animations) ─────────────────────
+ * Where supported, each pinned scene's ART transform runs as a view-timeline
+ * animation: the compositor scrubs it off the main thread and pins the
+ * layer's raster scale. With the JS-scrubbed var(--n) transforms (still
+ * present in each scene's CSS as the fallback), every scale step forced the
+ * GPU to re-raster ~100-shape SVGs at up to 23×; re-entering a scene at full
+ * zoom from below (scrolling UP) burst 400–900ms of GPU raster and
+ * checkerboarded the page (Galaxy A15 trace, 2026-07-03).
+ *
+ * The timelines map 1:1 onto the JS scrub values: `contain` progress of a
+ * pinned host through the scrollport IS -host.top / (host.height - 100dvh),
+ * i.e. exactly jhScene's --zoom (and the hero's --enter). Scene dives cover
+ * --n's window (--p 0.45→0.92 ⇒ contain 24.53%→50.14%; story: 0.5→0.92 ⇒
+ * 27.25%→50.14%) and fill-mode holds the end state through the hand-off.
+ * The keyframes read --panx/--pany, which jhScene writes inline on the art.
+ *
+ * This block MUST stay in the global stylesheet: Angular's emulated
+ * encapsulation scopes @keyframes names declared in component styles but
+ * does not rewrite animation-name references nested inside @supports, so a
+ * component-local copy references a keyframes that no longer exists. */
+@supports (animation-timeline: view()) {
+  jh-home-ride.scene--active,
+  jh-home-audience.scene--active,
+  jh-home-values.scene--active,
+  jh-home-story.scene--active {
+    view-timeline: --jh-scene block;
+  }
+  jh-home-hero.portal--active {
+    view-timeline: --jh-portal block;
+  }
+
+  jh-home-ride.scene--active .scene__art,
+  jh-home-audience.scene--active .scene__art,
+  jh-home-values.scene--active .scene__art {
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: --jh-scene;
+    animation-range: contain 24.53% contain 50.14%;
+  }
+  jh-home-ride.scene--active .scene__art {
+    animation-name: jh-ride-dive;
+  }
+  jh-home-audience.scene--active .scene__art {
+    animation-name: jh-audience-dive;
+  }
+  jh-home-values.scene--active .scene__art {
+    animation-name: jh-values-dive;
+  }
+
+  jh-home-story.scene--active .scene__frame {
+    animation-name: jh-story-out;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: --jh-scene;
+    animation-range: contain 27.25% contain 50.14%;
+  }
+  @media (max-width: 1023px) {
+    jh-home-story.scene--active .scene__frame {
+      animation-name: jh-story-out-center;
+    }
+  }
+
+  /* Hero: `contain` progress IS --enter, so the 0.15/0.18/0.2/0.45
+     breakpoints of the var(--enter) formulas become keyframe offsets. */
+  jh-home-hero.portal--active .portal__art,
+  jh-home-hero.portal--active .portal__light {
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: --jh-portal;
+    animation-range: contain;
+  }
+  jh-home-hero.portal--active .portal__art {
+    animation-name: jh-portal-art;
+  }
+  jh-home-hero.portal--active .portal__light {
+    animation-name: jh-portal-light;
+  }
+}
+
+@keyframes jh-ride-dive {
+  from {
+    transform: translate(0px, 0px) scale(1);
+  }
+  to {
+    transform: translate(var(--panx, 0px), var(--pany, 0px)) scale(24);
+  }
+}
+@keyframes jh-audience-dive {
+  from {
+    transform: translate(0px, 0px) scale(1);
+  }
+  to {
+    transform: translate(var(--panx, 0px), var(--pany, 0px)) scale(14);
+  }
+}
+@keyframes jh-values-dive {
+  from {
+    transform: translate(0px, 0px) scale(1);
+  }
+  to {
+    transform: translate(var(--panx, 0px), var(--pany, 0px)) scale(8);
+  }
+}
+@keyframes jh-story-out {
+  from {
+    transform: translate(0px, 0) scale(1);
+  }
+  to {
+    transform: translate(calc(154px - 50vw), 0) scale(12);
+  }
+}
+@keyframes jh-story-out-center {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(12);
+  }
+}
+@keyframes jh-portal-art {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  18% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  20% {
+    transform: scale(1.14);
+    opacity: 1;
+  }
+  45% {
+    transform: scale(2.89);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(6.74);
+    opacity: 0;
+  }
+}
+@keyframes jh-portal-light {
+  0% {
+    transform: translate(-50%, -50%) scale(0.4);
+    opacity: 0;
+  }
+  15% {
+    transform: translate(-50%, -50%) scale(0.4);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(-50%, -50%) scale(0.65);
+    opacity: 0;
+  }
+  45% {
+    transform: translate(-50%, -50%) scale(1.9);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(4.65);
+    opacity: 1;
+  }
+}
+
 @theme {
   /* RCCG seal palette */
   --color-jh-blue: #28166f;

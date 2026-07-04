@@ -8,9 +8,12 @@
   data-jh-header-dark="until-veil"
   aria-labelledby="story-heading"
 >
-  <!-- Everything inside the frame scales together when the camera leaves
-       through the arch (jhScene active). Static baseline: inert wrapper. -->
-  <div class="scene__frame">
+  <!-- The illustrated backdrop (door motif + arch light) scales as the camera
+       leaves through the arch (jhScene active). The copy block lives OUTSIDE
+       this frame on purpose: it fades out just as the zoom begins, and keeping
+       text/images out of the composited dive layer means they never re-raster
+       at up to 12× (measured GPU stall, 2026-07-03). Static baseline: inert. -->
+  <div class="scene__frame" data-scene-var>
     <!-- Decorative red-door motif, low-contrast, behind the content (aria-hidden). -->
     <svg
       class="jh-story-door pointer-events-none absolute select-none text-jh-cream/[0.05]"
@@ -30,9 +33,10 @@
     </svg>
 
     <!-- Warm light through the arch — brightens as the camera moves out. -->
-    <div class="scene__doorlight" aria-hidden="true"></div>
+    <div class="scene__doorlight" data-scene-var aria-hidden="true"></div>
+  </div>
 
-    <div class="scene__content relative mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
+  <div class="scene__content relative mx-auto w-full max-w-5xl px-6 py-20 sm:py-28" data-scene-var>
     <div class="max-w-2xl">
       <!-- Reverent accent: a dove (the Holy Spirit) settling over the section.
            Decorative, browser-only. Lottie by Asim via LottieFiles; the projected
@@ -104,10 +108,9 @@
       />
       <p class="jh-eyebrow text-jh-cream/70">A parish of The Redeemed Christian Church of God</p>
     </div>
-    </div>
   </div>
 
   <!-- Camera cue + veil (cream — stepping back out into the light) -->
-  <p class="scene__cue jh-eyebrow" aria-hidden="true">Through the door — keep scrolling</p>
-  <div class="scene__veil" data-jh-header-dark-veil aria-hidden="true"></div>
+  <p class="scene__cue jh-eyebrow" data-scene-var aria-hidden="true">Through the door — keep scrolling</p>
+  <div class="scene__veil" data-scene-var data-jh-header-dark-veil aria-hidden="true"></div>
 </section>
