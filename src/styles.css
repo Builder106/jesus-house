@@ -546,6 +546,18 @@ jh-home-story.scene--active + jh-home-comeandsee {
   z-index: 4;
 }
 
+/* Phones: the story pin shrinks to 260svh (story.css) so the veil tail
+ * shortens with it — the overlap must shrink in step or the invitation
+ * would start rising before the door dive has finished and the veil is
+ * opaque (rise start = pin end − overlap; veil completes ~87svh into the
+ * 160svh range, and 260 − 40 − 100svh viewport = 120svh keeps the rise
+ * strictly after it). */
+@media (max-width: 1023px) {
+  jh-home-story.scene--active + jh-home-comeandsee {
+    margin-top: -40dvh;
+  }
+}
+
 /* ── Scroll-mouse cue ───────────────────────────────────────────────────────
  * The universal "scroll-down" hint — a rounded mouse body whose jh-red wheel-dot
  * repeatedly drifts down and fades. Themed to the site: body outlined in

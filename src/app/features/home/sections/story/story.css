@@ -98,6 +98,19 @@
   height: 320svh;
 }
 
+/* Phones: shorten the held-veil tail. At 320svh the post-dive cream ran a
+   full 100dvh rise plus dead veil — "a lot of whitespace before the final
+   section" (owner, 2026-07-04). 260svh + the matching -40dvh overlap in
+   styles.css cuts the cream-dominant stretch roughly in half. The dive's
+   zoom window is unchanged (--p derives from --zoom, and the SDA
+   animation-range percentages are contain-relative, i.e. pin-height-
+   independent), so the camera move itself only paces a touch quicker. */
+@media (max-width: 1023px) {
+  :host(.scene--active) {
+    height: 260svh;
+  }
+}
+
 :host(.scene--active) .scene__stage {
   position: sticky;
   top: 0;
