@@ -535,6 +535,17 @@ jh-home-story.scene--active + jh-home-comeandsee {
   margin-top: -100dvh;
 }
 
+/* The rise only reads if the rising section actually paints ABOVE the held
+ * veil. The three scene→scene hand-offs get that for free (their stages are
+ * positioned), but comeandsee is a plain static section, so the story veil
+ * (positioned, z-index 3 in story.css) covered it — its text rose invisibly
+ * behind the cream while the pin Lottie (a positioned host) poked through as
+ * an orphan (found on-device, 2026-07-04). Lift it just above the veil. */
+jh-home-story.scene--active + jh-home-comeandsee {
+  position: relative;
+  z-index: 4;
+}
+
 /* ── Scroll-mouse cue ───────────────────────────────────────────────────────
  * The universal "scroll-down" hint — a rounded mouse body whose jh-red wheel-dot
  * repeatedly drifts down and fades. Themed to the site: body outlined in
