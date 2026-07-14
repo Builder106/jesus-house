@@ -141,6 +141,23 @@
   jh-home-hero.portal--active .portal__light {
     animation-name: jh-portal-light;
   }
+
+  /* RCF hero — same shape as the home portal: the pinned 300svh .rcf-hero's
+     `contain` progress IS the component's --enter (-top / (height − stage)),
+     so the dive maps 1:1 with `animation-range: contain`. Art (bitmap) and
+     mark (the logo vector, the camera target) scale together as one camera;
+     the var(--enter) transform in rcf.css stays as the non-SDA fallback. */
+  jh-rcf .rcf-hero--active {
+    view-timeline: --rcf-hero block;
+  }
+  jh-rcf .rcf-hero--active .rcf-hero__art,
+  jh-rcf .rcf-hero--active .rcf-hero__mark {
+    animation-name: jh-rcf-dive;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: --rcf-hero;
+    animation-range: contain;
+  }
 }
 
 @keyframes jh-ride-dive {
@@ -232,6 +249,31 @@
   100% {
     transform: translate(-50%, -50%) scale(1.9);
     opacity: 1;
+  }
+}
+@keyframes jh-rcf-dive {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  36% {
+    transform: scale(2.98);
+    opacity: 1;
+  }
+  /* 46% is where the RCF cream veil reaches full opacity ((--enter − 0.26) × 5),
+     and 3.53 = 1 + 0.46 × 5.5 — the JS-scrub formula evaluated there. Fade to
+     0 under the closing veil, like jh-portal-art: with both the art and the
+     mark left composited beneath the opaque cream, the A15 paid two full-screen
+     layers of fill for nothing — each alone ran ~80fps up-scroll, together 44
+     (measured 2026-07-05). Invisible layers must also be transparent. */
+  46% {
+    transform: scale(3.53);
+    opacity: 0;
+  }
+  /* HOLD at the last visible scale — same invisible-zoom tax as the portal. */
+  100% {
+    transform: scale(3.53);
+    opacity: 0;
   }
 }
 

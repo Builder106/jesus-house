@@ -72,7 +72,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for project structure, guardrails, comm
 ## Roadmap
 
 - ✅ **Phase 1** — Scaffold + brand shell: Angular 22 SSR, Tailwind v4 tokens, RCCG seal brand kit, Fraunces/Mulish, home page with the "Need a ride?" CTA (mailto/tel)
-- ⏳ **Phase 2** — Sanity CMS (new project) + content pages: About, Plan a Visit, Ministries, Wesleyan RCF
+- ⏳ **Phase 2** — Sanity CMS (new project) + content pages: Plan a Visit ✅ and Wesleyan RCF ✅ shipped as static pages ahead of the CMS; About and Ministries still to come
 - ⏳ **Phase 3** — Ride-request form + notifications (serverless handler → email; campus pickup presets)
 - ⏳ **Phase 4** — Events, Watch (RCCG streams), Give
 - ⏳ **Phase 5** — Launch: website URL on the Google Business listing, claim directory listings, parish domain

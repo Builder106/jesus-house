@@ -27,6 +27,13 @@
   inset: 0;
   width: 100%;
   height: 100%;
+  /* The art is a bitmap (art-src/rcf-hero-art.svg is the source; public/art/
+     the capture): bitmap layers re-raster as a texture sample, where the
+     inline vector — with its full-canvas feTurbulence grain — re-rendered per
+     raster-scale step of the dive (the home scenes' Galaxy-A15 finding,
+     2026-07-04). object-fit: cover reproduces the old
+     preserveAspectRatio="xMidYMid slice" framing. */
+  object-fit: cover;
   transform-origin: var(--rcf-ox, 50%) var(--rcf-oy, 62%);
   will-change: transform;
 }
@@ -38,7 +45,11 @@
   z-index: 2;
   align-self: center;
   width: clamp(130px, 26svh, 250px);
-  margin-bottom: 4svh;
+  /* Clearance for the scroll cue below (bottom 1.5rem + 2.65rem body + a gap)
+     — the cue must never sit on the graduation cap. The mark self-centers in
+     its grid row, so only ~half of extra margin becomes visible gap; measured
+     at 390×844 (the tightest common case). */
+  margin-bottom: calc(6.5rem + 2svh);
   will-change: transform;
 }
 
@@ -88,6 +99,15 @@
   z-index: 3;
 }
 
+/* Scroll-to-enter cue — the home portal's convention, on RCF's dusk. */
+.rcf-hero__cue {
+  position: absolute;
+  bottom: 1.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
 .rcf-hero__content {
   position: relative;
   z-index: 2;
@@ -117,10 +137,21 @@
 }
 
 /* The dive: background and mark scale together about the mark's center, so the
-   whole frame moves into the flame as one camera. */
+   whole frame moves into the flame as one camera. Where scroll-driven
+   animations are supported this is overridden by jh-rcf-dive (styles.css) and
+   the compositor scrubs it off the main thread; this var(--enter) form is the
+   fallback. min(…, 0.46) HOLDS at the last visible scale (3.53): the cream
+   veil is fully opaque from --enter 0.46 on, and scaling an invisible layer
+   still re-rasters it at quadratically growing texture area (the home
+   portal's invisible-zoom tax, 2026-07-04). Same visual, fraction of the cost. */
 .rcf-hero--active .rcf-hero__art,
 .rcf-hero--active .rcf-hero__mark {
-  transform: scale(calc(1 + var(--enter, 0) * 5.5));
+  transform: scale(calc(1 + min(var(--enter, 0), 0.46) * 5.5));
+  /* Fade out under the closing veil (fully opaque at --enter 0.46): leaving
+     the art AND the mark composited beneath the opaque cream cost the A15 two
+     full-screen layers of fill through the whole held half of the pin — each
+     alone ~80fps up-scroll, together 44 (2026-07-05). Mirrors jh-portal-art. */
+  opacity: clamp(0, calc((0.46 - var(--enter, 0)) * 10), 1);
 }
 
 /* Warm cream wash finishes by ~the pin's midpoint so the week rises through it. */
@@ -134,7 +165,9 @@
 
 .rcf-hero--active .rcf-hero__content {
   opacity: clamp(0, calc(1 - var(--enter, 0) * 3.2), 1);
-  transform: translateY(calc(var(--enter, 0) * -6vh));
+  /* Copy is opacity-0 from --enter 0.3125 on — hold the translate there too
+     rather than moving an invisible layer for the rest of the pin. */
+  transform: translateY(calc(min(var(--enter, 0), 0.3125) * -6vh));
   will-change: opacity, transform;
 }
 
@@ -142,6 +175,16 @@
    rises through the finished cream wash (the home journey's overlap trick). */
 .rcf-hero--active + section {
   margin-top: -100svh;
+}
+
+/* Pin the cue to the viewport bottom while active (the stage has no transform,
+   so `fixed` resolves to the viewport — same rationale as the portal cue) and
+   fade it out as the dive begins. */
+.rcf-hero--active .rcf-hero__cue {
+  position: fixed;
+  bottom: 1.5rem;
+  pointer-events: none;
+  opacity: clamp(0, calc(1 - var(--enter, 0) * 4.5), 1);
 }
 
 /* ── Week beats — alternating illustrated vignettes ───────────────────────── */

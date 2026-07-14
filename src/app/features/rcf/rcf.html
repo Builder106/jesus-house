@@ -9,79 +9,27 @@
 <!-- HERO — draw near to the flame. Pinned; the component drives --enter (0→1)
      on .rcf-hero from scroll. Baseline (SSR / no-JS / short viewport): a static
      illustrated hero with all copy visible. -->
-<section class="rcf-hero">
+<section class="rcf-hero" aria-labelledby="rcf-heading">
   <div class="rcf-hero__stage" data-jh-header-dark="until-veil">
-    <!-- Campus dusk: College Row behind, string lights above, a glowing RCF
-         flame at the heart of the gathering. The flame is the camera target. -->
-    <svg
+    <!-- Campus dusk — "candlelight vespers" atmosphere (decorative). Bitmap,
+         not inline SVG: the dive re-rasters this layer at every scale step,
+         and a bitmap re-rasters as a cheap texture sample where the vector
+         (with its full-canvas feTurbulence grain) re-rendered per step — the
+         same Galaxy-A15 finding as the home scenes (2026-07-04). Source SVG:
+         art-src/rcf-hero-art.svg; regeneration recipe in art-src/README.md.
+         Eager: this is the above-the-fold hero ground. -->
+    <img
       class="rcf-hero__art"
       data-scene-var
-      viewBox="0 0 1440 900"
-      preserveAspectRatio="xMidYMid slice"
+      src="/art/rcf-hero-scene.webp"
+      width="2880"
+      height="1800"
+      alt=""
       aria-hidden="true"
-      focusable="false"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <!-- AESTHETIC_DNA — "Candlelight vespers"
-           A dark, quiet dusk field; ONE warm light source (the RCF mark, a flow
-           element below the copy — never painted into this background, so it can
-           never collide with the CTAs). Atmosphere only: vertical dusk gradient,
-           a faint warm breath at the horizon, sparse stars, a barely-there
-           treeline ridge, grain. No buildings, no trees, no props. -->
-      <defs>
-        <linearGradient id="rcf-sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#051d15" />
-          <stop offset="0.45" stop-color="#0a2f23" />
-          <stop offset="0.7" stop-color="#0e3d2c" />
-          <stop offset="0.74" stop-color="#0e3d2c" />
-          <stop offset="1" stop-color="#06241b" />
-        </linearGradient>
-        <radialGradient id="rcf-breath" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0" stop-color="#f4892a" stop-opacity="0.16" />
-          <stop offset="0.55" stop-color="#e89a3a" stop-opacity="0.06" />
-          <stop offset="1" stop-color="#e89a3a" stop-opacity="0" />
-        </radialGradient>
-        <filter id="rcf-grain">
-          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
-          <feColorMatrix type="saturate" values="0" />
-          <feComponentTransfer><feFuncA type="linear" slope="0.05" /></feComponentTransfer>
-          <feComposite operator="over" in2="SourceGraphic" />
-        </filter>
-      </defs>
-
-      <rect width="1440" height="900" fill="url(#rcf-sky)" />
-
-      <!-- sparse early stars, upper field only -->
-      <g fill="#e9f5e6">
-        <circle cx="184" cy="112" r="1.6" opacity="0.55" />
-        <circle cx="356" cy="208" r="1.2" opacity="0.35" />
-        <circle cx="540" cy="84" r="1.4" opacity="0.5" />
-        <circle cx="742" cy="166" r="1.1" opacity="0.3" />
-        <circle cx="918" cy="74" r="1.5" opacity="0.5" />
-        <circle cx="1106" cy="190" r="1.2" opacity="0.4" />
-        <circle cx="1268" cy="96" r="1.6" opacity="0.55" />
-        <circle cx="1366" cy="236" r="1.1" opacity="0.3" />
-        <circle cx="84" cy="278" r="1.2" opacity="0.35" />
-        <circle cx="638" cy="282" r="1" opacity="0.28" />
-      </g>
-
-      <!-- warm breath at the horizon — the mark's light pooling in the dusk -->
-      <ellipse cx="720" cy="662" rx="780" ry="200" fill="url(#rcf-breath)" />
-
-      <!-- treeline ridge: two near-tonal silhouette bands, one small chapel spire -->
-      <path
-        d="M0 678 Q 130 664 260 670 T 520 666 L 690 670 L 1040 668 Q 1180 660 1290 668 T 1440 672 L 1440 900 L 0 900 Z"
-        fill="#072921"
-        opacity="0.85"
-      />
-      <path
-        d="M0 700 Q 200 690 400 696 T 820 694 L 1042 696 L 1052 696 L 1056 662 L 1060 656 L 1064 662 L 1068 696 L 1078 696 Q 1260 690 1440 698 L 1440 900 L 0 900 Z"
-        fill="#05221a"
-      />
-
-      <!-- grain -->
-      <rect width="1440" height="900" filter="url(#rcf-grain)" opacity="0.5" />
-    </svg>
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
 
     <!-- scrim so the cream copy reads over the dusk + halo -->
     <div class="rcf-hero__scrim" data-scene-var aria-hidden="true"></div>
@@ -149,6 +97,16 @@
           <path d="M1638 3013 c-14 -3 -15 -9 -8 -29 13 -34 15 -31 -25 -44 -19 -6 -35 -16 -35 -21 0 -5 -18 -12 -40 -15 -34 -6 -38 -9 -28 -21 6 -8 29 -24 51 -35 33 -16 44 -18 65 -9 21 10 28 9 46 -8 21 -20 22 -20 35 -2 11 14 22 17 57 13 37 -4 51 0 87 24 l42 28 -39 8 c-22 5 -44 12 -50 17 -6 4 -23 11 -38 15 -30 7 -35 24 -18 57 9 17 7 19 -17 19 -15 0 -37 2 -48 4 -11 2 -28 2 -37 -1z" fill="#fff8ec" />
         </g>
       </svg>
+    </div>
+
+    <!-- Scroll-to-enter cue — same primitives as the home portal (jh-mouse /
+         jh-swipe, swapped by pointer type in styles.css), cream-outlined for
+         the dusk ground. Decorative; fades out as the dive begins. The mark
+         above reserves bottom clearance for it (rcf.css) so the cue never
+         sits on the graduation cap. -->
+    <div class="rcf-hero__cue flex justify-center text-jh-cream" data-scene-var aria-hidden="true">
+      <span class="jh-mouse"><span class="jh-mouse__wheel"></span></span>
+      <span class="jh-swipe"><span class="jh-swipe__finger"></span></span>
     </div>
   </div>
 </section>
