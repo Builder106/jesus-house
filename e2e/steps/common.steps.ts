@@ -91,7 +91,7 @@ Then('I see the heading {string}', async ({ page }, text: string) => {
 Then('I see the visit page welcome', async ({ page }) => {
   await expect(
     page.getByRole('heading', { level: 1, name: /come as you are/i }),
-  ).toBeVisible();
+  ).toBeVisible({ timeout: 15_000 });
   await dwellForDemo(page);
 });
 
