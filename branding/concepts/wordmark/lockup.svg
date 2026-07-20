@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120">
+  <rect width="400" height="120" fill="#FAF7EF"/>
+  <!-- monogram (same geometry as mark.svg, no tile) -->
+  <g transform="translate(14 14) scale(1.4375)">
+    <g fill="#1C2B4A">
+      <rect x="24" y="10" width="6" height="39"/>
+      <rect x="20.5" y="10" width="13" height="3.2"/>
+      <rect x="46" y="10" width="6" height="40"/>
+      <rect x="42.5" y="10" width="13" height="3.2"/>
+      <rect x="42.5" y="46.8" width="13" height="3.2"/>
+      <rect x="30" y="25.5" width="16" height="3.5"/>
+      <path d="M24 46 L30 46 L30 49 A8.5 8.5 0 0 1 13 49 L13 46 L19 46 L19 49 A2.5 2.5 0 0 0 24 49 Z"/>
+      <rect x="10.5" y="42.8" width="11" height="3.2"/>
+    </g>
+    <path d="M33 35.5 A5 5 0 0 1 43 35.5 Z" fill="#C9A227"/>
+    <rect x="33" y="35.5" width="10" height="14.5" fill="#B3282D"/>
+    <rect x="37.7" y="35.5" width="0.6" height="14.5" fill="#FAF7EF"/>
+  </g>
+  <g font-family="Iowan Old Style, Palatino, Georgia, serif">
+    <text x="122" y="38" font-size="13" font-weight="600" letter-spacing="5" fill="#B3282D">RCCG</text>
+    <text x="120" y="73" font-size="36" font-weight="700" fill="#1C2B4A">Jesus House</text>
+    <text x="122" y="97" font-size="12.5" font-weight="600" letter-spacing="2.2" fill="#C9A227">MIDDLETOWN, CONNECTICUT</text>
+  </g>
+</svg>

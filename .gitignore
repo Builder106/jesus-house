@@ -54,3 +54,6 @@ blob-report/
 
 # Generated BDD specs
 .features-gen/
+
+# Design research recordings
+design-research/recordings/

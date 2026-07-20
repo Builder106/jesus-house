@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- House of Jesus — meetinghouse whose negative space forms a Latin cross.
+       Vertical = the doorway bay rising into the gable; horizontal = the eave line.
+       Cream tile is part of the mark (the cross is made of light, not ink). -->
+  <rect width="64" height="64" fill="#FAF7EF"/>
+
+  <!-- Meetinghouse silhouette -->
+  <path d="M8 58 V28 L32 8 L56 28 V58 Z" fill="#1C2B4A"/>
+
+  <!-- Negative-space cross -->
+  <rect x="28" y="18" width="8" height="40" fill="#FAF7EF"/>
+  <rect x="20" y="24" width="24" height="8" fill="#FAF7EF"/>
+
+  <!-- Warm transom light above the doors -->
+  <rect x="28" y="42" width="8" height="4" fill="#C9A227"/>
+
+  <!-- Red double doors; the seam between them carries the cross axis to the ground -->
+  <rect x="26" y="46" width="5" height="12" fill="#B3282D"/>
+  <rect x="33" y="46" width="5" height="12" fill="#B3282D"/>
+</svg>
