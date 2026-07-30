@@ -21,7 +21,7 @@
     "@angular/platform-browser": "^22.0.7",
     "@angular/platform-server": "^22.0.8",
     "@angular/router": "^22.0.0",
-    "@angular/ssr": "^22.0.7",
+    "@angular/ssr": "^22.0.9",
     "@fontsource/fraunces": "^5.2.9",
     "@fontsource/mulish": "^5.2.8",
     "@lottiefiles/dotlottie-web": "^0.78.2",
