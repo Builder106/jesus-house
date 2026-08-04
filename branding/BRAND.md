@@ -12,6 +12,7 @@ The official seal: white descending dove on a deep blue disc, double red rings, 
 blue = God's love, red = the blood of Jesus, white = holiness, green = fruitfulness.
 
 **Usage rules**
+
 - Never recolor, distort, crop, outline, or add effects to the seal.
 - Clear space: at least ¼ of the seal's diameter on all sides.
 - Minimum size 24 px; at favicon sizes the ring text is illegible (expected — the blue
@@ -28,7 +29,7 @@ blue = God's love, red = the blood of Jesus, white = holiness, green = fruitfuln
 **Seal colors (sacrosanct inside the seal, sampled from the official PNG):**
 
 | Token | Hex | Source |
-|---|---|---|
+| --- | --- | --- |
 | Seal Blue | `#28166F` | dove disc |
 | Seal Red | `#DA251D` | rings |
 | Seal Green | `#00923F` | ring text |
@@ -37,7 +38,7 @@ blue = God's love, red = the blood of Jesus, white = holiness, green = fruitfuln
 **Site UI palette (derived, light/warm per the workspace direction):**
 
 | Token | Hex | Role |
-|---|---|---|
+| --- | --- | --- |
 | `--brand` | `#28166F` | Headings, nav, footer, links |
 | `--accent` | `#DA251D` | CTAs (Give, Plan a Visit, ride request), eyebrows — sparingly |
 | `--affirm` | `#00923F` | Locale lines, success states, small affirmations — sparingly |
@@ -61,7 +62,7 @@ light green `#8FD6AC`, lavender `#A39CC0`.
 ## Assets (`branding/rccg-seal/`)
 
 | File | Purpose |
-|---|---|
+| --- | --- |
 | `rccg-org-full.png` | Official seal, 2300×2300 — master copy, don't edit |
 | `seal-512.png`, `seal-256.png` | Working sizes |
 | `favicon.svg` | Site favicon (SVG wrapper, seal embedded as data URI) |

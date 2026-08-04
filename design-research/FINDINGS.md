@@ -8,7 +8,7 @@
 ## The five references (deliberately diverse)
 
 | Site | What it is | The one idea worth stealing |
-|---|---|---|
+| --- | --- | --- |
 | **St. Beatus Caves** (beatushoehlen.swiss) | A cave attraction — *a place you visit* | Content floats in a giant rounded card on a warm-dark ground; gold **script eyebrow over bold uppercase headings**; **audience pills** ("for all those who want to marvel together: Families, Schools, Clubs, Groups, Weddings") |
 | **Serve Robotics** (serverobotics.com) | Delivery-robot company | Light ground + **one rich brand color + one bright accent**; **pinned-headline value scroll** (Safe/Smart/Fast/Sustainable); a **tiny brand character travels down the scroll-progress line** |
 | **Emily Nixon** (emilynixon.com) | Handmade jewelry | **Split-screen hero: an intimate human moment beside a place/atmosphere video**; warm earthy palette; elegant serif wordmark + small-caps letterspaced labels + hairline rules |
@@ -61,6 +61,7 @@ The journey maps the existing nav onto a narrative spine:
    ride + plan-a-visit CTAs, the RCCG seal and affiliation line.
 
 ### What stays (non-negotiables, unchanged by the redesign)
+
 - The **official RCCG seal** is the mark; palette derives from it (#28166F / #DA251D / #00923F).
 - **Light, warm, reverent** — the locked workspace aesthetic. The redesign adds cinema and
   motion *without* going dark/techy like the Moon/Ten-Years references.
@@ -68,6 +69,7 @@ The journey maps the existing nav onto a narrative spine:
 - Angular SSR + Vercel; motion must respect `prefers-reduced-motion` and stay SSR-safe.
 
 ### How the redesign differs from v1 (the fix for "mid")
+
 - v1 was a static brochure with no spine. The redesign has a **concept** ("Come and see")
   expressed as a **scroll journey** with real motion: branded loader, cinematic hero,
   content-on-canvas panels with tilted transitions, the **car-on-the-scroll-line** signature,
@@ -75,6 +77,7 @@ The journey maps the existing nav onto a narrative spine:
   row, audience pills. Same palette and content; vastly more craft and story.
 
 ### Two genuine forks for the user (deciding these before rebuild)
+
 - **Palette depth** — stay fully light-warm, *or* allow one or two rich **seal-blue
   "cathedral" sections** (a single dark, reverent anchor — e.g. the prayer/story moment) for
   cinematic contrast while the site stays predominantly light.
@@ -82,10 +85,11 @@ The journey maps the existing nav onto a narrative spine:
   full Awwwards energy) vs *restrained-but-alive* (tasteful reveals + the car motif only).
 - **Hero approach given no photos yet** — the cinematic building hero needs the planned
   photo session. Until then: a **crafted typographic/illustrative hero** (the red-door motif
-  + motion) that upgrades to full-bleed footage when photography lands.
+  - motion) that upgrades to full-bleed footage when photography lands.
 
 ### Motion engineering note
+
 Use a real scroll/animation lib (Motion One — already in the workspace's toolkit — or GSAP
-+ ScrollTrigger) lazy-loaded client-side only; everything must render correctly with JS off
+- ScrollTrigger) lazy-loaded client-side only; everything must render correctly with JS off
 (SSR) and collapse gracefully under `prefers-reduced-motion`. The car-on-scroll-line and
 pinned sequences are scroll-driven, not autoplay, so they stay performant.

@@ -28,7 +28,7 @@ Hot module replacement is on.
 ## Common commands
 
 | Command | What it does |
-|---|---|
+| --- | --- |
 | `npm start` | `ng serve` — dev server with HMR on port 4200 |
 | `npm run build` | Production build + SSR + prerender (output in `dist/`) |
 | `npm test` | Vitest unit-test suite — **runs in CI only**; locally the checkout path's parentheses break Vitest glob discovery |
@@ -69,7 +69,7 @@ README banners are copied into `assets/`.
 - **No member PII ever: no congregant names, photos, birthdays, or personal
   phone numbers in code, content, tests, or fixtures.** The only contact info
   that may appear is the parish's own: 120 Washington Street, Middletown,
-  CT 06457 · (860) 518-4640 · rccgjhmiddletown@gmail.com. This is also why
+  CT 06457 · (860) 518-4640 · <rccgjhmiddletown@gmail.com>. This is also why
   the repo lives at `site/` inside the project folder — the parent folder
   holds source material with member PII that must never enter the git tree.
 - **Light, warm, reverent aesthetic only — no dark mode.** The palette is
@@ -119,6 +119,7 @@ blank line + a body explaining *why*. No conventional-commit `type:` prefixes
 — the body carries the meaning. No co-author trailers.
 
 Good:
+
 ```
 Anchor the ride CTA above the fold on mobile
 
@@ -128,6 +129,7 @@ and invisible without scrolling.
 ```
 
 Bad:
+
 ```
 feat: cta
 ```

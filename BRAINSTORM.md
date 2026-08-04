@@ -9,8 +9,9 @@
 ## 1. What we know about the parish
 
 ### Verified publicly
+
 | Fact | Value | Source |
-|---|---|---|
+| --- | --- | --- |
 | Name | RCCG Jesus House, Middletown (Google: "Redeemed Christian Church of God, Jesus House") | Google Maps, rccgna.org |
 | Address | 120 Washington Street, Middletown, CT 06457 | Google, RCCGNA directory, Pastor Dele in chat |
 | Phone | (860) 518-4640 | Google, RCCGNA directory |
@@ -20,6 +21,7 @@
 | 2026 RCCG theme | "Brand New Beginning" | HGS streams + chat (Ministers Thanksgiving, Jan 2026) |
 
 ### From the chat (confirm with pastors before publishing)
+
 - **Leadership trio:** Pastor Dele (Oladele) preaches and leads; Pastor Victor Iweiose and
   Pastor (Mrs.) Omoh ("Pst Omo", flyer name **Omo-Oise Iweoise**) are a married couple
   (20th anniversary Aug 2025). Note the **spelling conflict**: chat says "Iweiose",
@@ -32,6 +34,7 @@
 - **Welcome culture:** newcomers announced by name; "Jesus House Family" is the house phrase.
 
 ### Ministries & programs (chat-derived)
+
 - **Elegant Women's Meeting** — women's ministry, evening meetings (e.g. May 1 2026,
   "Send the WORD" prayer theme, Psalm 107:20), ministered by Pastor Omo-Oise Iweoise.
   Female youth invited. Has its own flyer design language (warm gold + florals + RCCG crest).
@@ -44,8 +47,9 @@
   Only public trace is the regional @rcfcampus Instagram ("RCF WESLEYAN" reels).
 
 ### Annual rhythm (events calendar seed)
+
 | When | What |
-|---|---|
+| --- | --- |
 | Feb 1 – Mar 2 | RCCG 30-day annual fasting (HQ prayer-guide PDF circulates) |
 | First Sunday monthly | Thanksgiving Sunday (HQ-connected, mandated) |
 | Monthly | RCCG Holy Ghost Service (YouTube streams shared in chat) |
@@ -163,6 +167,7 @@ is genuinely joyful; the site should sound like Mrs. Omoh's welcomes, not like a
 ## 7. Asset audit (from the exports)
 
 **Usable now**
+
 - Elegant Women flyer (×2 copies) — clean, parish-made, no faces. ⚠️ It prints ZIP
   **06051** (New Britain) for a Middletown address (06457) — typo to flag to the church.
 - RCF Launch flyer — well-made, has the RCF flame logo; faces are of student leaders who
@@ -172,6 +177,7 @@ is genuinely joyful; the site should sound like Mrs. Omoh's welcomes, not like a
 - RCCG HQ Holy Ghost Service flyer — denominational artwork, fine for an events page.
 
 **Usable only with consent**
+
 - ~26 graduation-celebration photos (May 2026). Warm, joyful, *exactly* the right vibe —
   but every frame has identifiable faces, several include **minors**, and two contain a
   background whiteboard listing member names/months (crop or blur). Get written consent
@@ -247,7 +253,7 @@ CI/CD, LICENSE, CONTRIBUTING, JOURNAL.md, E2E demo suite).
    pastor before the leadership page ships.
 3. Leadership page: **Pastor Victor Iweiose — Parish Pastor**.
 4. Giving: **Zelle** (Give page = Zelle instructions; no payment SaaS needed for v1).
-5. Parish email: **rccgjhmiddletown@gmail.com**. No existing logo/brand materials.
+5. Parish email: **<rccgjhmiddletown@gmail.com>**. No existing logo/brand materials.
 6. Photo session: user will schedule one.
 7. **Wesleyan RCF = the parish's youth ministry** (analogous to Celestial Sanctum's CZM)
    and gets its own sub-identity on the site.

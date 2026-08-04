@@ -17,7 +17,7 @@ cream `#FAF7EF` (red-door adds a `#8C2125` door-shadow red).
 ## Scores
 
 | Concept | Craft & favicon (10) | Brand fit (10) | Distinctiveness (10) | Total |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | **wordmark** (JH monogram) | 8 | 8 | 9 | **25** |
 | **red-door** (open-door portico) | 7 | 9 | 8 | **24** |
 | **house-cross** | 9 | 7 | 6 | **22** |

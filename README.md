@@ -46,7 +46,7 @@ The current phase is deliberately CMS-free: every page is static Angular, preren
 ## Stack
 
 | Layer | Choice |
-|---|---|
+| --- | --- |
 | Framework | Angular 22 with `@angular/ssr` (standalone, component prefix `jh`) |
 | Styling | Tailwind v4 via `@tailwindcss/postcss` |
 | Typography | Fraunces (headings) + Mulish (body/UI), self-hosted via `@fontsource` |

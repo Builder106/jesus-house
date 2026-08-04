@@ -39,6 +39,7 @@ dove**, **gold ring + mortarboard**. On the site it's the glowing camera target
 of the hero: you scroll *into* the flame and the dove is revealed at its heart.
 
 **Usage**
+
 - On light backgrounds, use the supplied black lockup as-is; on dark, use the warm/glowing recolor.
 - The dove, ring, and cap are all part of the mark — don't drop them; it isn't "just a flame."
 - The icon (no text) is for tight spots; pair the full lockup ("rcf" + tagline) on first/formal use.
@@ -48,7 +49,7 @@ of the hero: you scroll *into* the flame and the dove is revealed at its heart.
 RCF inherits the parish palette and swaps the **blue accent for green**.
 
 | Token | Hex | Role |
-|---|---|---|
+| --- | --- | --- |
 | RCF Green | `#00923F` | **Scenes only** — the campus-night dusk + the Saturday desk lamp. NOT a text accent anymore (the real logo is warm, so accents went gold 2026-06-12). Same as the RCCG-seal green (`jh-green`). |
 | Gold | `#C9A227` | **The RCF accent** — eyebrows, gathering times, numerals, location labels, the lockup's ring + cap. Shared with parish. |
 | RCF Night | `#0C3B29` | Deep forest green — RCF's "after dark" close (the green answer to the parish's indigo `jh-night`). Token: `--color-rcf-night`. |
