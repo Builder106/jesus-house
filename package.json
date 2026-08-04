@@ -48,5 +48,9 @@
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.2",
     "vitest": "^4.1.10"
+  },
+  "overrides": {
+    "@hono/node-server": "^2.0.5",
+    "body-parser": "^2.2.3"
   }
 }
