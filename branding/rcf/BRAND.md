@@ -38,7 +38,7 @@ backgrounds). For the dark `/rcf` hero it's recolored to glow:
 dove**, **gold ring + mortarboard**. On the site it's the glowing camera target
 of the hero: you scroll *into* the flame and the dove is revealed at its heart.
 
-**Usage**
+### Usage
 
 - On light backgrounds, use the supplied black lockup as-is; on dark, use the warm/glowing recolor.
 - The dove, ring, and cap are all part of the mark — don't drop them; it isn't "just a flame."

@@ -13,12 +13,12 @@ direction.
 
 ## Palette
 
-| Name              | Hex       | Role                                       |
-|-------------------|-----------|---------------------------------------------|
-| Meetinghouse Navy | `#1C2B4A` | Door frame/arch                            |
-| Door Red          | `#B3282D` | Door panel                                 |
-| Lantern Gold      | `#C9A227` | Rising sun in the fanlight                 |
-| Cream             | `#FAF7EF` | Fanlight ground and the dove figure        |
+| Name              | Hex       | Role                                |
+| ----------------- | --------- | ----------------------------------- |
+| Meetinghouse Navy | `#1C2B4A` | Door frame/arch                     |
+| Door Red          | `#B3282D` | Door panel                          |
+| Lantern Gold      | `#C9A227` | Rising sun in the fanlight          |
+| Cream             | `#FAF7EF` | Fanlight ground and the dove figure |
 
 ## Files
 

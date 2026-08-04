@@ -166,7 +166,7 @@ is genuinely joyful; the site should sound like Mrs. Omoh's welcomes, not like a
 
 ## 7. Asset audit (from the exports)
 
-**Usable now**
+### Usable now
 
 - Elegant Women flyer (×2 copies) — clean, parish-made, no faces. ⚠️ It prints ZIP
   **06051** (New Britain) for a Middletown address (06457) — typo to flag to the church.
@@ -176,7 +176,7 @@ is genuinely joyful; the site should sound like Mrs. Omoh's welcomes, not like a
   (turquoise/pink playful vs. sage-green collegiate) — an opportunity to give RCF a kit.
 - RCCG HQ Holy Ghost Service flyer — denominational artwork, fine for an events page.
 
-**Usable only with consent**
+### Usable only with consent
 
 - ~26 graduation-celebration photos (May 2026). Warm, joyful, *exactly* the right vibe —
   but every frame has identifiable faces, several include **minors**, and two contain a

@@ -13,12 +13,12 @@ to say what JH is, so it rewards consistent use rather than first-glance recogni
 
 ## Palette
 
-| Name              | Hex       | Role                                                        |
-|-------------------|-----------|--------------------------------------------------------------|
-| Meetinghouse Navy | `#1C2B4A` | The monogram letterforms, headings, footer                  |
-| Door Red          | `#B3282D` | The door in the H counter, CTAs, eyebrow text               |
-| Lantern Gold      | `#C9A227` | The fanlight; locale line, highlights                       |
-| Cream             | `#FAF7EF` | Page ground                                                 |
+| Name              | Hex       | Role                                          |
+| ----------------- | --------- | --------------------------------------------- |
+| Meetinghouse Navy | `#1C2B4A` | The monogram letterforms, headings, footer    |
+| Door Red          | `#B3282D` | The door in the H counter, CTAs, eyebrow text |
+| Lantern Gold      | `#C9A227` | The fanlight; locale line, highlights         |
+| Cream             | `#FAF7EF` | Page ground                                   |
 
 ## Lockup
 

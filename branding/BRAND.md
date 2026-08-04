@@ -11,7 +11,7 @@ The official seal: white descending dove on a deep blue disc, double red rings, 
 "THE REDEEMED CHRISTIAN ✱ CHURCH OF GOD ✱" ring text. RCCG's documented symbolism:
 blue = God's love, red = the blood of Jesus, white = holiness, green = fruitfulness.
 
-**Usage rules**
+### Usage rules
 
 - Never recolor, distort, crop, outline, or add effects to the seal.
 - Clear space: at least ¼ of the seal's diameter on all sides.

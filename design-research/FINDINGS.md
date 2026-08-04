@@ -89,7 +89,7 @@ The journey maps the existing nav onto a narrative spine:
 
 ### Motion engineering note
 
-Use a real scroll/animation lib (Motion One — already in the workspace's toolkit — or GSAP
-- ScrollTrigger) lazy-loaded client-side only; everything must render correctly with JS off
+Use a real scroll/animation lib (Motion One — already in the workspace's toolkit — or GSAP +
+ScrollTrigger) lazy-loaded client-side only; everything must render correctly with JS off
 (SSR) and collapse gracefully under `prefers-reduced-motion`. The car-on-scroll-line and
 pinned sequences are scroll-driven, not autoplay, so they stay performant.

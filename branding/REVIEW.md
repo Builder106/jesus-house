@@ -6,6 +6,8 @@
 > `rccg-seal/` and documented in `BRAND.md`. The Fraunces/Mulish type pairing and the
 > light/warm direction from this exploration carry forward.
 
+<!-- -->
+
 > Five concepts were designed in parallel (each agent authored SVGs and visually
 > self-checked its renders at 512 px and 32 px). The planned 3-judge panel died with an
 > interrupted session, so this review is a single close reading of every render

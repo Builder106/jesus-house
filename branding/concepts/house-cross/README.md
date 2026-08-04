@@ -12,12 +12,12 @@ already negative space).
 
 ## Palette
 
-| Name              | Hex       | Role                                                            |
-|-------------------|-----------|------------------------------------------------------------------|
-| Meetinghouse Navy | `#1C2B4A` | The house silhouette, headings, footer                          |
-| Door Red          | `#B3282D` | The double doors at the foot of the cross, CTAs, accents        |
-| Lantern Gold      | `#C9A227` | The transom above the doors; highlights, hover states           |
-| Cream             | `#FAF7EF` | Page ground; the cross knockout color                           |
+| Name              | Hex       | Role                                                     |
+| ----------------- | --------- | -------------------------------------------------------- |
+| Meetinghouse Navy | `#1C2B4A` | The house silhouette, headings, footer                   |
+| Door Red          | `#B3282D` | The double doors at the foot of the cross, CTAs, accents |
+| Lantern Gold      | `#C9A227` | The transom above the doors; highlights, hover states    |
+| Cream             | `#FAF7EF` | Page ground; the cross knockout color                    |
 
 ## Lockup
 

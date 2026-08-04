@@ -12,14 +12,14 @@ though the doorknob and panel insets dissolve — acceptable, since the silhouet
 
 ## Palette
 
-| Name              | Hex       | Role                                                            |
-|-------------------|-----------|------------------------------------------------------------------|
-| Meetinghouse Navy | `#1C2B4A` | Portico/pediment, headings, footer                              |
-| Door Red          | `#B3282D` | The door edge/frame, CTAs, accents                              |
-| Deep Door Red     | `#8C2125` | Door face shadow — depth without gradients                      |
-| Lantern Gold      | `#C9A227` | The spilling light and fanlight; hover states, highlights       |
-| Cream             | `#FAF7EF` | Background tile and page ground                                 |
-| White             | `#FFFFFF` | Doorknob; cards and raised surfaces                             |
+| Name              | Hex       | Role                                                      |
+| ----------------- | --------- | --------------------------------------------------------- |
+| Meetinghouse Navy | `#1C2B4A` | Portico/pediment, headings, footer                        |
+| Door Red          | `#B3282D` | The door edge/frame, CTAs, accents                        |
+| Deep Door Red     | `#8C2125` | Door face shadow — depth without gradients                |
+| Lantern Gold      | `#C9A227` | The spilling light and fanlight; hover states, highlights |
+| Cream             | `#FAF7EF` | Background tile and page ground                           |
+| White             | `#FFFFFF` | Doorknob; cards and raised surfaces                       |
 
 ## Lockup
 

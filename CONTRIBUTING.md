@@ -39,7 +39,7 @@ Hot module replacement is on.
 
 ## Project structure
 
-```
+```text
 src/
 ├── app/                   # Standalone components, prefix "jh" — routes, app
 │                          # shell, brand-shell components grow from here
@@ -120,7 +120,7 @@ blank line + a body explaining *why*. No conventional-commit `type:` prefixes
 
 Good:
 
-```
+```text
 Anchor the ride CTA above the fold on mobile
 
 Wesleyan students are the primary audience and most arrive on
@@ -130,7 +130,7 @@ and invisible without scrolling.
 
 Bad:
 
-```
+```text
 feat: cta
 ```
 
