@@ -23,7 +23,7 @@
     "@angular/router": "^22.0.0",
     "@angular/ssr": "^22.0.9",
     "@fontsource/fraunces": "^5.2.9",
-    "@fontsource/mulish": "^5.2.8",
+    "@fontsource/mulish": "^5.3.0",
     "@lottiefiles/dotlottie-web": "^0.78.2",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
