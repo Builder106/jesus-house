@@ -30,8 +30,11 @@ Avenir Next — the most editorial/polished lockup of the set.
 ## Website type pairing (Google Fonts)
 
 - **Headings: [Fraunces](https://fonts.google.com/specimen/Fraunces)** — warm old-style
+
   serif matching the lockup's Iowan Old Style spirit (alt: Source Serif 4).
+
 - **Body & UI: [Mulish](https://fonts.google.com/specimen/Mulish)** — humanist sans close
+
   to Avenir Next; letterspaced uppercase for eyebrows/locale lines.
 
 ## Files

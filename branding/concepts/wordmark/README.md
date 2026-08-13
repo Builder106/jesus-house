@@ -1,6 +1,6 @@
 # Jesus House Monogram (JH) — RCCG Jesus House, Middletown CT
 
-A typographic mark: a navy **J** and **H** interlocked as one slab-serif monogram, with a
+A typographic mark: a navy **J**and**H** interlocked as one slab-serif monogram, with a
 single architectural intervention — tucked into the H's counter sits the parish's red
 double door under a gold arched fanlight. The letters do the naming; the door does the
 storytelling. It is the most *ownable* mark of the set — it looks like nothing else in the
@@ -28,8 +28,11 @@ and a gold letterspaced **MIDDLETOWN, CONNECTICUT** locale line — warm and edi
 ## Website type pairing (Google Fonts)
 
 - **Headings: [Fraunces](https://fonts.google.com/specimen/Fraunces)** — its old-style
+
   warmth pairs naturally with the slab-serif monogram (alt: Source Serif 4).
+
 - **Body & UI: [Mulish](https://fonts.google.com/specimen/Mulish)** — humanist sans;
+
   letterspaced uppercase for eyebrows/locale lines.
 
 ## Files

@@ -1,7 +1,7 @@
 # Brand Sheet — RCCG Jesus House, Middletown
 
-> **Decision (2026-06-10):** the parish uses the **official RCCG dove seal** as its mark.
-> The five custom concepts in `concepts/` are retired exploration records (see `REVIEW.md`).
+> **Decision (2026-06-10):**the parish uses the**official RCCG dove seal** as its mark.
+> The five custom concepts in `concepts/`are retired exploration records (see`REVIEW.md`).
 > Source artwork: rccg.org official media library, 2300×2300 RGBA PNG, fetched 2026-06-10
 > (`rccg-seal/rccg-org-full.png`).
 
@@ -16,12 +16,19 @@ blue = God's love, red = the blood of Jesus, white = holiness, green = fruitfuln
 - Never recolor, distort, crop, outline, or add effects to the seal.
 - Clear space: at least ¼ of the seal's diameter on all sides.
 - Minimum size 24 px; at favicon sizes the ring text is illegible (expected — the blue
+
   disc + dove still identifies). Don't fight this with a modified seal.
+
 - Light backgrounds only (cream/white). On dark grounds, set the seal on a white disc
+
   chip — see `banner-dark.svg`.
+
 - The seal names the denomination, not the parish: on first use, always pair it with
+
   "RCCG Jesus House, Middletown" (the lockup does this).
+
 - The seal belongs to the denomination; the parish is entitled to it as an RCCG parish,
+
   but any uncertainty about usage goes to the zonal/provincial office.
 
 ## Color tokens
@@ -53,9 +60,12 @@ light green `#8FD6AC`, lavender `#A39CC0`.
 ## Typography
 
 - **Headings:** [Fraunces](https://fonts.google.com/specimen/Fraunces) 500–700 — warm
+
   old-style serif; institutional without being corporate. (Print/SVG stack:
   Iowan Old Style → Palatino → Georgia.)
+
 - **Body & UI:** [Mulish](https://fonts.google.com/specimen/Mulish) 400/600 — humanist
+
   sans. Letterspaced uppercase Mulish for eyebrows and locale lines
   (e.g. `RCCG`, `MIDDLETOWN, CONNECTICUT`), mirroring the lockup.
 
@@ -67,11 +77,11 @@ light green `#8FD6AC`, lavender `#A39CC0`.
 | `seal-512.png`, `seal-256.png` | Working sizes |
 | `favicon.svg` | Site favicon (SVG wrapper, seal embedded as data URI) |
 | `favicon-64.png`, `favicon-32.png` | PNG favicon fallbacks |
-| `apple-touch-icon.png` (+ `.svg` source) | 180×180, full-bleed cream tile (iOS needs no transparency) |
-| `lockup.svg` / `lockup-800.png` | Horizontal lockup: seal + RCCG / Jesus House / locale |
-| `banner-light.svg` / `.png` | README banner 1200×420, cream |
-| `banner-dark.svg` / `.png` | README banner 1200×420, dark w/ white seal chip |
-| `social-card.svg` / `.png` | og:image / social preview, 1200×630 |
+| `apple-touch-icon.png`(+`.svg` source) | 180×180, full-bleed cream tile (iOS needs no transparency) |
+| `lockup.svg`/`lockup-800.png` | Horizontal lockup: seal + RCCG / Jesus House / locale |
+| `banner-light.svg`/`.png` | README banner 1200×420, cream |
+| `banner-dark.svg`/`.png` | README banner 1200×420, dark w/ white seal chip |
+| `social-card.svg`/`.png` | og:image / social preview, 1200×630 |
 | `rccg-org-300.png` | First fetch (superseded by full-res) |
 | `worldvectorlogo.svg` | ⚠️ junk — an AccessDenied error stub from a failed vector hunt; safe to delete |
 

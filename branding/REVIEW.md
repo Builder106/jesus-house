@@ -3,7 +3,7 @@
 > **OUTCOME (2026-06-10): none of the custom concepts was adopted.** After reviewing the
 > set, the user decided the site should use the **official RCCG dove seal** as its mark.
 > The concepts below are kept as exploration records; the live brand kit is in
-> `rccg-seal/` and documented in `BRAND.md`. The Fraunces/Mulish type pairing and the
+> `rccg-seal/`and documented in`BRAND.md`. The Fraunces/Mulish type pairing and the
 > light/warm direction from this exploration carry forward.
 
 <!-- -->
@@ -14,14 +14,14 @@
 > (mark-512, mark-32, lockup-800) against the three planned lenses. 2026-06-10.
 
 All five concepts held palette discipline: navy `#1C2B4A`, red `#B3282D`, gold `#C9A227`,
-cream `#FAF7EF` (red-door adds a `#8C2125` door-shadow red).
+cream `#FAF7EF`(red-door adds a`#8C2125` door-shadow red).
 
 ## Scores
 
 | Concept | Craft & favicon (10) | Brand fit (10) | Distinctiveness (10) | Total |
 | --- | --- | --- | --- | --- |
-| **wordmark** (JH monogram) | 8 | 8 | 9 | **25** |
-| **red-door** (open-door portico) | 7 | 9 | 8 | **24** |
+| **wordmark**(JH monogram) | 8 | 8 | 9 | **25** |
+| **red-door**(open-door portico) | 7 | 9 | 8 | **24** |
 | **house-cross** | 9 | 7 | 6 | **22** |
 | **steeple-light** | 4 | 7 | 5 | **16** |
 | **door-dove** | 3 | 5 | 4 | **12** |
@@ -68,7 +68,11 @@ reused as a spot illustration on the Visit page. **door-dove** is eliminated.
 
 1. Refine the chosen mark (incl. a simplified ≤32 px favicon variant + monochrome variant).
 2. Produce `favicon.svg`, `apple-touch-icon.png` (180×180, full-bleed cream tile),
+
    README banner SVGs (1200×420, light/dark), and a social-preview card (1200×630).
+
 3. Write `branding/BRAND.md` — the single brand sheet (palette tokens, type pairing,
+
    logo usage rules, RCCG seal co-placement rules, RCF youth-ministry sub-identity note).
+
 4. Carry the RCF flame (national mark) + this palette into the Wesleyan RCF page design.

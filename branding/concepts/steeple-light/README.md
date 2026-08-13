@@ -27,12 +27,15 @@ The mark itself uses exactly three palette colors (navy, red, gold) plus cream.
 ## Website type pairing (Google Fonts)
 
 - **Headings: [Fraunces](https://fonts.google.com/specimen/Fraunces)** — a warm,
+
   bookish old-style serif with real character at display sizes; set it at weight
   500–600 with the optical-size axis high. It carries the "crafted New England
   meetinghouse" feel the lockup's Iowan Old Style establishes, without tipping
   into the trendy lowercase-sans church cliché. (Quieter alternative:
   Source Serif 4.)
+
 - **Body & UI: [Mulish](https://fonts.google.com/specimen/Mulish)** — a humanist
+
   sans close in spirit to the Avenir Next used in the lockup's locale line; clear
   at small sizes, friendly without being childish. Use weight 400 for body,
   600–700 for labels, and letterspaced uppercase Mulish for eyebrow/locale lines

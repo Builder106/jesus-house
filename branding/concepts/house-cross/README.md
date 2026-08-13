@@ -27,8 +27,11 @@ Single-line "RCCG Jesus House" in Iowan Old Style with a red letterspaced
 ## Website type pairing (Google Fonts)
 
 - **Headings: [Fraunces](https://fonts.google.com/specimen/Fraunces)** — warm old-style
+
   serif (alt: Source Serif 4).
+
 - **Body & UI: [Mulish](https://fonts.google.com/specimen/Mulish)** — humanist sans;
+
   letterspaced uppercase for locale lines.
 
 ## Files

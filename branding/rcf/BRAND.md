@@ -34,7 +34,7 @@ Lesson recorded in the project journal: get the real asset before inventing a ma
 The supplied vector is monochrome (the "dark" colorway, black ink for light
 backgrounds). For the dark `/rcf` hero it's recolored to glow:
 [`rcf-flame.svg`](rcf-flame.svg) (the icon only — flame + dove + ring + cap;
-325×342 viewBox) — **warm-gradient flame** (red-orange → orange → gold), **white
+325×342 viewBox) — **warm-gradient flame**(red-orange → orange → gold),**white
 dove**, **gold ring + mortarboard**. On the site it's the glowing camera target
 of the hero: you scroll *into* the flame and the dove is revealed at its heart.
 
@@ -52,14 +52,14 @@ RCF inherits the parish palette and swaps the **blue accent for green**.
 | --- | --- | --- |
 | RCF Green | `#00923F` | **Scenes only** — the campus-night dusk + the Saturday desk lamp. NOT a text accent anymore (the real logo is warm, so accents went gold 2026-06-12). Same as the RCCG-seal green (`jh-green`). |
 | Gold | `#C9A227` | **The RCF accent** — eyebrows, gathering times, numerals, location labels, the lockup's ring + cap. Shared with parish. |
-| RCF Night | `#0C3B29` | Deep forest green — RCF's "after dark" close (the green answer to the parish's indigo `jh-night`). Token: `--color-rcf-night`. |
+| RCF Night | `#0C3B29` | Deep forest green — RCF's "after dark" close (the green answer to the parish's indigo`jh-night`). Token: `--color-rcf-night`. |
 | Cream | `#FAF7EF` | Page ground. Shared. |
 | Ink | `#221E3A` | Headings + body. Shared. |
 | Red | `#DA251D` | CTAs only — the site-wide CTA hue is kept (do **not** make RCF CTAs green). |
 
 On the `/rcf` page the split is deliberate: **gold** = eyebrows + gathering
 times + numerals + locations (RCF's warm accent, matching the logo), **green** =
-the campus-night scenes only, **red** = CTAs (parish convention), **ink** =
+the campus-night scenes only, **red**= CTAs (parish convention),**ink** =
 headings/body.
 
 ## Typography
@@ -72,7 +72,7 @@ carry the sub-identity. (The flyers' chunky-rounded and Didone-serif fonts are
 ## Secondary motifs
 
 From the sage flyer, kept as a small icon set when more than the flame is needed:
-a **cross** (faith) and an **open book** (study) — drawn in RCF green/gold, same
+a **cross**(faith) and an**open book** (study) — drawn in RCF green/gold, same
 flat line-art language as the home-page scenes. Not yet built into the site;
 reach for these before inventing anything new.
 
@@ -89,7 +89,7 @@ the site (the chat's 🤩✨ energy lives in the copy's warmth, not glyphs).
 - **Not** candy turquoise + hot pink (the Apr flyer) — reads as a children's party.
 - **Not** text slapped over a stock campus photo (the May flyer).
 - **Not** a different look per event — one kit, applied consistently.
-- **Not** a third font family, and **not** green CTAs (keep red).
+- **Not**a third font family, and**not** green CTAs (keep red).
 
 ## Privacy
 
