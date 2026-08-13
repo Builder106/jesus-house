@@ -48,7 +48,7 @@ export class ProfileEditor {
 
 Use directives to bind the model to the view:
 
-- `[formGroup]`: Binds a `FormGroup` to a `<form>` or `<div>`.
+- `[formGroup]`: Binds a `FormGroup`to a`<form>`or`<div>`.
 - `formControlName`: Binds a named control within a group to an input.
 - `formGroupName`: Binds a nested `FormGroup`.
 - `formArrayName`: Binds a nested `FormArray`.
@@ -112,7 +112,7 @@ this.profileForm.events.subscribe((event) => {
 
 ## Manual State Management
 
-- `markAsTouched()` / `markAllAsTouched()`: Useful for showing validation errors on submit.
-- `markAsDirty()` / `markAsPristine()`: Tracks if the value has been modified.
+- `markAsTouched()`/`markAllAsTouched()`: Useful for showing validation errors on submit.
+- `markAsDirty()`/`markAsPristine()`: Tracks if the value has been modified.
 - `updateValueAndValidity()`: Manually triggers recalculation of value and status.
-- Options `{ emitEvent: false }` or `{ onlySelf: true }` can be passed to most methods to control propagation.
+- Options `{ emitEvent: false }`or`{ onlySelf: true }` can be passed to most methods to control propagation.

@@ -52,7 +52,7 @@ const apiUrl = environment.apiUrl;
 
 The Angular CLI replaces the appropriate file based on the build configuration.
 
-If you need a development-mode check, use `isDevMode()` from `@angular/core` instead of relying on a manually maintained `production` flag.
+If you need a development-mode check, use `isDevMode()`from`@angular/core`instead of relying on a manually maintained`production` flag.
 
 > Changes to environment files require rebuilding the application.
 

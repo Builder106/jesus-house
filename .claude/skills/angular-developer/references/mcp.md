@@ -10,17 +10,17 @@ When the MCP server is enabled, AI agents have access to the following tools:
 | :-------------------------- | :-------------------------------------------------------------------------------------------------------- |
 | `ai_tutor`                  | Launches an interactive AI-powered Angular tutor.                                                         |
 | `get_best_practices`        | Retrieves the Angular Best Practices Guide (crucial for standalone components, typed forms, etc.).        |
-| `list_projects`             | Lists all applications and libraries in the workspace by reading `angular.json`.                          |
-| `onpush_zoneless_migration` | Analyzes code and provides a plan to migrate it to `OnPush` change detection (prerequisite for zoneless). |
-| `search_documentation`      | Searches the official documentation at `https://angular.dev`.                                             |
+| `list_projects`| Lists all applications and libraries in the workspace by reading`angular.json`.                          |
+| `onpush_zoneless_migration`| Analyzes code and provides a plan to migrate it to`OnPush` change detection (prerequisite for zoneless). |
+| `search_documentation`| Searches the official documentation at`https://angular.dev`.                                             |
 
 ## Experimental Tools
 
-Some tools must be enabled explicitly using the `--experimental-tool` (or `-E`) flag.
+Some tools must be enabled explicitly using the `--experimental-tool`(or`-E`) flag.
 
 | Name                       | Description                                                           |
 | :------------------------- | :-------------------------------------------------------------------- |
-| `build`                    | Performs a one-off build using `ng build`.                            |
+| `build`| Performs a one-off build using`ng build`.                            |
 | `devserver.start`          | Asynchronously starts a dev server (`ng serve`). Returns immediately. |
 | `devserver.stop`           | Stops the dev server.                                                 |
 | `devserver.wait_for_build` | Returns the logs of the most recent build in a running dev server.    |
@@ -63,7 +63,7 @@ Create `.gemini/settings.json` in the project root:
 
 ### Cursor
 
-Create `.cursor/mcp.json` in the project root (or globally at `~/.cursor/mcp.json`):
+Create `.cursor/mcp.json`in the project root (or globally at`~/.cursor/mcp.json`):
 
 ```json
 {

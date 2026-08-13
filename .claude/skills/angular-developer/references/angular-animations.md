@@ -1,13 +1,13 @@
 # Angular Animations
 
 When animating elements in Angular, **first analyze the project's Angular version** in `package.json`.
-For modern applications (**Angular v20.2 and above**), prefer using native CSS with `animate.enter` and `animate.leave`. For older applications, you may need to use the deprecated `@angular/animations` package.
+For modern applications (**Angular v20.2 and above**), prefer using native CSS with `animate.enter`and`animate.leave`. For older applications, you may need to use the deprecated `@angular/animations` package.
 
 ## 1. Native CSS Animations (v20.2+ Recommended)
 
-Modern Angular provides `animate.enter` and `animate.leave` to animate elements as they enter or leave the DOM. They apply CSS classes at the appropriate times.
+Modern Angular provides `animate.enter`and`animate.leave` to animate elements as they enter or leave the DOM. They apply CSS classes at the appropriate times.
 
-### `animate.enter` and `animate.leave`
+### `animate.enter`and`animate.leave`
 
 Use these directly on elements to apply CSS classes during the enter or leave phase. Angular automatically removes the enter classes when the animation completes. For `animate.leave`, Angular waits for the animation to finish before removing the element from the DOM.
 
@@ -22,7 +22,7 @@ Use these directly on elements to apply CSS classes during the enter or leave ph
 ```
 
 ```css
-/* Ensure you have a starting style if using transitions instead of keyframes */
+/*Ensure you have a starting style if using transitions instead of keyframes*/
 .enter-container {
   border: 1px solid #dddddd;
   margin-top: 1em;
@@ -52,7 +52,7 @@ _Note: `animate.leave` may be added to child elements being removed._
 
 ### Event Bindings and Third-party Libraries
 
-You can bind to `(animate.enter)` and `(animate.leave)` to call functions or use JS libraries like GSAP.
+You can bind to `(animate.enter)`and`(animate.leave)` to call functions or use JS libraries like GSAP.
 
 ```html
 @if(show()) {
@@ -112,8 +112,8 @@ You can use `css-grid` to animate to auto height.
 
 ### Staggering and Parallel Animations
 
-- **Staggering**: Use `animation-delay` or `transition-delay` with different values for items in a list.
-- **Parallel**: Apply multiple animations in the `animation` shorthand (e.g., `animation: rotate 3s, fade-in 2s;`).
+- **Staggering**: Use `animation-delay`or`transition-delay` with different values for items in a list.
+- **Parallel**: Apply multiple animations in the `animation`shorthand (e.g.,`animation: rotate 3s, fade-in 2s;`).
 
 ### Programmatic Control
 

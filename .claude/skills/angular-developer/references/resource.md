@@ -41,7 +41,7 @@ export class UserProfile {
 
 ## Aborting Requests
 
-If the `params` signal changes while a previous loader is still running, the `Resource` will attempt to abort the outstanding request using the provided `abortSignal`. **Always pass `abortSignal` to your `fetch` calls.**
+If the `params`signal changes while a previous loader is still running, the`Resource`will attempt to abort the outstanding request using the provided`abortSignal`. **Always pass `abortSignal`to your`fetch` calls.**
 
 ## Reloading Data
 

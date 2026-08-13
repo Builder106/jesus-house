@@ -4,7 +4,7 @@ This project uses [Cypress](https://www.cypress.io/) for end-to-end (E2E) testin
 
 ## Running E2E Tests
 
-The primary way to run E2E tests is through the `pnpm` script defined in the root `package.json`.
+The primary way to run E2E tests is through the `pnpm`script defined in the root`package.json`.
 
 1. **Build DevTools:** The E2E tests run against a built version of the devtools extension. You must build it first:
 
@@ -12,7 +12,7 @@ The primary way to run E2E tests is through the `pnpm` script defined in the roo
     pnpm -F ng-devtools-mcp build:dev
     ```
 
-2. **Run Cypress:** Use the `cy:open` or `cy:run` script:
+2. **Run Cypress:** Use the `cy:open`or`cy:run` script:
     - To open the interactive Cypress Test Runner:
 
       ```shell
@@ -64,6 +64,6 @@ describe('Profiler', () => {
 
 ### Best Practices
 
-- **Use `data-` attributes:** Whenever possible, use `data-cy` or similar attributes for selecting elements to make tests more resilient to CSS or structural changes.
+- **Use `data-`attributes:** Whenever possible, use`data-cy` or similar attributes for selecting elements to make tests more resilient to CSS or structural changes.
 - **Custom Commands:** Encapsulate common sequences of actions into custom commands in the `support` directory to keep tests clean and readable.
 - **Wait for Application State:** Use `cy.wait()` for arbitrary waits sparingly. Prefer to wait for specific UI elements to appear or for network requests to complete to avoid flaky tests.

@@ -10,7 +10,7 @@ Because Angular Aria components are headless, they do not come with default styl
 
 Common ARIA attributes to target in CSS:
 
-- `[aria-expanded="true"]` / `[aria-expanded="false"]`
+- `[aria-expanded="true"]`/`[aria-expanded="false"]`
 - `[aria-selected="true"]`
 - `[aria-disabled="true"]`
 - `[aria-current="page"]` (for navigation)
@@ -65,7 +65,7 @@ Target the `[aria-expanded]` attribute on the trigger to rotate icons, and style
   transform: rotate(180deg);
 }
 
-/* The panel directive handles DOM removal, but you can style the transition */
+/*The panel directive handles DOM removal, but you can style the transition*/
 .accordion-panel {
   padding: 1rem;
   border-top: 1px solid #ccc;
@@ -105,7 +105,7 @@ export class App {
 ```
 
 **Styling Strategy:**
-Target `[aria-selected="true"]` for selected state and `:focus-visible` or `[data-active]` for the focused item (Angular Aria uses roving tabindex or activedescendant).
+Target `[aria-selected="true"]`for selected state and`:focus-visible`or`[data-active]` for the focused item (Angular Aria uses roving tabindex or activedescendant).
 
 ```css
 .option {
@@ -116,7 +116,7 @@ Target `[aria-selected="true"]` for selected state and `:focus-visible` or `[dat
   background: #e0f7fa;
   font-weight: bold;
 }
-/* Focus state managed by aria */
+/*Focus state managed by aria*/
 .option:focus-visible {
   outline: 2px solid blue;
 }
@@ -126,10 +126,10 @@ Target `[aria-selected="true"]` for selected state and `:focus-visible` or `[dat
 
 ## 3. Combobox, Select, and Multiselect
 
-These patterns combine the `ngCombobox` directive (applied directly to the trigger/combobox element) with a popup containing an `ngListbox` widget.
+These patterns combine the `ngCombobox`directive (applied directly to the trigger/combobox element) with a popup containing an`ngListbox` widget.
 
 - **Combobox (Autocomplete)**: Applied to an `<input ngCombobox>` element. Ideal when typing filters the list.
-- **Select**: Applied to a focusable wrapper like a `<div ngCombobox>` or `<button ngCombobox>` element. Users select from a list of options.
+- **Select**: Applied to a focusable wrapper like a `<div ngCombobox>`or`<button ngCombobox>` element. Users select from a list of options.
 - **Multiselect**: A Combobox or Select paired with a multi-select `ngListbox`.
 
 **Imports:**
@@ -339,7 +339,7 @@ Groups related controls (like text formatting).
 ```
 
 **Styling Strategy:**
-Target `[aria-pressed="true"]` (for toggle buttons) or `[aria-checked="true"]` (for radio groups) within the toolbar.
+Target `[aria-pressed="true"]`(for toggle buttons) or`[aria-checked="true"]` (for radio groups) within the toolbar.
 
 ```css
 .toolbar {
@@ -385,7 +385,7 @@ Displays hierarchical data (file systems, nested nav).
 ```
 
 **Styling Strategy:**
-Target `[aria-expanded]` to show/hide children or rotate chevron icons. Use `padding-left` on nested groups to show hierarchy.
+Target `[aria-expanded]`to show/hide children or rotate chevron icons. Use`padding-left` on nested groups to show hierarchy.
 
 ```css
 .tree,
@@ -426,7 +426,7 @@ A two-dimensional interactive collection of cells enabling navigation via arrow 
 ```
 
 **Styling Strategy:**
-Target `[aria-selected="true"]` for selected cells and `:focus-visible` for the active cell (roving tabindex) or `[aria-activedescendant]` on the container.
+Target `[aria-selected="true"]`for selected cells and`:focus-visible`for the active cell (roving tabindex) or`[aria-activedescendant]` on the container.
 
 ```css
 .grid-table {
@@ -439,7 +439,7 @@ Target `[aria-selected="true"]` for selected cells and `:focus-visible` for the 
 [ngGridCell][aria-selected='true'] {
   background: #e3f2fd;
 }
-/* Focus state managed by roving tabindex */
+/*Focus state managed by roving tabindex*/
 [ngGridCell]:focus-visible {
   outline: 2px solid #2196f3;
   outline-offset: -2px;
@@ -490,7 +490,7 @@ describe('MyAccordionComponent', () => {
 
 Because Angular Aria directives leverage Angular's modern `model()` signals for managing interactive values, they integrate **out-of-the-box** with Angular's new Signal Forms (`@angular/forms/signals`).
 
-The `[formField]` directive automatically detects directives like `ngCombobox` or `ngListbox` as custom form controls because they expose a `value` model.
+The `[formField]`directive automatically detects directives like`ngCombobox`or`ngListbox`as custom form controls because they expose a`value` model.
 
 **Imports:**
 
@@ -543,7 +543,7 @@ You bind it directly using `[formField]`:
 
 ### Example 2: Select Component inside a Form
 
-Apply `ngCombobox` directly to a focusable `div` trigger and bind to `[formField]`:
+Apply `ngCombobox`directly to a focusable`div`trigger and bind to`[formField]`:
 
 ```html
 <div>

@@ -40,7 +40,7 @@ protected readonly user = computed(() => this.data().user);
 
 ### 2. Via Component Inputs (Modern)
 
-Enable `withComponentInputBinding()` in `provideRouter` to pass resolved data directly to `@Input` or `input()`.
+Enable `withComponentInputBinding()`in`provideRouter`to pass resolved data directly to`@Input`or`input()`.
 
 ```ts
 // app.config.ts
@@ -55,7 +55,7 @@ user = input.required<User>();
 Navigation is blocked if a resolver fails.
 
 - Use `withNavigationErrorHandler` for global handling.
-- Use `catchError` within the resolver to return a `RedirectCommand` or fallback data.
+- Use `catchError`within the resolver to return a`RedirectCommand` or fallback data.
 
 ```ts
 return userService

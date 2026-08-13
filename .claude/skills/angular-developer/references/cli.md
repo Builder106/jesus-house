@@ -4,7 +4,7 @@ The Angular CLI (`ng`) is the primary tool for managing an Angular workspace. Al
 
 ## 1. Managing Dependencies
 
-**ALWAYS use `ng add` for Angular libraries** instead of `npm install`. `ng add` installs the package AND runs initialization schematics (e.g., configuring `angular.json`, updating root providers).
+**ALWAYS use `ng add`for Angular libraries** instead of`npm install`. `ng add`installs the package AND runs initialization schematics (e.g., configuring`angular.json`, updating root providers).
 
 ```bash
 ng add @angular/material
@@ -18,20 +18,20 @@ To update the application and its dependencies (which automatically runs code mi
 ng update @angular/core@<latest or specific version> @angular/cli<latest or specific version>
 ```
 
-## 2. Generating Code (`ng generate` or `ng g`)
+## 2. Generating Code (`ng generate`or`ng g`)
 
 Always use the CLI to generate code to ensure it adheres to Angular standards and updates necessary configuration files automatically.
 
 | Target       | Command               | Notes                                                                                          |
 | :----------- | :-------------------- | :--------------------------------------------------------------------------------------------- |
-| Component    | `ng g c path/to/name` | Generates a component. Use `--inline-style` (`-s`) or `--inline-template` (`-t`) if requested. |
-| Service      | `ng g s path/to/name` | Generates an `@Service` service.                                                               |
+| Component    | `ng g c path/to/name`| Generates a component. Use`--inline-style` (`-s`) or `--inline-template` (`-t`) if requested. |
+| Service      | `ng g s path/to/name`| Generates an`@Service` service.                                                               |
 | Directive    | `ng g d path/to/name` | Generates a directive.                                                                         |
 | Pipe         | `ng g p path/to/name` | Generates a pipe.                                                                              |
 | Guard        | `ng g g path/to/name` | Generates a functional route guard.                                                            |
-| Environments | `ng g environments`   | Scaffolds `src/environments/` and updates `angular.json` with file replacements.               |
+| Environments | `ng g environments`| Scaffolds`src/environments/`and updates`angular.json` with file replacements.               |
 
-_Note: There is no command to generate a single route definition. Generate a component, then manually add it to the `Routes` array in `app.routes.ts`._
+_Note: There is no command to generate a single route definition. Generate a component, then manually add it to the `Routes`array in`app.routes.ts`._
 
 ## 3. Development Server & Proxying
 
@@ -53,7 +53,7 @@ To proxy API requests during development (e.g., rerouting `/api` to a local Node
    }
    ```
 
-2. Update `angular.json` under the `serve` target:
+2. Update `angular.json`under the`serve` target:
 
    ```json
    "serve": {
@@ -71,7 +71,7 @@ ng build
 ```
 
 - `ng build` defaults to the production configuration, which enables Ahead-of-Time (AOT) compilation, minification, and tree-shaking.
-- Target specific configurations defined in `angular.json` using `--configuration`: `ng build --configuration=staging`.
+- Target specific configurations defined in `angular.json`using`--configuration`: `ng build --configuration=staging`.
 
 ## 5. Testing
 
@@ -83,7 +83,9 @@ ng build
 To deploy an application, you must first add a deployment builder, then run the deploy command:
 
 ```bash
+
 # Example for Firebase
+
 ng add @angular/fire
 ng deploy
 ```

@@ -6,7 +6,7 @@ If the source state changes, the `linkedSignal` resets to a new computed value.
 
 ## Basic Usage
 
-When you only need to recompute based on a source, pass a computation function. `linkedSignal` works like `computed`, but the resulting signal is writable (you can call `.set()` or `.update()` on it).
+When you only need to recompute based on a source, pass a computation function. `linkedSignal`works like`computed`, but the resulting signal is writable (you can call `.set()`or`.update()` on it).
 
 ```ts
 import { Component, signal, linkedSignal } from '@angular/core';
@@ -28,9 +28,9 @@ export class ShippingMethodPicker {
 
 ## Advanced Usage: Accounting for Previous State
 
-Sometimes, when the source state changes, you want to preserve the user's manual selection if it is still valid. To do this, use the object syntax providing `source` and `computation`.
+Sometimes, when the source state changes, you want to preserve the user's manual selection if it is still valid. To do this, use the object syntax providing `source`and`computation`.
 
-The `computation` function receives the new value of the source, and a `previous` object containing the previous source value and the previous `linkedSignal` value.
+The `computation`function receives the new value of the source, and a`previous`object containing the previous source value and the previous`linkedSignal` value.
 
 ```ts
 interface ShippingMethod { id: number; name: string; }
@@ -52,8 +52,8 @@ export class ShippingMethodPicker {
 }
 ```
 
-### When to use `linkedSignal` vs `computed` vs `effect`
+### When to use `linkedSignal`vs`computed`vs`effect`
 
 - Use `computed`: When state is **strictly** derived from other state and should never be manually updated.
 - Use `linkedSignal`: When state is derived from other state, but the user **must** be able to override or manually update it.
-- **Never** use `effect` to sync one piece of state to another. That is an anti-pattern. Use `computed` or `linkedSignal` instead.
+- **Never** use `effect`to sync one piece of state to another. That is an anti-pattern. Use`computed`or`linkedSignal` instead.

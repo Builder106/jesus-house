@@ -24,7 +24,7 @@ Child routes require their own `<router-outlet />` within the parent component's
 
 ## Named Outlets (Secondary Routes)
 
-Pages can have multiple outlets. Assign a `name` to an outlet to target it specifically. The default name is `'primary'`.
+Pages can have multiple outlets. Assign a `name`to an outlet to target it specifically. The default name is`'primary'`.
 
 ```html
 <router-outlet />
@@ -49,7 +49,7 @@ Define the `outlet` in the route config:
 
 - `activate`: New component instantiated.
 - `deactivate`: Component destroyed.
-- `attach` / `detach`: Used with `RouteReuseStrategy`.
+- `attach`/`detach`: Used with `RouteReuseStrategy`.
 
 ```html
 <router-outlet (activate)="onActivate($event)" />
@@ -57,7 +57,7 @@ Define the `outlet` in the route config:
 
 ## Passing Data via `routerOutletData`
 
-You can pass contextual data to the routed component using the `routerOutletData` input. The component accesses this via the `ROUTER_OUTLET_DATA` injection token as a signal.
+You can pass contextual data to the routed component using the `routerOutletData`input. The component accesses this via the`ROUTER_OUTLET_DATA` injection token as a signal.
 
 ```ts
 // In Parent

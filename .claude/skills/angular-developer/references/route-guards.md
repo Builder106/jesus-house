@@ -43,9 +43,9 @@ Add them to the route configuration as an array. They execute in order.
 
 ## Return Values
 
-- `boolean`: `true` to allow, `false` to block.
-- `UrlTree` or `RedirectCommand`: Redirect to a different route.
-- `Observable` or `Promise`: Resolves to the above types.
+- `boolean`: `true`to allow,`false` to block.
+- `UrlTree`or`RedirectCommand`: Redirect to a different route.
+- `Observable`or`Promise`: Resolves to the above types.
 
 ## Security Note
 

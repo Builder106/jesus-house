@@ -56,8 +56,8 @@ describe('MyComponent', () => {
 
 ## TestBed and ComponentFixture
 
-- **`TestBed`**: The primary utility for creating a test-specific Angular module. Use `TestBed.configureTestingModule({...})` in your `beforeEach` to declare components, provide services, and set up imports needed for your test.
+- **`TestBed`**: The primary utility for creating a test-specific Angular module. Use `TestBed.configureTestingModule({...})`in your`beforeEach` to declare components, provide services, and set up imports needed for your test.
 - **`ComponentFixture`**: A handle on the created component instance and its environment.
   - `fixture.componentInstance`: Access the component's class instance.
   - `fixture.nativeElement`: Access the component's root DOM element.
-  - `fixture.debugElement`: An Angular-specific wrapper around the `nativeElement` that provides safer, platform-agnostic ways to query the DOM (e.g., `debugElement.query(By.css('p'))`).
+  - `fixture.debugElement`: An Angular-specific wrapper around the `nativeElement`that provides safer, platform-agnostic ways to query the DOM (e.g.,`debugElement.query(By.css('p'))`).

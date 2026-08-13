@@ -6,7 +6,7 @@ Using the harness ensures you are testing the actual router configuration, guard
 
 ## Setting Up for Router Testing
 
-The `RouterTestingHarness` is the primary tool for testing routing scenarios. You also need to provide your test routes using the `provideRouter` function in your `TestBed` configuration.
+The `RouterTestingHarness`is the primary tool for testing routing scenarios. You also need to provide your test routes using the`provideRouter`function in your`TestBed` configuration.
 
 ### Example Setup
 
@@ -82,6 +82,6 @@ it('should get the activated component directly', async () => {
 ### Best Practices
 
 - **Navigate with the Harness:** Always use `harness.navigateByUrl()` to simulate navigation. This method returns a promise that resolves with the instance of the activated component.
-- **Access the Router State:** Use `harness.router` to access the live router instance and assert on its state (e.g., `harness.router.url`).
-- **Get Activated Components:** Use `harness.getHarness(ComponentType)` to get an instance of a component harness for the currently activated routed component, or `harness.routeDebugElement` to get the `DebugElement`.
+- **Access the Router State:** Use `harness.router`to access the live router instance and assert on its state (e.g.,`harness.router.url`).
+- **Get Activated Components:** Use `harness.getHarness(ComponentType)`to get an instance of a component harness for the currently activated routed component, or`harness.routeDebugElement`to get the`DebugElement`.
 - **Wait for Stability:** After performing an action that causes navigation, always `await harness.fixture.whenStable()` to ensure the routing is complete before making assertions.

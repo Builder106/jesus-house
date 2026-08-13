@@ -4,7 +4,7 @@ Routes are objects that define which component should render for a specific URL 
 
 ## Basic Configuration
 
-Define routes in a `Routes` array and provide them using `provideRouter` in your `appConfig`.
+Define routes in a `Routes`array and provide them using`provideRouter`in your`appConfig`.
 
 ```ts
 // app.routes.ts
@@ -40,7 +40,7 @@ Use `redirectTo` to point one path to another.
 
 ## Page Titles
 
-Associate titles with routes for accessibility. Titles can be static or dynamic (via `ResolveFn` or a custom `TitleStrategy`).
+Associate titles with routes for accessibility. Titles can be static or dynamic (via `ResolveFn`or a custom`TitleStrategy`).
 
 ```ts
 { path: 'home', component: Home, title: 'Home Page' }
@@ -53,7 +53,7 @@ Associate titles with routes for accessibility. Titles can be static or dynamic 
 
 ## Nested (Child) Routes
 
-Define sub-views using the `children` property. Parent components must include a `<router-outlet />`.
+Define sub-views using the `children`property. Parent components must include a`<router-outlet />`.
 
 ```ts
 {

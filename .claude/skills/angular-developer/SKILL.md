@@ -38,7 +38,7 @@ When asked to create a new Angular project, you must determine the correct execu
 
 **Step 3: Fallback to Latest.**
 
-- **IF** no specific version is requested AND the `ng version` command fails (indicating no Angular installation exists), you must use `npx` to fetch the latest version.
+- **IF** no specific version is requested AND the `ng version`command fails (indicating no Angular installation exists), you must use`npx` to fetch the latest version.
 - **Command:** `npx @angular/cli@latest new <project-name>`
 
 ## Components
@@ -79,8 +79,8 @@ When implementing dependency injection in Angular, follow these guidelines:
 - **Fundamentals**: Overview of Dependency Injection, services, and the `inject()` function. Read [di-fundamentals.md](references/di-fundamentals.md)
 - **Creating and Using Services**: Creating services, the `providedIn: 'root'` option, and injecting into components or other services. Read [creating-services.md](references/creating-services.md)
 - **Defining Dependency Providers**: Automatic vs manual provision, `InjectionToken`, `useClass`, `useValue`, `useFactory`, and scopes. Read [defining-providers.md](references/defining-providers.md)
-- **Injection Context**: Where `inject()` is allowed, `runInInjectionContext`, and `assertInInjectionContext`. Read [injection-context.md](references/injection-context.md)
-- **Hierarchical Injectors**: The `EnvironmentInjector` vs `ElementInjector`, resolution rules, modifiers (`optional`, `skipSelf`), and `providers` vs `viewProviders`. Read [hierarchical-injectors.md](references/hierarchical-injectors.md)
+- **Injection Context**: Where `inject()`is allowed,`runInInjectionContext`, and `assertInInjectionContext`. Read [injection-context.md](references/injection-context.md)
+- **Hierarchical Injectors**: The `EnvironmentInjector`vs`ElementInjector`, resolution rules, modifiers (`optional`, `skipSelf`), and `providers`vs`viewProviders`. Read [hierarchical-injectors.md](references/hierarchical-injectors.md)
 
 ## Angular Aria
 
@@ -95,7 +95,7 @@ When implementing navigation in Angular, consult the following references:
 - **Define Routes**: URL paths, static vs dynamic segments, wildcards, and redirects. Read [define-routes.md](references/define-routes.md)
 - **Route Loading Strategies**: Eager vs lazy loading, and context-aware loading. Read [loading-strategies.md](references/loading-strategies.md)
 - **Show Routes with Outlets**: Using `<router-outlet>`, nested outlets, and named outlets. Read [show-routes-with-outlets.md](references/show-routes-with-outlets.md)
-- **Navigate to Routes**: Declarative navigation with `RouterLink` and programmatic navigation with `Router`. Read [navigate-to-routes.md](references/navigate-to-routes.md)
+- **Navigate to Routes**: Declarative navigation with `RouterLink`and programmatic navigation with`Router`. Read [navigate-to-routes.md](references/navigate-to-routes.md)
 - **Control Route Access with Guards**: Implementing `CanActivate`, `CanMatch`, and other guards for security. Read [route-guards.md](references/route-guards.md)
 - **Data Resolvers**: Pre-fetching data before route activation with `ResolveFn`. Read [data-resolvers.md](references/data-resolvers.md)
 - **Router Lifecycle and Events**: Chronological order of navigation events and debugging. Read [router-lifecycle.md](references/router-lifecycle.md)

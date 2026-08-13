@@ -4,8 +4,8 @@ Angular's dependency injection system is hierarchical, meaning services can be s
 
 ## Types of Injector Hierarchies
 
-1. **`EnvironmentInjector` Hierarchy**: Configured via `@Service()`, `@Injectable({ providedIn: 'root' })` or `ApplicationConfig.providers` during bootstrap. These are global singletons.
-2. **`ElementInjector` Hierarchy**: Created implicitly at each DOM element. Configured via the `providers` or `viewProviders` array in `@Component()` or `@Directive()`.
+1. **`EnvironmentInjector`Hierarchy**: Configured via`@Service()`, `@Injectable({ providedIn: 'root' })`or`ApplicationConfig.providers` during bootstrap. These are global singletons.
+2. **`ElementInjector`Hierarchy**: Created implicitly at each DOM element. Configured via the`providers`or`viewProviders`array in`@Component()`or`@Directive()`.
 
 ## Resolution Rules
 
@@ -35,7 +35,7 @@ export class Example {
 }
 ```
 
-## `providers` vs `viewProviders`
+## `providers`vs`viewProviders`
 
 When providing a service at the component level:
 

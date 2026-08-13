@@ -23,7 +23,7 @@ export class Nav {
 }
 ```
 
-- **Absolute Paths**: Start with `/` (e.g., `/settings`).
+- **Absolute Paths**: Start with `/`(e.g.,`/settings`).
 - **Relative Paths**: No leading `/`. Use `../` to go up a level.
 
 ## Programmatic Navigation (`Router`)
@@ -65,5 +65,5 @@ this.router.navigateByUrl('/login', {replaceUrl: true});
 ## URL Parameters
 
 - **Route Params**: Part of the path (e.g., `/user/123`).
-- **Query Params**: After the `?` (e.g., `/search?q=query`).
+- **Query Params**: After the `?`(e.g.,`/search?q=query`).
 - **Matrix Params**: Scoped to a segment (e.g., `/products;category=books`).

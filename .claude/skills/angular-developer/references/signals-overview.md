@@ -76,7 +76,7 @@ effect(() => {
 
 ### Async Operations in Reactive Contexts
 
-The reactive context is only active for **synchronous** code. Signal reads after an `await` will not be tracked. **Always read signals before asynchronous boundaries.**
+The reactive context is only active for **synchronous**code. Signal reads after an `await` will not be tracked.**Always read signals before asynchronous boundaries.**
 
 ```ts
 // ❌ INCORRECT: theme() is not tracked because it is read after await

@@ -21,7 +21,7 @@ Use the `@Component` decorator to define a component's metadata.
 })
 export class Profile {
   save() {
-    /* ... */
+    /*...*/
   }
 }
 ```
@@ -32,7 +32,7 @@ export class Profile {
 - `template`: Inline HTML template (preferred for small templates).
 - `templateUrl`: Path to an external HTML file.
 - `styles`: Inline CSS styles.
-- `styleUrl` / `styleUrls`: Path(s) to external CSS file(s).
+- `styleUrl`/`styleUrls`: Path(s) to external CSS file(s).
 - `imports`: Lists the components, directives, or pipes used in this component's template.
 
 ## Using Components
@@ -54,7 +54,7 @@ Angular uses built-in blocks for conditional rendering and loops.
 
 ### Conditional Rendering (`@if`)
 
-Use `@if` to conditionally show content. You can include `@else if` and `@else` blocks.
+Use `@if`to conditionally show content. You can include`@else if`and`@else` blocks.
 
 ```html
 @if (user.isAdmin) {
@@ -76,7 +76,7 @@ Use `@if` to conditionally show content. You can include `@else if` and `@else` 
 
 ### Loops (`@for`)
 
-The `@for` block iterates over collections. The `track` expression is **required** for performance and DOM reuse.
+The `@for`block iterates over collections. The`track` expression is **required** for performance and DOM reuse.
 
 ```html
 <ul>
@@ -112,6 +112,6 @@ state like 'standby' is added }
 
 - **Host Element**: The DOM element that matches the component's selector.
 - **View**: The DOM rendered by the component's template inside the host element.
-- **Standalone**: By default, components are standalone (since Angular 19, `standalone: true` is default). For older versions, `standalone: true` must be explicit or the component must be part of an `NgModule`.
+- **Standalone**: By default, components are standalone (since Angular 19, `standalone: true`is default). For older versions,`standalone: true`must be explicit or the component must be part of an`NgModule`.
 - **Component Tree**: Angular applications are structured as a tree of components, where each component can host child components.
 - **Component Naming**: Do not add suffixes the `Component` suffix for Component classes (e.g., AppComponent) unless the project has been configured to use that naming configuration.

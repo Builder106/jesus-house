@@ -6,15 +6,15 @@ Angular Router emits events through the `Router.events` observable, allowing you
 
 1. **`NavigationStart`**: Navigation begins.
 2. **`RoutesRecognized`**: Router matches the URL to a route.
-3. **`GuardsCheckStart` / `End`**: Evaluation of `canActivate`, `canMatch`, etc.
-4. **`ResolveStart` / `End`**: Data resolution phase (fetching data via resolvers).
+3. **`GuardsCheckStart`/`End`**: Evaluation of `canActivate`, `canMatch`, etc.
+4. **`ResolveStart`/`End`**: Data resolution phase (fetching data via resolvers).
 5. **`NavigationEnd`**: Navigation completed successfully.
 6. **`NavigationCancel`**: Navigation canceled (e.g., guard returned `false`).
 7. **`NavigationError`**: Navigation failed (e.g., error in resolver).
 
 ## Subscribing to Events
 
-Inject the `Router` and filter the `events` observable.
+Inject the `Router`and filter the`events` observable.
 
 ```ts
 import {Router, NavigationStart, NavigationEnd} from '@angular/router';
@@ -40,6 +40,6 @@ provideRouter(routes, withDebugTracing());
 
 ## Common Use Cases
 
-- **Loading Indicators**: Show a spinner when `NavigationStart` fires and hide it on `NavigationEnd`/`Cancel`/`Error`.
+- **Loading Indicators**: Show a spinner when `NavigationStart`fires and hide it on`NavigationEnd`/`Cancel`/`Error`.
 - **Analytics**: Track page views by listening for `NavigationEnd`.
 - **Scroll Management**: Respond to `Scroll` events for custom scroll behavior.

@@ -39,7 +39,7 @@ Using `@Service` is the recommended approach for most services. It tells Angular
 
 #### The `autoProvided` option
 
-If you don't want to create a singleton of your service, you can set `@Service({autoProvided: false})` and declare the service a `providers` array.
+If you don't want to create a singleton of your service, you can set `@Service({autoProvided: false})`and declare the service a`providers` array.
 
 ## Injecting a Service
 
@@ -92,6 +92,6 @@ export class BasicDataStore {
 
 While `@Service` covers most scenarios, you may sometimes need:
 
-- **Component-specific instances**: If a component needs its own isolated instance of a service, provide it directly in the component's `@Component({ providers: [MyService] })` array and set the `autoProvided: false` option: `@Service({autoProvided: false})`
+- **Component-specific instances**: If a component needs its own isolated instance of a service, provide it directly in the component's `@Component({ providers: [MyService] })`array and set the`autoProvided: false`option:`@Service({autoProvided: false})`
 - **Factory providers**: For dynamic creation.
 - **Value providers**: For injecting configuration objects.

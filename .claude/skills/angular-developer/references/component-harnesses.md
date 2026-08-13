@@ -2,7 +2,7 @@
 
 Component harnesses are the standard, preferred way to interact with components in tests. They provide a robust, user-centric API that makes tests less brittle and easier to read by insulating them from changes to a component's internal DOM structure.
 
-## Why Use Harnesses?
+## Why Use Harnesses
 
 - **Robustness:** Tests don't break when you refactor a component's internal HTML or CSS classes.
 - **Readability:** Tests describe interactions from a user's perspective (e.g., `button.click()`, `slider.getValue()`) instead of through DOM queries (`fixture.nativeElement.querySelector(...)`).
@@ -52,6 +52,6 @@ describe('MyButtonContainerComponent', () => {
 
 2. **`loader.getHarness(HarnessClass)`**: Asynchronously finds and returns a harness instance for the first matching component.
 
-3. **`HarnessClass.with({ ... })`**: Many harnesses provide a static `with` method that returns a `HarnessPredicate`. This allows you to filter and find components based on their properties, like text, selector, or disabled state. Always use this to precisely target the component you want to test.
+3. **`HarnessClass.with({ ... })`**: Many harnesses provide a static `with`method that returns a`HarnessPredicate`. This allows you to filter and find components based on their properties, like text, selector, or disabled state. Always use this to precisely target the component you want to test.
 
 4. **Harness API:** Once you have a harness instance, use its methods (e.g., `.click()`, `.getText()`, `.getValue()`) to interact with the component. These methods automatically handle waiting for async operations and change detection.

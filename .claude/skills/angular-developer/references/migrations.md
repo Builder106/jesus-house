@@ -9,7 +9,7 @@ To view all available schematics for the installed version of the core framework
 
 ## Common Migration Schematics
 
-Use the following commands to apply specific syntax updates. You can scope these commands to a specific project or directory using the `--project <name>` or `--path <dir>` flags.
+Use the following commands to apply specific syntax updates. You can scope these commands to a specific project or directory using the `--project <name>`or`--path <dir>` flags.
 
 | Feature to Modernize      | Command to Execute                                          |
 | :------------------------ | :---------------------------------------------------------- |
@@ -17,7 +17,7 @@ Use the following commands to apply specific syntax updates. You can scope these
 | **Signal-based Inputs**   | `ng generate @angular/core:signal-input-migration`          |
 | **Signal Queries**        | `ng generate @angular/core:signal-queries-migration`        |
 | **Functional Outputs**    | `ng generate @angular/core:output-migration`                |
-| **`inject()` Function**   | `ng generate @angular/core:inject`                          |
+| **`inject()`Function**   |`ng generate @angular/core:inject`                          |
 | **Self-Closing Tags**     | `ng generate @angular/core:self-closing-tag`                |
 | **Standalone**            | `ng generate @angular/core:standalone` (See workflow below) |
 

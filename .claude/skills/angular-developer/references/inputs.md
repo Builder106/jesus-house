@@ -4,7 +4,7 @@ Inputs allow data to flow from a parent component to a child component. Angular 
 
 ## Signal-based Inputs
 
-Declare inputs using the `input()` function. This returns an `InputSignal`.
+Declare inputs using the `input()`function. This returns an`InputSignal`.
 
 ```ts
 import {Component, input, computed} from '@angular/core';
@@ -95,7 +95,7 @@ export class Legacy {
 
 ## Best Practices
 
-- **Prefer Signals**: Use `input()` instead of `@Input()` for better reactivity and type safety.
+- **Prefer Signals**: Use `input()`instead of`@Input()` for better reactivity and type safety.
 - **Required Inputs**: Use `input.required()` for mandatory data to get build-time errors.
 - **Pure Transforms**: Ensure input transform functions are pure and statically analyzable.
 - **Avoid Collisions**: Do not use input names that collide with standard DOM properties (e.g., `id`, `title`).
