@@ -66,7 +66,7 @@ adb shell settings get global low_power
 adb shell settings get secure refresh_rate_mode
 ```
 
-`low_power` must be 0 and `refresh_rate_mode` 2 (adaptive). Turning power
+`low_power`must be 0 and`refresh_rate_mode` 2 (adaptive). Turning power
 saving off via adb does not restore the refresh rate — set both.
 
 Note: Chrome's HTTP target list (`/json/list`) is often empty on Android;
@@ -76,10 +76,13 @@ why they don't use `chrome-remote-interface`.
 ## Pass targets (Galaxy A15-class device, full-page scroll)
 
 - style recalc total: **< 600 ms** per ~9 s scroll (was 1,030 ms before the
+
   2026-07-03 fix; 557 ms after)
+
 - elements per recalc p90: **< 20** (was 178; now 6)
 - janky frames (>1.6× vsync): **< 10%** (was 18.3%; now 8.6%)
 - `Layout` events during scroll: **≤ a handful** — scroll motion must be
+
   transform/opacity only
 
 If style recalc or elements-per-recalc regress, the likely cause is a new

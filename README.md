@@ -11,7 +11,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
 [![Demo](https://img.shields.io/badge/demo-live-success.svg)](https://jesus-house.vercel.app)
 
-The first-ever website for **RCCG Jesus House, Middletown** — a parish of The Redeemed Christian Church of God at 120 Washington Street, Middletown, CT 06457, a short drive from Wesleyan University. The parish has had no owned web presence at all (no site, no social accounts), so this Angular 22 SSR site becomes its first front door: Sunday service at 9:00 AM, the official RCCG dove seal as the mark, Fraunces + Mulish on a cream ground, and the parish's signature ministry up front — **"Need a ride?"** Every Sunday the parish picks up Wesleyan students for service, and the site digitizes that offer (v1 is a one-tap email/call CTA; the full ride-request form arrives in Phase 3).
+The first-ever website for **RCCG Jesus House, Middletown**— a parish of The Redeemed Christian Church of God at 120 Washington Street, Middletown, CT 06457, a short drive from Wesleyan University. The parish has had no owned web presence at all (no site, no social accounts), so this Angular 22 SSR site becomes its first front door: Sunday service at 9:00 AM, the official RCCG dove seal as the mark, Fraunces + Mulish on a cream ground, and the parish's signature ministry up front —**"Need a ride?"** Every Sunday the parish picks up Wesleyan students for service, and the site digitizes that offer (v1 is a one-tap email/call CTA; the full ride-request form arrives in Phase 3).
 
 ## How it works
 
@@ -47,13 +47,13 @@ The current phase is deliberately CMS-free: every page is static Angular, preren
 
 | Layer | Choice |
 | --- | --- |
-| Framework | Angular 22 with `@angular/ssr` (standalone, component prefix `jh`) |
+| Framework | Angular 22 with `@angular/ssr`(standalone, component prefix`jh`) |
 | Styling | Tailwind v4 via `@tailwindcss/postcss` |
 | Typography | Fraunces (headings) + Mulish (body/UI), self-hosted via `@fontsource` |
 | Unit tests | Vitest via `ng test` |
 | E2E | Playwright + playwright-bdd (QA suite + demo-recording suite) |
 | Hosting | Vercel — git integration deploys; GitHub Actions gates quality |
-| Telemetry | `@vercel/analytics` + `@vercel/speed-insights` |
+| Telemetry | `@vercel/analytics`+`@vercel/speed-insights` |
 
 ## Local development
 
