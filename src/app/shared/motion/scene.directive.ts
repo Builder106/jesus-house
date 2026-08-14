@@ -51,7 +51,7 @@ interface SceneMeasurement {
  * mobile CPU-throttled). The scrubber batches every consumer's read before
  * any consumer's write, eliminating that thrashing.
  */
-@Directive({ selector: '[jhScene]' })
+@Directive({ selector: '[appScene]' })
 export class SceneDirective {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly platformId = inject(PLATFORM_ID);

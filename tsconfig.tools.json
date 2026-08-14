@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/tools",
+    "rootDir": ".",
+    "types": ["node"]
+  },
+  "include": [
+    "*.config.ts",
+    "*.config.mjs",
+    "eslint.config.mjs",
+    "tools/**/*.ts",
+    "tools/**/*.mjs",
+    "e2e/**/*.ts"
+  ]
+}

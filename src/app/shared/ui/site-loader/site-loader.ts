@@ -25,7 +25,7 @@ import { isPlatformBrowser } from '@angular/common';
  * fade, so it can never trap focus or block interaction with the page beneath.
  */
 @Component({
-  selector: 'jh-site-loader',
+  selector: 'app-site-loader',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (show()) {

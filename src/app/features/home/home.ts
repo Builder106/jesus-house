@@ -26,7 +26,7 @@ import { HomeComeAndSee } from './sections/comeandsee/comeandsee';
  * spacing; this component is a thin, presentation-free composition root.
  */
 @Component({
-  selector: 'jh-home',
+  selector: 'app-home',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [HomeHero, HomeRide, HomeAudience, HomeValues, HomeStory, HomeComeAndSee],
   templateUrl: './home.html',

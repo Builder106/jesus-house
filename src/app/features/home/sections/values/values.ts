@@ -66,7 +66,7 @@ import { ScrollScrubber } from '../../../../shared/motion/scroll-scrubber';
  * member PII, no real photos (window panes are future PHOTO SLOTs), no emoji.
  */
 @Component({
-  selector: 'jh-home-values',
+  selector: 'app-home-values',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RevealDirective],
   hostDirectives: [SceneDirective],

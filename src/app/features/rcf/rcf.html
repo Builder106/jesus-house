@@ -38,15 +38,15 @@
 
     <!-- Copy overlay -->
     <div class="rcf-hero__content mx-auto w-full max-w-3xl px-6 text-center" data-scene-var>
-      <p jhReveal jhRevealDir="none" class="jh-script-eyebrow text-jh-gold">Wesleyan RCF</p>
+      <p appReveal appRevealDir="none" class="jh-script-eyebrow text-jh-gold">Wesleyan RCF</p>
       <h1
-        jhReveal="90"
+        appReveal="90"
         id="rcf-heading"
         class="rcf-hero__headline mt-3 font-display font-semibold leading-tight text-jh-cream"
       >
         Keep the fire going.
       </h1>
-      <p jhReveal="180" class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-jh-cream/85">
+      <p appReveal="180" class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-jh-cream/85">
         RCF — the Redeemed Campus Fellowship — is Jesus House's student family at Wesleyan. We gather
         through the week to worship, dig into the Bible, and just be together.
       </p>
@@ -54,7 +54,7 @@
            visit, and the Instagram handle is the regional account (still
            unconfirmed as Wesleyan-specific) — it stays secondary until the
            parish confirms or replaces it. -->
-      <div jhReveal="270" class="mt-9 flex flex-wrap items-center justify-center gap-4">
+      <div appReveal="270" class="mt-9 flex flex-wrap items-center justify-center gap-4">
         <a
           [routerLink]="visitPath"
           class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"
@@ -117,10 +117,10 @@
     <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
       <!-- Copy column -->
       <div>
-        <p jhReveal class="jh-eyebrow text-jh-gold-ink">Who we are</p>
+        <p appReveal class="jh-eyebrow text-jh-gold-ink">Who we are</p>
 
         <h2
-          jhReveal="90"
+          appReveal="90"
           id="rcf-who-heading"
           class="mt-3 max-w-2xl font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
         >
@@ -128,12 +128,12 @@
         </h2>
 
         <div class="mt-6 max-w-xl space-y-4 text-lg leading-relaxed text-jh-soft">
-          <p jhReveal="180">
+          <p appReveal="180">
             RCF is the student arm of RCCG Jesus House. It launched at Wesleyan in 2026, led by
             students from the parish who wanted a place to keep their faith and their friendships
             growing during the week — not just on Sundays.
           </p>
-          <p jhReveal="240">
+          <p appReveal="240">
             Expect worship, honest conversation about the Bible, a few games, and always something to
             eat. You don't need any church background to belong here — come curious.
           </p>
@@ -143,7 +143,7 @@
       <!-- The gathering, before everyone arrives: lantern lit, stools out, a
            seat open — drawn in the week-beats' green language. No faces (PII). -->
       <!-- PHOTO SLOT: an RCF gathering wide shot (consent required, no minors). -->
-      <div jhReveal jhRevealDir="left" class="rcf-beat__art">
+      <div appReveal appRevealDir="left" class="rcf-beat__art">
         <svg viewBox="0 0 440 320" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <radialGradient id="rw-halo" cx="0.5" cy="0.55" r="0.55">
@@ -216,9 +216,9 @@
      animating in as you scroll. -->
 <section class="border-t border-jh-rule" aria-labelledby="rcf-when-heading">
   <div class="mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
-    <p jhReveal class="jh-eyebrow text-jh-gold-ink">Your week</p>
+    <p appReveal class="jh-eyebrow text-jh-gold-ink">Your week</p>
     <h2
-      jhReveal="90"
+      appReveal="90"
       id="rcf-when-heading"
       class="mt-3 max-w-2xl font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
     >
@@ -229,7 +229,7 @@
       @for (g of week; track g.name; let even = $even) {
         <div class="rcf-beat grid items-center gap-8 sm:grid-cols-2 sm:gap-12" [class.rcf-beat--flip]="!even">
           <!-- Illustrated vignette -->
-          <div jhReveal [jhRevealDir]="even ? 'left' : 'right'" class="rcf-beat__art">
+          <div appReveal [appRevealDir]="even ? 'left' : 'right'" class="rcf-beat__art">
             @switch (g.art) {
               @case ('friday') {
                 <svg viewBox="0 0 440 320" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -327,7 +327,7 @@
           </div>
 
           <!-- Copy -->
-          <div jhReveal="120" class="rcf-beat__copy">
+          <div appReveal="120" class="rcf-beat__copy">
             <span class="font-display text-4xl font-semibold text-jh-gold/35" aria-hidden="true">{{ g.index }}</span>
             <h3 class="mt-1 font-display text-2xl font-semibold text-jh-ink">{{ g.name }}</h3>
             <p class="mt-1 font-display text-lg font-semibold text-jh-gold-ink">{{ g.when }}</p>
@@ -338,7 +338,7 @@
       }
     </div>
 
-    <p jhReveal class="mt-12 text-sm leading-relaxed text-jh-soft sm:mt-16">
+    <p appReveal class="mt-12 text-sm leading-relaxed text-jh-soft sm:mt-16">
       Rooms can move week to week — check {{ instagramHandle }} for the latest before you head over.
     </p>
   </div>
@@ -347,22 +347,22 @@
 <!-- Rides / campus -->
 <section class="border-t border-jh-rule" aria-labelledby="rcf-rides-heading">
   <div class="mx-auto w-full max-w-5xl px-6 py-20 sm:py-28">
-    <p jhReveal class="jh-eyebrow text-jh-gold-ink">Getting to Sunday</p>
+    <p appReveal class="jh-eyebrow text-jh-gold-ink">Getting to Sunday</p>
 
     <h2
-      jhReveal="90"
+      appReveal="90"
       id="rcf-rides-heading"
       class="mt-3 max-w-2xl font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
     >
       No car? We'll come get you.
     </h2>
 
-    <p jhReveal="180" class="mt-5 max-w-xl text-lg leading-relaxed text-jh-soft">
+    <p appReveal="180" class="mt-5 max-w-xl text-lg leading-relaxed text-jh-soft">
       Every Sunday the parish drives out to bring students to the 9:00 AM service — and home again
       afterward. Tell us where you are, and we'll be there.
     </p>
 
-    <ul jhReveal="240" class="mt-6 flex flex-wrap gap-3" aria-label="Common Wesleyan pickup spots">
+    <ul appReveal="240" class="mt-6 flex flex-wrap gap-3" aria-label="Common Wesleyan pickup spots">
       @for (spot of ['Exley', 'Usdan', 'Sci-Li', 'Foss Hill', 'Anywhere on campus']; track spot) {
         <li
           class="rounded-full border border-jh-rule bg-jh-surface px-4 py-2 text-sm font-semibold text-jh-ink"
@@ -372,7 +372,7 @@
       }
     </ul>
 
-    <div jhReveal="300" class="mt-9">
+    <div appReveal="300" class="mt-9">
       <a
         [href]="rideMailto"
         class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"
@@ -386,32 +386,32 @@
 <section class="bg-rcf-night text-jh-cream" data-jh-header-dark aria-labelledby="rcf-close-heading">
   <div class="mx-auto w-full max-w-5xl px-6 py-24 text-center sm:py-32">
     <img
-      jhReveal
-      jhRevealDir="none"
+      appReveal
+      appRevealDir="none"
       class="rcf-close__logo mx-auto mb-10"
       src="/rcf-logo-lockup-dark.svg"
       alt="Redeemed Campus Fellowship"
       width="120"
       height="184"
     />
-    <p jhReveal jhRevealDir="none" class="jh-script-eyebrow text-jh-gold">Come and see</p>
+    <p appReveal appRevealDir="none" class="jh-script-eyebrow text-jh-gold">Come and see</p>
 
     <h2
-      jhReveal="90"
+      appReveal="90"
       id="rcf-close-heading"
       class="mx-auto mt-3 max-w-2xl font-display text-3xl font-semibold leading-tight sm:text-4xl"
     >
       Your first Friday is on us.
     </h2>
 
-    <p jhReveal="180" class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-jh-cream/80">
+    <p appReveal="180" class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-jh-cream/80">
       Pull up to Rehearsal Hall 109 this Friday, or follow along online and come when you're ready.
       Either way, we've been saving you a seat.
     </p>
 
     <!-- Same hierarchy as the hero: visiting is primary; the (regional,
          unconfirmed) Instagram stays secondary. -->
-    <div jhReveal="270" class="mt-9 flex flex-wrap items-center justify-center gap-4">
+    <div appReveal="270" class="mt-9 flex flex-wrap items-center justify-center gap-4">
       <a
         [routerLink]="visitPath"
         class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"

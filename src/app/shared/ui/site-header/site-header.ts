@@ -49,7 +49,7 @@ import { ScrollScrubber } from '../../motion/scroll-scrubber';
  * now-offscreen toggle button would fight that.
  */
 @Component({
-  selector: 'jh-site-header',
+  selector: 'app-site-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './site-header.html',

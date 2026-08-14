@@ -38,7 +38,7 @@ import { RevealDirective } from '../../shared/motion/reveal.directive';
  * illustration only, no real faces. No emoji.
  */
 @Component({
-  selector: 'jh-rcf',
+  selector: 'app-rcf',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, RevealDirective],
   templateUrl: './rcf.html',

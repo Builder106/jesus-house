@@ -38,7 +38,7 @@ import { ScrollScrubber } from '../../../../shared/motion/scroll-scrubber';
  * components' writes and force a synchronous layout.
  */
 @Component({
-  selector: 'jh-home-hero',
+  selector: 'app-home-hero',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, RevealDirective],
   templateUrl: './hero.html',

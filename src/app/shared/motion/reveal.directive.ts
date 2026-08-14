@@ -33,7 +33,7 @@ import { isPlatformBrowser } from '@angular/common';
  * `jhReveal` attribute.
  */
 @Directive({
-  selector: '[jhReveal]',
+  selector: '[appReveal]',
 })
 export class RevealDirective {
   /** Optional stagger delay in milliseconds before the reveal animates. */

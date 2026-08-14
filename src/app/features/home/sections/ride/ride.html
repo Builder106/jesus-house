@@ -25,27 +25,27 @@
   <!-- Copy panel -->
   <div class="scene__copy relative z-[2] mx-auto w-full max-w-5xl px-6" data-scene-var>
     <div class="scene__panel max-w-xl rounded-lg border border-jh-rule p-8 sm:p-10">
-      <p jhReveal class="jh-script-eyebrow text-jh-gold-ink">The road to us</p>
+      <p appReveal class="jh-script-eyebrow text-jh-gold-ink">The road to us</p>
 
       <h2
         id="ride-heading"
-        jhReveal="90"
+        appReveal="90"
         class="mt-3 max-w-xl font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
       >
         No car? No problem.
       </h2>
 
-      <p jhReveal="180" class="mt-5 max-w-xl text-lg leading-relaxed text-jh-soft">
+      <p appReveal="180" class="mt-5 max-w-xl text-lg leading-relaxed text-jh-soft">
         Every Sunday we drive out and bring students and neighbors to church — and home again.
         Tell us where you are, and we'll come get you.
       </p>
 
       <!-- Pickup spots -->
-      <p jhReveal="260" class="jh-eyebrow mt-8 text-jh-soft">Common pickups</p>
+      <p appReveal="260" class="jh-eyebrow mt-8 text-jh-soft">Common pickups</p>
       <ul class="mt-4 flex flex-wrap gap-3" aria-label="Common Wesleyan pickup spots">
         @for (spot of pickupSpots; track spot; let i = $index) {
           <li
-            [jhReveal]="320 + i * 70"
+            [appReveal]="320 + i * 70"
             class="rounded-full border border-jh-rule bg-jh-surface px-5 py-2.5 text-sm font-semibold text-jh-ink"
           >
             {{ spot }}
@@ -54,7 +54,7 @@
       </ul>
 
       <!-- CTAs -->
-      <div jhReveal="700" class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
+      <div appReveal="700" class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
         <a
           [href]="rideMailto"
           class="rounded-full bg-jh-red px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-jh-red/90"
