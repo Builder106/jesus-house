@@ -27,7 +27,7 @@ import { Lottie } from '../../shared/ui/lottie/lottie';
  * red-door motif only). No emoji.
  */
 @Component({
-  selector: 'jh-visit',
+  selector: 'app-visit',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RevealDirective, Lottie],
   templateUrl: './visit.html',

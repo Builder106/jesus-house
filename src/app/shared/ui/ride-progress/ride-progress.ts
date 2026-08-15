@@ -47,7 +47,7 @@ import { ScrollScrubber } from '../../motion/scroll-scrubber';
  * intercepts input or affects layout (position: fixed).
  */
 @Component({
-  selector: 'jh-ride-progress',
+  selector: 'app-ride-progress',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './ride-progress.html',
   styleUrl: './ride-progress.css',

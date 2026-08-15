@@ -13,7 +13,7 @@ import { SceneDirective } from '../../../../shared/motion/scene.directive';
  * everywhere else; jhReveal stays additive-only; no PII; no emoji.
  */
 @Component({
-  selector: 'jh-home-audience',
+  selector: 'app-home-audience',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RevealDirective],
   hostDirectives: [SceneDirective],

@@ -24,7 +24,7 @@ import { SceneDirective } from '../../../../shared/motion/scene.directive';
  *     colour-field PHOTO SLOT placeholder + the route motif only). No emoji.
  */
 @Component({
-  selector: 'jh-home-ride',
+  selector: 'app-home-ride',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RevealDirective],
   hostDirectives: [SceneDirective],

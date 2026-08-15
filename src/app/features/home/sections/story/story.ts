@@ -22,7 +22,7 @@ import { Lottie } from '../../../../shared/ui/lottie/lottie';
  *     + hairline-framed colour field only).
  */
 @Component({
-  selector: 'jh-home-story',
+  selector: 'app-home-story',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RevealDirective, Lottie],
   hostDirectives: [SceneDirective],

@@ -31,7 +31,7 @@ import { isPlatformBrowser } from '@angular/common';
  * (aria-hidden), fallback included.
  */
 @Component({
-  selector: 'jh-lottie',
+  selector: 'app-lottie',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <canvas #canvas aria-hidden="true" class="block h-full w-full"></canvas>

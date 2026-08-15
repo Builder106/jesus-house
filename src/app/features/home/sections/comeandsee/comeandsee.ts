@@ -21,7 +21,7 @@ import { Lottie } from '../../../../shared/ui/lottie/lottie';
  * as a PHOTO SLOT for later.
  */
 @Component({
-  selector: 'jh-home-comeandsee',
+  selector: 'app-home-comeandsee',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, RevealDirective, Lottie],
   templateUrl: './comeandsee.html',

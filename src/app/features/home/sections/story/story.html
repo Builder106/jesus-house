@@ -44,7 +44,7 @@
            reduced motion too — owner request (2026-07-04): their phone runs
            Android "Remove animations" and the dove was the one accent worth
            keeping alive there. -->
-      <jh-lottie
+      <app-lottie
         src="/animations/dove.lottie"
         [speed]="0.8"
         [ignoreReducedMotion]="true"
@@ -70,15 +70,15 @@
           <circle cx="16" cy="13.5" r="1" fill="var(--color-jh-night)" />
         </svg>
       </jh-lottie>
-      <p jhReveal jhRevealDir="none" class="jh-script-eyebrow">Our family</p>
+      <p appReveal appRevealDir="none" class="jh-script-eyebrow">Our family</p>
       <h2
         id="story-heading"
-        jhReveal="90"
+        appReveal="90"
         class="mt-3 font-display text-3xl font-semibold leading-tight text-jh-cream sm:text-4xl"
       >
         A home for worshippers in Middletown.
       </h2>
-      <p jhReveal="180" class="mt-6 text-lg leading-relaxed text-jh-cream/70">
+      <p appReveal="180" class="mt-6 text-lg leading-relaxed text-jh-cream/70">
         We're a parish of The Redeemed Christian Church of God — a warm, multicultural family where
         students and neighbours belong. Whoever you are and however you arrive, there's a seat saved
         for you. Come and see.
@@ -86,10 +86,10 @@
     </div>
 
     <!-- Stats row — hairline + value + label, gold accents. -->
-    <hr jhReveal="240" class="mt-12 border-jh-cream/15" />
+    <hr appReveal="240" class="mt-12 border-jh-cream/15" />
     <dl class="grid grid-cols-1 gap-px sm:grid-cols-2">
       @for (stat of stats; track stat.value; let i = $index) {
-        <div jhReveal="{{ 300 + i * 90 }}" jhRevealDir="up" class="jh-stat pt-8">
+        <div appReveal="{{ 300 + i * 90 }}" appRevealDir="up" class="jh-stat pt-8">
           <span class="jh-stat-mark" aria-hidden="true"></span>
           <dt class="mt-4 font-display text-xl font-semibold text-jh-gold sm:text-2xl">
             {{ stat.value }}
@@ -99,11 +99,11 @@
       }
     </dl>
 
-    <hr jhReveal="660" class="mt-16 border-jh-cream/15 sm:mt-12" />
+    <hr appReveal="660" class="mt-16 border-jh-cream/15 sm:mt-12" />
 
     <!-- Seal + parish attribution. The seal is decorative here. -->
     <!-- PHOTO SLOT: optional future interior/congregation photo could sit beside this attribution -->
-    <div jhReveal="720" jhRevealDir="up" class="mt-8 flex items-center gap-4">
+    <div appReveal="720" appRevealDir="up" class="mt-8 flex items-center gap-4">
       <img
         src="/seal-256.png"
         srcset="/seal-256.png 256w, /seal-512.png 512w"

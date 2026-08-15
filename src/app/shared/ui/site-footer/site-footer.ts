@@ -12,7 +12,7 @@ import { RouterLink } from '@angular/router';
  * and email — no congregant names, photos, or personal details.
  */
 @Component({
-  selector: 'jh-site-footer',
+  selector: 'app-site-footer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink],
   templateUrl: './site-footer.html',
