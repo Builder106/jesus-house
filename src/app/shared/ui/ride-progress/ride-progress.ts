@@ -63,6 +63,7 @@ export class RideProgress {
   constructor() {
     afterNextRender(() => {
       if (!isPlatformBrowser(this.platformId)) return;
+      if (typeof window.matchMedia !== 'function') return;
 
       const mqMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       const mqWide = window.matchMedia('(min-width: 1024px)');

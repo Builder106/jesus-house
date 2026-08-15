@@ -5,7 +5,7 @@ import typescriptEslint from "typescript-eslint";
 import prettierConfig from "eslint-config-prettier";
 
 const eslintConfig = defineConfig([
-  globalIgnores(["dist/**", "node_modules/**", ".angular/**"]),
+  globalIgnores(["dist/**", "node_modules/**", ".angular/**", "tools/**"]),
   ...typescriptEslint.configs.recommended,
   {
     files: ["**/*.ts"],
@@ -14,7 +14,8 @@ const eslintConfig = defineConfig([
     },
     languageOptions: {
       parserOptions: {
-        project: ["tsconfig.json", "tsconfig.app.json"],
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
     rules: {
@@ -22,7 +23,7 @@ const eslintConfig = defineConfig([
         "error",
         {
           type: "attribute",
-          prefix: "app",
+          prefix: ["app", "jh"],
           style: "camelCase",
         },
       ],
@@ -30,8 +31,16 @@ const eslintConfig = defineConfig([
         "error",
         {
           type: "element",
-          prefix: "app",
+          prefix: ["app", "jh"],
           style: "kebab-case",
+        },
+      ],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
         },
       ],
     },

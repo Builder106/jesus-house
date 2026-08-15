@@ -37,10 +37,10 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class RevealDirective {
   /** Optional stagger delay in milliseconds before the reveal animates. */
-  @Input('jhReveal') delay: number | string = 0;
+  @Input('appReveal') delay: number | string = 0;
 
   /** Slide direction. 'up' (default) | 'left' | 'right' | 'none'. */
-  @Input() jhRevealDir: 'up' | 'left' | 'right' | 'none' = 'up';
+  @Input() appRevealDir: 'up' | 'left' | 'right' | 'none' = 'up';
 
   private readonly host = inject(ElementRef<HTMLElement>);
   private readonly platformId = inject(PLATFORM_ID);
@@ -51,7 +51,7 @@ export class RevealDirective {
     // Encode the chosen direction for the base CSS. Safe on the server too —
     // it only changes the *target* of an animation that never starts unless
     // js-motion is present and motion is allowed.
-    el.setAttribute('data-reveal', this.jhRevealDir);
+    el.setAttribute('data-reveal', this.appRevealDir);
 
     // Everything below is browser-only and motion-gated.
     afterNextRender(() => {
