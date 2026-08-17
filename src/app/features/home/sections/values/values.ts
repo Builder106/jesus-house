@@ -17,53 +17,12 @@ import { SceneDirective } from '../../../../shared/motion/scene.directive';
 import { ScrollScrubber } from '../../../../shared/motion/scroll-scrubber';
 
 /**
- * jh-home-values — SCENE 4 · SUNDAY MORNING (the sanctuary).
+ * Sunday morning values section.
  *
- * The sanctuary vignette: chancel, lectern, standing cross, and the great
- * stained-glass arch. While pinned (jhScene, desktop + motion-OK) a single
- * panel (heading + the four Sunday beats — Welcoming · Rooted · Together ·
- * Sending) reads, then the camera zooms INTO the stained glass, whose deep
- * indigo hands off seamlessly to the cathedral story section below.
- *
- * The beats are an Embla carousel (vertical axis, matching the rest of the
- * page's vertical rhythm) — but ONLY in the unpinned static/short-viewport
- * fallback (autoplay + dot-click there, Embla's normal eased `scrollTo`).
- * While the scene is PINNED, Embla's own positioning is bypassed entirely:
- * the card position tracks scroll CONTINUOUSLY, pixel-for-pixel, the same
- * way the door/glass camera moves elsewhere on the page do (owner feedback,
- * 2026-07-03, after a first pass that snapped between beats on scroll-
- * threshold crossings: "link it to vertical scroll instead"). A `.embla--
- * scrubbing` class swaps in a CSS transform keyed off `--carousel-scrub` (a
- * continuous 0→3 position across the four beats) with `!important` — since
- * Embla is not driving `scrollTo` in this mode, nothing else is fighting for
- * the container's transform, but `!important` is cheap insurance against
- * Embla reasserting its own inline transform from an internal resize reflow.
- * `--carousel-scrub` itself is derived from the SAME `--zoom` the pinned
- * scene's shared jhScene directive already writes every frame (read back,
- * not re-measured) across the panel's existing 0→.38 "read" window (see
- * values.css). No loop-wraparound handling is needed for this: scrolling
- * through the pinned scene is a single linear pass through the four beats,
- * never an infinite carousel — Embla's `loop: true` config only matters for
- * the unpinned autoplay case, where it still owns positioning normally.
- * This continuous tracking plays for everyone, including reduced-motion,
- * exactly like the rest of the scroll-driven journey — it is scroll-DRIVEN,
- * not a self-looping autoplay.
- *
- * On leaving the pin (scrolling back up out of it, or a live orientation
- * change), Embla's real internal slide is snapped (jump: true, no animation)
- * to wherever the continuous scrub last left off, so autoplay/dot-click
- * resume from the right visual spot with no jump.
- *
- * Drag stays off (watchDrag: false): a vertically-draggable carousel nested
- * inside a vertically-scrolling page would fight the page's own scroll
- * gesture. Autoplay is reserved for the one case with no scroll-progress
- * signal to key off — the static/short-viewport fallback where the scene
- * never pins (a landscape phone, mainly) — and is stopped the instant the
- * scene pins so it can never race the scroll-driven advance.
- *
- * Static baseline (SSR / no-JS / before hydration): the scene illustrates a
- * normal section — heading panel + a 2×2 beats grid, all fully visible. No
- * member PII, no real photos (window panes are future PHOTO SLOTs), no emoji.
+ * Renders a vertical 4-beat sequence (Welcoming, Rooted, Together, Sending).
+ * While pinned via jhScene, card translateY tracks scroll progress
+ * continuously via `--carousel-scrub` (0→3). In the unpinned fallback,
+ * Embla manages standard carousel scrolling and autoplay.
  */
 @Component({
   selector: 'app-home-values',
@@ -71,8 +30,7 @@ import { ScrollScrubber } from '../../../../shared/motion/scroll-scrubber';
   imports: [RevealDirective],
   hostDirectives: [SceneDirective],
   host: {
-    // Camera target: the cross at the heart of the stained-glass arch (1440×900
-    // viewBox) — the camera dives into it as the scene hands off to the cathedral.
+    // Camera target: cross coordinate within stained-glass arch (1440×900 viewBox).
     'data-scene-x': '720',
     'data-scene-y': '330',
   },
@@ -205,13 +163,7 @@ export class HomeValues {
           }
         }
         if (!pinned) return;
-        // The beats share the panel's own 0→.55 "read" window (values.css) —
-        // after .55 the panel is lifting away into the dive, so there's no
-        // point still advancing. .55 (was .38): at .38 the four beats spanned
-        // ~330px of page scroll — cards moved ~2.3× finger speed, visibly
-        // faster than the rest of the page's 1:1 motion (owner, 2026-07-04).
-        // Continuous, not floored to an index: this is a position (0→3
-        // across 4 beats), not a threshold crossing.
+        // The beats advance continuously across the panel's 0→0.55 read window.
         const t = Math.min(1, p / 0.55);
         const scrub = (t * (this.beats.length - 1)).toFixed(4);
         if (scrub === lastScrubValue) return;
