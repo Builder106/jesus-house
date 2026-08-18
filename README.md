@@ -11,7 +11,15 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
 [![Demo](https://img.shields.io/badge/demo-live-success.svg)](https://jesus-house.vercel.app)
 
-The first-ever website for **RCCG Jesus House, Middletown**— a parish of The Redeemed Christian Church of God at 120 Washington Street, Middletown, CT 06457, a short drive from Wesleyan University. The parish has had no owned web presence at all (no site, no social accounts), so this Angular 22 SSR site becomes its first front door: Sunday service at 9:00 AM, the official RCCG dove seal as the mark, Fraunces + Mulish on a cream ground, and the parish's signature ministry up front —**"Need a ride?"** Every Sunday the parish picks up Wesleyan students for service, and the site digitizes that offer (v1 is a one-tap email/call CTA; the full ride-request form arrives in Phase 3).
+> **Official web portal for RCCG Jesus House in Middletown, CT.** Information on Sunday services, student ride pickups from Wesleyan University, and church ministries.
+
+## 💡 What is Jesus House Middletown?
+
+RCCG Jesus House is a welcoming Christian parish located at 120 Washington Street in Middletown, Connecticut. 
+
+This modern website serves as the church's digital front door for both local families and college students. It provides service times (Sunday service at 9:00 AM), directions, ministry details, and a dedicated Sunday ride pickup service connecting Wesleyan University students directly to church services.
+
+**Live site:** [jesus-house.vercel.app](https://jesus-house.vercel.app)
 
 ## How it works
 
@@ -19,17 +27,15 @@ The first-ever website for **RCCG Jesus House, Middletown**— a parish of The R
 sequenceDiagram
     autonumber
     participant Visitor
-    participant Vercel as Vercel Edge
-    participant SSR as Angular SSR (Express)
-    participant Analytics as Vercel Analytics
+    participant Vercel as Web Hosting
+    participant SSR as Fast Server Rendering
+    participant Analytics as Visitor Analytics
 
-    Visitor->>Vercel: GET /
-    Vercel->>SSR: Forward request (or serve prerendered HTML from edge)
-    SSR-->>Visitor: Fully-rendered HTML + critical CSS
-    Visitor->>Vercel: Hydrate (download lazy route chunks)
-    Vercel-->>Visitor: JS bundle
-    Visitor->>Analytics: Page view + Core Web Vitals
-    Note over Visitor,SSR: All content is static in this phase — Sanity CMS arrives in Phase 2
+    Visitor->>Vercel: Open website
+    Vercel->>SSR: Request page
+    SSR-->>Visitor: Deliver pre-rendered page and styling
+    Visitor->>Vercel: Load interactive features
+    Visitor->>Analytics: Anonymous performance metrics
 ```
 
 The current phase is deliberately CMS-free: every page is static Angular, prerendered at build time where possible and SSR'd otherwise. Sanity (a fresh project, separate from the sibling parish's) joins in Phase 2 for announcements, events, and ministry pages.
