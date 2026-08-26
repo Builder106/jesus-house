@@ -37,10 +37,7 @@ Given('I am on the home page', async ({ page }) => {
   await page.goto('/');
   // networkidle alone isn't enough — hydration can still be in flight.
   // Anchor on the header wordmark, which the contract guarantees.
-  await page
-    .getByText('RCCG Jesus House')
-    .first()
-    .waitFor({ state: 'visible', timeout: 15_000 });
+  await page.getByText('RCCG Jesus House').first().waitFor({ state: 'visible', timeout: 15_000 });
   await dwellForDemo(page);
 });
 
@@ -89,9 +86,9 @@ Then('I see the heading {string}', async ({ page }, text: string) => {
 });
 
 Then('I see the visit page welcome', async ({ page }) => {
-  await expect(
-    page.getByRole('heading', { level: 1, name: /come as you are/i }),
-  ).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByRole('heading', { level: 1, name: /come as you are/i })).toBeVisible({
+    timeout: 15_000,
+  });
   await dwellForDemo(page);
 });
 
@@ -111,9 +108,7 @@ Then('the URL is {string}', async ({ page }, path: string) => {
 
 Then('the footer shows the parish affiliation', async ({ page }) => {
   const footer = page.getByRole('contentinfo');
-  await expect(
-    footer.getByText('A parish of The Redeemed Christian Church of God'),
-  ).toBeVisible();
+  await expect(footer.getByText('A parish of The Redeemed Christian Church of God')).toBeVisible();
   await dwellForDemo(page);
 });
 

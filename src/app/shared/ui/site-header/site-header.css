@@ -81,7 +81,9 @@
 .jh-header__seal {
   width: 2.25rem;
   height: 2.25rem;
-  transition: width 0.3s ease, height 0.3s ease;
+  transition:
+    width 0.3s ease,
+    height 0.3s ease;
 }
 
 .jh-header--scrolled .jh-header__seal {
@@ -161,7 +163,9 @@
   height: 2px;
   border-radius: 2px;
   background-color: var(--color-jh-blue);
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
 }
 
 .jh-header__bars span:first-child {

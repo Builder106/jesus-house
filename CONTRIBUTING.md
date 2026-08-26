@@ -27,15 +27,15 @@ Hot module replacement is on.
 
 ## Common commands
 
-| Command | What it does |
-| --- | --- |
-| `npm start` | `ng serve` — dev server with HMR on port 4200 |
-| `npm run build` | Production build + SSR + prerender (output in`dist/`) |
-| `npm test` | Vitest unit-test suite — **runs in CI only**; locally the checkout path's parentheses break Vitest glob discovery |
-| `npm run test:e2e` | Headless Playwright + Gherkin BDD QA suite (home + visit critical paths) |
-| `npm run test:demo` | Narrative video walkthroughs for the README. Outputs to`e2e/demo/recordings/` |
-| `npm run watch` | Dev build that watches for changes |
-| `npm run serve:ssr:jesus-house` | Serve the built SSR bundle from`dist/` |
+| Command                         | What it does                                                                                                      |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `npm start`                     | `ng serve` — dev server with HMR on port 4200                                                                     |
+| `npm run build`                 | Production build + SSR + prerender (output in`dist/`)                                                             |
+| `npm test`                      | Vitest unit-test suite — **runs in CI only**; locally the checkout path's parentheses break Vitest glob discovery |
+| `npm run test:e2e`              | Headless Playwright + Gherkin BDD QA suite (home + visit critical paths)                                          |
+| `npm run test:demo`             | Narrative video walkthroughs for the README. Outputs to`e2e/demo/recordings/`                                     |
+| `npm run watch`                 | Dev build that watches for changes                                                                                |
+| `npm run serve:ssr:jesus-house` | Serve the built SSR bundle from`dist/`                                                                            |
 
 ## Project structure
 
@@ -128,7 +128,7 @@ fixtures — never a real member's name, number, or pickup spot.
 ## Commit-message convention
 
 Single-line summary in the imperative (~60 chars), optionally followed by a
-blank line + a body explaining *why*. No conventional-commit `type:` prefixes
+blank line + a body explaining _why_. No conventional-commit `type:` prefixes
 — the body carries the meaning. No co-author trailers.
 
 Good:

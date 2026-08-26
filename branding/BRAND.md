@@ -35,24 +35,24 @@ blue = God's love, red = the blood of Jesus, white = holiness, green = fruitfuln
 
 **Seal colors (sacrosanct inside the seal, sampled from the official PNG):**
 
-| Token | Hex | Source |
-| --- | --- | --- |
-| Seal Blue | `#28166F` | dove disc |
-| Seal Red | `#DA251D` | rings |
-| Seal Green | `#00923F` | ring text |
-| White | `#FFFFFF` | dove, ground |
+| Token      | Hex       | Source       |
+| ---------- | --------- | ------------ |
+| Seal Blue  | `#28166F` | dove disc    |
+| Seal Red   | `#DA251D` | rings        |
+| Seal Green | `#00923F` | ring text    |
+| White      | `#FFFFFF` | dove, ground |
 
 **Site UI palette (derived, light/warm per the workspace direction):**
 
-| Token | Hex | Role |
-| --- | --- | --- |
-| `--brand` | `#28166F` | Headings, nav, footer, links |
-| `--accent` | `#DA251D` | CTAs (Give, Plan a Visit, ride request), eyebrows — sparingly |
-| `--affirm` | `#00923F` | Locale lines, success states, small affirmations — sparingly |
-| `--ground` | `#FAF7EF` | Page background (cream; warmer than white) |
-| `--surface` | `#FFFFFF` | Cards, raised surfaces |
-| `--ink` | `#221E3A` | Body text (near-black with the seal's blue undertone) |
-| `--ink-soft` | `#6B6480` | Captions, taglines, secondary text |
+| Token        | Hex       | Role                                                          |
+| ------------ | --------- | ------------------------------------------------------------- |
+| `--brand`    | `#28166F` | Headings, nav, footer, links                                  |
+| `--accent`   | `#DA251D` | CTAs (Give, Plan a Visit, ride request), eyebrows — sparingly |
+| `--affirm`   | `#00923F` | Locale lines, success states, small affirmations — sparingly  |
+| `--ground`   | `#FAF7EF` | Page background (cream; warmer than white)                    |
+| `--surface`  | `#FFFFFF` | Cards, raised surfaces                                        |
+| `--ink`      | `#221E3A` | Body text (near-black with the seal's blue undertone)         |
+| `--ink-soft` | `#6B6480` | Captions, taglines, secondary text                            |
 
 Dark-banner-only tints (not site tokens): bg `#141031`, light red `#FF8A80`,
 light green `#8FD6AC`, lavender `#A39CC0`.
@@ -71,27 +71,27 @@ light green `#8FD6AC`, lavender `#A39CC0`.
 
 ## Assets (`branding/rccg-seal/`)
 
-| File | Purpose |
-| --- | --- |
-| `rccg-org-full.png` | Official seal, 2300×2300 — master copy, don't edit |
-| `seal-512.png`, `seal-256.png` | Working sizes |
-| `favicon.svg` | Site favicon (SVG wrapper, seal embedded as data URI) |
-| `favicon-64.png`, `favicon-32.png` | PNG favicon fallbacks |
-| `apple-touch-icon.png`(+`.svg` source) | 180×180, full-bleed cream tile (iOS needs no transparency) |
-| `lockup.svg`/`lockup-800.png` | Horizontal lockup: seal + RCCG / Jesus House / locale |
-| `banner-light.svg`/`.png` | README banner 1200×420, cream |
-| `banner-dark.svg`/`.png` | README banner 1200×420, dark w/ white seal chip |
-| `social-card.svg`/`.png` | og:image / social preview, 1200×630 |
-| `rccg-org-300.png` | First fetch (superseded by full-res) |
-| `worldvectorlogo.svg` | ⚠️ junk — an AccessDenied error stub from a failed vector hunt; safe to delete |
+| File                                   | Purpose                                                                        |
+| -------------------------------------- | ------------------------------------------------------------------------------ |
+| `rccg-org-full.png`                    | Official seal, 2300×2300 — master copy, don't edit                             |
+| `seal-512.png`, `seal-256.png`         | Working sizes                                                                  |
+| `favicon.svg`                          | Site favicon (SVG wrapper, seal embedded as data URI)                          |
+| `favicon-64.png`, `favicon-32.png`     | PNG favicon fallbacks                                                          |
+| `apple-touch-icon.png`(+`.svg` source) | 180×180, full-bleed cream tile (iOS needs no transparency)                     |
+| `lockup.svg`/`lockup-800.png`          | Horizontal lockup: seal + RCCG / Jesus House / locale                          |
+| `banner-light.svg`/`.png`              | README banner 1200×420, cream                                                  |
+| `banner-dark.svg`/`.png`               | README banner 1200×420, dark w/ white seal chip                                |
+| `social-card.svg`/`.png`               | og:image / social preview, 1200×630                                            |
+| `rccg-org-300.png`                     | First fetch (superseded by full-res)                                           |
+| `worldvectorlogo.svg`                  | ⚠️ junk — an AccessDenied error stub from a failed vector hunt; safe to delete |
 
 ## HTML head snippet
 
 ```html
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:image" content="https://<host>/social-card.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<meta property="og:image" content="https://<host>/social-card.png" />
 ```
 
 ## Sub-identity: Wesleyan RCF (youth ministry)

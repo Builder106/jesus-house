@@ -1,7 +1,7 @@
 # Brand Sheet — Wesleyan RCF (Redeemed Campus Fellowship)
 
 > **Sub-brand of [RCCG Jesus House](../BRAND.md).** RCF is the parish's student
-> ministry at Wesleyan. This kit exists to *unify* an identity that was, before
+> ministry at Wesleyan. This kit exists to _unify_ an identity that was, before
 > 2026-06-12, inconsistent: the two meeting flyers shared nothing (a candy
 > turquoise/pink "Fellowship Meeting" reading as a kids' party, and a sage-green
 > "Wesleyan RCF Meeting" on a stock campus photo), and neither connected to the
@@ -11,7 +11,7 @@
 
 ## Relationship to the parish
 
-RCF is *family, with its own energy*. It shares the parish's ground (cream),
+RCF is _family, with its own energy_. It shares the parish's ground (cream),
 warmth (gold), type (Fraunces + Mulish), and structure — but where the parish
 leans **red-door / navy**, RCF leans **green**. Read the parish brand sheet
 first; this sheet only records where RCF diverges.
@@ -21,13 +21,13 @@ first; this sheet only records where RCF diverges.
 **Use the real logo. Don't redraw it.** The parish supplied the official vector
 ([`../../site/public/full-color-logo-stacked-dark.jpg.svg`](../../site/public/full-color-logo-stacked-dark.jpg.svg))
 — that file is the source of truth. The mark is a **flame with a dove inside it,
-set in a broken ring, over a graduation cap** (Redeemed *Campus* Fellowship), with
+set in a broken ring, over a graduation cap** (Redeemed _Campus_ Fellowship), with
 a lowercase **"rcf"** wordmark and the stacked "Redeemed / Campus / Fellowship"
 tagline below. The flame = fire of the Spirit; the dove = the Holy Spirit; the
 broken ring = fellowship/community; the mortarboard = campus.
 
-Two earlier guesses were both wrong and are retired: first a *green* flame (a
-flame reads as fire — the brand is warm), then a warm flame on an *open book*
+Two earlier guesses were both wrong and are retired: first a _green_ flame (a
+flame reads as fire — the brand is warm), then a warm flame on an _open book_
 (it's a graduation **cap**, not a book, and I'd missed the dove and the ring).
 Lesson recorded in the project journal: get the real asset before inventing a mark.
 
@@ -36,7 +36,7 @@ backgrounds). For the dark `/rcf` hero it's recolored to glow:
 [`rcf-flame.svg`](rcf-flame.svg) (the icon only — flame + dove + ring + cap;
 325×342 viewBox) — **warm-gradient flame**(red-orange → orange → gold),**white
 dove**, **gold ring + mortarboard**. On the site it's the glowing camera target
-of the hero: you scroll *into* the flame and the dove is revealed at its heart.
+of the hero: you scroll _into_ the flame and the dove is revealed at its heart.
 
 ### Usage
 
@@ -48,14 +48,14 @@ of the hero: you scroll *into* the flame and the dove is revealed at its heart.
 
 RCF inherits the parish palette and swaps the **blue accent for green**.
 
-| Token | Hex | Role |
-| --- | --- | --- |
+| Token     | Hex       | Role                                                                                                                                                                                            |
+| --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | RCF Green | `#00923F` | **Scenes only** — the campus-night dusk + the Saturday desk lamp. NOT a text accent anymore (the real logo is warm, so accents went gold 2026-06-12). Same as the RCCG-seal green (`jh-green`). |
-| Gold | `#C9A227` | **The RCF accent** — eyebrows, gathering times, numerals, location labels, the lockup's ring + cap. Shared with parish. |
-| RCF Night | `#0C3B29` | Deep forest green — RCF's "after dark" close (the green answer to the parish's indigo`jh-night`). Token: `--color-rcf-night`. |
-| Cream | `#FAF7EF` | Page ground. Shared. |
-| Ink | `#221E3A` | Headings + body. Shared. |
-| Red | `#DA251D` | CTAs only — the site-wide CTA hue is kept (do **not** make RCF CTAs green). |
+| Gold      | `#C9A227` | **The RCF accent** — eyebrows, gathering times, numerals, location labels, the lockup's ring + cap. Shared with parish.                                                                         |
+| RCF Night | `#0C3B29` | Deep forest green — RCF's "after dark" close (the green answer to the parish's indigo`jh-night`). Token: `--color-rcf-night`.                                                                   |
+| Cream     | `#FAF7EF` | Page ground. Shared.                                                                                                                                                                            |
+| Ink       | `#221E3A` | Headings + body. Shared.                                                                                                                                                                        |
+| Red       | `#DA251D` | CTAs only — the site-wide CTA hue is kept (do **not** make RCF CTAs green).                                                                                                                     |
 
 On the `/rcf` page the split is deliberate: **gold** = eyebrows + gathering
 times + numerals + locations (RCF's warm accent, matching the logo), **green** =
@@ -67,7 +67,7 @@ headings/body.
 Unchanged from the parish — **Fraunces** (display, incl. the italic "script"
 eyebrow) + **Mulish** (body/UI). No new typeface for RCF; the green + flame
 carry the sub-identity. (The flyers' chunky-rounded and Didone-serif fonts are
-*not* adopted — they were the inconsistency.)
+_not_ adopted — they were the inconsistency.)
 
 ## Secondary motifs
 
@@ -78,7 +78,7 @@ reach for these before inventing anything new.
 
 ## Voice
 
-Warm, welcoming, real — *youthful without being childish*. Correct the
+Warm, welcoming, real — _youthful without being childish_. Correct the
 ice-cream-party tone (too kid) and the stiff stock-photo tone (too distant);
 land in collegiate warmth. Lead with the student's action ("Pull up to Rehearsal
 Hall 109"), not slogans. Contractions, short + long sentences mixed. No emoji on
@@ -104,7 +104,7 @@ Studied 2026-06-12 from the two meeting flyers in
 confirmed off the flyers: Fri 4–5 PM Rehearsal Hall 109 (worship · prayer · Bible
 games · ice cream); Sat 5–7 PM PAC 333 (prayer · group study · snacks).
 
-**To confirm with the parish:** (1) `@rcfcampus` is the *regional* RCF Instagram
+**To confirm with the parish:** (1) `@rcfcampus` is the _regional_ RCF Instagram
 (the only public trace) — confirm or replace with a Wesleyan-specific handle;
 (2) the Sat 5–7 PM time came off one dated flyer — verify it's the recurring slot.
 **Resolved 2026-06-12:** official logo in hand (`site/public/full-color-logo-stacked-dark.jpg.svg`,

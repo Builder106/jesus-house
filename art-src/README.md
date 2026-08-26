@@ -27,8 +27,8 @@ not render standalone). They are the source of truth for editing the art.
 
    scroll to the scene top, and inject
    `.scene__copy, .scene__veil, .scene__cue, .scene__content, .scene__doorlight,
-    jh-site-header, .jh-rail { visibility: hidden !important; }
-    .scene__art { animation: none !important; transform: none !important; }`
+ jh-site-header, .jh-rail { visibility: hidden !important; }
+ .scene__art { animation: none !important; transform: none !important; }`
 
 4. Screenshot the viewport as WebP quality 82 → `public/art/<scene>-scene.webp`
 

@@ -8,19 +8,19 @@ red doors stand open-armed at the center (the literal red doors of the meetingho
 the "Jesus House Family" welcome). The arch of the lit window rhymes with the arch of the
 doors — light above, welcome below — so the mark reads as one idea, not a clipart church.
 No dove, no cross-swoosh, no circular seal: the official RCCG dove emblem keeps its own
-role elsewhere on the site, and this mark stays unmistakably *this parish, this building*.
+role elsewhere on the site, and this mark stays unmistakably _this parish, this building_.
 It survives one-color reproduction (gold and red knock out to paper, leaving a silhouette
 with a lit window and a door seam) and stays legible at 32 px favicon size.
 
 ## Palette
 
-| Name              | Hex       | Role                                                                 |
-|-------------------|-----------|----------------------------------------------------------------------|
-| Meetinghouse Navy | `#1C2B4A` | Primary brand color — mark silhouette, headings, footer              |
-| Door Red          | `#B3282D` | Signature accent — the doors, CTAs, locale line, key links           |
-| Lantern Gold      | `#C9A227` | Warm highlight — the lit belfry window, hover states, fine rules     |
-| Cream             | `#FAF7EF` | Page background; knockout/incision color inside the mark             |
-| White             | `#FFFFFF` | Cards and raised surfaces sitting on the cream ground                |
+| Name              | Hex       | Role                                                             |
+| ----------------- | --------- | ---------------------------------------------------------------- |
+| Meetinghouse Navy | `#1C2B4A` | Primary brand color — mark silhouette, headings, footer          |
+| Door Red          | `#B3282D` | Signature accent — the doors, CTAs, locale line, key links       |
+| Lantern Gold      | `#C9A227` | Warm highlight — the lit belfry window, hover states, fine rules |
+| Cream             | `#FAF7EF` | Page background; knockout/incision color inside the mark         |
+| White             | `#FFFFFF` | Cards and raised surfaces sitting on the cream ground            |
 
 The mark itself uses exactly three palette colors (navy, red, gold) plus cream.
 

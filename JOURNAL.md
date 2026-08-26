@@ -24,7 +24,7 @@ Owner: "Replace the static dove on mobile with animated Lottie dove that's on de
 
 ## 2026-07-04 — "Scrolling feels choppy now" was the phone's power saving mode, not the build #incident
 
-Owner reported the localhost build suddenly lagging right after the carousel retiming landed — a textbook setup for blaming the last change. Every kill-switch said otherwise: disabling the carousel scrub changed nothing (39.2fps), hiding ALL scene art changed nothing (42.6fps), warm vs cold pass changed nothing, skin temp was a cool 35.9° — the ~40fps ceiling was page-wide and content-independent. The tell was p50 = 16.7ms: the A15's 90Hz panel was pacing at 60Hz. `settings get global low_power` → 1 — Samsung's power saving mode had been switched on (phone charging over USB all day), which pins the display to 60Hz (`refresh_rate_mode`0) and caps the CPU. Toggling`low_power`off via adb does NOT restore the refresh rate —`refresh_rate_mode` had to be set back to 2 (adaptive) separately. After restoring both, an A/B on the same instrument put local (32–41fps up) and prod (40fps up) within run-to-run noise of each other: the retiming regressed nothing. The requested Lighthouse audit (CLI, mobile emulation) scored 55/100 — but entirely on simulated-4G *load* metrics (FCP 4.9s / LCP 7.3s / SI 11.2s); runtime health is fine (TBT 180ms, CLS 0.018). Lesson for the rig: device power state is now the FIRST check before any perf comparison, alongside skin temp — a phone can lie about your build in at least two ways.
+Owner reported the localhost build suddenly lagging right after the carousel retiming landed — a textbook setup for blaming the last change. Every kill-switch said otherwise: disabling the carousel scrub changed nothing (39.2fps), hiding ALL scene art changed nothing (42.6fps), warm vs cold pass changed nothing, skin temp was a cool 35.9° — the ~40fps ceiling was page-wide and content-independent. The tell was p50 = 16.7ms: the A15's 90Hz panel was pacing at 60Hz. `settings get global low_power` → 1 — Samsung's power saving mode had been switched on (phone charging over USB all day), which pins the display to 60Hz (`refresh_rate_mode`0) and caps the CPU. Toggling`low_power`off via adb does NOT restore the refresh rate —`refresh_rate_mode` had to be set back to 2 (adaptive) separately. After restoring both, an A/B on the same instrument put local (32–41fps up) and prod (40fps up) within run-to-run noise of each other: the retiming regressed nothing. The requested Lighthouse audit (CLI, mobile emulation) scored 55/100 — but entirely on simulated-4G _load_ metrics (FCP 4.9s / LCP 7.3s / SI 11.2s); runtime health is fine (TBT 180ms, CLS 0.018). Lesson for the rig: device power state is now the FIRST check before any perf comparison, alongside skin temp — a phone can lie about your build in at least two ways.
 
 ## 2026-07-04 — The carousel now moves at finger speed: 400svh pin + a wider action window #decision #feedback
 
@@ -112,7 +112,7 @@ warm bloom ground (`--jh-veil-warm`) for the cream washes and a moonlit
 bloom + faint stars (`--jh-veil-night`) for the glass dive, blooms centred
 high so the seam with the rising scene stays flat. Worse find: on narrow
 slice-crops the red car sits directly behind the ride panel's CTA, and the
-old .30-start slow copy fade let the car read *through* the "Request a ride"
+old .30-start slow copy fade let the car read _through_ the "Request a ride"
 button — signature ministry, occluded signature CTA. Fixed by holding all
 three panel scenes at full opacity until `--p` .38 with a fast .38–.46 exit
 (which also closes values' old .42–.45 dead band) and bumping the ride panel
@@ -140,7 +140,7 @@ begun — the fix is overlap, not more height.
 
 Owner on the values-scene carousel: "feels choppy to scroll through and the
 transition between cards is short, they kinda fade to the next one instantly."
-Root cause was in the math, not the feel — each beat held *completely still* for
+Root cause was in the math, not the feel — each beat held _completely still_ for
 76% of its window and only faded over the outer 12% each side, and consecutive
 windows (spaced .115, .135 wide) overlapped by just .02 of `--p` ≈ ~3svh, so the
 real crossfade was a near-instant snap between long dead holds. Fix: respaced
@@ -152,7 +152,7 @@ motion, and the outgoing card now sits visibly higher than the incoming one so
 the dissolve reads as a pass-through, not two stacked cards. Bumped the section
 500svh (pin 400 → `f = 1 − 100/400 = .75`, a clean `--p` divisor that preserves
 the −100svh story-overlap invariant) for more scroll room per beat. Lesson: a
-"snappy" scroll carousel is usually a *spacing* bug — long dead holds with a
+"snappy" scroll carousel is usually a _spacing_ bug — long dead holds with a
 sub-window crossfade — not a duration knob.
 
 ## 2026-06-12 — RCF hero redesigned: "candlelight vespers" #feedback #pivot
@@ -168,18 +168,18 @@ grain), and the mark became a flow element below the copy — grid rows, so the
 collision is impossible by construction. The scroll dive now aims at the mark's
 measured center (`--rcf-ox/--rcf-oy` from its bounding box) instead of a guessed
 percentage. Lesson: never paint a focal element into a `slice`-cropped
-background a copy column floats over — crop math *will* collide them at some
+background a copy column floats over — crop math _will_ collide them at some
 viewport; and when a scene reads amateur, remove elements rather than refine them.
 
 ## 2026-06-12 — Used the actual RCF logo vector (flame + dove + ring + cap) #incident
 
 The RCF mark took three tries, and the lesson is the headline: **get the real
-asset before inventing a mark.** First I drew a *green* flame (off a sage-green
+asset before inventing a mark.** First I drew a _green_ flame (off a sage-green
 meeting flyer) — the owner asked "why's the fire green?" since a flame reads as
 fire. Then they shared the launch poster and I redrew it as a warm flame on an
-*open book*. Then they handed me the official **SVG**, and rendered it's neither:
+_open book_. Then they handed me the official **SVG**, and rendered it's neither:
 it's a **flame with a dove inside it, set in a broken ring, over a graduation
-cap** — Redeemed *Campus* Fellowship, so a mortarboard, not a book; plus a dove
+cap** — Redeemed _Campus_ Fellowship, so a mortarboard, not a book; plus a dove
 and a ring I'd missed entirely. Embedded the real vector's icon paths into the
 hero scene as the camera target, recolored to glow (warm-gradient flame, white
 dove, gold ring + cap); zooming in now reveals the dove at the flame's heart.
@@ -230,7 +230,7 @@ youth-ministry analogue to Celestial Sanctum's CZM) finally has its own page at
 gatherings as cards (Fri fellowship 4–5 PM Rehearsal Hall 109 · Sat study PAC
 333 · Sun service 9 AM), campus ride tie-in, dark close. Built in the `/visit`
 content language, wired into nav + footer, prerendered. Open items to confirm
-with the parish before this is "done": (1) **@rcfcampus is the *regional* RCF
+with the parish before this is "done": (1) **@rcfcampus is the _regional_ RCF
 Instagram**, the only public trace — confirm or swap for a Wesleyan-specific
 handle; (2) **Saturday study has no time on the flyers** — left as just
 "Saturdays"; (3) the flame is a generic motif, not RCF's actual logo — they have
@@ -287,7 +287,7 @@ taller to keep the action's readable scroll length, and pull the next section up
 one stage-height so it rises through the held veil into centre exactly as the
 scene finishes. Burned real time on a counter-intuitive trap — bumping height AND
 overlapping by the same amount cancels out; the fix needs compression (the next
-scene must centre *earlier*), the bump only buys back scroll length. Net: every
+scene must centre _earlier_), the bump only buys back scroll length. Net: every
 gap now 0.00vh and the page is actually shorter than before.
 
 ## 2026-06-11 — "ALWAYS USE AUTO-DEPLOY" #feedback #decision
@@ -364,7 +364,7 @@ exploration records.
 The single most repeated message in 15 months of the parish WhatsApp chat is a
 pastor's Sunday-morning ride coordination — "Good morning, when you are ready
 let me know" — sent week after week as Wesleyan students get picked up from
-campus for service. Ride coordination *is* the parish's signature ministry, so
+campus for service. Ride coordination _is_ the parish's signature ministry, so
 the site digitizes it rather than inventing a feature: "Need a ride?" goes in
 the hero. v1 is a simple CTA (mailto with a prefilled ride-request subject +
 tel link to the parish line); the full form with campus pickup presets and

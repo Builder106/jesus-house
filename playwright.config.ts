@@ -32,9 +32,7 @@ export default defineConfig({
     video: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
-  projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-  ],
+  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   // ng serve is slow to boot the first time (~30s); be generous on the wait.
   // Skip if the dev server is already running locally.
   webServer: {

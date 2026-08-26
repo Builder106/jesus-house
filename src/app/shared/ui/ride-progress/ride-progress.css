@@ -67,8 +67,7 @@
   display: block;
   color: var(--color-jh-red);
   /* travel = rail height minus the car footprint; centre the car on the line */
-  transform: translate(-50%, calc((var(--rail-h) - var(--car)) * var(--p)))
-    rotate(90deg);
+  transform: translate(-50%, calc((var(--rail-h) - var(--car)) * var(--p))) rotate(90deg);
   transform-origin: center;
   filter: drop-shadow(0 4px 6px rgba(34, 30, 58, 0.25));
   transition: transform 0.08s linear;

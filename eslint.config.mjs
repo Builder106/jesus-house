@@ -1,16 +1,16 @@
-import { defineConfig, globalIgnores } from "eslint/config";
-import pluginAngular from "@angular-eslint/eslint-plugin";
-import parserAngular from "@angular-eslint/template-parser";
-import typescriptEslint from "typescript-eslint";
-import prettierConfig from "eslint-config-prettier";
+import { defineConfig, globalIgnores } from 'eslint/config';
+import pluginAngular from '@angular-eslint/eslint-plugin';
+import parserAngular from '@angular-eslint/template-parser';
+import typescriptEslint from 'typescript-eslint';
+import prettierConfig from 'eslint-config-prettier';
 
 const eslintConfig = defineConfig([
-  globalIgnores(["dist/**", "node_modules/**", ".angular/**", "tools/**"]),
+  globalIgnores(['dist/**', 'node_modules/**', '.angular/**', 'tools/**']),
   ...typescriptEslint.configs.recommended,
   {
-    files: ["**/*.ts"],
+    files: ['**/*.ts'],
     plugins: {
-      "@angular-eslint": pluginAngular,
+      '@angular-eslint': pluginAngular,
     },
     languageOptions: {
       parserOptions: {
@@ -19,36 +19,36 @@ const eslintConfig = defineConfig([
       },
     },
     rules: {
-      "@angular-eslint/directive-selector": [
-        "error",
+      '@angular-eslint/directive-selector': [
+        'error',
         {
-          type: "attribute",
-          prefix: ["app", "jh"],
-          style: "camelCase",
+          type: 'attribute',
+          prefix: ['app', 'jh'],
+          style: 'camelCase',
         },
       ],
-      "@angular-eslint/component-selector": [
-        "error",
+      '@angular-eslint/component-selector': [
+        'error',
         {
-          type: "element",
-          prefix: ["app", "jh"],
-          style: "kebab-case",
+          type: 'element',
+          prefix: ['app', 'jh'],
+          style: 'kebab-case',
         },
       ],
-      "@typescript-eslint/no-unused-vars": [
-        "error",
+      '@typescript-eslint/no-unused-vars': [
+        'error',
         {
-          argsIgnorePattern: "^_",
-          varsIgnorePattern: "^_",
-          caughtErrorsIgnorePattern: "^_",
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
         },
       ],
     },
   },
   {
-    files: ["**/*.html"],
+    files: ['**/*.html'],
     plugins: {
-      "@angular-eslint": pluginAngular,
+      '@angular-eslint': pluginAngular,
     },
     languageOptions: {
       parser: parserAngular,

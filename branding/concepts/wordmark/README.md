@@ -3,7 +3,7 @@
 A typographic mark: a navy **J**and**H** interlocked as one slab-serif monogram, with a
 single architectural intervention — tucked into the H's counter sits the parish's red
 double door under a gold arched fanlight. The letters do the naming; the door does the
-storytelling. It is the most *ownable* mark of the set — it looks like nothing else in the
+storytelling. It is the most _ownable_ mark of the set — it looks like nothing else in the
 church-logo landscape, passes the sweatshirt test (members would wear this), and its
 collegiate-press character suits a congregation full of Wesleyan students. At 32 px the
 JH silhouette stays crisp while the door simplifies to a red notch — the monogram still

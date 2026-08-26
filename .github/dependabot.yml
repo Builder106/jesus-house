@@ -1,17 +1,17 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
 
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     groups:
       actions:
-        patterns: ["*"]
+        patterns: ['*']
     ignore:
-      - dependency-name: "typescript"
-        versions: [">= 7.0.0"]
+      - dependency-name: 'typescript'
+        versions: ['>= 7.0.0']

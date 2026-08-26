@@ -35,8 +35,7 @@ import { Lottie } from '../../shared/ui/lottie/lottie';
 })
 export class Visit {
   /** Contact links — kept here so copy and href stay in lockstep. */
-  protected readonly rideMailto =
-    'mailto:rccgjhmiddletown@gmail.com?subject=Ride%20request';
+  protected readonly rideMailto = 'mailto:rccgjhmiddletown@gmail.com?subject=Ride%20request';
   protected readonly rideTel = 'tel:+18605184640';
   protected readonly directionsHref =
     'https://maps.google.com/?q=120+Washington+Street+Middletown+CT+06457';

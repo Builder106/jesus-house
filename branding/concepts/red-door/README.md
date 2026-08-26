@@ -4,7 +4,7 @@ The whole brand is the moment of arrival: the meetinghouse portico — pediment,
 gold fanlight — drawn as a navy frame around an open red door, with warm gold light
 spilling through the doorway and down onto the step. Nothing else on this candidate sheet
 says "welcome" this literally: the door is ajar because someone is expected, which is also
-the parish's signature ministry (Sunday rides — *the door is open and we'll come get you*).
+the parish's signature ministry (Sunday rides — _the door is open and we'll come get you_).
 The dark-red door face (`#8C2125`) against the brighter frame red gives the panel depth
 without gradients. The mark sits on a rounded-square cream tile, so it drops straight into
 favicon, app-icon, and social-avatar slots. At 32 px the pediment + open door still read,

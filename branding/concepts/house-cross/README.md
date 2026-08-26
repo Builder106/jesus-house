@@ -1,7 +1,7 @@
 # House of Jesus — RCCG Jesus House, Middletown CT
 
 A navy gabled house silhouette in which the white of the page cuts a cross out of the
-structure — the cross isn't pasted onto the building, it *is* the building's interior
+structure — the cross isn't pasted onto the building, it _is_ the building's interior
 light. The shaft of the cross descends into the entrance, where a gold transom sits above
 the parish's red double doors: the way into the house is through the cross. It is the
 boldest, most reductive mark of the set — three shapes, instantly legible — and by far the

@@ -157,7 +157,8 @@ export class HomeValues {
             // Leaving the pin: hand the real slide back to Embla wherever
             // the continuous scrub last left off (jump: true skips Embla's
             // own animation) so autoplay/dot-click resume without a jump.
-            const lastScrub = parseFloat(container?.style.getPropertyValue('--carousel-scrub') ?? '') || 0;
+            const lastScrub =
+              parseFloat(container?.style.getPropertyValue('--carousel-scrub') ?? '') || 0;
             emblaApi.scrollTo(Math.round(lastScrub), true);
             autoplay?.play();
           }
@@ -193,7 +194,9 @@ export class HomeValues {
       // The very next scroll event re-asserts whatever the actual scroll
       // position maps to anyway, same as the rest of the journey once
       // pinned; this is a momentary jump, not a lasting override.
-      root.querySelector<HTMLElement>('.embla__container')?.style.setProperty('--carousel-scrub', String(index));
+      root
+        .querySelector<HTMLElement>('.embla__container')
+        ?.style.setProperty('--carousel-scrub', String(index));
       this.activeIndex.set(index);
     } else {
       this.emblaApi?.scrollTo(index);

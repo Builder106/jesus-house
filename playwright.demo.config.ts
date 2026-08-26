@@ -24,10 +24,7 @@ export default defineConfig({
   fullyParallel: false,
   workers: 1,
   retries: 0,
-  reporter: [
-    ['list'],
-    ['./e2e/reporters/demo-reporter.ts'],
-  ],
+  reporter: [['list'], ['./e2e/reporters/demo-reporter.ts']],
   outputDir: 'e2e/demo/test-results',
   use: {
     baseURL: 'http://localhost:4200',

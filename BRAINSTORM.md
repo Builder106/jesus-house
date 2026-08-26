@@ -10,15 +10,15 @@
 
 ### Verified publicly
 
-| Fact | Value | Source |
-| --- | --- | --- |
-| Name | RCCG Jesus House, Middletown (Google: "Redeemed Christian Church of God, Jesus House") | Google Maps, rccgna.org |
-| Address | 120 Washington Street, Middletown, CT 06457 | Google, RCCGNA directory, Pastor Dele in chat |
-| Phone | (860) 518-4640 | Google, RCCGNA directory |
-| Hours per Google | Sun 9–11 AM, Wed 6:30–7:30 PM | Google Business Profile |
-| Parish Pastor (directory) | "Pastor Victor Iweoise" | rccgnaregion6.org |
-| Hierarchy | Zone CT 3 (coord.: Pst. Seun Arimoro, Christ Chapel Meriden) → Province 5 (Glory Cathedral Hartford) → RCCG Americas Region 6 → RCCGNA → RCCG worldwide | rccgnaregion6.org |
-| 2026 RCCG theme | "Brand New Beginning" | HGS streams + chat (Ministers Thanksgiving, Jan 2026) |
+| Fact                      | Value                                                                                                                                                   | Source                                                |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| Name                      | RCCG Jesus House, Middletown (Google: "Redeemed Christian Church of God, Jesus House")                                                                  | Google Maps, rccgna.org                               |
+| Address                   | 120 Washington Street, Middletown, CT 06457                                                                                                             | Google, RCCGNA directory, Pastor Dele in chat         |
+| Phone                     | (860) 518-4640                                                                                                                                          | Google, RCCGNA directory                              |
+| Hours per Google          | Sun 9–11 AM, Wed 6:30–7:30 PM                                                                                                                           | Google Business Profile                               |
+| Parish Pastor (directory) | "Pastor Victor Iweoise"                                                                                                                                 | rccgnaregion6.org                                     |
+| Hierarchy                 | Zone CT 3 (coord.: Pst. Seun Arimoro, Christ Chapel Meriden) → Province 5 (Glory Cathedral Hartford) → RCCG Americas Region 6 → RCCGNA → RCCG worldwide | rccgnaregion6.org                                     |
+| 2026 RCCG theme           | "Brand New Beginning"                                                                                                                                   | HGS streams + chat (Ministers Thanksgiving, Jan 2026) |
 
 ### From the chat (confirm with pastors before publishing)
 
@@ -55,17 +55,17 @@
 
 ### Annual rhythm (events calendar seed)
 
-| When | What |
-| --- | --- |
-| Feb 1 – Mar 2 | RCCG 30-day annual fasting (HQ prayer-guide PDF circulates) |
-| First Sunday monthly | Thanksgiving Sunday (HQ-connected, mandated) |
-| Monthly | RCCG Holy Ghost Service (YouTube streams shared in chat) |
-| June | RCCG Americas 1 Convention (e.g. "God of Signs & Wonders," Jun 18–20 2025) |
-| Early Sept | Cookout at McCutcheon Park ("bring something, share the Agape love") |
-| Late Nov | Thanksgiving service — **dress code: African attire** |
-| Dec | Christmas service; RCCG Holy Ghost Congress streams |
-| May | Graduation celebrations for student members |
-| Year-round | Birthdays celebrated enthusiastically (internal culture, not website content) |
+| When                 | What                                                                          |
+| -------------------- | ----------------------------------------------------------------------------- |
+| Feb 1 – Mar 2        | RCCG 30-day annual fasting (HQ prayer-guide PDF circulates)                   |
+| First Sunday monthly | Thanksgiving Sunday (HQ-connected, mandated)                                  |
+| Monthly              | RCCG Holy Ghost Service (YouTube streams shared in chat)                      |
+| June                 | RCCG Americas 1 Convention (e.g. "God of Signs & Wonders," Jun 18–20 2025)    |
+| Early Sept           | Cookout at McCutcheon Park ("bring something, share the Agape love")          |
+| Late Nov             | Thanksgiving service — **dress code: African attire**                         |
+| Dec                  | Christmas service; RCCG Holy Ghost Congress streams                           |
+| May                  | Graduation celebrations for student members                                   |
+| Year-round           | Birthdays celebrated enthusiastically (internal culture, not website content) |
 
 ---
 
@@ -112,7 +112,7 @@ schema.org `Church` structured data.
 ## 4. The standout feature: "Need a ride?"
 
 The single most repeated message in 15 months of chat is Pastor Victor's Sunday-morning
-**"Good morning, when you are ready let me know"** — ride coordination *is* the parish's
+**"Good morning, when you are ready let me know"** — ride coordination _is_ the parish's
 signature ministry. Digitize it:
 
 - A **ride-request form** on the Visit page (name, phone, pickup spot — with Wesleyan
@@ -120,10 +120,10 @@ signature ministry. Digitize it:
   campus presets like Exley/Usdan/Sci-Li — and a "this Sunday" toggle).
 
 - Submission notifies Pastor Victor (email or SMS via Twilio/Brevo).
-- Tagline practically writes itself: *"No car? No problem. We'll come get you."*
+- Tagline practically writes itself: _"No car? No problem. We'll come get you."_
 
 No other church site in this network has this, it costs one form + one notification hook,
-and it's authentically *them* rather than a template feature.
+and it's authentically _them_ rather than a template feature.
 
 ---
 
@@ -160,7 +160,7 @@ scaled to a small parish:
 - **Prayer** — simple prayer-request form (pairs with the parish's prayer-meeting culture).
 - **Contact** — address, phone, form; footer affiliation line
 
-  *"A parish of The Redeemed Christian Church of God"*.
+  _"A parish of The Redeemed Christian Church of God"_.
 
 ---
 
@@ -214,7 +214,7 @@ is genuinely joyful; the site should sound like Mrs. Omoh's welcomes, not like a
 
 ### Usable only with consent
 
-- ~26 graduation-celebration photos (May 2026). Warm, joyful, *exactly* the right vibe —
+- ~26 graduation-celebration photos (May 2026). Warm, joyful, _exactly_ the right vibe —
 
   but every frame has identifiable faces, several include **minors**, and two contain a
   background whiteboard listing member names/months (crop or blur). Get written consent

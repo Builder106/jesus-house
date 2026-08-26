@@ -68,7 +68,10 @@ export const DEMO_TYPE_DELAY = Number(process.env.DEMO_TYPE_DELAY ?? 70);
 // helper directly from steps instead of monkey-patching fill().
 export async function demoFill(
   locator: {
-    waitFor: (opts?: { state?: 'visible' | 'attached' | 'detached' | 'hidden'; timeout?: number }) => Promise<void>;
+    waitFor: (opts?: {
+      state?: 'visible' | 'attached' | 'detached' | 'hidden';
+      timeout?: number;
+    }) => Promise<void>;
     scrollIntoViewIfNeeded: () => Promise<void>;
     click: () => Promise<void>;
     fill: (value: string) => Promise<void>;

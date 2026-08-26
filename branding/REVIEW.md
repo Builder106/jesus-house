@@ -18,20 +18,20 @@ cream `#FAF7EF`(red-door adds a`#8C2125` door-shadow red).
 
 ## Scores
 
-| Concept | Craft & favicon (10) | Brand fit (10) | Distinctiveness (10) | Total |
-| --- | --- | --- | --- | --- |
-| **wordmark**(JH monogram) | 8 | 8 | 9 | **25** |
-| **red-door**(open-door portico) | 7 | 9 | 8 | **24** |
-| **house-cross** | 9 | 7 | 6 | **22** |
-| **steeple-light** | 4 | 7 | 5 | **16** |
-| **door-dove** | 3 | 5 | 4 | **12** |
+| Concept                         | Craft & favicon (10) | Brand fit (10) | Distinctiveness (10) | Total  |
+| ------------------------------- | -------------------- | -------------- | -------------------- | ------ |
+| **wordmark**(JH monogram)       | 8                    | 8              | 9                    | **25** |
+| **red-door**(open-door portico) | 7                    | 9              | 8                    | **24** |
+| **house-cross**                 | 9                    | 7              | 6                    | **22** |
+| **steeple-light**               | 4                    | 7              | 5                    | **16** |
+| **door-dove**                   | 3                    | 5              | 4                    | **12** |
 
 ## Lens notes
 
 **Craft & favicon legibility.** house-cross is the technical winner — three shapes, the
 cross-in-house reads perfectly at 32 px. wordmark's JH stays crisp at 32 px (the door
 simplifies to a red notch but the monogram identifies). red-door holds its silhouette at
-32 px though panel detail dissolves. steeple-light is a charming *illustration*, not a
+32 px though panel detail dissolves. steeple-light is a charming _illustration_, not a
 mark — clapboard lines and belfry detail collapse at small sizes. door-dove fails the
 32 px test outright (interior becomes a blob).
 

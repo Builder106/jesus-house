@@ -15,7 +15,7 @@
 
 ## 💡 What is Jesus House Middletown?
 
-RCCG Jesus House is a welcoming Christian parish located at 120 Washington Street in Middletown, Connecticut. 
+RCCG Jesus House is a welcoming Christian parish located at 120 Washington Street in Middletown, Connecticut.
 
 This modern website serves as the church's digital front door for both local families and college students. It provides service times (Sunday service at 9:00 AM), directions, ministry details, and a dedicated Sunday ride pickup service connecting Wesleyan University students directly to church services.
 
@@ -51,15 +51,15 @@ The current phase is deliberately CMS-free: every page is static Angular, preren
 
 ## Stack
 
-| Layer | Choice |
-| --- | --- |
-| Framework | Angular 22 with `@angular/ssr`(standalone, component prefix`jh`) |
-| Styling | Tailwind v4 via `@tailwindcss/postcss` |
+| Layer      | Choice                                                                |
+| ---------- | --------------------------------------------------------------------- |
+| Framework  | Angular 22 with `@angular/ssr`(standalone, component prefix`jh`)      |
+| Styling    | Tailwind v4 via `@tailwindcss/postcss`                                |
 | Typography | Fraunces (headings) + Mulish (body/UI), self-hosted via `@fontsource` |
-| Unit tests | Vitest via `ng test` |
-| E2E | Playwright + playwright-bdd (QA suite + demo-recording suite) |
-| Hosting | Vercel — git integration deploys; GitHub Actions gates quality |
-| Telemetry | `@vercel/analytics`+`@vercel/speed-insights` |
+| Unit tests | Vitest via `ng test`                                                  |
+| E2E        | Playwright + playwright-bdd (QA suite + demo-recording suite)         |
+| Hosting    | Vercel — git integration deploys; GitHub Actions gates quality        |
+| Telemetry  | `@vercel/analytics`+`@vercel/speed-insights`                          |
 
 ## Local development
 

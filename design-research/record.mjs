@@ -8,8 +8,10 @@ const require = createRequire(
 );
 const { chromium } = require('@playwright/test');
 
-const REC = '/Users/yinkavaughan/My Drive (yvaughan@wesleyan.edu)/CS/Projects/Personal/Churches/jesus-house/design-research/recordings';
-const W = 1440, H = 900;
+const REC =
+  '/Users/yinkavaughan/My Drive (yvaughan@wesleyan.edu)/CS/Projects/Personal/Churches/jesus-house/design-research/recordings';
+const W = 1440,
+  H = 900;
 
 const SITES = [
   { slug: 'st-beatus-caves', url: 'https://www.beatushoehlen.swiss/en/' },
@@ -22,11 +24,23 @@ const SITES = [
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 async function dismissOverlays(page) {
-  const labels = [/accept/i, /agree/i, /got it/i, /^ok$/i, /allow all/i, /enter/i, /continue/i, /english/i];
+  const labels = [
+    /accept/i,
+    /agree/i,
+    /got it/i,
+    /^ok$/i,
+    /allow all/i,
+    /enter/i,
+    /continue/i,
+    /english/i,
+  ];
   for (const re of labels) {
     try {
       const btn = page.getByRole('button', { name: re }).first();
-      if (await btn.isVisible({ timeout: 600 })) { await btn.click({ timeout: 1200 }); await sleep(500); }
+      if (await btn.isVisible({ timeout: 600 })) {
+        await btn.click({ timeout: 1200 });
+        await sleep(500);
+      }
     } catch {}
   }
 }
@@ -46,7 +60,9 @@ async function scrollThrough(page, totalMs = 30000) {
   }
   // settle on a final frame, then glide back toward the top
   await sleep(800);
-  try { await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'smooth' })); } catch {}
+  try {
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  } catch {}
   await sleep(1500);
 }
 
@@ -84,7 +100,10 @@ async function recordSite({ slug, url }, browser) {
   return { slug, status, out };
 }
 
-const browser = await chromium.launch({ headless: true, args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-webgl', '--ignore-gpu-blocklist'] });
+const browser = await chromium.launch({
+  headless: true,
+  args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-webgl', '--ignore-gpu-blocklist'],
+});
 const results = [];
 for (const s of SITES) {
   process.stdout.write(`recording ${s.slug} ... `);
@@ -94,4 +113,7 @@ for (const s of SITES) {
 }
 await browser.close();
 console.log('\nSUMMARY:');
-for (const r of results) console.log(`  ${r.slug}: ${r.status}${r.out ? ' (' + r.out.split('/').pop() + ')' : ' (NO VIDEO)'}`);
+for (const r of results)
+  console.log(
+    `  ${r.slug}: ${r.status}${r.out ? ' (' + r.out.split('/').pop() + ')' : ' (NO VIDEO)'}`,
+  );

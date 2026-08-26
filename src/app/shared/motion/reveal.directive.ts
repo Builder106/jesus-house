@@ -1,11 +1,4 @@
-import {
-  afterNextRender,
-  Directive,
-  ElementRef,
-  inject,
-  Input,
-  PLATFORM_ID,
-} from '@angular/core';
+import { afterNextRender, Directive, ElementRef, inject, Input, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 /**

@@ -1,4 +1,12 @@
-import { mkdirSync, renameSync, statSync, unlinkSync, existsSync, rmdirSync, readdirSync } from 'node:fs';
+import {
+  mkdirSync,
+  renameSync,
+  statSync,
+  unlinkSync,
+  existsSync,
+  rmdirSync,
+  readdirSync,
+} from 'node:fs';
 import { dirname, join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import type { Reporter, TestCase, TestResult, FullResult } from '@playwright/test/reporter';
@@ -76,11 +84,16 @@ export default class DemoReporter implements Reporter {
           'ffmpeg',
           [
             '-y',
-            '-i', webmDest,
-            '-c:v', 'libx264',
-            '-preset', 'veryfast',
-            '-pix_fmt', 'yuv420p',
-            '-movflags', '+faststart',
+            '-i',
+            webmDest,
+            '-c:v',
+            'libx264',
+            '-preset',
+            'veryfast',
+            '-pix_fmt',
+            'yuv420p',
+            '-movflags',
+            '+faststart',
             mp4Dest,
           ],
           { stdio: 'ignore' },
@@ -95,7 +108,9 @@ export default class DemoReporter implements Reporter {
     const ffmpegNote = ffmpegAvailable
       ? `${converted} mp4 file(s) in ${OUTPUT_DIR}`
       : `${this.queue.length - skippedWarmup - skippedEmpty} webm file(s) in ${OUTPUT_DIR} (install ffmpeg for mp4 conversion)`;
-    console.log(`[demo-reporter] ${ffmpegNote}, skipped ${skippedWarmup} warmup + ${skippedEmpty} empty`);
+    console.log(
+      `[demo-reporter] ${ffmpegNote}, skipped ${skippedWarmup} warmup + ${skippedEmpty} empty`,
+    );
   }
 }
 
@@ -107,7 +122,11 @@ function slugify(text: string): string {
 }
 
 function safeUnlink(path: string): void {
-  try { unlinkSync(path); } catch { /* ignore */ }
+  try {
+    unlinkSync(path);
+  } catch {
+    /* ignore */
+  }
 }
 
 function removeEmptyParent(filePath: string): void {
@@ -116,7 +135,9 @@ function removeEmptyParent(filePath: string): void {
     if (existsSync(dir) && readdirSync(dir).length === 0) {
       rmdirSync(dir);
     }
-  } catch { /* ignore */ }
+  } catch {
+    /* ignore */
+  }
 }
 
 function which(cmd: string): boolean {

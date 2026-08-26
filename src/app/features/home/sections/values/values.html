@@ -60,9 +60,13 @@
           @for (beat of beats; track beat.word) {
             <div class="embla__slide">
               <div class="scene__beat">
-                <span class="scene__beat-num font-display" aria-hidden="true">{{ beat.index }}</span>
+                <span class="scene__beat-num font-display" aria-hidden="true">{{
+                  beat.index
+                }}</span>
                 <p class="scene__beat-label jh-eyebrow text-jh-soft">{{ beat.label }}</p>
-                <h3 class="scene__beat-word mt-3 font-display font-semibold text-jh-blue">{{ beat.word }}</h3>
+                <h3 class="scene__beat-word mt-3 font-display font-semibold text-jh-blue">
+                  {{ beat.word }}
+                </h3>
                 <p class="scene__beat-line mt-3 text-lg leading-relaxed text-jh-ink">
                   {{ beat.line }}
                 </p>

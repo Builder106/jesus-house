@@ -1,27 +1,36 @@
 // Lightweight steady-state scroll benchmark: rAF frame-time meter in the page
 // + a synthesized full-page scroll. No DevTools tracing overhead.
 // Usage: node fpsmeter.mjs <url-substr> <up|down> ["css-override"]
-import { connect } from "./cdp.mjs";
+import { connect } from './cdp.mjs';
 
 const TARGET = process.argv[2];
-const DIR = process.argv[3] ?? "up";
-const CSS = process.argv[4] ?? "";
+const DIR = process.argv[3] ?? 'up';
+const CSS = process.argv[4] ?? '';
 
 const c = await connect();
 const { sessionId } = await c.attachPage(TARGET);
 
-await c.send("Runtime.evaluate", { expression: `
+await c.send(
+  'Runtime.evaluate',
+  {
+    expression: `
   document.getElementById("exp-style")?.remove();
   if (${JSON.stringify(CSS)}) {
     const s = document.createElement("style"); s.id = "exp-style";
     s.textContent = ${JSON.stringify(CSS)};
     document.head.appendChild(s);
   }
-  window.scrollTo({top: ${DIR === "up" ? "document.documentElement.scrollHeight" : "0"}, behavior: "instant"});
-` }, sessionId);
+  window.scrollTo({top: ${DIR === 'up' ? 'document.documentElement.scrollHeight' : '0'}, behavior: "instant"});
+`,
+  },
+  sessionId,
+);
 await new Promise((r) => setTimeout(r, 1200));
 
-await c.send("Runtime.evaluate", { expression: `
+await c.send(
+  'Runtime.evaluate',
+  {
+    expression: `
   window.__fps = { deltas: [], last: 0, on: true };
   (function tick(t) {
     if (!window.__fps.on) return;
@@ -29,14 +38,28 @@ await c.send("Runtime.evaluate", { expression: `
     window.__fps.last = t;
     requestAnimationFrame(tick);
   })(performance.now());
-` }, sessionId);
+`,
+  },
+  sessionId,
+);
 
-await c.send("Input.synthesizeScrollGesture", {
-  x: 192, y: 400, xDistance: 0, yDistance: DIR === "up" ? 8846 : -8846,
-  speed: 1000, preventFling: true,
-}, sessionId);
+await c.send(
+  'Input.synthesizeScrollGesture',
+  {
+    x: 192,
+    y: 400,
+    xDistance: 0,
+    yDistance: DIR === 'up' ? 8846 : -8846,
+    speed: 1000,
+    preventFling: true,
+  },
+  sessionId,
+);
 
-const { result } = await c.send("Runtime.evaluate", { expression: `
+const { result } = await c.send(
+  'Runtime.evaluate',
+  {
+    expression: `
   window.__fps.on = false;
   (() => {
     const d = window.__fps.deltas.slice(5);
@@ -52,9 +75,17 @@ const { result } = await c.send("Runtime.evaluate", { expression: `
       over150ms: d.filter((x) => x > 150).length,
     });
   })()
-`, returnByValue: true }, sessionId);
+`,
+    returnByValue: true,
+  },
+  sessionId,
+);
 console.log(result.value);
 // leave any experiment style in place only if requested; always clean here
-await c.send("Runtime.evaluate", { expression: `document.getElementById("exp-style")?.remove()` }, sessionId);
+await c.send(
+  'Runtime.evaluate',
+  { expression: `document.getElementById("exp-style")?.remove()` },
+  sessionId,
+);
 c.close();
 process.exit(0);

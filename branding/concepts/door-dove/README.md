@@ -2,8 +2,8 @@
 
 An arched doorway in a navy frame: cream fanlight with a gold rising sun above, and a red
 door panel on which a cream dove ascends. The intent was for the dove to emerge from the
-*negative space* of the light through the door — an echo of RCCG heritage without copying
-the official seal. The executed mark falls short of that intent: the dove is drawn *on*
+_negative space_ of the light through the door — an echo of RCCG heritage without copying
+the official seal. The executed mark falls short of that intent: the dove is drawn _on_
 the red panel rather than emerging from the geometry, its silhouette reads ambiguously
 (part bird, part winged figure), and at 32 px the interior collapses into an unreadable
 blob — failing the favicon test outright. It is also the most seal-adjacent concept
@@ -24,4 +24,4 @@ direction.
 
 - `mark.svg` — square mark, 64×64 viewBox, pure geometry, flat fills
 - `mark-512.png`, `mark-32.png` — rendered proofs
-- *(no lockup — concept eliminated at mark stage)*
+- _(no lockup — concept eliminated at mark stage)_

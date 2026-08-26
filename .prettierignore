@@ -1,0 +1,18 @@
+# Package & build artifacts
+node_modules/
+dist/
+.angular/
+coverage/
+.features-gen/
+test-results/
+playwright-report/
+blob-report/
+__screenshots__/
+package-lock.json
+
+# Tooling and Harness skills
+.claude/
+.gemini/
+
+# Media / Generated assets
+public/animations/

@@ -38,8 +38,7 @@ import { SceneDirective } from '../../../../shared/motion/scene.directive';
 })
 export class HomeRide {
   /** Ride contact links — kept here so copy and href stay in lockstep. */
-  protected readonly rideMailto =
-    'mailto:rccgjhmiddletown@gmail.com?subject=Ride%20request';
+  protected readonly rideMailto = 'mailto:rccgjhmiddletown@gmail.com?subject=Ride%20request';
   protected readonly rideTel = 'tel:+18605184640';
 
   /**

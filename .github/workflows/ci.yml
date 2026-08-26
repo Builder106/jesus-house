@@ -25,7 +25,7 @@ jobs:
       - uses: gitleaks/gitleaks-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITLEAKS_NOTIFY_USER_LIST: ""
+          GITLEAKS_NOTIFY_USER_LIST: ''
 
   lint:
     name: Lint & Format
@@ -36,8 +36,8 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "26"
-          cache: "npm"
+          node-version: '26'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -57,8 +57,8 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "26"
-          cache: "npm"
+          node-version: '26'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -89,8 +89,8 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "26"
-          cache: "npm"
+          node-version: '26'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -108,8 +108,8 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "26"
-          cache: "npm"
+          node-version: '26'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
