@@ -9,6 +9,12 @@ const testDir = defineBddConfig({
   steps: 'e2e/steps/*.ts',
 });
 
+const e2ePort = Number(process.env.E2E_PORT ?? 4200);
+if (!Number.isInteger(e2ePort) || e2ePort < 1 || e2ePort > 65_535) {
+  throw new Error(`E2E_PORT must be a valid TCP port, received: ${process.env.E2E_PORT ?? ''}`);
+}
+const e2eBaseURL = `http://localhost:${e2ePort}`;
+
 export default defineConfig({
   testDir,
   // 60s per-test timeout because the dev server cold-starts ng serve on
@@ -21,7 +27,7 @@ export default defineConfig({
   workers: process.env.CI ? 2 : undefined,
   reporter: process.env.CI ? 'github' : 'list',
   use: {
-    baseURL: 'http://localhost:4200',
+    baseURL: e2eBaseURL,
     trace: 'on-first-retry',
     video: 'retain-on-failure',
     screenshot: 'only-on-failure',
@@ -32,9 +38,9 @@ export default defineConfig({
   // ng serve is slow to boot the first time (~30s); be generous on the wait.
   // Skip if the dev server is already running locally.
   webServer: {
-    command: 'npm start',
-    url: 'http://localhost:4200',
-    reuseExistingServer: !process.env.CI,
+    command: `npm start -- --port ${e2ePort}`,
+    url: e2eBaseURL,
+    reuseExistingServer: !process.env.CI && !process.env.E2E_PORT,
     timeout: 120_000,
     stdout: 'ignore',
     stderr: 'pipe',
