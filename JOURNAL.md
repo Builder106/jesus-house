@@ -6,6 +6,10 @@
 > Tag with `#decision`/`#pivot`/`#incident`/`#quote`/`#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-08-29: Git deployment branches restricted #decision
+
+Git-triggered Vercel deployments now run only for `main` and `staging`. The project keeps `main` as its Production Branch, so `staging` is the only Preview branch. Replaced the old `ignoreCommand`, which created canceled deployment records for blocked branches, with `git.deploymentEnabled`.
+
 ## 2026-08-28: Node 26 runtime verification #decision
 
 Moved the local runtime declaration from Node 24 to Node 26. The CI workflow already used Node 26. Lint, Prettier, TypeScript, three unit tests, the production build, and all 14 Playwright scenarios passed on Linux ARM64.
