@@ -7,14 +7,14 @@ updates:
     groups:
       minor-and-patch:
         patterns:
-          - "*"
+          - '*'
         update-types:
           - minor
           - patch
     ignore:
       - dependency-name: typescript
         versions:
-          - ">= 7.0.0"
+          - '>= 7.0.0'
 
   - package-ecosystem: github-actions
     directory: /
@@ -23,4 +23,4 @@ updates:
     groups:
       actions:
         patterns:
-          - "*"
+          - '*'
