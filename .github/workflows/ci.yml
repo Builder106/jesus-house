@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, staging]
   pull_request:
     branches: [main]
 
@@ -134,7 +134,22 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
 
-# Production + preview deploys are handled by Vercel's native git integration.
-# This workflow gates code quality — unit + E2E + a clean SSR/prerender
-# build — ahead of Vercel's own build, so a broken commit is caught before
-# it ships.
+  deploy:
+    name: Deploy to Vercel
+    needs: [secrets, lint, build, e2e]
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Trigger Vercel Deploy Hook
+        env:
+          VERCEL_DEPLOY_HOOK_PROD: ${{ secrets.VERCEL_DEPLOY_HOOK_PROD }}
+          VERCEL_DEPLOY_HOOK_STAGING: ${{ secrets.VERCEL_DEPLOY_HOOK_STAGING }}
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "Deploying to production..."
+            curl -sS -f -X POST "$VERCEL_DEPLOY_HOOK_PROD"
+          elif [[ "${{ github.ref }}" == "refs/heads/staging" ]]; then
+            echo "Deploying to staging..."
+            curl -sS -f -X POST "$VERCEL_DEPLOY_HOOK_STAGING"
+          fi
