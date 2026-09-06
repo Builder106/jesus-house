@@ -14,7 +14,7 @@
     "lint": "eslint"
   },
   "private": true,
-  "packageManager": "npm@12.0.2",
+  "packageManager": "npm@10.9.9",
   "dependencies": {
     "@angular/common": "^22.1.4",
     "@angular/compiler": "^22.1.4",

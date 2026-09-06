@@ -6,6 +6,10 @@
 > Tag with `#decision`/`#pivot`/`#incident`/`#quote`/`#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-09-06: Standardized the JavaScript runtime on Node 24 #decision
+
+The repository now declares Node 24 and npm 10.9.9 for reproducible Vercel-compatible builds. CI uses Node 24; the existing main production and staging preview deployment gates remain unchanged.
+
 ## 2026-08-29: Git deployment branches restricted #decision
 
 Git-triggered Vercel deployments now run only for `main` and `staging`. The project keeps `main` as its Production Branch, so `staging` is the only Preview branch. Replaced the old `ignoreCommand`, which created canceled deployment records for blocked branches, with `git.deploymentEnabled`.
