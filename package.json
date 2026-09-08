@@ -11,7 +11,8 @@
     "test:e2e": "bddgen --config=playwright.config.ts && playwright test --config=playwright.config.ts",
     "test:demo": "DEMO=1 bddgen --config=playwright.demo.config.ts && DEMO=1 playwright test --config=playwright.demo.config.ts",
     "serve:ssr:jesus-house": "node dist/jesus-house/server/server.mjs",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "ng build --configuration development"
   },
   "private": true,
   "packageManager": "npm@10.9.9",
