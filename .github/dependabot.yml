@@ -7,8 +7,8 @@ updates:
     groups:
       vitest:
         patterns:
-          - "vitest"
-          - "@vitest/*"
+          - 'vitest'
+          - '@vitest/*'
       minor-and-patch:
         patterns:
           - '*'
