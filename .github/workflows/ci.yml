@@ -48,6 +48,9 @@ jobs:
       - name: Prettier check
         run: npx prettier --check .
 
+      - name: License compliance check
+        run: npx license-checker --summary --production
+
   typecheck:
     name: Typecheck
     runs-on: ubuntu-24.04
