@@ -5,6 +5,10 @@ interface ScrubEntry<T> {
   apply: (value: T) => void;
 }
 
+interface ScrubTask {
+  measure: () => (() => void) | null;
+}
+
 /**
  * jhScrollScrubber — the site's one scroll/resize listener.
  *
@@ -29,7 +33,7 @@ interface ScrubEntry<T> {
  */
 @Injectable({ providedIn: 'root' })
 export class ScrollScrubber {
-  private readonly entries = new Set<ScrubEntry<unknown>>();
+  private readonly tasks = new Set<ScrubTask>();
   private ticking = false;
   private listening = false;
 
@@ -38,11 +42,17 @@ export class ScrollScrubber {
    *  per-frame updates (e.g. its active-viewport gate turns off, or on
    *  directive destroy). */
   register<T>(entry: ScrubEntry<T>): () => void {
-    this.entries.add(entry as ScrubEntry<unknown>);
+    const task: ScrubTask = {
+      measure: () => {
+        const value = entry.measure();
+        return () => entry.apply(value);
+      },
+    };
+    this.tasks.add(task);
     this.ensureListening();
     this.schedule();
     return () => {
-      this.entries.delete(entry as ScrubEntry<unknown>);
+      this.tasks.delete(task);
     };
   }
 
@@ -72,18 +82,19 @@ export class ScrollScrubber {
       // consumer's read. Each consumer is isolated: an exception in one
       // (e.g. a device-specific API quirk) must not freeze every pinned
       // scene's --zoom for the rest of the session.
-      const pending: Array<[(value: unknown) => void, unknown]> = [];
-      for (const entry of this.entries) {
+      const writes: Array<() => void> = [];
+      for (const task of this.tasks) {
         try {
-          pending.push([entry.apply, entry.measure()]);
+          const apply = task.measure();
+          if (apply) writes.push(apply);
         } catch {
           /* skip this consumer this frame */
         }
       }
       // WRITE phase — same isolation.
-      for (const [apply, value] of pending) {
+      for (const apply of writes) {
         try {
-          apply(value);
+          apply();
         } catch {
           /* skip */
         }
