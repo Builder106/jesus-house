@@ -59,7 +59,6 @@ The current phase is deliberately CMS-free: every page is static Angular, preren
 | Unit tests | Vitest via `ng test`                                                  |
 | E2E        | Playwright + playwright-bdd (QA suite + demo-recording suite)         |
 | Hosting    | Vercel — git integration deploys; GitHub Actions gates quality        |
-| Telemetry  | `@vercel/analytics`+`@vercel/speed-insights`                          |
 
 ## Local development
 
