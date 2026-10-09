@@ -61,6 +61,9 @@
   },
   "overrides": {
     "@hono/node-server": "^2.0.5",
-    "body-parser": "^2.2.3"
+    "body-parser": "^2.2.3",
+    "source-map-js": "^1.2.2",
+    "proxy-addr": "^2.0.8",
+    "qs": "^6.16.0"
   }
 }
