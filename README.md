@@ -23,20 +23,9 @@ This modern website serves as the church's digital front door for both local fam
 
 ## How it works
 
-```mermaid
-sequenceDiagram
-    autonumber
-    participant Visitor
-    participant Vercel as Web Hosting
-    participant SSR as Fast Server Rendering
-    participant Analytics as Visitor Analytics
+![Page delivery from visitor request through hosting, rendering, and analytics](assets/diagrams/site-delivery.png)
 
-    Visitor->>Vercel: Open website
-    Vercel->>SSR: Request page
-    SSR-->>Visitor: Deliver pre-rendered page and styling
-    Visitor->>Vercel: Load interactive features
-    Visitor->>Analytics: Anonymous performance metrics
-```
+The visitor requests a page from the web host. Server rendering delivers the page and styling, then the browser loads interactive features and sends anonymous performance metrics. [Edit the diagram](assets/diagrams/site-delivery.html).
 
 The current phase is deliberately CMS-free: every page is static Angular, prerendered at build time where possible and SSR'd otherwise. Sanity (a fresh project, separate from the sibling parish's) joins in Phase 2 for announcements, events, and ministry pages.
 

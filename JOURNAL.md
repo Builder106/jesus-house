@@ -6,6 +6,10 @@
 > Tag with `#decision`/`#pivot`/`#incident`/`#quote`/`#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-10-13: Redrew the README flow #decision
+
+The README delivery flow is now a sequence figure using the parish palette. It keeps the source's four participants and five exchanges, including the separate anonymous analytics message. The HTML remains editable; the PNG is embedded in GitHub.
+
 ## 2026-09-06: Standardized the JavaScript runtime on Node 24 #decision
 
 The repository now declares Node 24 and npm 10.9.9 for reproducible Vercel-compatible builds. CI uses Node 24; the existing main production and staging preview deployment gates remain unchanged.
