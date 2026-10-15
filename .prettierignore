@@ -16,3 +16,4 @@ package-lock.json
 
 # Media / Generated assets
 public/animations/
+assets/diagrams/
