@@ -6,6 +6,10 @@
 > Tag with `#decision`/`#pivot`/`#incident`/`#quote`/`#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-10-19: Remove the site-delivery diagram #decision
+
+Five vague messages ("open site", "load features") said less than the sentence under them, and the response skipped the web host. The README keeps only the sentence.
+
 ## 2026-10-13: Redrew the README flow #decision
 
 The README delivery flow is now a sequence figure using the parish palette. It keeps the source's four participants and five exchanges, including the separate anonymous analytics message. The HTML remains editable; the PNG is embedded in GitHub.
