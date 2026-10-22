@@ -6,6 +6,10 @@
 > Tag with `#decision`/`#pivot`/`#incident`/`#quote`/`#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-10-22: Align the local runtime pin with CI #decision
+
+Set `.nvmrc` back to Node 24 so it matches the CI jobs and npm 10.9.9 pin.
+
 ## 2026-10-19: Remove the site-delivery diagram #decision
 
 Five vague messages ("open site", "load features") said less than the sentence under them, and the response skipped the web host. The README keeps only the sentence.
