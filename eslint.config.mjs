@@ -5,7 +5,7 @@ import typescriptEslint from 'typescript-eslint';
 import prettierConfig from 'eslint-config-prettier';
 
 const eslintConfig = defineConfig([
-  globalIgnores(['dist/**', 'node_modules/**', '.angular/**', 'tools/**']),
+  globalIgnores(['dist/**', 'coverage/**', 'node_modules/**', '.angular/**', 'tools/**']),
   ...typescriptEslint.configs.recommended,
   {
     files: ['**/*.ts'],
@@ -19,6 +19,8 @@ const eslintConfig = defineConfig([
       },
     },
     rules: {
+      '@typescript-eslint/no-deprecated': 'error',
+      '@typescript-eslint/no-explicit-any': 'error',
       '@angular-eslint/directive-selector': [
         'error',
         {
@@ -41,6 +43,19 @@ const eslintConfig = defineConfig([
           argsIgnorePattern: '^_',
           varsIgnorePattern: '^_',
           caughtErrorsIgnorePattern: '^_',
+        },
+      ],
+    },
+  },
+  {
+    files: ['src/**/*.ts'],
+    ignores: ['src/**/*.spec.ts', 'src/**/*.test.ts'],
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'TSUnknownKeyword',
+          message: 'Use a concrete type; keep unknown only at validated data or error boundaries.',
         },
       ],
     },

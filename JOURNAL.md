@@ -6,6 +6,10 @@
 > Tag with `#decision`/`#pivot`/`#incident`/`#quote`/`#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-10-23: Add typed API checks #ci #decision
+
+ESLint now rejects explicit `any`, flags deprecated TypeScript APIs, and limits explicit `unknown` in application source to data and error boundaries. CI already runs the strict Angular typecheck.
+
 ## 2026-10-22: Align the local runtime pin with CI #decision
 
 Set `.nvmrc` back to Node 24 so it matches the CI jobs and npm 10.9.9 pin.
