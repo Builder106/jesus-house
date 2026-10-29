@@ -1,8 +1,11 @@
 """Shape-changing idle sprites, animated by Glaxnimate.
 
 Writes CSS-animated SVGs to public/art/idle/: a bird whose wings beat (for
-the flock over the road), the Bible page that lifts and turns on the pew, and
-a candle flame that leans and stretches. Glaxnimate turns the keyframes into
+the flock over the road), the Bible page that lifts and turns on the pew, a
+candle flame that leans and stretches, and the sanctuary's people acting out
+the bulletin's four beats: the usher offering a bulletin, a newcomer's walk,
+the pastor preaching, hands raised in worship, and two people turning round
+in their pews to wave (geometry from people.py). Glaxnimate turns the keyframes into
 CSS `d` path morphs inside each SVG and adds its own reduced-motion rule, so
 the sprites run as plain <img> files.
 
@@ -14,10 +17,14 @@ import pathlib
 
 from glaxnimate_mcp.css import export_css
 
+import people
+from svgkit import Svg
+
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 OUT = ROOT / 'public/art/idle'
 EASE = [0.45, 0, 0.55, 1]
 LOOP = {'trigger': 'load', 'iterations': 0}
+PINGPONG = {'trigger': 'load', 'iterations': 0, 'alternate': True}
 
 
 def write(name: str, svg: str, animations: list[dict], playback: dict = LOOP) -> None:
@@ -83,7 +90,81 @@ def flame() -> None:
     ])
 
 
+def scene_svg(s: Svg, box: tuple[float, float, float, float]) -> str:
+    """A crop of a full-scene drawing, without the scene's fixed size."""
+    x, y, w, h = box
+    svg = s.render(view_box=f'{x:g} {y:g} {w:g} {h:g}')
+    return svg.replace(f' width="{s.width}" height="{s.height}" preserveAspectRatio="xMidYMid slice"', '')
+
+
+def morphs(a: dict[str, str], b: dict[str, str], duration_ms: int) -> list[dict]:
+    """One path morph per part, from pose a to pose b (the playback ping-pongs)."""
+    return [{
+        'target_id': key, 'property': 'path', 'values': [a[key], b[key]],
+        'duration_ms': duration_ms, 'calc_mode': 'spline', 'key_splines': [EASE], 'fill_mode': 'freeze',
+    } for key in a]
+
+
+def arm_morphs(pid: str, a: list[tuple[float, float]], b: list[tuple[float, float]]) -> tuple[dict, dict]:
+    pa, pb = people.arm_paths(a), people.arm_paths(b)
+    return {f'{pid}-{k}': v for k, v in pa.items()}, {f'{pid}-{k}': v for k, v in pb.items()}
+
+
+def pastor() -> None:
+    s = Svg(people.W, people.H)
+    people.pastor(s, 'preach-a')
+    a, b = arm_morphs('pastor-r', people.pastor_arms('preach-a')['right'], people.pastor_arms('preach-b')['right'])
+    write('pastor-preach', scene_svg(s, people.pastor_box()), morphs(a, b, 1300), PINGPONG)
+
+
+def usher() -> None:
+    s = Svg(people.W, people.H)
+    people.usher(s, 'offer-a')
+    arms_a, arms_b = people.usher_arms('offer-a')['right'], people.usher_arms('offer-b')['right']
+    a, b = arm_morphs('usher-r', arms_a, arms_b)
+    h = people.USHER['h']
+    a['usher-paper'] = people.bulletin_path(arms_a[-1][0], arms_a[-1][1] + 0.01 * h, h)
+    b['usher-paper'] = people.bulletin_path(arms_b[-1][0], arms_b[-1][1] + 0.01 * h, h)
+    write('usher-offer', scene_svg(s, people.usher_box()), morphs(a, b, 1100), PINGPONG)
+    s = Svg(people.W, people.H)
+    people.usher(s, 'wave-a')
+    a, b = arm_morphs('usher-r', people.usher_arms('wave-a')['right'], people.usher_arms('wave-b')['right'])
+    write('usher-wave', scene_svg(s, people.usher_box()), morphs(a, b, 420), PINGPONG)
+
+
+def walker() -> None:
+    h = people.WALKER_H
+    s = Svg(1, 1)
+    people.walker(s, 0)
+    write('walker', scene_svg(s, (0, 0, 0.4 * h, h)), morphs(people.walker_paths(0), people.walker_paths(1), 420), PINGPONG)
+
+
+def congregation() -> None:
+    for p in people.CAST:
+        if p.act == 'worship':
+            s = Svg(people.W, people.H)
+            people.seated(s, p)
+            a, b = {}, {}
+            for side, (left, right) in zip('lr', zip(people.worship_arms(p, -0.05), people.worship_arms(p, 0.06))):
+                pa, pb = arm_morphs(f'{p.pid}-{side}', left, right)
+                a.update(pa)
+                b.update(pb)
+            for side, pts in zip('lr', people.worship_arms(p, -0.05)):
+                people.arm(s, pts, p.c(p.top), p.c(p.skin), 0.17 * p.u, f'{p.pid}-{side}')
+            write(f'worship-{p.pid}', scene_svg(s, p.box(top=1.5, half=0.9)), morphs(a, b, 1600), PINGPONG)
+        elif p.act == 'wave':
+            s = Svg(people.W, people.H)
+            people.seated(s, p, front=True)
+            people.arm(s, people.wave_arm(p, 0), p.c(p.top), p.c(p.skin), 0.17 * p.u, f'{p.pid}-w')
+            a, b = arm_morphs(f'{p.pid}-w', people.wave_arm(p, 0), people.wave_arm(p, 1))
+            write(f'wave-{p.pid}', scene_svg(s, p.box(top=1.25, half=1.0)), morphs(a, b, 380), PINGPONG)
+
+
 if __name__ == '__main__':
     bird()
     page()
     flame()
+    pastor()
+    usher()
+    walker()
+    congregation()

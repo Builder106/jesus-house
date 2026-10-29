@@ -6,6 +6,7 @@ target is its cross; the window's deep navy glass becomes the ground of the
 cathedral section that follows.
 """
 
+import people
 from svgkit import Svg
 
 W, H = 1440, 900
@@ -159,9 +160,13 @@ def floor_and_pews(s: Svg) -> None:
     s.polygon([(672, 616), (768, 616), (774, 630), (666, 630)], fill=PAL['red_dark'])
     s.polygon([(682, 616), (690, 616), (580, 900), (566, 900)], fill=PAL['gold'], opacity=0.5)
     s.polygon([(750, 616), (758, 616), (874, 900), (860, 900)], fill=PAL['gold'], opacity=0.5)
-    # pews in rows, nearer rows lower, taller, and wider
-    rows = [(640, 0.42), (680, 0.55), (734, 0.72), (806, 0.94), (900, 1.22)]
-    for y, k in rows:
+    # pews in rows, nearer rows lower, taller, and wider; each row's people sit
+    # behind its backrest, and the usher stands in the aisle before the front row
+    for row, (y, k) in enumerate(people.ROWS):
+        if row == len(people.ROWS) - 1:
+            people.usher(s)
+        for person in people.row_people(row):
+            people.seated(s, person)
         depth = 1 - k / 1.4
         for side in (-1, 1):
             inner = 720 + side * (60 + 90 * k)
@@ -192,5 +197,6 @@ def build() -> Svg:
     side_window(s, 1124)
     great_window(s)
     chancel(s)
+    people.pastor(s)
     floor_and_pews(s)
     return s

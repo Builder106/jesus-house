@@ -23,7 +23,7 @@
 
 /* ── Scroll-scrub custom properties: registered NON-INHERITED ──────────────
  * Every pinned scene writes a progress number per scroll frame (--zoom /
- * --enter / --carousel-scrub, and the CSS-derived --p / --n). Unregistered
+ * --enter, and the CSS-derived --p / --n). Unregistered
  * custom properties inherit, so one per-frame write on a scene host used to
  * invalidate style for its entire subtree — a device trace (Galaxy A15,
  * 2026-07-03) measured 178–401 elements recalculated per write, 1,030ms of
@@ -32,7 +32,7 @@
  * element's recalc. The flip side of non-inheritance: these values do NOT
  * travel down the tree — every element whose CSS reads one of these vars
  * must receive its own copy. Scene templates mark those elements with
- * `data-scene-var`, and the writers (jhScene, hero, rcf, values) write to
+ * `data-scene-var`, and the writers (jhScene, hero, rcf) write to
  * each marked element directly. */
 @property --zoom {
   syntax: '<number>';
@@ -50,11 +50,6 @@
   initial-value: 0;
 }
 @property --enter {
-  syntax: '<number>';
-  inherits: false;
-  initial-value: 0;
-}
-@property --carousel-scrub {
   syntax: '<number>';
   inherits: false;
   initial-value: 0;
@@ -1021,5 +1016,102 @@ app-home-story.scene--active + app-home-comeandsee {
   100% {
     opacity: 0;
     transform: translate(1.5vw, -22vw) scale(1) rotate(180deg);
+  }
+}
+
+/* ── The sanctuary's people (art-src/scenes/people.py) ─────────────────────
+ * Global for the same budget reason as the keyframes above. The near rows
+ * sway in their pews. Each beat's actors (.idle-act--beatN) fade in while the
+ * values bulletin is on that beat (data-beat on app-scene-idle), covering the
+ * same person's rest pose in the bitmap and their swaying copy
+ * (.idle-sit--beatN). */
+app-scene-idle .idle-sit,
+app-scene-idle .idle-act {
+  transition: opacity 0.45s ease;
+}
+
+app-scene-idle .idle-act {
+  opacity: 0;
+}
+
+app-scene-idle[data-beat='0'] .idle-act--beat0,
+app-scene-idle[data-beat='1'] .idle-act--beat1,
+app-scene-idle[data-beat='2'] .idle-act--beat2,
+app-scene-idle[data-beat='3'] .idle-act--beat3 {
+  opacity: 1;
+}
+
+app-scene-idle[data-beat='2'] .idle-sit--beat2,
+app-scene-idle[data-beat='3'] .idle-sit--beat3 {
+  opacity: 0;
+}
+
+/* Hands going up: the worship sprite is revealed from the shoulders up, so
+   the arms rise into place instead of fading in. */
+app-scene-idle .idle-raise {
+  clip-path: inset(48% 0 0 0);
+  transition:
+    opacity 0.2s ease,
+    clip-path 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+app-scene-idle[data-beat='2'] .idle-raise {
+  clip-path: inset(0);
+}
+
+app-scene-idle .idle-walker {
+  transform-origin: 50% 97%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  app-scene-idle .idle-sit {
+    transform-origin: 50% 100%;
+    animation: idle-sit 5.5s ease-in-out infinite alternate;
+  }
+  app-scene-idle[data-beat='0'] .idle-walker {
+    animation: idle-walk 12s linear infinite;
+  }
+}
+
+/* Reduced motion: the actors still change with the bulletin, as stills; the
+   newcomer, who only makes sense walking, stays out. */
+@media (prefers-reduced-motion: reduce) {
+  app-scene-idle .idle-sit,
+  app-scene-idle .idle-act {
+    transition: none;
+  }
+  app-scene-idle .idle-raise {
+    clip-path: none;
+  }
+  app-scene-idle .idle-walker {
+    display: none;
+  }
+}
+
+@keyframes idle-sit {
+  from {
+    transform: rotate(-2deg);
+  }
+  to {
+    transform: rotate(2.2deg);
+  }
+}
+
+/* The newcomer enters from behind the viewer, feet below the frame (y=1100),
+   and walks up the aisle to the third row (y=690): 205% of the sprite's
+   height, shrinking with distance, then turns into a pew and is gone. */
+@keyframes idle-walk {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  82% {
+    opacity: 1;
+    transform: translate(25%, -196%) scale(0.45);
+  }
+  95%,
+  100% {
+    opacity: 0;
+    transform: translate(30%, -205%) scale(0.42);
   }
 }

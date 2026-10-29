@@ -10,6 +10,10 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * Two layers per scene: `back` sits under the copy panel; `front` floats the
  * light things (leaves on the wind, dust, sparkles) over it.
  *
+ * The sanctuary's back layer also holds its people. `beat` is the bulletin
+ * item the values section is on (-1 for none); it lands on the host as
+ * data-beat, and the people's rules in styles.css show that beat's actors.
+ *
  * The frame covers its stage the way `object-fit: cover` covers it with the
  * art (a 1440×900 box that is at least as wide and as tall as the stage,
  * centred), so elements placed in the art's coordinates sit on the bitmap
@@ -25,9 +29,14 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './scene-idle.html',
   styleUrl: './scene-idle.css',
-  host: { 'aria-hidden': 'true', '[class.scene-idle--front]': "layer() === 'front'" },
+  host: {
+    'aria-hidden': 'true',
+    '[class.scene-idle--front]': "layer() === 'front'",
+    '[attr.data-beat]': 'beat()',
+  },
 })
 export class SceneIdle {
   readonly scene = input.required<'ride' | 'audience' | 'values'>();
   readonly layer = input<'back' | 'front'>('back');
+  readonly beat = input(-1);
 }

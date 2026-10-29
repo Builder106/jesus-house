@@ -13,10 +13,17 @@ dust, sparkles) over it. The animations live in the component's styles.
 Each scene has one signature motion: the car drives (wheels spin, the body
 rides the road, the centre line streams past), a page of the Bible turns, and
 coloured light from the stained glass moves across the aisle.
+
+The sanctuary also holds its people (people.py). The near rows sway in their
+pews, and each beat of the bulletin has actors whose gesture sprites
+(glax_sprites.py) show only while the bulletin is on that beat: the
+component sets data-beat on its host, and the idle-act--beatN classes key off
+it.
 """
 
 import pathlib
 
+import people
 import pew
 import road
 import sanctuary
@@ -40,6 +47,7 @@ def sprite(name: str, s: Svg, view_box: str) -> None:
 CAR_BOX = (580, 570, 450, 166)
 LAMP_PEW_BOX = (640, 36, 160, 244)
 LAMP_SANCTUARY_W = 160
+SIT_TOP = 1.2  # a seated sprite's height above the backrest, in shoulder widths
 
 
 def sprites() -> None:
@@ -75,6 +83,11 @@ def sprites() -> None:
     s = Svg(W, H)
     sanctuary.lamp(s, 300)
     sprite('lamp-sanctuary', s, f'{300 - LAMP_SANCTUARY_W / 2} 30 {LAMP_SANCTUARY_W} 230')
+    # the near rows of the congregation, each cut at the top of their backrest
+    for p in people.SWAYING:
+        s = Svg(W, H)
+        people.seated(s, p)
+        sprite(f'sit-{p.pid}', s, '{:g} {:g} {:g} {:g}'.format(*p.box(top=SIT_TOP)))
 
 
 # ── placement helpers ────────────────────────────────────────────────────
@@ -184,10 +197,42 @@ def audience_front() -> list[str]:
 # ── the sanctuary ────────────────────────────────────────────────────────
 
 
+def boxed(name: str, box: tuple[float, float, float, float], cls: str, d: float = 0) -> str:
+    x, y, w, _ = box
+    return img(name, x, y, w, cls, d)
+
+
+def congregation() -> list[str]:
+    """The people, back to front, under the light that falls on them."""
+    out = [boxed('pastor-preach', people.pastor_box(), 'idle-act idle-act--beat1')]
+    for row in (1, 2, 3, 4):
+        if row == 4:
+            out.append(boxed('usher-offer', people.usher_box(), 'idle-act idle-act--beat0'))
+            out.append(boxed('usher-wave', people.usher_box(), 'idle-act idle-act--beat3'))
+        for i, p in enumerate(people.row_people(row)):
+            beat = {'worship': 2, 'wave': 3}.get(p.act)
+            if p in people.SWAYING:
+                sit = 'idle-sit' + (f' idle-sit--beat{beat}' if beat else '')
+                out.append(boxed(f'sit-{p.pid}', p.box(top=SIT_TOP), sit, -(row * 2.3 + i * 1.7)))
+            if p.act == 'worship':
+                out.append(boxed(f'worship-{p.pid}', p.box(top=1.5, half=0.9), 'idle-act idle-act--beat2 idle-raise', -i * 0.5))
+            elif p.act == 'wave':
+                out.append(boxed(f'wave-{p.pid}', p.box(top=1.25, half=1.0), 'idle-act idle-act--beat3'))
+    return out
+
+
+def newcomer() -> str:
+    """Walks in from behind the viewer (starting below the frame), up the aisle
+    past the usher. Painted over the window's light so it stays crisp."""
+    h = people.WALKER_H
+    return img('walker', 690 - 0.2 * h, 1100 - h, 0.4 * h, 'idle-walker idle-act idle-act--beat0')
+
+
 def values_back() -> list[str]:
     gx, gy, gw, gh = sanctuary.ARCH
     lw = LAMP_SANCTUARY_W
     out = [
+        *congregation(),
         span('idle-glow idle-glow--window', 360, 540, 720, 240),
         # shafts of coloured light falling from the glass to the floor
         beam([(612, 528), (680, 528), (520, 900), (330, 900)], 'idle-beam idle-shaft idle-shaft--violet'),
@@ -206,6 +251,7 @@ def values_back() -> list[str]:
     ]
     for cx in (640, 800):
         out.append(img('flame-morph', cx - 6, 398, 12, 'idle-flame', -cx / 1000))
+    out.append(newcomer())
     jewels = [(-60, -40), (60, -40), (-75, 40), (75, 40), (-45, 120), (45, 120), (0, -120)]
     for i, (dx, dy) in enumerate(jewels):
         out.append(img('sparkle', 720 + dx - 16, 298 + dy - 16, 32, 'idle-twinkle', -i * 0.9))
