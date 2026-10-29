@@ -1,11 +1,12 @@
 /* SCENE 2 — THE ROAD TO US.
- * Picture-book road vignette; the camera zooms into the car's side window
- * (origin 30.6% 72.6% = the rear window's position in the 1440×900 art).
+ * Picture-book road vignette; the camera zooms through the car's rear side
+ * window onto the Bible on the back seat (target set in ride.ts).
  * Baseline = static illustrated section; .scene--active (set by jhScene on
  * any tall-enough viewport, motion-OK) pins the stage and drives the move off
  * --zoom (0→1):
- *   0–.38 read copy · .38–.46 copy lifts away · .45–.92 zoom into the glass ·
- *   .82–1 cream veil hands off to the pew scene.
+ *   0–.38 read copy · .38–.46 copy lifts away · .45–.92 zoom into the glass,
+ *   the sharp close-up taking over from the art mid-dive · then the close-up
+ *   holds while the pew scene rises over it (no blank veil).
  * The copy holds at FULL opacity until .38 (was .30 with a slow ramp): the
  * panel is translucent, and on narrow slice-crops the car sits right behind
  * the ride CTA — a long mid-fade let the car read through the button. Late
@@ -43,12 +44,15 @@
   box-shadow: 0 18px 50px rgb(20 16 56 / 0.08);
 }
 
-.scene__veil {
+/* The camera's close-up: the art cropped around the target at 12x (see
+   art-src/scenes/build.py). Invisible until the scene is active. */
+.scene__close {
   position: absolute;
   inset: 0;
-  z-index: 3;
-  /* Warm veil ground (styles.css) — the held wash reads as light, not blank. */
-  background: var(--jh-veil-warm);
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   opacity: 0;
   pointer-events: none;
 }
@@ -90,7 +94,10 @@
   transform-origin: var(--tox, 50%) var(--toy, 50%);
   transform: translate(calc(var(--n) * var(--panx, 0px)), calc(var(--n) * var(--pany, 0px)))
     scale(calc(1 + var(--n) * 23));
-  will-change: transform;
+  /* Transparent once the close-up covers it: two full-screen layers blending
+     under one another halved the frame rate on a Galaxy A15 (2026-07-05). */
+  opacity: clamp(0, calc((0.62 - var(--n)) / 0.04), 1);
+  will-change: transform, opacity;
 }
 
 /* NOTE: where scroll-driven animations are supported, the art's transform is
@@ -106,6 +113,22 @@
   will-change: opacity, transform;
 }
 
-:host(.scene--active) .scene__veil {
-  opacity: clamp(0, calc((var(--p) - 0.82) * 5.6), 1);
+:host(.scene--active) .scene__close {
+  /* Same camera as the art, expressed for a layer that starts at 12x: the
+     target sits at its centre, the pan closes as the dive completes, and the
+     scale is the art's (1 + 23n) divided by 12. It only shows once that is
+     >= 1 (n >= .48), fading in over .48 to .58 while the art fades out. */
+  transform: translate(
+      calc((var(--n) - 1) * var(--panx, 0px)),
+      calc((var(--n) - 1) * var(--pany, 0px))
+    )
+    scale(calc((1 + var(--n) * 23) / 12));
+  opacity: clamp(0, calc((var(--n) - 0.48) / 0.1), 1);
+  will-change: transform, opacity;
+}
+
+/* Idle motion stops reading as part of the scene once the camera moves, so
+   it fades out over --p 0.38–0.44, just before the dive. */
+:host(.scene--active) .scene__idle {
+  opacity: clamp(0, calc((0.44 - var(--p)) / 0.06), 1);
 }

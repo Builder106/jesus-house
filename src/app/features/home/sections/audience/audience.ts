@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RevealDirective } from '../../../../shared/motion/reveal.directive';
 import { SceneDirective } from '../../../../shared/motion/scene.directive';
+import { SceneIdle } from '../../../../shared/ui/scene-idle/scene-idle';
 
 /**
  * jh-home-audience — SCENE 3 · A PLACE FOR YOU.
@@ -15,12 +16,13 @@ import { SceneDirective } from '../../../../shared/motion/scene.directive';
 @Component({
   selector: 'app-home-audience',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RevealDirective],
+  imports: [RevealDirective, SceneIdle],
   hostDirectives: [SceneDirective],
   host: {
-    // Camera target: the open hymnal on the pew, in 1440×900 viewBox coords.
-    'data-scene-x': '920',
-    'data-scene-y': '536',
+    // Camera target: the stained-glass picture on the open Bible's left page,
+    // in 1440×900 viewBox coords (art-src/scenes/pew.py TARGET).
+    'data-scene-x': '940',
+    'data-scene-y': '565',
   },
   templateUrl: './audience.html',
   styleUrl: './audience.css',

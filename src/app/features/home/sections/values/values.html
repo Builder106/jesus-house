@@ -3,8 +3,8 @@
   The sanctuary: chancel, lectern, and the great stained-glass arch. A single
   panel (heading + an Embla-powered carousel of the four Sunday beats —
   Welcoming · Rooted · Together · Sending) reads while the scene is pinned;
-  then the camera zooms INTO the stained glass and its deep indigo becomes
-  the ground of the cathedral section that follows.
+  then the camera zooms INTO the cross in the stained glass and its deep
+  indigo becomes the ground of the cathedral section that follows.
 
   The carousel itself is scroll-independent (swipe, autoplay, or click a
   dot) — unlike the rest of the page's scroll-driven camera, it doesn't need
@@ -22,6 +22,26 @@
     class="scene__art"
     data-scene-var
     src="/art/values-scene.webp"
+    width="2880"
+    height="1800"
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+    decoding="async"
+  />
+
+  <!-- Idle motion over the art while the scene rests; fades out before the
+       dive (art-src/scenes/idle.py). -->
+  <app-scene-idle scene="values" class="scene__idle" data-scene-var />
+
+  <!-- The camera's close-up: the cross in the great window, its deep navy
+       glass. Fades in mid-dive and holds while the cathedral section rises
+       over it; it is also the dark ground the header watches for. -->
+  <img
+    class="scene__close"
+    data-scene-var
+    data-jh-header-dark-veil
+    src="/art/values-close.webp"
     width="2880"
     height="1800"
     alt=""
@@ -93,7 +113,6 @@
       </ul>
     </div>
   </div>
-
-  <!-- Camera veil (deep indigo — the glass hands off to the cathedral) -->
-  <div class="scene__veil" data-scene-var data-jh-header-dark-veil aria-hidden="true"></div>
+  <!-- Idle motion that floats over the copy panel (leaves, dust, sparkles). -->
+  <app-scene-idle scene="values" layer="front" class="scene__idle" data-scene-var />
 </section>

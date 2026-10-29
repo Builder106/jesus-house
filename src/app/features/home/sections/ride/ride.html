@@ -1,8 +1,9 @@
 <!--
   SCENE 2 — THE ROAD TO US (ride ministry).
   A picture-book vignette: Sunday morning, the red car on the road to the
-  meetinghouse. The camera move: scroll zooms INTO the car's side window —
-  you take the seat — and the glass resolves into the next scene (the pew).
+  meetinghouse. The camera move: scroll zooms INTO the car's rear window,
+  onto the Bible on the back seat; the pew scene (the same book, open) rises
+  over that close-up.
 
   Static baseline (SSR / no-JS / mobile / reduced-motion): a normal section —
   the illustration fills the band, the copy panel reads on top. jhScene adds
@@ -14,6 +15,25 @@
     class="scene__art"
     data-scene-var
     src="/art/ride-scene.webp"
+    width="2880"
+    height="1800"
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+    decoding="async"
+  />
+
+  <!-- Idle motion over the art while the scene rests; fades out before the
+       dive (art-src/scenes/idle.py). -->
+  <app-scene-idle scene="ride" class="scene__idle" data-scene-var />
+
+  <!-- The camera's close-up: a sharp crop of the same art around the rear
+       window (the Bible on the back seat). Fades in mid-dive and holds while
+       the pew scene rises over it. Hidden unless the scene is active. -->
+  <img
+    class="scene__close"
+    data-scene-var
+    src="/art/ride-close.webp"
     width="2880"
     height="1800"
     alt=""
@@ -66,7 +86,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Camera veil -->
-  <div class="scene__veil" data-scene-var aria-hidden="true"></div>
+  <!-- Idle motion that floats over the copy panel (leaves, dust, sparkles). -->
+  <app-scene-idle scene="ride" layer="front" class="scene__idle" data-scene-var />
 </section>

@@ -1,0 +1,233 @@
+:host {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* The front layer floats over the copy panel (z-index 2). */
+:host(.scene-idle--front) {
+  z-index: 3;
+}
+
+/* Covers the stage like the art: as wide and as tall as the stage at least,
+   keeping the art's 16:10, centred. */
+.idle-frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  aspect-ratio: 1440 / 900;
+  translate: -50% -50%;
+}
+
+.idle-sprite {
+  position: absolute;
+  display: block;
+  height: auto;
+  max-width: none;
+}
+
+/* ── Light ──────────────────────────────────────────────────────────────── */
+.idle-glow {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(255 241 194 / 0.6), rgb(255 241 194 / 0));
+}
+
+.idle-glow--sun {
+  background: radial-gradient(closest-side, rgb(255 243 207 / 0.85), rgb(251 227 160 / 0));
+}
+
+.idle-glow--candle {
+  background: radial-gradient(closest-side, rgb(255 214 120 / 0.75), rgb(255 214 120 / 0));
+}
+
+.idle-glow--page {
+  background: radial-gradient(closest-side, rgb(255 243 204 / 0.8), rgb(255 243 204 / 0));
+}
+
+.idle-glow--window {
+  aspect-ratio: 3;
+  background: radial-gradient(closest-side, rgb(206 190 255 / 0.55), rgb(206 190 255 / 0));
+}
+
+/* Slow light rays turning around the sun; the centre stays clear so the
+   sun's disc in the art shows through. */
+.idle-rays {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    rgb(255 236 170 / 0.5) 0deg 5deg,
+    rgb(255 236 170 / 0) 5deg 20deg
+  );
+  mask-image: radial-gradient(closest-side, transparent 16%, #000 26%, transparent 100%);
+}
+
+/* Sunbeams through the pew's window, brightening as clouds pass. */
+.idle-beam {
+  background: linear-gradient(165deg, rgb(255 248 226 / 0.95), rgb(255 248 226 / 0.25));
+  opacity: 0.25;
+}
+
+/* Coloured light from the stained glass lying on the aisle and pews. */
+.idle-pool {
+  border-radius: 50%;
+}
+
+.idle-pool--navy {
+  background: radial-gradient(closest-side, rgb(84 60 200 / 0.7), rgb(84 60 200 / 0));
+}
+
+.idle-pool--red {
+  background: radial-gradient(closest-side, rgb(236 70 50 / 0.6), rgb(236 70 50 / 0));
+}
+
+.idle-pool--gold {
+  background: radial-gradient(closest-side, rgb(255 214 100 / 0.75), rgb(255 214 100 / 0));
+}
+
+/* Shafts of coloured light from the stained glass (share the beam timing).
+   They start at the window's sill, 58.7% down the frame. */
+.idle-shaft--violet {
+  background: linear-gradient(transparent 58%, rgb(120 96 230 / 0.85) 59%, rgb(120 96 230 / 0));
+}
+
+.idle-shaft--gold {
+  background: linear-gradient(transparent 58%, rgb(255 220 120 / 0.95) 59%, rgb(255 220 120 / 0));
+}
+
+.idle-shaft--red {
+  background: linear-gradient(transparent 58%, rgb(240 80 60 / 0.8) 59%, rgb(240 80 60 / 0));
+}
+
+/* A sheen crossing the great window's glass, clipped to its arch. */
+.idle-sheen {
+  overflow: hidden;
+  border-radius: 50% 50% 0 0 / 28.6% 28.6% 0 0;
+}
+
+.idle-sheen__band {
+  position: absolute;
+  top: -10%;
+  bottom: -10%;
+  left: 0;
+  width: 45%;
+  background: linear-gradient(
+    105deg,
+    rgb(255 255 255 / 0),
+    rgb(220 210 255 / 0.55),
+    rgb(255 255 255 / 0)
+  );
+  transform: translateX(-120%);
+}
+
+/* ── The road ───────────────────────────────────────────────────────────── */
+.idle-flock {
+  height: auto;
+  aspect-ratio: 200 / 120;
+}
+
+.idle-bird {
+  position: absolute;
+  display: block;
+  height: auto;
+}
+
+/* The straight run of road behind the car, its centre line streaming. The
+   band carries the road colour so the bitmap's own dashes stay hidden. */
+.idle-lane {
+  overflow: hidden;
+  background: #9a95a3;
+  transform: rotate(1.26deg);
+  transform-origin: 0 50%;
+}
+
+.idle-lane__dashes {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 108.9%;
+  background-image: linear-gradient(90deg, #f2c14e 0 45%, transparent 45%);
+  background-size: 8.163% 28.6%;
+  background-position: 0 50%;
+  background-repeat: repeat-x;
+}
+
+.idle-mote {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fffaf0;
+  box-shadow: 0 0 10px 3px rgb(255 244 210 / 0.8);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .idle-glow {
+    animation: idle-breathe 4.5s ease-in-out infinite alternate;
+  }
+  .idle-rays {
+    animation: idle-turn 80s linear infinite;
+  }
+  .idle-drift {
+    animation: idle-drift 18s ease-in-out infinite alternate;
+  }
+  .idle-flock {
+    animation: idle-flock 30s linear infinite;
+  }
+  .idle-lane__dashes {
+    animation: idle-lane 0.55s linear infinite;
+  }
+  .idle-ride {
+    animation: idle-ride 0.6s ease-in-out infinite alternate;
+  }
+  .idle-spin {
+    animation: idle-spin 0.8s linear infinite;
+  }
+  .idle-puff {
+    animation: idle-puff 2.8s ease-out infinite;
+  }
+  .idle-fall {
+    animation: idle-fall 8s linear infinite;
+  }
+  .idle-gust {
+    animation: idle-gust 11s ease-in infinite;
+  }
+  .idle-beam {
+    animation: idle-beam 8s ease-in-out infinite alternate;
+  }
+  .idle-sway {
+    transform-origin: 50% 2%;
+    animation: idle-sway 5.5s ease-in-out infinite alternate;
+  }
+  .idle-mote {
+    animation: idle-mote 14s linear infinite;
+  }
+  .idle-pool {
+    animation: idle-pool 9s ease-in-out infinite alternate;
+  }
+  .idle-sheen__band {
+    animation: idle-sheen 8s ease-in-out infinite;
+  }
+  .idle-twinkle {
+    animation: idle-twinkle 3.6s ease-in-out infinite;
+  }
+  .idle-rise {
+    animation: idle-rise 10s ease-out infinite;
+  }
+}
+
+/* Keyframes live in styles.css ("Idle motion"): this component is over
+   its style budget otherwise, and unscoped names resolve there. */
+
+/* Reduced motion: light, lamps, the car, and the flock stay as stills;
+   particles that only make sense in motion are removed. */
+@media (prefers-reduced-motion: reduce) {
+  .idle-puff,
+  .idle-fall,
+  .idle-gust,
+  .idle-mote,
+  .idle-twinkle,
+  .idle-rise {
+    display: none;
+  }
+}

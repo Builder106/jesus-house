@@ -1,7 +1,8 @@
 /* SCENE 3 — A PLACE FOR YOU.
- * Pew interior vignette; the camera zooms into the open hymnal on the pew
- * (origin 63.9% 60% = the book in the 1440×900 art). Same rig + timings as
- * scene 2: 0–.38 read · .38–.46 copy lifts · .45–.92 zoom · .82–1 cream veil. */
+ * Pew interior vignette; the camera zooms into the stained-glass picture on
+ * the open Bible (target set in audience.ts). Same rig + timings as scene 2:
+ * 0–.38 read · .38–.46 copy lifts · .45–.92 zoom, the sharp close-up taking
+ * over mid-dive and holding while the sanctuary rises over it. */
 :host {
   display: block;
 }
@@ -30,12 +31,15 @@
   box-shadow: 0 18px 50px rgb(20 16 56 / 0.08);
 }
 
-.scene__veil {
+/* The camera's close-up: the art cropped around the target (see
+   art-src/scenes/build.py). Invisible until the scene is active. */
+.scene__close {
   position: absolute;
   inset: 0;
-  z-index: 3;
-  /* Warm veil ground (styles.css) — the held wash reads as light, not blank. */
-  background: var(--jh-veil-warm);
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   opacity: 0;
   pointer-events: none;
 }
@@ -55,9 +59,9 @@
 }
 
 :host(.scene--active) [data-scene-var] {
-  /* Scene action (copy read → zoom into the hymnal → cream veil) runs over the
-     front of the pin via --p (0→1 as --zoom 0→.545), then holds while the pew
-     scene rises up through the held cream over the back ~45% — closing the
+  /* Scene action (copy read → zoom into the Bible's picture) runs over the
+     front of the pin via --p (0→1 as --zoom 0→.545), then holds while the
+     sanctuary rises up over the held close-up over the back ~45% — closing the
      hand-off gap (see the -100svh overlap in styles.css).
      Derived per consumer, not on the stage: --zoom/--p/--n are registered
      non-inherited (styles.css) so a scroll write costs one element's style,
@@ -71,7 +75,9 @@
   transform-origin: var(--tox, 50%) var(--toy, 50%);
   transform: translate(calc(var(--n) * var(--panx, 0px)), calc(var(--n) * var(--pany, 0px)))
     scale(calc(1 + var(--n) * 13));
-  will-change: transform;
+  /* Transparent once the close-up covers it (see ride.css). */
+  opacity: clamp(0, calc((0.62 - var(--n)) / 0.04), 1);
+  will-change: transform, opacity;
 }
 
 /* Compositor-driven dive override lives globally in styles.css — see the
@@ -83,6 +89,20 @@
   will-change: opacity, transform;
 }
 
-:host(.scene--active) .scene__veil {
-  opacity: clamp(0, calc((var(--p) - 0.82) * 5.6), 1);
+:host(.scene--active) .scene__close {
+  /* The art's camera re-expressed for a layer that starts at 7x: scale is
+     (1 + 13n) / 7, shown once that is >= 1 (n >= .46). See ride.css. */
+  transform: translate(
+      calc((var(--n) - 1) * var(--panx, 0px)),
+      calc((var(--n) - 1) * var(--pany, 0px))
+    )
+    scale(calc((1 + var(--n) * 13) / 7));
+  opacity: clamp(0, calc((var(--n) - 0.48) / 0.1), 1);
+  will-change: transform, opacity;
+}
+
+/* Idle motion stops reading as part of the scene once the camera moves, so
+   it fades out over --p 0.38–0.44, just before the dive. */
+:host(.scene--active) .scene__idle {
+  opacity: clamp(0, calc((0.44 - var(--p)) / 0.06), 1);
 }

@@ -79,6 +79,9 @@ export class SceneDirective {
       const vbW = parseFloat(el.dataset['sceneVw'] ?? '1440');
       const vbH = parseFloat(el.dataset['sceneVh'] ?? '900');
       const art = el.querySelector<HTMLElement>('.scene__art');
+      // The close-up layer (a sharp crop of the art around the target) rides the
+      // same camera, so it needs the same pan; its origin is its own centre.
+      const close = el.querySelector<HTMLElement>('.scene__close');
       // --zoom (and the --p/--n the scene CSS derives from it) is registered
       // `inherits: false` (styles.css) so a per-frame write can't invalidate a
       // whole subtree's style. The cost of that: the value doesn't travel down
@@ -141,13 +144,17 @@ export class SceneDirective {
         // Origin/pan are viewport geometry — constant while scrolling, so these
         // writes only happen on activation and resize. They stay unregistered
         // (their 50% fallbacks can't be an @property initial-value), which is
-        // fine at that cadence, and only the art element reads them.
+        // fine at that cadence, and only the art and close-up elements read them.
         if (art && m.tox && m.tox !== lastTox) {
           lastTox = m.tox;
           art.style.setProperty('--tox', m.tox);
           if (m.toy) art.style.setProperty('--toy', m.toy);
           if (m.panx) art.style.setProperty('--panx', m.panx);
           if (m.pany) art.style.setProperty('--pany', m.pany);
+          if (close && m.panx && m.pany) {
+            close.style.setProperty('--panx', m.panx);
+            close.style.setProperty('--pany', m.pany);
+          }
         }
       };
 

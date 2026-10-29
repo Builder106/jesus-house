@@ -14,6 +14,7 @@ import EmblaCarousel, { type EmblaCarouselType } from 'embla-carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { RevealDirective } from '../../../../shared/motion/reveal.directive';
 import { SceneDirective } from '../../../../shared/motion/scene.directive';
+import { SceneIdle } from '../../../../shared/ui/scene-idle/scene-idle';
 import { ScrollScrubber } from '../../../../shared/motion/scroll-scrubber';
 
 /**
@@ -27,12 +28,12 @@ import { ScrollScrubber } from '../../../../shared/motion/scroll-scrubber';
 @Component({
   selector: 'app-home-values',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RevealDirective],
+  imports: [RevealDirective, SceneIdle],
   hostDirectives: [SceneDirective],
   host: {
     // Camera target: cross coordinate within stained-glass arch (1440×900 viewBox).
     'data-scene-x': '720',
-    'data-scene-y': '330',
+    'data-scene-y': '300',
   },
   templateUrl: './values.html',
   styleUrl: './values.css',

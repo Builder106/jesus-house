@@ -81,31 +81,52 @@
  * does not rewrite animation-name references nested inside @supports, so a
  * component-local copy references a keyframes that no longer exists. */
 @supports (animation-timeline: view()) {
-  jh-home-ride.scene--active,
-  jh-home-audience.scene--active,
-  jh-home-values.scene--active,
-  jh-home-story.scene--active {
+  app-home-ride.scene--active,
+  app-home-audience.scene--active,
+  app-home-values.scene--active,
+  app-home-story.scene--active {
     view-timeline: --jh-scene block;
   }
-  jh-home-hero.portal--active {
+  app-home-hero.portal--active {
     view-timeline: --jh-portal block;
   }
 
-  jh-home-ride.scene--active .scene__art,
-  jh-home-audience.scene--active .scene__art,
-  jh-home-values.scene--active .scene__art {
+  app-home-ride.scene--active .scene__art,
+  app-home-audience.scene--active .scene__art,
+  app-home-values.scene--active .scene__art {
     animation-timing-function: linear;
     animation-fill-mode: both;
     animation-timeline: --jh-scene;
     animation-range: contain 24.53% contain 50.14%;
   }
-  jh-home-ride.scene--active .scene__art {
+  app-home-ride.scene--active .scene__art {
     animation-name: jh-ride-dive;
   }
-  jh-home-audience.scene--active .scene__art {
+  app-home-ride.scene--active .scene__close {
+    animation-name: jh-ride-close;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: --jh-scene;
+    animation-range: contain 24.53% contain 50.14%;
+  }
+  app-home-audience.scene--active .scene__art {
     animation-name: jh-audience-dive;
   }
-  jh-home-values.scene--active .scene__art {
+  app-home-audience.scene--active .scene__close {
+    animation-name: jh-audience-close;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: --jh-scene;
+    animation-range: contain 24.53% contain 50.14%;
+  }
+  app-home-values.scene--active .scene__close {
+    animation-name: jh-values-close;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: --jh-scene;
+    animation-range: contain 41.35% contain 61.36%;
+  }
+  app-home-values.scene--active .scene__art {
     animation-name: jh-values-dive;
     /* Values runs a wider, later window than ride/audience: 400svh pin,
        action over zoom 0→0.667, dive over --p 0.62→0.92 (see values.css) —
@@ -113,7 +134,7 @@
     animation-range: contain 41.35% contain 61.36%;
   }
 
-  jh-home-story.scene--active .scene__frame {
+  app-home-story.scene--active .scene__frame {
     animation-name: jh-story-out;
     animation-timing-function: linear;
     animation-fill-mode: both;
@@ -121,24 +142,24 @@
     animation-range: contain 27.25% contain 50.14%;
   }
   @media (max-width: 1023px) {
-    jh-home-story.scene--active .scene__frame {
+    app-home-story.scene--active .scene__frame {
       animation-name: jh-story-out-center;
     }
   }
 
   /* Hero: `contain` progress IS --enter, so the 0.15/0.18/0.2/0.45
      breakpoints of the var(--enter) formulas become keyframe offsets. */
-  jh-home-hero.portal--active .portal__art,
-  jh-home-hero.portal--active .portal__light {
+  app-home-hero.portal--active .portal__art,
+  app-home-hero.portal--active .portal__light {
     animation-timing-function: linear;
     animation-fill-mode: both;
     animation-timeline: --jh-portal;
     animation-range: contain;
   }
-  jh-home-hero.portal--active .portal__art {
+  app-home-hero.portal--active .portal__art {
     animation-name: jh-portal-art;
   }
-  jh-home-hero.portal--active .portal__light {
+  app-home-hero.portal--active .portal__light {
     animation-name: jh-portal-light;
   }
 
@@ -147,11 +168,11 @@
      so the dive maps 1:1 with `animation-range: contain`. Art (bitmap) and
      mark (the logo vector, the camera target) scale together as one camera;
      the var(--enter) transform in rcf.css stays as the non-SDA fallback. */
-  jh-rcf .rcf-hero--active {
+  app-rcf .rcf-hero--active {
     view-timeline: --rcf-hero block;
   }
-  jh-rcf .rcf-hero--active .rcf-hero__art,
-  jh-rcf .rcf-hero--active .rcf-hero__mark {
+  app-rcf .rcf-hero--active .rcf-hero__art,
+  app-rcf .rcf-hero--active .rcf-hero__mark {
     animation-name: jh-rcf-dive;
     animation-timing-function: linear;
     animation-fill-mode: both;
@@ -163,25 +184,102 @@
 @keyframes jh-ride-dive {
   from {
     transform: translate(0px, 0px) scale(1);
+    opacity: 1;
+  }
+  58% {
+    opacity: 1;
+  }
+  62% {
+    opacity: 0;
   }
   to {
     transform: translate(var(--panx, 0px), var(--pany, 0px)) scale(24);
+    opacity: 0;
+  }
+}
+/* The ride close-up (ride.css): starts as the 12x crop, so its scale is the
+   art's divided by 12 and its pan runs from -pan to 0 about its own centre.
+   Fades in over 48–58%, while the art fades out over 58–62%. */
+@keyframes jh-ride-close {
+  from {
+    transform: translate(calc(-1 * var(--panx, 0px)), calc(-1 * var(--pany, 0px))) scale(0.0833);
+    opacity: 0;
+  }
+  48% {
+    opacity: 0;
+  }
+  58% {
+    opacity: 1;
+  }
+  to {
+    transform: translate(0px, 0px) scale(2);
+    opacity: 1;
   }
 }
 @keyframes jh-audience-dive {
   from {
     transform: translate(0px, 0px) scale(1);
+    opacity: 1;
+  }
+  58% {
+    opacity: 1;
+  }
+  62% {
+    opacity: 0;
   }
   to {
     transform: translate(var(--panx, 0px), var(--pany, 0px)) scale(14);
+    opacity: 0;
+  }
+}
+/* Pew close-up: starts as the 7x crop (see jh-ride-close). */
+@keyframes jh-audience-close {
+  from {
+    transform: translate(calc(-1 * var(--panx, 0px)), calc(-1 * var(--pany, 0px))) scale(0.1429);
+    opacity: 0;
+  }
+  48% {
+    opacity: 0;
+  }
+  58% {
+    opacity: 1;
+  }
+  to {
+    transform: translate(0px, 0px) scale(2);
+    opacity: 1;
   }
 }
 @keyframes jh-values-dive {
   from {
     transform: translate(0px, 0px) scale(1);
+    opacity: 1;
+  }
+  56% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0;
   }
   to {
     transform: translate(var(--panx, 0px), var(--pany, 0px)) scale(8);
+    opacity: 0;
+  }
+}
+/* Sanctuary close-up: starts as the 4x crop (see jh-ride-close). */
+@keyframes jh-values-close {
+  from {
+    transform: translate(calc(-1 * var(--panx, 0px)), calc(-1 * var(--pany, 0px))) scale(0.25);
+    opacity: 0;
+  }
+  46% {
+    opacity: 0;
+  }
+  56% {
+    opacity: 1;
+  }
+  to {
+    transform: translate(0px, 0px) scale(2);
+    opacity: 1;
   }
 }
 @keyframes jh-story-out {
@@ -527,19 +625,6 @@
       rgba(201, 162, 39, 0.08) 100%
     ),
     var(--color-jh-cream);
-  --jh-veil-night:
-    radial-gradient(1.6px 1.6px at 21% 26%, rgba(255, 255, 255, 0.5) 0 48%, transparent 52%),
-    radial-gradient(1.2px 1.2px at 67% 15%, rgba(255, 255, 255, 0.42) 0 48%, transparent 52%),
-    radial-gradient(1.4px 1.4px at 84% 38%, rgba(255, 255, 255, 0.35) 0 48%, transparent 52%),
-    radial-gradient(1px 1px at 38% 9%, rgba(255, 255, 255, 0.35) 0 48%, transparent 52%),
-    radial-gradient(1px 1px at 9% 47%, rgba(255, 255, 255, 0.28) 0 48%, transparent 52%),
-    radial-gradient(
-      120vmax 90vmax at 50% 38%,
-      rgba(63, 52, 130, 0.5) 0%,
-      rgba(37, 30, 88, 0.22) 36%,
-      rgba(20, 16, 56, 0) 62%
-    ),
-    var(--color-jh-night);
 }
 
 /* ── Journey hand-off: close the pinned-section trailing gap ────────────────
@@ -560,7 +645,7 @@
  * or svh, to match the stage's own dvh sizing (dvh tracks the real viewport as
  * the mobile URL bar shows/hides; svh — the toolbar-fully-shown minimum — would
  * undershoot the overlap once the toolbar auto-hides, reopening the gap). */
-jh-home-hero.portal--active + jh-home-ride {
+app-home-hero.portal--active + app-home-ride {
   margin-top: -100dvh;
 }
 
@@ -570,10 +655,10 @@ jh-home-hero.portal--active + jh-home-ride {
  * scene is pulled up one stage-height so it rises through that held veil into
  * centre — no dead cream between sections. Gated on the previous scene's
  * .scene--active so the static/no-JS/reduced-motion flow is untouched. */
-jh-home-ride.scene--active + jh-home-audience,
-jh-home-audience.scene--active + jh-home-values,
-jh-home-values.scene--active + jh-home-story,
-jh-home-story.scene--active + jh-home-comeandsee {
+app-home-ride.scene--active + app-home-audience,
+app-home-audience.scene--active + app-home-values,
+app-home-values.scene--active + app-home-story,
+app-home-story.scene--active + app-home-comeandsee {
   margin-top: -100dvh;
 }
 
@@ -583,7 +668,7 @@ jh-home-story.scene--active + jh-home-comeandsee {
  * (positioned, z-index 3 in story.css) covered it — its text rose invisibly
  * behind the cream while the pin Lottie (a positioned host) poked through as
  * an orphan (found on-device, 2026-07-04). Lift it just above the veil. */
-jh-home-story.scene--active + jh-home-comeandsee {
+app-home-story.scene--active + app-home-comeandsee {
   position: relative;
   z-index: 4;
 }
@@ -595,7 +680,7 @@ jh-home-story.scene--active + jh-home-comeandsee {
  * 160svh range, and 260 − 40 − 100svh viewport = 120svh keeps the rise
  * strictly after it). */
 @media (max-width: 1023px) {
-  jh-home-story.scene--active + jh-home-comeandsee {
+  app-home-story.scene--active + app-home-comeandsee {
     margin-top: -40dvh;
   }
 }
@@ -728,5 +813,213 @@ jh-home-story.scene--active + jh-home-comeandsee {
 
   .jh-swipe {
     display: block;
+  }
+}
+
+/* ── Idle motion ────────────────────────────────────────────────────────────
+ * Keyframes for jh-scene-idle (shared/ui/scene-idle), kept global so the
+ * component stays inside its style budget. Transform and opacity only. */
+@keyframes idle-breathe {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes idle-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes idle-drift {
+  to {
+    transform: translateX(6vw);
+  }
+}
+
+/* The flock is 200 units wide and starts at x=1240: crossing to x=-250 is
+   745% of its own width. A gentle rise and fall on the way. */
+@keyframes idle-flock {
+  0% {
+    transform: translate(20%, 0);
+  }
+  50% {
+    transform: translate(-362%, -14%);
+  }
+  100% {
+    transform: translate(-745%, 6%);
+  }
+}
+
+/* One dash period (40 of the strip's 490 units) per cycle, moving right. */
+@keyframes idle-lane {
+  from {
+    transform: translateX(-8.163%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes idle-ride {
+  from {
+    transform: translateY(0) rotate(0deg);
+  }
+  to {
+    transform: translateY(-1.4%) rotate(-0.35deg);
+  }
+}
+
+/* The car faces left, so its wheels turn anticlockwise. */
+@keyframes idle-spin {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes idle-puff {
+  0% {
+    opacity: 0.85;
+    transform: translate(0, 0) scale(0.4);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(5vw, -2.4vw) scale(2.4);
+  }
+}
+
+@keyframes idle-fall {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  10% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(5vw, 15vw) rotate(340deg);
+  }
+}
+
+/* A gust: leaves blown across the frame in the first third of each cycle,
+   bobbing as they go, then quiet until the next one. */
+@keyframes idle-gust {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  3% {
+    opacity: 1;
+  }
+  12% {
+    transform: translate(30vw, -3vw) rotate(260deg);
+  }
+  22% {
+    transform: translate(64vw, 2vw) rotate(520deg);
+  }
+  30% {
+    opacity: 1;
+  }
+  34% {
+    opacity: 0;
+    transform: translate(104vw, -4vw) rotate(800deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(104vw, -4vw) rotate(800deg);
+  }
+}
+
+@keyframes idle-beam {
+  from {
+    opacity: 0.08;
+  }
+  to {
+    opacity: 0.55;
+  }
+}
+
+@keyframes idle-sway {
+  from {
+    transform: rotate(-3.5deg);
+  }
+  to {
+    transform: rotate(3.5deg);
+  }
+}
+
+/* Dust rising through the light, over the panel. */
+@keyframes idle-mote {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  12% {
+    opacity: 0.95;
+  }
+  50% {
+    transform: translate(2.5vw, -26vw);
+  }
+  85% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-1vw, -52vw);
+  }
+}
+
+@keyframes idle-pool {
+  from {
+    opacity: 0.3;
+    transform: translate(-1.5vw, 0) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(1.5vw, -0.4vw) scale(1.12);
+  }
+}
+
+@keyframes idle-sheen {
+  0% {
+    transform: translateX(-120%);
+  }
+  45%,
+  100% {
+    transform: translateX(260%);
+  }
+}
+
+@keyframes idle-twinkle {
+  0%,
+  55%,
+  100% {
+    opacity: 0;
+    transform: scale(0.3) rotate(0deg);
+  }
+  72% {
+    opacity: 1;
+    transform: scale(1.15) rotate(45deg);
+  }
+}
+
+@keyframes idle-rise {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.4) rotate(0deg);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(1.5vw, -22vw) scale(1) rotate(180deg);
   }
 }

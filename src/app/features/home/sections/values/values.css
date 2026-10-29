@@ -1,10 +1,9 @@
 /* SCENE 4 — SUNDAY MORNING (the sanctuary).
  * A single frosted panel (heading + an Embla-powered carousel of the four
  * Sunday beats) reads while the scene is pinned, then the camera zooms into
- * the stained-glass arch; its indigo glass fills the frame and the jh-night
- * veil hands off to the cathedral section below. Same two-phase rig as
- * ride/audience: --p (0→1 as --zoom 0→.545) · 0–.38 panel reads · .38–.46
- * panel lifts away · .45–.92 zoom into the glass · .82–1 night veil.
+ * the cross in the stained-glass arch; the sharp close-up of its indigo glass
+ * fills the frame and holds while the cathedral section rises over it. The
+ * read and dive windows are longer than ride/audience's (see --p/--n below).
  * (The late-start/fast-ramp lift also closes the old .42–.45 dead band where
  * the panel had gone but the dive hadn't visibly begun.)
  * The carousel is scroll-independent (Embla: swipe / autoplay / dot-click)
@@ -125,12 +124,15 @@
   transform: scaleX(1.7);
 }
 
-.scene__veil {
+/* The camera's close-up: the art cropped around the target (see
+   art-src/scenes/build.py). Invisible until the scene is active. */
+.scene__close {
   position: absolute;
   inset: 0;
-  z-index: 3;
-  /* Night veil ground (styles.css) — moonlit bloom + faint stars, not flat navy. */
-  background: var(--jh-veil-night);
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   opacity: 0;
   pointer-events: none;
 }
@@ -233,7 +235,9 @@
   transform-origin: var(--tox, 50%) var(--toy, 50%);
   transform: translate(calc(var(--n) * var(--panx, 0px)), calc(var(--n) * var(--pany, 0px)))
     scale(calc(1 + var(--n) * 7));
-  will-change: transform;
+  /* Transparent once the close-up covers it (see ride.css). */
+  opacity: clamp(0, calc((0.6 - var(--n)) / 0.04), 1);
+  will-change: transform, opacity;
 }
 
 /* Compositor-driven dive override lives globally in styles.css — see the
@@ -251,6 +255,20 @@
   will-change: opacity, transform;
 }
 
-:host(.scene--active) .scene__veil {
-  opacity: clamp(0, calc((var(--p) - 0.82) * 5.6), 1);
+:host(.scene--active) .scene__close {
+  /* The art's camera re-expressed for a layer that starts at 4x: scale is
+     (1 + 7n) / 4, shown once that is >= 1 (n >= .43). See ride.css. */
+  transform: translate(
+      calc((var(--n) - 1) * var(--panx, 0px)),
+      calc((var(--n) - 1) * var(--pany, 0px))
+    )
+    scale(calc((1 + var(--n) * 7) / 4));
+  opacity: clamp(0, calc((var(--n) - 0.46) / 0.1), 1);
+  will-change: transform, opacity;
+}
+
+/* Idle motion stops reading as part of the scene once the camera moves, so
+   it fades out over --p 0.55–0.61, just before the dive. */
+:host(.scene--active) .scene__idle {
+  opacity: clamp(0, calc((0.61 - var(--p)) / 0.06), 1);
 }

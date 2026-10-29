@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RevealDirective } from '../../../../shared/motion/reveal.directive';
 import { SceneDirective } from '../../../../shared/motion/scene.directive';
+import { SceneIdle } from '../../../../shared/ui/scene-idle/scene-idle';
 
 /**
  * jh-home-ride — SCENE 2 · THE ROAD TO US (ride ministry).
@@ -26,12 +27,13 @@ import { SceneDirective } from '../../../../shared/motion/scene.directive';
 @Component({
   selector: 'app-home-ride',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RevealDirective],
+  imports: [RevealDirective, SceneIdle],
   hostDirectives: [SceneDirective],
   host: {
-    // Camera target: the car's rear side window, in 1440×900 viewBox coords.
-    'data-scene-x': '799',
-    'data-scene-y': '627',
+    // Camera target: the Bible seen through the car's rear side window, in
+    // 1440×900 viewBox coords (art-src/scenes/road.py TARGET).
+    'data-scene-x': '866',
+    'data-scene-y': '630',
   },
   templateUrl: './ride.html',
   styleUrl: './ride.css',

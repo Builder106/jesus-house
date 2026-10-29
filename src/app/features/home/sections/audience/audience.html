@@ -1,8 +1,8 @@
 <!--
   SCENE 3 — A PLACE FOR YOU (audience).
-  Inside now: a warm pew with morning light, a gold glow on the open seat —
-  the seat saved for you. The camera move: scroll zooms INTO the open hymnal
-  resting on the pew, and its pages resolve into the next scene (Sunday).
+  Inside now: a pew in morning light, the Bible from the car open on the red
+  cushion. The camera move: scroll zooms INTO the picture on its left page,
+  the stained-glass window the sanctuary scene opens with.
 
   Static baseline (SSR / no-JS / mobile / reduced-motion): a normal section —
   illustration behind, copy panel on top. jhScene adds the pin + camera only
@@ -14,6 +14,25 @@
     class="scene__art"
     data-scene-var
     src="/art/audience-scene.webp"
+    width="2880"
+    height="1800"
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+    decoding="async"
+  />
+
+  <!-- Idle motion over the art while the scene rests; fades out before the
+       dive (art-src/scenes/idle.py). -->
+  <app-scene-idle scene="audience" class="scene__idle" data-scene-var />
+
+  <!-- The camera's close-up: the picture of the stained-glass window on the
+       Bible's open page. Fades in mid-dive and holds while the sanctuary
+       rises over it. -->
+  <img
+    class="scene__close"
+    data-scene-var
+    src="/art/audience-close.webp"
     width="2880"
     height="1800"
     alt=""
@@ -52,7 +71,6 @@
       </p>
     </div>
   </div>
-
-  <!-- Camera veil -->
-  <div class="scene__veil" data-scene-var aria-hidden="true"></div>
+  <!-- Idle motion that floats over the copy panel (leaves, dust, sparkles). -->
+  <app-scene-idle scene="audience" layer="front" class="scene__idle" data-scene-var />
 </section>
