@@ -6,6 +6,10 @@
 > Tag with `#decision`/`#pivot`/`#incident`/`#quote`/`#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-10-28: The journey's hand-offs were broken since August; the dives now end on a match cut #incident #decision
+
+An audit found seven blank screens on the phone homepage. The August selector rename (974cb18, `jh-` to `app-`) left 27 global selectors in `styles.css` pointing at old element names. The scene overlaps, scroll-driven dives, and story-to-invitation stacking rule stopped applying. Fixing the selectors shortened the phone page from 15,465px to 11,751px. The owner rejected a conventional "This Sunday" rebuild the same day as "too conventional," so the zoom journey stays. The remaining blank frames came from the cream and navy veils at the end of each dive and 2880px artwork enlarged 8 to 24 times. Each scene now has a full-resolution close-up cropped around its camera target. It follows the same camera movement, fades in mid-dive, and stays visible as the next scene rises over it. The Python generators in `art-src/scenes/` redraw the three scenes with realistic lighting and Middletown details. The images connect across scenes: the car's rear window shows a Bible on the back seat; the Bible opens on a pew with a picture of the stained-glass window; the sanctuary window repeats that picture. The Visit route diagram and RCF week vignettes use the same style.
+
 ## 2026-10-23: Add typed API checks #ci #decision
 
 ESLint now rejects explicit `any`, flags deprecated TypeScript APIs, and limits explicit `unknown` in application source to data and error boundaries. CI already runs the strict Angular typecheck.

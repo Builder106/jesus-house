@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 /**
- * jh-rcf-vignette — the illustration for one gathering of the RCF week.
+ * jh-rcf-vignette: illustration for one gathering of the RCF week.
  * Decorative (the copy beside it carries the facts); the SVGs are generated
  * by art-src/scenes/rcf_week.py. Idle motion (string lights, music notes,
  * steam, the lamp's glow) plays unless the visitor prefers reduced motion.

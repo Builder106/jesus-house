@@ -1,7 +1,7 @@
 /* SCENE 3 — A PLACE FOR YOU.
  * Pew interior vignette; the camera zooms into the stained-glass picture on
  * the open Bible (target set in audience.ts). Same rig + timings as scene 2:
- * 0–.38 read · .38–.46 copy lifts · .45–.92 zoom, the sharp close-up taking
+ * 0 to .38 read; .38 to .46 copy lifts; .45 to .92 zoom, the sharp close-up taking
  * over mid-dive and holding while the sanctuary rises over it. */
 :host {
   display: block;
@@ -61,7 +61,7 @@
 :host(.scene--active) [data-scene-var] {
   /* Scene action (copy read → zoom into the Bible's picture) runs over the
      front of the pin via --p (0→1 as --zoom 0→.545), then holds while the
-     sanctuary rises up over the held close-up over the back ~45% — closing the
+     sanctuary rises over the held close-up for the final ~45%, closing the
      hand-off gap (see the -100svh overlap in styles.css).
      Derived per consumer, not on the stage: --zoom/--p/--n are registered
      non-inherited (styles.css) so a scroll write costs one element's style,
@@ -80,7 +80,7 @@
   will-change: transform, opacity;
 }
 
-/* Compositor-driven dive override lives globally in styles.css — see the
+/* Compositor-driven dive override lives globally in styles.css. See the
    note in ride.css for why it can't live here. */
 
 :host(.scene--active) .scene__copy {
@@ -102,7 +102,7 @@
 }
 
 /* Idle motion stops reading as part of the scene once the camera moves, so
-   it fades out over --p 0.38–0.44, just before the dive. */
+   it fades out over --p 0.38 to 0.44, just before the dive. */
 :host(.scene--active) .scene__idle {
   opacity: clamp(0, calc((0.44 - var(--p)) / 0.06), 1);
 }

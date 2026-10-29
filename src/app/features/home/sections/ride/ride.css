@@ -4,7 +4,7 @@
  * Baseline = static illustrated section; .scene--active (set by jhScene on
  * any tall-enough viewport, motion-OK) pins the stage and drives the move off
  * --zoom (0→1):
- *   0–.38 read copy · .38–.46 copy lifts away · .45–.92 zoom into the glass,
+ *   0 to .38 read copy; .38 to .46 copy lifts away; .45 to .92 zoom into the glass,
  *   the sharp close-up taking over from the art mid-dive · then the close-up
  *   holds while the pew scene rises over it (no blank veil).
  * The copy holds at FULL opacity until .38 (was .30 with a slow ramp): the
@@ -128,7 +128,7 @@
 }
 
 /* Idle motion stops reading as part of the scene once the camera moves, so
-   it fades out over --p 0.38–0.44, just before the dive. */
+   it fades out over --p 0.38 to 0.44, just before the dive. */
 :host(.scene--active) .scene__idle {
   opacity: clamp(0, calc((0.44 - var(--p)) / 0.06), 1);
 }

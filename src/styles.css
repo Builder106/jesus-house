@@ -199,7 +199,7 @@
 }
 /* The ride close-up (ride.css): starts as the 12x crop, so its scale is the
    art's divided by 12 and its pan runs from -pan to 0 about its own centre.
-   Fades in over 48–58%, while the art fades out over 58–62%. */
+   Fades in from 48 to 58%, while the art fades out from 58 to 62%. */
 @keyframes jh-ride-close {
   from {
     transform: translate(calc(-1 * var(--panx, 0px)), calc(-1 * var(--pany, 0px))) scale(0.0833);

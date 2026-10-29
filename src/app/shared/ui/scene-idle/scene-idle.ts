@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 /**
- * jh-scene-idle — the motion a home scene plays while it rests. Each scene
+ * jh-scene-idle: the motion a home scene plays while it rests. Each scene
  * has a signature: the car drives (wheels spin, the centre line streams), a
  * page of the Bible turns, coloured light from the stained glass moves across
  * the aisle. Around it: clouds, a flock, gusts of leaves, sunbeams, a swaying
