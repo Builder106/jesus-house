@@ -1,23 +1,22 @@
 <!--
   SCENE 4 — SUNDAY MORNING (values).
-  The sanctuary: chancel, lectern, and the great stained-glass arch. A single
-  panel (heading + an Embla-powered carousel of the four Sunday beats —
-  Welcoming · Rooted · Together · Sending) reads while the scene is pinned;
-  then the camera zooms INTO the cross in the stained glass and its deep
-  indigo becomes the ground of the cathedral section that follows.
+  The sanctuary: the chancel, the pastor, an usher in the aisle, a full
+  congregation, and the great stained-glass arch. The four Sunday beats
+  (Welcoming, Rooted, Together, Sending) are printed as the order of service
+  on a bulletin resting on the front pew. While the scene is pinned,
+  scrolling moves the bulletin down its four items, and the people in the
+  room act out the item it is on (app-scene-idle, keyed by [beat]): the usher
+  offers a bulletin as a newcomer walks in, the pastor preaches, hands go up
+  in worship, two people turn round in their pews to wave. Then the camera
+  zooms INTO the cross in the stained glass and its deep indigo becomes the
+  ground of the cathedral section that follows.
 
-  The carousel itself is scroll-independent (swipe, autoplay, or click a
-  dot) — unlike the rest of the page's scroll-driven camera, it doesn't need
-  scroll distance to advance, so it just sits inside the pinned panel.
-
-  Static baseline (SSR / no-JS / mobile / reduced-motion): a normal section —
-  the scene illustrates, the heading + a 2×2 grid of the same four cards read
-  below (Embla only initialises in the browser; without it the grid is the
-  permanent layout, not just a flash-of-unstyled-carousel).
+  Static baseline (SSR / no-JS / short viewports / reduced motion): a normal
+  section; the scene illustrates and the bulletin reads over it with all four
+  items, none marked.
 -->
 <section class="scene__stage" data-jh-header-dark="when-veiled" aria-labelledby="values-heading">
-  <!-- The illustrated sanctuary (decorative). Window panes are future
-       PHOTO SLOTs once the parish photo session happens. -->
+  <!-- The illustrated sanctuary and its people at rest (decorative). -->
   <img
     class="scene__art"
     data-scene-var
@@ -30,9 +29,10 @@
     decoding="async"
   />
 
-  <!-- Idle motion over the art while the scene rests; fades out before the
-       dive (art-src/scenes/idle.py). -->
-  <app-scene-idle scene="values" class="scene__idle" data-scene-var />
+  <!-- Idle motion over the art while the scene rests, including the people
+       acting out the bulletin's current item; fades out before the dive
+       (art-src/scenes/idle.py). -->
+  <app-scene-idle scene="values" class="scene__idle" data-scene-var [beat]="activeIndex()" />
 
   <!-- The camera's close-up: the cross in the great window, its deep navy
        glass. Fades in mid-dive and holds while the cathedral section rises
@@ -50,69 +50,39 @@
     decoding="async"
   />
 
-  <!-- Heading + carousel panel -->
-  <div class="scene__copy relative z-[2] mx-auto w-full max-w-5xl px-6" data-scene-var>
-    <!-- max-w-xl, matching ride/audience's panel width (not the 2xl it used
-         to be): at 2xl the panel's right edge landed almost exactly on the
-         dive target (the cross at x=720 of the 1440-wide art), burying the
-         thing the camera is about to zoom into behind the copy for the whole
-         read phase. Narrower pulls the right edge clear so the arch is
-         visible beside the card while it reads. -->
-    <div class="scene__panel max-w-xl rounded-lg border border-jh-rule p-8 sm:p-10">
-      <p appReveal class="jh-eyebrow text-jh-soft">Sunday mornings</p>
-      <h2
-        id="values-heading"
-        appReveal="80"
-        class="mt-4 font-display text-3xl font-semibold leading-tight text-jh-ink sm:text-4xl"
-      >
+  <div class="scene__copy" data-scene-var>
+    <!-- The order of service. The item the scroll is on catches the coloured
+         light from the window; on narrow or short screens only that item
+         opens to its full line. -->
+    <article class="bulletin">
+      <h2 id="values-heading" appReveal class="bulletin__title font-display">
         What Sunday is like
       </h2>
-      <p appReveal="160" class="mt-4 max-w-sm text-lg leading-relaxed text-jh-soft">
+      <p appReveal="80" class="bulletin__lede">
         Four things you can count on the moment you walk through our doors.
       </p>
-
-      <!-- The four beats, as an Embla carousel. Each card is an editorial
-           index: gold numeral · label kicker · word · line. Before Embla
-           initialises (no JS), .embla__container is a plain 2×2 grid — see
-           values.css. -->
-      <div #emblaRoot class="embla mt-8" aria-label="What Sunday is like">
-        <div class="embla__container">
-          @for (beat of beats; track beat.word) {
-            <div class="embla__slide">
-              <div class="scene__beat">
-                <span class="scene__beat-num font-display" aria-hidden="true">{{
-                  beat.index
-                }}</span>
-                <p class="scene__beat-label jh-eyebrow text-jh-soft">{{ beat.label }}</p>
-                <h3 class="scene__beat-word mt-3 font-display font-semibold text-jh-blue">
-                  {{ beat.word }}
-                </h3>
-                <p class="scene__beat-line mt-3 text-lg leading-relaxed text-jh-ink">
-                  {{ beat.line }}
-                </p>
-              </div>
-            </div>
-          }
-        </div>
-      </div>
-
-      <!-- Carousel progress: click a dot to jump to that beat. -->
-      <ul class="scene__dots mt-6" aria-label="Choose a beat of Sunday morning">
+      <ol class="bulletin__order" aria-label="Order of service">
         @for (beat of beats; track beat.word; let i = $index) {
-          <li>
-            <button
-              type="button"
-              class="scene__dot"
-              [class.scene__dot--active]="activeIndex() === i"
-              [attr.aria-current]="activeIndex() === i ? 'true' : null"
-              [attr.aria-label]="'Show: ' + beat.word"
-              (click)="scrollToBeat(i)"
-            ></button>
+          <li
+            class="bulletin__item"
+            [class.bulletin__item--now]="activeIndex() === i"
+            [attr.aria-current]="activeIndex() === i ? 'step' : null"
+          >
+            <span class="bulletin__num font-display" aria-hidden="true">{{ beat.index }}</span>
+            <div class="bulletin__head">
+              <h3 class="bulletin__word font-display">{{ beat.word }}</h3>
+              <span class="bulletin__leader" aria-hidden="true"></span>
+              <span class="bulletin__label">{{ beat.label }}</span>
+            </div>
+            <div class="bulletin__more">
+              <p>{{ beat.line }}</p>
+            </div>
           </li>
         }
-      </ul>
-    </div>
+      </ol>
+      <p class="bulletin__foot">Sunday Service | 9:00 AM | 120 Washington Street</p>
+    </article>
   </div>
-  <!-- Idle motion that floats over the copy panel (leaves, dust, sparkles). -->
+  <!-- Idle motion that floats over the bulletin (dust and sparkles). -->
   <app-scene-idle scene="values" layer="front" class="scene__idle" data-scene-var />
 </section>

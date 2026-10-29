@@ -136,7 +136,7 @@ export class SceneDirective {
         const zoom = m.zoom.toFixed(4);
         if (zoom !== lastZoom) {
           lastZoom = zoom;
-          // Host copy kept for JS readers (values.ts scrubs its carousel off
+          // Host copy kept for JS readers (values.ts picks its bulletin item off
           // the host's computed --zoom); non-inherited, so it costs one element.
           el.style.setProperty('--zoom', zoom);
           for (const c of consumers) c.style.setProperty('--zoom', zoom);

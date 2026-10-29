@@ -1,15 +1,13 @@
 /* SCENE 4 — SUNDAY MORNING (the sanctuary).
- * A single frosted panel (heading + an Embla-powered carousel of the four
- * Sunday beats) reads while the scene is pinned, then the camera zooms into
- * the cross in the stained-glass arch; the sharp close-up of its indigo glass
- * fills the frame and holds while the cathedral section rises over it. The
- * read and dive windows are longer than ride/audience's (see --p/--n below).
+ * The four Sunday beats are the order of service on a paper bulletin in the
+ * scene. While the scene is pinned the bulletin rests on the front pew, the
+ * scroll walks it down its items, and the congregation acts each one out (see
+ * values.ts and the idle layer). Then the camera zooms into the cross in the
+ * stained-glass arch; the sharp close-up of its indigo glass fills the frame
+ * and holds while the cathedral section rises over it. The read and dive
+ * windows are longer than ride/audience's (see --p/--n below).
  * (The late-start/fast-ramp lift also closes the old .42–.45 dead band where
- * the panel had gone but the dive hadn't visibly begun.)
- * The carousel is scroll-independent (Embla: swipe / autoplay / dot-click).
- * It sits inside the pinned panel like other content and reads
- * the same whether the scene is pinned or in its static/short-viewport
- * fallback (a plain 2×2 grid until Embla initialises — see .embla--ready). */
+ * the bulletin had gone but the dive hadn't visibly begun.) */
 :host {
   display: block;
 }
@@ -33,95 +31,125 @@
   object-fit: cover;
 }
 
-.scene__panel {
-  background: color-mix(in srgb, var(--color-jh-cream) 88%, transparent);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 18px 50px rgb(20 16 56 / 0.08);
+.scene__copy {
+  position: relative;
+  z-index: 2;
+  padding-inline: 1rem;
 }
 
-/* Static beats grid — the permanent layout until Embla initialises (no JS,
-   or before hydration). Not a flash-of-unstyled-carousel: without JS this
-   is what visitors get, full stop. */
-.embla__container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  gap: 1rem;
-}
-
-.scene__beat {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  /* Vertically centre the numeral/label/word/line block in the card. In the
-     fixed-height (16rem) post-ready carousel this fills the card instead of
-     top-aligning with a dead gap below the (usually two-line) copy; in the
-     static pre-ready grid, whose cards are taller than their content, it
-     reads as intentional composition rather than an accident either way. */
-  justify-content: center;
-  border: 1px solid var(--color-jh-rule);
-  border-radius: 0.5rem;
-  background: color-mix(in srgb, var(--color-jh-cream) 60%, transparent);
-  padding: 1.5rem;
-}
-
-/* Editorial index numeral — the gold accent that anchors each card. */
-.scene__beat-num {
-  display: block;
-  font-size: clamp(2rem, 5vw, 2.75rem);
-  line-height: 1;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--color-jh-gold);
-}
-
-.scene__beat-label {
-  margin-top: 0.5rem;
-}
-
-.scene__beat-word {
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  line-height: 1.05;
-}
-
-.scene__beat-line {
-  max-width: 32rem;
-}
-
-/* Progress dots — click one to jump to that beat. Visible (and inert until
-   Embla hydrates) in the static grid too, so the layout never jumps. */
-.scene__dots {
-  display: flex;
-  gap: 0.55rem;
-  justify-content: center;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.scene__dot {
-  width: 2.25rem;
-  height: 5px;
-  border: 0;
+/* ── The bulletin ──────────────────────────────────────────────────────────
+ * Plain white paper with the printed gold rule of a parish bulletin. Sizes
+ * are in em so the whole sheet scales from one font-size (see the short-
+ * viewport rule below). */
+.bulletin {
+  position: relative;
+  max-width: 29rem;
+  margin-inline: auto;
+  padding: 1.9em 1.9em 1.4em;
   border-radius: 3px;
+  background: linear-gradient(172deg, #ffffff 40%, #f1f1f5);
+  color: var(--color-jh-ink);
+  box-shadow:
+    0 1px 1px rgb(20 16 56 / 0.08),
+    0 24px 44px -14px rgb(20 16 56 / 0.4);
+}
+
+.bulletin::before {
+  content: '';
+  position: absolute;
+  inset: 0.55em;
+  border: 1px solid color-mix(in srgb, var(--color-jh-gold) 60%, transparent);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.bulletin__title {
+  font-size: 1.85em;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.bulletin__lede {
+  margin-top: 0.6em;
+  line-height: 1.5;
+  color: var(--color-jh-soft);
+}
+
+.bulletin__order {
+  margin: 0.8em 0 0;
   padding: 0;
-  background: var(--color-jh-soft);
-  opacity: 0.5;
-  cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    opacity 0.3s ease,
-    transform 0.3s ease;
+  list-style: none;
+  border-top: 1px solid var(--color-jh-rule);
 }
 
-.scene__dot:focus-visible {
-  outline: 2px solid var(--color-jh-blue);
-  outline-offset: 3px;
+.bulletin__item {
+  display: grid;
+  grid-template-columns: 2.1em 1fr;
+  column-gap: 0.7em;
+  padding: 0.55em 0.6em;
+  border-bottom: 1px solid var(--color-jh-rule);
+  border-radius: 2px;
+  transition: background-color 0.4s ease;
 }
 
-.scene__dot--active {
-  background: var(--color-jh-gold);
-  opacity: 1;
-  transform: scaleX(1.7);
+/* The item the scroll is on lies in the window's coloured light. */
+.bulletin__item--now {
+  background:
+    radial-gradient(ellipse 70% 120% at 15% 50%, rgb(255 210 90 / 0.32), transparent 70%),
+    radial-gradient(ellipse 60% 120% at 90% 40%, rgb(120 96 230 / 0.16), transparent 70%);
+}
+
+.bulletin__num {
+  grid-row: span 2;
+  font-size: 1.5em;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--color-jh-gold-ink);
+}
+
+.bulletin__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6em;
+}
+
+.bulletin__word {
+  font-size: 1.3em;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-jh-blue);
+}
+
+/* A hairline leader to the label, the way a printed order of service runs. */
+.bulletin__leader {
+  flex: 1;
+  border-bottom: 1px solid var(--color-jh-rule);
+}
+
+.bulletin__label {
+  font-size: 0.85em;
+  font-style: italic;
+  color: var(--color-jh-soft);
+}
+
+.bulletin__more {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.4s ease;
+}
+
+.bulletin__more > p {
+  min-height: 0;
+  overflow: hidden;
+  margin-top: 0.2em;
+  line-height: 1.45;
+}
+
+.bulletin__foot {
+  margin-top: 1em;
+  font-size: 0.8em;
+  text-align: center;
+  color: var(--color-jh-soft);
 }
 
 /* The camera's close-up: the art cropped around the target (see
@@ -137,69 +165,14 @@
   pointer-events: none;
 }
 
-/* ── Embla layout (once JS hydrates and the carousel initialises) ─────────
- * Vertical axis, matching the rest of the page's vertical journey. Drag is
- * disabled (see values.ts) — a vertically-draggable carousel nested inside
- * a vertically-scrolling page would fight the page's own scroll gesture, so
- * navigation is autoplay + dot-click only.
- *
- * The container needs an explicit height: 100% (inherited from .embla--
- * ready's fixed height below), not auto — with an auto-height flex column,
- * a slide's flex-basis: 100% is circular/undefined and browsers fall back
- * to sizing it by content instead of stretching it, which left every slide
- * a different height. Embla measures each slide's height to build its list
- * of scroll-snap positions, so with every slide silently sized differently
- * it detected only one snap point total and had nowhere to scroll to —
- * confirmed by testing this exact config in isolation outside Angular.
- * With height: 100% resolving concretely, every slide is a real, uniform
- * 16rem tall (overflowing the container, which is fine: .embla--ready's
- * own overflow: hidden is what clips it, and Embla translates the
- * container within that to bring each slide into view in turn). */
-.embla--ready {
-  overflow: hidden;
-  height: 16rem;
-}
-
-.embla--ready .embla__container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.embla--ready .embla__slide {
-  flex: 0 0 100%;
-  min-height: 0;
-}
-
-.embla--ready .scene__beat {
-  height: 100%;
-}
-
-/* ── Continuous scroll-linked position (while pinned) ──────────────────────
- * .embla--scrubbing is added by values.ts only while the scene is pinned —
- * it swaps Embla's own eased, discrete scrollTo for a plain transform keyed
- * off --carousel-scrub, a continuous 0→3 position across the four beats
- * (each slide is exactly 16rem, .embla--ready's fixed height). Matches how
- * the door/glass camera moves elsewhere on the page work: the card tracks
- * scroll pixel-for-pixel, not "snap on crossing a threshold." No transition
- * here on purpose — any easing would decouple the card's motion from the
- * scroll gesture driving it, which is exactly what this replaces. Embla is
- * not calling scrollTo while this class is present, so nothing else is
- * competing for the transform; !important is cheap insurance against Embla
- * reasserting its own inline transform from an internal resize reflow. */
-.embla--scrubbing .embla__container {
-  transition: none;
-  transform: translateY(calc(var(--carousel-scrub, 0) * -16rem)) !important;
-}
-
 /* ── Active camera move (tall viewports + motion-OK) ───────────────────── */
 :host(.scene--active) {
-  /* 400svh, not the 320svh of ride/audience: the carousel's four beats need
-     ~768px of card travel, and at 320svh they moved ~2.3× finger speed
-     (owner, 2026-07-04 — "faster than the rest of the site"). 400svh with
-     the wider 0→0.667 action window (see --p below) puts the beats at ~1:1
-     with the finger on a phone. The held-veil tail stays ~116svh, matched
-     to the story's -100svh rise overlap (styles.css), so no dead scroll. */
+  /* 400svh, not the 320svh of ride/audience: the four beats get a longer
+     read (owner, 2026-07-04: the old carousel moved "faster than the rest
+     of the site"). With the wider 0→0.667 action window (see --p below) each
+     bulletin item holds for about a quarter of a phone screen of scroll. The
+     held-veil tail stays ~116svh, matched to the story's -100svh rise
+     overlap (styles.css), so no dead scroll. */
   height: 400svh;
 }
 
@@ -216,17 +189,17 @@
 
 :host(.scene--active) [data-scene-var] {
   /* Same rig as ride/audience but a wider action window: --p runs 0→1 as
-     --zoom runs 0→.667 (not .545 — paired with the 400svh pin above so the
-     carousel reads at finger speed), then holds while the cathedral rises
+     --zoom runs 0→.667 (not .545, paired with the 400svh pin above), then
+     holds while the cathedral rises
      up through the held veil over the back (see the -100dvh overlap in
      styles.css).
      Derived per consumer, not on the stage: --zoom/--p/--n are registered
      non-inherited (styles.css) so a scroll write costs one element's style,
      and jhScene writes --zoom straight onto every [data-scene-var] element. */
   --p: clamp(0, calc(var(--zoom, 0) / 0.667), 1);
-  /* Dive starts at .62, not the .45 of ride/audience: the carousel needs a
-     longer read window (beats run 0→.55, see values.ts — at the old .38
-     window the cards scrolled ~2.3× finger speed). End unchanged at .92. */
+  /* Dive starts at .62, not the .45 of ride/audience: the bulletin needs a
+     longer read window (its items run 0→.55, see values.ts). End unchanged
+     at .92. */
   --n: clamp(0, calc((var(--p) - 0.62) / 0.3), 1);
 }
 
@@ -243,16 +216,63 @@
 /* Compositor-driven dive override lives globally in styles.css. See the
    note in ride.css for why it can't live here. */
 
-/* The whole panel (heading + carousel + dots) reads, then lifts away as the
-   dive into the glass begins. */
+/* The bulletin rests on the front pew, bottom left, clear of the pastor and
+   the aisle; it reads, then lifts away as the dive into the glass begins. */
 :host(.scene--active) .scene__copy {
   position: absolute;
   inset: 0;
   display: grid;
-  align-items: center;
+  align-items: end;
+  justify-items: start;
+  padding: 0 1rem clamp(1.25rem, 4vh, 2.75rem) clamp(1rem, 6vw, 6rem);
   opacity: clamp(0, calc(1 - (var(--p) - 0.55) * 12.5), 1);
   transform: translateY(calc(max(0, var(--p) - 0.55) * -8vh));
   will-change: opacity, transform;
+}
+
+:host(.scene--active) .bulletin {
+  width: min(27rem, 40vw);
+  margin: 0;
+  rotate: -2deg;
+}
+
+/* Narrow or short screens: the bulletin sits at the top, under the header,
+   leaving the pews and the aisle in view, and only the current item opens
+   to its full line. */
+@media (max-width: 47.99rem), (max-height: 46rem) {
+  :host(.scene--active) .scene__copy {
+    align-items: start;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 5.5rem);
+  }
+
+  :host(.scene--active) .bulletin {
+    font-size: 0.9rem;
+  }
+
+  :host(.scene--active) .bulletin__item:not(.bulletin__item--now) .bulletin__more {
+    grid-template-rows: 0fr;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  :host(.scene--active) .scene__copy {
+    justify-items: stretch;
+    padding-inline: 1rem;
+  }
+
+  :host(.scene--active) .bulletin {
+    width: auto;
+    padding: 1.1em 1.2em 0.9em;
+    rotate: -1deg;
+  }
+
+  /* Short enough that the pastor, preaching beside the pulpit, stays in
+     view below it. The service time and address repeat in the invitation
+     and the footer. */
+  :host(.scene--active) .bulletin__lede,
+  :host(.scene--active) .bulletin__foot {
+    display: none;
+  }
 }
 
 :host(.scene--active) .scene__close {

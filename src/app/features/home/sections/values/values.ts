@@ -7,11 +7,8 @@ import {
   PLATFORM_ID,
   inject,
   signal,
-  viewChild,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import EmblaCarousel, { type EmblaCarouselType } from 'embla-carousel';
-import Autoplay from 'embla-carousel-autoplay';
 import { RevealDirective } from '../../../../shared/motion/reveal.directive';
 import { SceneDirective } from '../../../../shared/motion/scene.directive';
 import { SceneIdle } from '../../../../shared/ui/scene-idle/scene-idle';
@@ -20,10 +17,10 @@ import { ScrollScrubber } from '../../../../shared/motion/scroll-scrubber';
 /**
  * Sunday morning values section.
  *
- * Renders a vertical 4-beat sequence (Welcoming, Rooted, Together, Sending).
- * While pinned via jhScene, card translateY tracks scroll progress
- * continuously via `--carousel-scrub` (0→3). In the unpinned fallback,
- * Embla manages standard carousel scrolling and autoplay.
+ * The four beats (Welcoming, Rooted, Together, Sending) are the order of
+ * service on a bulletin in the scene. While pinned via jhScene, scroll
+ * progress picks the item the bulletin is on, and the same index drives the
+ * people in the room (the idle layer's `beat`). Unpinned, no item is marked.
  */
 @Component({
   selector: 'app-home-values',
@@ -39,8 +36,7 @@ import { ScrollScrubber } from '../../../../shared/motion/scroll-scrubber';
   styleUrl: './values.css',
 })
 export class HomeValues {
-  /** The four beats of a Sunday, in journey order. The numeral + label render
-   *  as a paired kicker above each beat word (a magazine-style index). */
+  /** The four beats of a Sunday, in service order. */
   protected readonly beats: ReadonlyArray<{
     index: string;
     label: string;
@@ -73,134 +69,43 @@ export class HomeValues {
     },
   ];
 
-  /** Which beat the carousel currently shows; drives the active dot. */
-  protected readonly activeIndex = signal(0);
+  /** The bulletin item the scroll is on, or -1 when the scene is not pinned. */
+  protected readonly activeIndex = signal(-1);
 
-  private readonly emblaRoot = viewChild<ElementRef<HTMLElement>>('emblaRoot');
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly destroyRef = inject(DestroyRef);
   private readonly scrollScrubber = inject(ScrollScrubber);
-  private emblaApi: EmblaCarouselType | null = null;
 
   constructor() {
     afterNextRender(() => {
       if (!isPlatformBrowser(this.platformId)) return;
 
-      const root = this.emblaRoot()?.nativeElement;
-      if (!root) return;
-
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      // Autoplay is a self-looping animation (unlike the scroll-driven advance
-      // below, which only moves because the user scrolled), so it alone
-      // honours reduced-motion. undefined (not stopped-after-creation) when
-      // reduced motion, so the ?. calls below are safe no-ops throughout.
-      const autoplay = prefersReducedMotion
-        ? undefined
-        : Autoplay({ delay: 4500, stopOnMouseEnter: true });
-
-      // Switch to the vertical-carousel layout BEFORE Embla measures the
-      // DOM: Embla reads slide sizes once at init, and if it measures the
-      // pre-hydration 2×2 grid instead of the final one-slide-per-row
-      // layout, its internal snap points are wrong from the start —
-      // watchResize's automatic recovery from that isn't reliable here.
-      root.classList.add('embla--ready');
-
-      // --carousel-scrub is registered `inherits: false` (styles.css) so the
-      // per-frame scrub write can't restyle every card in the subtree — which
-      // means it must be written on the element whose CSS reads it (the
-      // container carrying the translateY), not on the root above it.
-      const container = root.querySelector<HTMLElement>('.embla__container');
-
-      // axis: 'y' matches the vertical rhythm of the rest of the page. Drag
-      // is off (watchDrag: false) rather than left on: a vertically-
-      // draggable carousel nested inside a vertically-scrolling page would
-      // fight the page's own scroll gesture, so navigation is scroll-driven
-      // while pinned (see below), dot-click always, and autoplay only when
-      // unpinned.
-      const emblaApi = EmblaCarousel(
-        root,
-        { loop: true, axis: 'y', watchDrag: false },
-        autoplay ? [autoplay] : [],
-      );
-      this.emblaApi = emblaApi;
-
-      const onSelect = () => this.activeIndex.set(emblaApi.selectedScrollSnap());
-      emblaApi.on('select', onSelect);
-      onSelect();
-
-      // Continuous scroll-driven position while the scene is pinned. `--zoom`
-      // is written every scroll frame by the shared jhScene directive (a host
-      // directive on this same element) — read it back here rather than
-      // re-measuring the same geometry a second time. Reading a sibling
-      // consumer's write from within the ScrollScrubber's own batched read
-      // phase is one frame stale (it hasn't applied yet this tick);
-      // imperceptible at scroll-frame cadence.
+      // `--zoom` is written every scroll frame by the shared jhScene directive
+      // (a host directive on this same element); read it back here rather
+      // than re-measuring the same geometry. Reading a sibling consumer's
+      // write from within the ScrollScrubber's batched read phase is one
+      // frame stale, which is imperceptible at scroll-frame cadence.
       const hostEl = this.host.nativeElement;
-      let pinned = false;
       const measure = (): number => {
         if (!hostEl.classList.contains('scene--active')) return -1;
         const zoom = parseFloat(getComputedStyle(hostEl).getPropertyValue('--zoom')) || 0;
         // Mirrors the --p defined in values.css: this scene's action runs
-        // over --zoom 0→.667 (wider than the other scenes' .545 — see the
-        // 400svh pin note in values.css), then holds.
+        // over --zoom 0→.667 (see the 400svh pin note there), then holds.
         return Math.min(1, zoom / 0.667);
       };
-      let lastScrubValue: string | null = null;
       const apply = (p: number) => {
-        const isPinned = p >= 0;
-        if (isPinned !== pinned) {
-          pinned = isPinned;
-          root.classList.toggle('embla--scrubbing', pinned);
-          if (pinned) {
-            autoplay?.stop();
-          } else {
-            // Leaving the pin: hand the real slide back to Embla wherever
-            // the continuous scrub last left off (jump: true skips Embla's
-            // own animation) so autoplay/dot-click resume without a jump.
-            const lastScrub =
-              parseFloat(container?.style.getPropertyValue('--carousel-scrub') ?? '') || 0;
-            emblaApi.scrollTo(Math.round(lastScrub), true);
-            autoplay?.play();
-          }
+        if (p < 0) {
+          this.activeIndex.set(-1);
+          return;
         }
-        if (!pinned) return;
-        // The beats advance continuously across the panel's 0→0.55 read window.
+        // The four items share the bulletin's 0→0.55 read window equally;
+        // the last one holds through the lift-away and the dive.
         const t = Math.min(1, p / 0.55);
-        const scrub = (t * (this.beats.length - 1)).toFixed(4);
-        if (scrub === lastScrubValue) return;
-        lastScrubValue = scrub;
-        container?.style.setProperty('--carousel-scrub', scrub);
-        this.activeIndex.set(Math.round(parseFloat(scrub)));
+        this.activeIndex.set(Math.min(this.beats.length - 1, Math.floor(t * this.beats.length)));
       };
-      const unregisterScrub = this.scrollScrubber.register({ measure, apply });
-
-      this.destroyRef.onDestroy(() => {
-        emblaApi.destroy();
-        unregisterScrub();
-      });
+      const unregister = this.scrollScrubber.register({ measure, apply });
+      this.destroyRef.onDestroy(unregister);
     });
-  }
-
-  protected scrollToBeat(index: number): void {
-    // The dots live outside Embla's own root, so its stopOnInteraction
-    // autoplay setting never sees a dot click as "interaction" — without
-    // this, autoplay keeps ticking underneath and can race with (and
-    // silently override) the click a moment later. Stop it explicitly.
-    this.emblaApi?.plugins().autoplay?.stop();
-    const root = this.emblaRoot()?.nativeElement;
-    if (root?.classList.contains('embla--scrubbing')) {
-      // Pinned: position is continuously scroll-driven, so a click just
-      // jumps the scrub value directly — no Embla animation in this mode.
-      // The very next scroll event re-asserts whatever the actual scroll
-      // position maps to anyway, same as the rest of the journey once
-      // pinned; this is a momentary jump, not a lasting override.
-      root
-        .querySelector<HTMLElement>('.embla__container')
-        ?.style.setProperty('--carousel-scrub', String(index));
-      this.activeIndex.set(index);
-    } else {
-      this.emblaApi?.scrollTo(index);
-    }
   }
 }
