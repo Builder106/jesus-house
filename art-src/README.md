@@ -22,6 +22,7 @@ there. Edit the generator, never the output:
 | `scenes/route.py`     | `src/app/features/visit/route-map.html` (inline SVG)                                                       |
 | `scenes/rcf_week.py`  | `src/app/features/rcf/rcf-vignette.html` (inline SVGs)                                                     |
 | `scenes/idle.py`      | `public/art/idle/*.svg`, `src/app/shared/ui/scene-idle/scene-idle.html` (idle motion over the home scenes) |
+| `scenes/people.py`    | nothing on its own: the sanctuary's people, drawn by `sanctuary.py`, `idle.py`, and `glax_sprites.py`      |
 
 ```bash
 python3 art-src/scenes/build.py        # all three scenes (needs rsvg-convert, cwebp)
@@ -32,7 +33,8 @@ python3 art-src/scenes/idle.py
 ```
 
 The shape-changing idle sprites (the flock's beating wings, the Bible's page
-turn, the morphing candle flames) are animated by Glaxnimate. Run
+turn, the morphing candle flames, and the sanctuary people's gestures and walk)
+are animated by Glaxnimate. Run
 `art-src/scenes/glax_sprites.py` with the glaxnimate-mcp-server Python
 environment; it writes CSS-animated SVGs to `public/art/idle/`.
 
@@ -55,3 +57,13 @@ the bare DOM attributes (`data-scene-var` is not valid XML), then:
 rsvg-convert -w 2880 -h 1800 rcf-hero-clean.svg -o /tmp/rcf-hero.png
 cwebp -q 82 /tmp/rcf-hero.png -o ../public/art/rcf-hero-scene.webp
 ```
+
+## The sanctuary's people
+
+`scenes/people.py` draws the congregation, the pastor, the usher, and the
+newcomer in the scene's 1440x900 coordinates. Their rest poses are painted into
+`values-scene.webp`; `idle.py` lays swaying copies of the near rows and each
+beat's gesture sprites over them, so the overlay and the bitmap line up. When
+you move or recast a person, rebuild all three: `build.py sanctuary`,
+`idle.py`, and `glax_sprites.py`. Delete any sprite in `public/art/idle/` that
+the regenerated template no longer references.
