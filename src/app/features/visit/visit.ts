@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { RevealDirective } from '../../shared/motion/reveal.directive';
 import { Lottie } from '../../shared/ui/lottie/lottie';
+import { RouteMap } from './route-map';
 
 /**
  * jh-visit — Plan a Visit.
@@ -29,7 +30,7 @@ import { Lottie } from '../../shared/ui/lottie/lottie';
 @Component({
   selector: 'app-visit',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RevealDirective, Lottie],
+  imports: [RevealDirective, Lottie, RouteMap],
   templateUrl: './visit.html',
   styleUrl: './visit.css',
 })

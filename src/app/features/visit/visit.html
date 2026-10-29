@@ -432,86 +432,13 @@
         </div>
       </div>
 
-      <!-- Decorative road / route visual. No real photos yet. -->
-      <!-- PHOTO SLOT: a Jesus House car waiting at a campus curb, doors open, warm Sunday-morning light. -->
+      <!-- The pickup run: campus pickup spots to the red doors (art-src/scenes/route.py). -->
       <div
         appReveal
         appRevealDir="left"
         class="relative w-full overflow-hidden rounded-lg border border-jh-rule bg-jh-cream"
       >
-        <div class="aspect-[4/3] w-full sm:aspect-[3/2]">
-          <!-- Decorative route: a hairline road curving from campus (top) down to the red doors
-               (bottom). Purely visual; echoes the global car-on-scroll-line rail. -->
-          <svg
-            class="h-full w-full"
-            viewBox="0 0 320 240"
-            fill="none"
-            preserveAspectRatio="xMidYMid slice"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path
-              d="M58 18 C 58 70, 250 92, 250 132 S 70 186, 70 224"
-              stroke="var(--color-jh-rule)"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-            <path
-              d="M58 18 C 58 70, 250 92, 250 132 S 70 186, 70 224"
-              stroke="var(--color-jh-blue)"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-dasharray="2 12"
-              opacity="0.45"
-            />
-            <!-- start: campus pin -->
-            <circle cx="58" cy="18" r="6" fill="var(--color-jh-blue)" />
-            <circle
-              cx="58"
-              cy="18"
-              r="11"
-              fill="none"
-              stroke="var(--color-jh-blue)"
-              stroke-width="1.5"
-              opacity="0.4"
-            />
-            <!-- the travelling car -->
-            <g transform="translate(250 132) rotate(28)">
-              <path
-                d="M-19 4 c0-1 .4-1.6 1.4-1.9l3.3-1 3.2-3.4 C-9 -3.3 -7.6 -4 -6 -4 h9.6 c1.3 0 2.5.5 3.4 1.5 l3 3.2 3.8 1 c1.4.4 2.2 1.3 2.2 2.6 V8 c0 .8-.6 1.4-1.4 1.4 H11.8"
-                fill="var(--color-jh-red)"
-              />
-              <circle cx="-9" cy="7" r="3.1" fill="var(--color-jh-ink)" />
-              <circle cx="-9" cy="7" r="1.2" fill="var(--color-jh-cream)" />
-              <circle cx="7" cy="7" r="3.1" fill="var(--color-jh-ink)" />
-              <circle cx="7" cy="7" r="1.2" fill="var(--color-jh-cream)" />
-            </g>
-            <!-- end: the red doors of the meetinghouse -->
-            <g transform="translate(70 224)">
-              <rect
-                x="-13"
-                y="-30"
-                width="26"
-                height="30"
-                rx="2"
-                fill="var(--color-jh-surface)"
-                stroke="var(--color-jh-rule)"
-                stroke-width="1.5"
-              />
-              <rect x="-9" y="-22" width="18" height="22" rx="1.5" fill="var(--color-jh-red)" />
-              <line
-                x1="0"
-                y1="-22"
-                x2="0"
-                y2="0"
-                stroke="var(--color-jh-cream)"
-                stroke-width="1"
-                opacity="0.7"
-              />
-            </g>
-          </svg>
-        </div>
+        <app-route-map class="aspect-[4/3] w-full" />
       </div>
     </div>
   </div>

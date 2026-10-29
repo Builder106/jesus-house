@@ -11,6 +11,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { RevealDirective } from '../../shared/motion/reveal.directive';
+import { RcfVignette } from './rcf-vignette';
 
 /**
  * jh-rcf — Wesleyan RCF (Redeemed Campus Fellowship).
@@ -40,7 +41,7 @@ import { RevealDirective } from '../../shared/motion/reveal.directive';
 @Component({
   selector: 'app-rcf',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, RevealDirective],
+  imports: [RouterLink, RevealDirective, RcfVignette],
   templateUrl: './rcf.html',
   styleUrl: './rcf.css',
 })
