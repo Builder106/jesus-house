@@ -8,35 +8,43 @@ layer at every raster-scale step, and re-rendering ~100 vector paths per step
 collapsed scroll to ~12fps on low-tier GPUs; a bitmap layer re-rasters as a
 cheap texture sample and runs at the ~44fps no-art ceiling. See JOURNAL.md.
 
-The `*-scene-art.svg` files here are the ORIGINAL inline SVG markup, verbatim
-(they reference `var(--color-jh-*)` theme tokens from styles.css, so they do
-not render standalone). They are the source of truth for editing the art.
+## Home scenes, route plate, and RCF week (generated)
 
-## Regenerating the WebP captures after editing an SVG
+The three home scenes, their camera close-ups, the Visit page route plate, and
+the RCF week vignettes are drawn in Python under `scenes/` and rendered from
+there. Edit the generator, never the output:
 
-1. Paste the edited SVG back into the scene's template in place of the
+| Generator             | Writes                                                                                                     |
+| --------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `scenes/road.py`      | `ride-scene-art.svg`, `public/art/ride-scene.webp`, `ride-close.webp`                                      |
+| `scenes/pew.py`       | `audience-scene-art.svg`, `public/art/audience-scene.webp`, `audience-close.webp`                          |
+| `scenes/sanctuary.py` | `values-scene-art.svg`, `public/art/values-scene.webp`, `values-close.webp`                                |
+| `scenes/route.py`     | `src/app/features/visit/route-map.html` (inline SVG)                                                       |
+| `scenes/rcf_week.py`  | `src/app/features/rcf/rcf-vignette.html` (inline SVGs)                                                     |
+| `scenes/idle.py`      | `public/art/idle/*.svg`, `src/app/shared/ui/scene-idle/scene-idle.html` (idle motion over the home scenes) |
 
-   `<img class="scene__art">` (temporarily), with the original attributes
-   (`viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"`).
+```bash
+python3 art-src/scenes/build.py        # all three scenes (needs rsvg-convert, cwebp)
+python3 art-src/scenes/build.py pew    # one scene
+python3 art-src/scenes/route.py
+python3 art-src/scenes/rcf_week.py
+python3 art-src/scenes/idle.py
+```
 
-2. `npx ng build`, serve `dist/jesus-house/browser`, open desktop Chrome at a
+The shape-changing idle sprites (the flock's beating wings, the Bible's page
+turn, the morphing candle flames) are animated by Glaxnimate. Run
+`art-src/scenes/glax_sprites.py` with the glaxnimate-mcp-server Python
+environment; it writes CSS-animated SVGs to `public/art/idle/`.
 
-   2880×1800 viewport.
+Each scene module sets `TARGET`, the camera's zoom point in the 1440x900 frame,
+and `CLOSE_ZOOM`. The close-up WebP is the frame a camera at that zoom sees,
+rendered at full resolution, so the end of each dive stays sharp. When you
+move a target, update the matching `data-scene-x/y` in the section's `.ts`
+file. The dives chain by design: the car's rear window shows the Bible on the
+back seat, that Bible lies open on the pew with a picture of the stained-glass
+window on its page, and the sanctuary's great window repeats that picture.
 
-3. Hide the overlays and pin the scene so the art fills the viewport:
-
-   scroll to the scene top, and inject
-   `.scene__copy, .scene__veil, .scene__cue, .scene__content, .scene__doorlight,
- jh-site-header, .jh-rail { visibility: hidden !important; }
- .scene__art { animation: none !important; transform: none !important; }`
-
-4. Screenshot the viewport as WebP quality 82 → `public/art/<scene>-scene.webp`
-
-   (2880×1800 keeps the art above phone display resolution at rest).
-
-5. Restore the `<img>` in the template and update the svg file here.
-
-## RCF hero — the simple case
+## RCF hero
 
 `rcf-hero-art.svg` uses only literal colors (no theme tokens), so it renders
 standalone — no build/browser round-trip. After editing, drop the grain rect
