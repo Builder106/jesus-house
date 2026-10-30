@@ -25,10 +25,73 @@
   object-fit: cover;
 }
 
-.scene__panel {
-  background: color-mix(in srgb, var(--color-jh-cream) 88%, transparent);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 18px 50px rgb(20 16 56 / 0.08);
+.scene__copy {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: 2rem;
+  padding: 6rem 1rem 4rem;
+}
+
+/* Engraved brass: dark letters cut into a polished plate. */
+.plaque {
+  position: relative;
+  max-width: 36rem;
+  padding: 0.7em 1.6em 0.8em;
+  border-radius: 0.2em;
+  background: linear-gradient(160deg, #f0d68a, #c99a3c 40%, #f4e2a6 55%, #b5852f);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 245 210 / 0.6),
+    0 0.3em 0.8em rgb(60 36 10 / 0.35);
+  color: #3d2a0a;
+  text-align: center;
+  text-shadow: 0 1px 0 rgb(255 240 200 / 0.7);
+}
+
+.plaque__title {
+  font-size: 1.75em;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.plaque__text {
+  margin-top: 0.3em;
+  font-size: 0.95em;
+  line-height: 1.4;
+}
+
+/* Folded place cards standing on the seat. */
+.cards {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.5em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  max-width: 7.5em;
+  padding: 0.5em 0.75em 0.45em;
+  border-radius: 2px;
+  background: linear-gradient(#ececf1, #ffffff 22%);
+  box-shadow: 0 0.35em 0.5em -0.25em rgb(40 20 10 / 0.5);
+  color: var(--color-jh-ink);
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.card:nth-child(odd) {
+  rotate: -2deg;
+}
+
+.card:nth-child(3n) {
+  rotate: 1.5deg;
 }
 
 /* The camera's close-up: the art cropped around the target (see
@@ -83,7 +146,19 @@
 /* Compositor-driven dive override lives globally in styles.css. See the
    note in ride.css for why it can't live here. */
 
+/* Scene scale, as in ride.css: one unit of the 1440x900 art in px. The
+   plaque hangs on the bare wall above the pew (centre 720, 290) and the
+   cards stand on the cushion (top at y 568), left of the Bible. */
+:host(.scene--active) .scene__stage {
+  container-type: size;
+}
+
 :host(.scene--active) .scene__copy {
+  --s: max(100cqw / 1440, 100cqh / 900);
+  position: absolute;
+  inset: 0;
+  display: block;
+  padding: 0;
   opacity: clamp(0, calc(1 - (var(--p) - 0.38) * 12.5), 1);
   transform: translateY(calc(max(0, var(--p) - 0.38) * -8vh));
   will-change: opacity, transform;
@@ -105,4 +180,38 @@
    it fades out over --p 0.38 to 0.44, just before the dive. */
 :host(.scene--active) .scene__idle {
   opacity: clamp(0, calc((0.44 - var(--p)) / 0.06), 1);
+}
+
+:host(.scene--active) .plaque {
+  position: absolute;
+  left: 50%;
+  top: calc(50% - 160 * var(--s));
+  width: min(calc(640 * var(--s)), 100% - 2rem);
+  max-width: none;
+  translate: -50% -50%;
+  font-size: max(0.85rem, calc(16 * var(--s)));
+}
+
+:host(.scene--active) .cards {
+  position: absolute;
+  left: calc(50% - 136 * var(--s));
+  bottom: calc(50% - 122 * var(--s));
+  flex-wrap: nowrap;
+  translate: -50% 0;
+  font-size: calc(14.5 * var(--s));
+}
+
+:host(.scene--active) .card {
+  max-width: 6em;
+}
+
+/* Phones see only the middle of the seat: the cards gather there in two
+   rows, the back row propped behind the front one. */
+@media (max-width: 47.99rem) {
+  :host(.scene--active) .cards {
+    left: 50%;
+    width: calc(100% - 2rem);
+    flex-wrap: wrap-reverse;
+    font-size: 0.85rem;
+  }
 }

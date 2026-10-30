@@ -6,12 +6,12 @@ import { SceneIdle } from '../../../../shared/ui/scene-idle/scene-idle';
 /**
  * jh-home-audience — SCENE 3 · A PLACE FOR YOU.
  *
- * Inside now: a warm pew vignette with morning light and a gold glow on the
- * open seat — the seat saved for you. Copy (eyebrow, "There's a place for you
- * here.", audience pills, one reassuring line) sits in a readable panel over
- * the scene. With jhScene active (desktop, motion-OK) the camera zooms INTO
- * the open hymnal on the pew, handing off to the Sunday scene. Static
- * everywhere else; jhReveal stays additive-only; no PII; no emoji.
+ * Inside now: a warm pew vignette with morning light and the Bible open on
+ * the cushion. The heading is engraved on a brass plaque on the wall, and
+ * a place card stands on the seat for each kind of visitor: the seat saved
+ * for you. With jhScene active the camera zooms INTO the picture on the
+ * Bible's page, handing off to the Sunday scene. jhReveal stays
+ * additive-only; no PII; no emoji.
  */
 @Component({
   selector: 'app-home-audience',
@@ -29,9 +29,9 @@ import { SceneIdle } from '../../../../shared/ui/scene-idle/scene-idle';
 })
 export class HomeAudience {
   /**
-   * Audience labels. The first pill ("Students") quietly anchors the
-   * Wesleyan RCF idea; the rest widen the welcome. Order chosen so the
-   * stagger reads naturally left-to-right, top-to-bottom.
+   * One place card each. The first ("Students") quietly anchors the Wesleyan
+   * RCF idea; the rest widen the welcome. Order chosen so the stagger reads
+   * naturally left to right.
    */
   protected readonly audiences: readonly string[] = [
     'Students',
