@@ -23,6 +23,7 @@ there. Edit the generator, never the output:
 | `scenes/rcf_week.py`  | `src/app/features/rcf/rcf-vignette.html` (inline SVGs)                                                     |
 | `scenes/idle.py`      | `public/art/idle/*.svg`, `src/app/shared/ui/scene-idle/scene-idle.html` (idle motion over the home scenes) |
 | `scenes/people.py`    | nothing on its own: the sanctuary's people, drawn by `sanctuary.py`, `idle.py`, and `glax_sprites.py`      |
+| `scenes/signs.py`     | `public/art/ui/sign-*.svg` (roof, post, and grass of the ride scene's roadside sign)                       |
 
 ```bash
 python3 art-src/scenes/build.py        # all three scenes (needs rsvg-convert, cwebp)
@@ -30,6 +31,7 @@ python3 art-src/scenes/build.py pew    # one scene
 python3 art-src/scenes/route.py
 python3 art-src/scenes/rcf_week.py
 python3 art-src/scenes/idle.py
+python3 art-src/scenes/signs.py
 ```
 
 The shape-changing idle sprites (the flock's beating wings, the Bible's page

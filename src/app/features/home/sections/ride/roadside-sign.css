@@ -1,0 +1,203 @@
+/* The roadside letterboard. Every size is in em, so the host's font-size
+   (set by ride.css to track the scene's scale) sizes the whole sign. */
+:host {
+  display: block;
+}
+
+.sign {
+  position: relative;
+}
+
+.sign__roof {
+  display: block;
+  width: calc(100% + 1.4em);
+  max-width: none;
+  height: auto;
+  margin: 0 -0.7em -0.15em;
+}
+
+.sign__board {
+  position: relative;
+  border: 0.5em solid #5a3a26;
+  border-radius: 0.25em;
+  background: #5a3a26;
+  box-shadow: 0 0.8em 1.6em -0.6em rgb(20 16 56 / 0.45);
+}
+
+/* White face, fine horizontal tracks, plastic letters. */
+.sign__face {
+  padding: 0.8em 0.9em 0.9em;
+  background: repeating-linear-gradient(#fbfbfc 0 0.42em, #e4e4ea 0.42em 0.5em);
+  color: #18161f;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.sign__title {
+  font-size: 1.7em;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: 0.03em;
+}
+
+.sign__text {
+  margin-top: 0.55em;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.06em;
+}
+
+.sign__name {
+  padding: 0.3em 0.5em 0.2em;
+  background: var(--color-jh-blue);
+  color: #ffffff;
+  font-size: 1.05em;
+  font-weight: 600;
+  text-align: center;
+}
+
+.sign__legs {
+  position: relative;
+  padding: 0.7em 0 1.6em;
+}
+
+.sign__post {
+  position: absolute;
+  top: 0;
+  bottom: 0.5em;
+  width: 1.1em;
+  background: url('/art/ui/sign-post.svg') center / 100% 100%;
+}
+
+.sign__post--left {
+  left: 12%;
+}
+
+.sign__post--right {
+  right: 12%;
+}
+
+.sign__plates {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5em 0.8em;
+  margin-bottom: 1em;
+}
+
+/* A plate on two short chains. */
+.sign__plate {
+  position: relative;
+  padding: 0.45em 0.9em;
+  border: 2px solid #3b3448;
+  border-radius: 0.3em;
+  background: #ffffff;
+  color: var(--color-jh-blue);
+  font-weight: 700;
+  font-size: 0.95em;
+  box-shadow: 0 0.3em 0.6em -0.3em rgb(20 16 56 / 0.5);
+}
+
+.sign__plate::before,
+.sign__plate::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  width: 2px;
+  height: 0.75em;
+  background: repeating-linear-gradient(#8a8496 0 3px, transparent 3px 5px);
+}
+
+.sign__plate::before {
+  left: 18%;
+}
+
+.sign__plate::after {
+  right: 18%;
+}
+
+.sign__plate--ride {
+  border-color: #8f1712;
+  background: var(--color-jh-red);
+  color: #ffffff;
+}
+
+.sign__plate:hover {
+  filter: brightness(1.08);
+}
+
+.sign__plate:focus-visible,
+.sign__blade:focus-visible {
+  outline: 3px solid var(--color-jh-gold);
+  outline-offset: 3px;
+}
+
+/* Green street blades bolted to the left post, pointing down the road. */
+.sign__blades {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: 0.35em;
+  margin: 0;
+  padding: 0 0 0 calc(12% + 0.6em);
+  list-style: none;
+}
+
+/* The arrow shape lives on the pseudo-elements (white rim, green blade) so
+   the link itself is unclipped and keeps its focus ring. */
+.sign__blade {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  padding: 0.35em 1.7em 0.35em 0.85em;
+  color: #ffffff;
+  font-size: 0.85em;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: translate 0.2s ease;
+}
+
+.sign__blade::before,
+.sign__blade::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  clip-path: polygon(0 0, calc(100% - 0.9em) 0, 100% 50%, calc(100% - 0.9em) 100%, 0 100%);
+}
+
+.sign__blade::before {
+  inset: 0;
+  background: #0b6b3e;
+}
+
+.sign__blade::after {
+  inset: 2px 3px;
+  border: 1.5px solid #ffffff;
+  border-right: 0;
+}
+
+.sign__blades li:nth-child(even) .sign__blade {
+  rotate: -1.5deg;
+}
+
+.sign__blade:hover {
+  translate: 0.3em 0;
+}
+
+.sign__tuft {
+  position: absolute;
+  bottom: 0;
+  width: 4.5em;
+  height: auto;
+  max-width: none;
+}
+
+.sign__tuft--left {
+  left: calc(12% - 1.7em);
+}
+
+.sign__tuft--right {
+  right: calc(12% - 1.7em);
+}

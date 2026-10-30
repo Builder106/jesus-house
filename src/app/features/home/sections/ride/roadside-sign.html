@@ -1,0 +1,56 @@
+<div class="sign">
+  <img
+    class="sign__roof"
+    src="/art/ui/sign-roof.svg"
+    width="400"
+    height="96"
+    alt=""
+    aria-hidden="true"
+  />
+  <div class="sign__board">
+    <div class="sign__face">
+      <h2 id="ride-heading" appReveal class="sign__title">No car? No problem.</h2>
+      <p appReveal="90" class="sign__text">
+        Every Sunday we drive out and bring students and neighbors to church, and home again. Tell
+        us where you are, and we'll come get you.
+      </p>
+    </div>
+    <p class="sign__name font-display">RCCG Jesus House</p>
+  </div>
+
+  <div class="sign__legs">
+    <span class="sign__post sign__post--left" aria-hidden="true"></span>
+    <span class="sign__post sign__post--right" aria-hidden="true"></span>
+
+    <!-- The ride links hang from the board on short chains. -->
+    <div appReveal="180" class="sign__plates">
+      <a class="sign__plate sign__plate--ride" [href]="rideMailto">Request a ride</a>
+      <a class="sign__plate" [href]="rideTel">or call (860) 518-4640</a>
+    </div>
+
+    <!-- Street blades on the left post: each one asks for a pickup there. -->
+    <ul
+      class="sign__blades"
+      aria-label="Common pickup spots: choose one to ask for a ride from there"
+    >
+      @for (spot of pickupSpots; track spot) {
+        <li>
+          <a class="sign__blade" [href]="spotMailto(spot)">{{ spot }}</a>
+        </li>
+      }
+    </ul>
+
+    <img
+      class="sign__tuft sign__tuft--left"
+      src="/art/ui/sign-tuft.svg"
+      alt=""
+      aria-hidden="true"
+    />
+    <img
+      class="sign__tuft sign__tuft--right"
+      src="/art/ui/sign-tuft.svg"
+      alt=""
+      aria-hidden="true"
+    />
+  </div>
+</div>
