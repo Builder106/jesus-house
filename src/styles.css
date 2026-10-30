@@ -400,6 +400,13 @@
 }
 
 @layer base {
+  /* The browser's own scrollbar, in the car's red: thin, on a clear track,
+     readable over both the light scenes and the night ones. */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--color-jh-red) 75%, transparent) transparent;
+  }
+
   body {
     background-color: var(--color-jh-cream);
     color: var(--color-jh-ink);

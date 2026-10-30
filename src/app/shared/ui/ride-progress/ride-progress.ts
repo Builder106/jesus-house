@@ -13,12 +13,14 @@ import { isDarkGroundInBand } from '../../motion/dark-ground';
 import { ScrollScrubber } from '../../motion/scroll-scrubber';
 
 /**
- * jh-ride-progress — THE SIGNATURE MOTIF.
+ * jh-ride-progress — THE SIGNATURE MOTIF, and the page's own scrollbar.
  *
- * A fixed thin vertical rail near the left margin with a small side-view car
- * (inline SVG, jh-red) whose vertical position tracks document scroll progress
- * 0 → 1. The rail fills jh-red behind the car as you descend the page —
- * echoing the Ride Ministry: "No car? No problem — we'll come get you."
+ * A short stretch of road near the left margin with a red car, seen from
+ * above, whose position down the road tracks document scroll progress 0 → 1,
+ * echoing the Ride Ministry: "No car? No problem, we'll come get you." Every
+ * element marked `data-stop="Label"` on the page becomes a stop line across
+ * the road at its share of the scroll; hovering or focusing one shows its
+ * street sign, and choosing it drives there.
  *
  * Behaviour:
  *   • Hidden below 1024px (the rail would crowd narrow layouts).
@@ -42,9 +44,9 @@ import { ScrollScrubber } from '../../motion/scroll-scrubber';
  *
  * SSR / no-JS safety: the rail is gated on the `enabled` signal (starts
  * false). The server renders nothing; the signal only flips true in
- * afterNextRender when the viewport is wide enough AND motion is allowed. It
- * is aria-hidden and pointer-events:none, so it is decorative only and never
- * intercepts input or affects layout (position: fixed).
+ * afterNextRender when the viewport is wide enough AND motion is allowed.
+ * Only the stop buttons take pointer input (a small nav landmark); the road
+ * and car are aria-hidden, and nothing affects layout (position: fixed).
  */
 @Component({
   selector: 'app-ride-progress',
@@ -55,6 +57,8 @@ import { ScrollScrubber } from '../../motion/scroll-scrubber';
 export class RideProgress {
   protected readonly enabled = signal(false);
   protected readonly onDark = signal(false);
+  /** The page's stops: each `data-stop` element's label and share of the scroll. */
+  protected readonly stops = signal<readonly { label: string; at: number }[]>([]);
 
   private readonly rail = viewChild<ElementRef<HTMLElement>>('rail');
   private readonly platformId = inject(PLATFORM_ID);
@@ -74,30 +78,54 @@ export class RideProgress {
       // Rail band computed analytically (matches --rail-h: 62vh, centred) —
       // cheaper and simpler than measuring a position:fixed element's own
       // rect, and correct by construction since the CSS defines that geometry.
-      const measure = (): { progress: number; dark: boolean } => {
+      const measure = (): { progress: number; dark: boolean; stops: string } => {
         const doc = document.documentElement;
         const max = doc.scrollHeight - window.innerHeight;
         const progress = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+        // Six rects at most; read in the same batch as everything else.
+        const stops = [...document.querySelectorAll<HTMLElement>('[data-stop]')].map((el) => {
+          const top = el.getBoundingClientRect().top + window.scrollY;
+          const at = max > 0 ? Math.min(1, Math.max(0, top / max)) : 0;
+          return `${el.dataset['stop']}|${at.toFixed(4)}`;
+        });
         const railH = window.innerHeight * 0.62;
         const top = (window.innerHeight - railH) / 2;
         const dark = isDarkGroundInBand(top, top + railH);
-        return { progress, dark };
+        return { progress, dark, stops: stops.join('\n') };
       };
 
       // WRITE only — no layout reads. Runs in the scrubber's batched write phase.
       // --p is registered `inherits: false` (styles.css), so it must land on
-      // the elements whose CSS reads it (fill + car), not on the rail above.
+      // the element whose CSS reads it (the car), not on the rail above.
       let lastP: string | null = null;
-      const apply = ({ progress, dark }: { progress: number; dark: boolean }) => {
-        const el = this.rail()?.nativeElement;
+      let lastStops = '';
+      const apply = ({
+        progress,
+        dark,
+        stops,
+      }: {
+        progress: number;
+        dark: boolean;
+        stops: string;
+      }) => {
+        const car = this.rail()?.nativeElement.querySelector<HTMLElement>('.jh-rail__car');
         const value = progress.toFixed(4);
-        if (el && value !== lastP) {
+        if (car && value !== lastP) {
           lastP = value;
-          for (const part of el.querySelectorAll<HTMLElement>('.jh-rail__fill, .jh-rail__car')) {
-            part.style.setProperty('--p', value);
-          }
+          car.style.setProperty('--p', value);
         }
         this.onDark.set(dark);
+        if (stops !== lastStops) {
+          lastStops = stops;
+          this.stops.set(
+            stops
+              ? stops.split('\n').map((line) => {
+                  const [label, at] = line.split('|');
+                  return { label, at: Number(at) };
+                })
+              : [],
+          );
+        }
       };
 
       const sync = () => {
@@ -131,5 +159,12 @@ export class RideProgress {
         );
       }
     });
+  }
+
+  /** Scroll to the i-th stop's section. */
+  protected driveTo(index: number): void {
+    const el = document.querySelectorAll<HTMLElement>('[data-stop]')[index];
+    if (!el) return;
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
   }
 }

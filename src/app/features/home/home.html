@@ -1,11 +1,12 @@
 <!--
   Home — the "COME AND SEE" journey (road → red doors → family).
   Sections render top-to-bottom in narrative order. The shell (app.html)
-  supplies the loader, fixed pill header, ride-progress rail, and footer.
+  supplies the loader, fixed pill header, ride-progress rail, and footer;
+  each data-stop label becomes a stop on that rail.
 -->
-<app-home-hero />
-<app-home-ride />
-<app-home-audience />
-<app-home-values />
-<app-home-story />
-<app-home-comeandsee />
+<app-home-hero data-stop="Welcome" />
+<app-home-ride data-stop="The ride" />
+<app-home-audience data-stop="A place for you" />
+<app-home-values data-stop="Sunday morning" />
+<app-home-story data-stop="Our story" />
+<app-home-comeandsee data-stop="Come and see" />

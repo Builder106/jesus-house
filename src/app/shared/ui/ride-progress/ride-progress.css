@@ -3,74 +3,123 @@
 }
 
 /*
- * The rail lives near the left margin, vertically centred, spanning ~62% of
- * the viewport height. `--p` (0 → 1) is written by the component on scroll —
- * directly onto the fill and car, since --p is registered non-inherited
- * (styles.css) and would not travel down from the rail.
+ * A short stretch of road near the left margin, vertically centred, ~62% of
+ * the viewport tall. The car drives down it as the page scrolls: `--p`
+ * (0 → 1) is written by the component straight onto the car, since --p is
+ * registered non-inherited (styles.css). Each section marked `data-stop` gets
+ * a stop line at `--f`, its share of the scroll, with a street sign that
+ * shows on hover or focus.
  */
 .jh-rail {
   --rail-h: 62vh;
-  --car: 28px;
+  --car: 30px;
 
   position: fixed;
-  left: 1.75rem;
+  left: 1.6rem;
   top: 50%;
   height: var(--rail-h);
-  width: var(--car);
-  transform: translateY(-50%);
+  width: 18px;
+  translate: 0 -50%;
   z-index: 50;
   pointer-events: none;
 }
 
-/* Full-height track. --color-jh-rule (a near-cream hairline, meant for
-   borders ON cream) was nearly invisible here — the untraveled two-thirds of
-   the rail read as blank space rather than a track waiting for its car. A
-   soft violet-grey tint reads clearly against cream without competing with
-   the jh-red fill; .jh-rail--dark swaps it to translucent gold (the site's
-   established gold-on-dark accent) once a night scene is under the rail, so
-   it never reads as a stray pale line over a dark ground. */
-.jh-rail__track {
+/* Asphalt with soft verges and the yellow centre dashes of the ride scene. */
+.jh-rail__road {
   position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  transform: translateX(-50%);
-  border-radius: 2px;
-  background-color: color-mix(in srgb, var(--color-jh-soft) 40%, transparent);
-  transition: background-color 0.4s ease;
+  inset: 0 3px;
+  border-radius: 6px;
+  background:
+    linear-gradient(#f2c14e, #f2c14e) center / 2px 100% no-repeat,
+    #8f8a99;
+  mask-image: linear-gradient(transparent, #000 4%, #000 96%, transparent);
+  box-shadow:
+    inset 1px 0 0 rgb(255 255 255 / 0.35),
+    inset -1px 0 0 rgb(255 255 255 / 0.35);
 }
 
-.jh-rail--dark .jh-rail__track {
-  background-color: color-mix(in srgb, var(--color-jh-gold) 55%, transparent);
-}
-
-/* jh-red fill grows from the top down to the car */
-.jh-rail__fill {
+.jh-rail__road::after {
+  content: '';
   position: absolute;
-  left: 50%;
-  top: 0;
+  inset: 0;
+  left: calc(50% - 1px);
   width: 2px;
-  transform: translateX(-50%);
-  transform-origin: top;
-  border-radius: 2px;
-  background-color: var(--color-jh-red);
-  /* fill height tracks progress across the car's travel range */
-  height: calc((var(--rail-h) - var(--car)) * var(--p) + (var(--car) / 2));
+  background: repeating-linear-gradient(#8f8a99 0 6px, transparent 6px 14px);
 }
 
-/* the travelling car — side view, nose pointing down the descent */
+.jh-rail--dark .jh-rail__road {
+  background:
+    linear-gradient(#f2c14e, #f2c14e) center / 2px 100% no-repeat,
+    #5b5670;
+}
+
+.jh-rail--dark .jh-rail__road::after {
+  background: repeating-linear-gradient(#5b5670 0 6px, transparent 6px 14px);
+}
+
+.jh-rail__stops {
+  position: absolute;
+  inset: 0;
+}
+
+/* A white stop line across the road; the button is a taller hit area. */
+.jh-rail__stop {
+  position: absolute;
+  left: -6px;
+  top: calc((var(--rail-h) - var(--car)) * var(--f, 0) + var(--car) / 2);
+  width: 30px;
+  height: 22px;
+  translate: 0 -50%;
+  padding: 0;
+  border: 0;
+  background: linear-gradient(#ffffff, #ffffff) center / 14px 3px no-repeat;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.jh-rail__stop:focus-visible {
+  outline: 2px solid var(--color-jh-gold);
+  outline-offset: 1px;
+  border-radius: 4px;
+}
+
+/* The street sign: the same green blade as the ride scene's pickup spots. */
+.jh-rail__sign {
+  position: absolute;
+  left: calc(100% + 6px);
+  top: 50%;
+  padding: 0.25rem 0.7rem;
+  border: 1.5px solid #ffffff;
+  border-radius: 3px;
+  background: #0b6b3e;
+  box-shadow: 0 4px 10px rgb(20 16 56 / 0.25);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  translate: -6px -50%;
+  transition:
+    opacity 0.2s ease,
+    translate 0.2s ease;
+}
+
+.jh-rail__stop:hover .jh-rail__sign,
+.jh-rail__stop:focus-visible .jh-rail__sign {
+  opacity: 1;
+  translate: 0 -50%;
+}
+
 .jh-rail__car {
   position: absolute;
   left: 50%;
   top: 0;
   display: block;
   color: var(--color-jh-red);
-  /* travel = rail height minus the car footprint; centre the car on the line */
-  transform: translate(-50%, calc((var(--rail-h) - var(--car)) * var(--p))) rotate(90deg);
-  transform-origin: center;
-  filter: drop-shadow(0 4px 6px rgba(34, 30, 58, 0.25));
-  transition: transform 0.08s linear;
+  translate: -50% calc((var(--rail-h) - var(--car)) * var(--p));
+  filter: drop-shadow(0 3px 4px rgb(34 30 58 / 0.35));
 }
 
 .jh-rail__car svg {
