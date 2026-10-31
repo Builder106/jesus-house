@@ -12,7 +12,8 @@
     "test:demo": "DEMO=1 bddgen --config=playwright.demo.config.ts && DEMO=1 playwright test --config=playwright.demo.config.ts",
     "serve:ssr:jesus-house": "node dist/jesus-house/server/server.mjs",
     "lint": "eslint . --max-warnings 0",
-    "typecheck": "ng build --configuration development"
+    "typecheck": "ng build --configuration development",
+    "typecheck:native": "node ./node_modules/@typescript/native/bin/tsc --noEmit -p tsconfig.app.json"
   },
   "private": true,
   "packageManager": "npm@10.9.9",
@@ -44,6 +45,7 @@
     "@tailwindcss/postcss": "^4.3.3",
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.5",
+    "@typescript/native": "npm:typescript@^7.0.2",
     "@typescript-eslint/eslint-plugin": "^8.72.0",
     "@typescript-eslint/parser": "^8.72.0",
     "@vitest/coverage-v8": "^5.0.5",
