@@ -6,6 +6,10 @@
 > Tag with `#decision`/`#pivot`/`#incident`/`#quote`/`#feedback` /
 > `#milestone`. One paragraph max per entry.
 
+## 2026-11-06: The link preview now has an absolute image URL #fix #decision
+
+The October audit flagged that `og:image` was the relative path `/social-card.png`, and the parish shares the site on WhatsApp, where the link preview is the first thing most people see. `src/index.html` now points `og:image` and `twitter:image` at `https://jesus-house.vercel.app/social-card.png`, and adds `og:url`, `og:site_name`, the image size and alt text, and `twitter:card`. The card itself is unchanged. The audit's other finding, a `Church` JSON-LD block, is still open.
+
 ## 2026-10-29: The road and pew scenes got their own objects, and the rail became a road #decision #feedback
 
 The owner asked for the same diegetic treatment on the ride and pew scenes and for a designed scrollbar. The ride copy is now on the church's roadside letterboard on the verge. The ride links hang under it as plates, and the pickup spots are green street blades on its post; each blade opens a ride request from that spot. In the pew scene, the heading is an engraved brass plaque on the wall. Each kind of visitor gets a place card standing on the cushion, so the seat reads as saved. The plaque first sat on the pew back, but the cards in front covered it, so it moved to the bare wall above the pew. Both scenes place their objects in art coordinates through a size container on the pinned stage, `--s: max(100cqw / 1440, 100cqh / 900)`, so they stay on the bitmap at any aspect. The left rail is now a stretch of road with a top-down car and a stop line for each `data-stop` section; a stop's street sign shows on hover or focus and drives there on click. The browser scrollbar is thin and red. The script eyebrows these panels carried ("The road to us", "Whoever you are", "Common pickups") went with them.
