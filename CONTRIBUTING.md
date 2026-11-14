@@ -1,8 +1,7 @@
 # Contributing
 
-Thanks for your interest in `jesus-house`. This document covers how to set up
-a development environment, the conventions the codebase follows, and what's
-in scope (and what isn't).
+Thanks for your interest in `jesus-house`. This guide covers development
+setup, project conventions, and contribution scope.
 
 ## Dev setup
 
@@ -118,8 +117,8 @@ Two Gherkin suites share a step library, mirroring the sibling
   (gitignored); convert to GIFs for the README with
   `ffmpeg -i in.mp4 -vf "fps=10,scale=960:-1" out.gif`.
 
-Tuning env vars: `DEMO`(master switch),`DEMO_SLOWMO` (default 1200ms),
-`DEMO_TYPE_DELAY`(70ms),`DEMO_TAIL_MS`(1500ms),`DEMO_DWELL_MS` (1500ms),
+Tuning env vars: `DEMO` (master switch), `DEMO_SLOWMO` (default 1200ms),
+`DEMO_TYPE_DELAY` (70ms), `DEMO_TAIL_MS` (1500ms), `DEMO_DWELL_MS` (1500ms),
 `DEMO_ZOOM` (1.3).
 
 Demo scenarios must use parish-owned contact details or obviously fake

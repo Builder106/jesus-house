@@ -15,9 +15,9 @@
 
 ## 💡 What is Jesus House Middletown?
 
-RCCG Jesus House is a welcoming Christian parish located at 120 Washington Street in Middletown, Connecticut.
+RCCG Jesus House is a Christian parish at 120 Washington Street in Middletown, Connecticut.
 
-This modern website serves as the church's digital front door for both local families and college students. It provides service times (Sunday service at 9:00 AM), directions, ministry details, and a dedicated Sunday ride pickup service connecting Wesleyan University students directly to church services.
+The website gives local families and college students service times (Sunday at 9:00 AM), directions, ministry details, and information about Sunday ride pickups for Wesleyan University students.
 
 **Live site:** [jesus-house.vercel.app](https://jesus-house.vercel.app)
 
